@@ -12,7 +12,7 @@ public class HomeController {
     public String index() {
         log.info("index()");
 
-        return "asdf";
+        return "index";
     }
 
 

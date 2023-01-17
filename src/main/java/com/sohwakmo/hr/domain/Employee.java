@@ -38,10 +38,11 @@ public class Employee {
     @Embedded
     private Part part; // 부서,팀,맡은일, 직책
 
-    @Column(unique = true)
+    @Column(unique = true,nullable = false)
     private String email;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private LocalDateTime joinedDate; // 입사일
 
     @Enumerated(EnumType.STRING)
