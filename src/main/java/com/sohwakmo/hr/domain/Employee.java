@@ -13,7 +13,9 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Getter
+@Setter
 @ToString
+@Table(uniqueConstraints = {@UniqueConstraint(name = "PHONE_EMAIL_UNIQUE", columnNames = {"PHONE","EMAIL"})})
 @SequenceGenerator(name = "EMPLOYEES_SEQ_GEN",sequenceName = "EMPLOYEE_SEQ", allocationSize = 1)
 public class Employee {
     @Id
@@ -21,7 +23,7 @@ public class Employee {
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "EMPLOYEES_SEQ_GEN")
     private Long id;
 
-    @Column(unique = true,nullable = false)
+    @Column(nullable = false,unique = true)
     private Long employeeNo; // 사원 번호
 
     @Column(nullable = false)
@@ -30,7 +32,7 @@ public class Employee {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     private String phone; // 사내 전화번호
 
 
@@ -39,8 +41,8 @@ public class Employee {
     @Embedded
     private Part part; // 부서,팀,맡은일, 직책
 
-    @Column(unique = true,nullable = false)
-    private String email;
+    @Column(nullable = false)
+    private String email; // 사내 email or 쪽지 주소
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)

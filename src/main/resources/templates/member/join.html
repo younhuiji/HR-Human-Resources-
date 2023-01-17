@@ -20,7 +20,7 @@
       </div>
     </div> <!--header 끝-->
     <div id="joinFrom">
-      <form method = "post" id="form" th:action="@{/join}">
+      <form method = "post" id="form" th:action="@{/join}" enctype="multipart/form-data">
         <div>
           <!--아이디(사원번호 입력)-->
           <div>
@@ -149,6 +149,7 @@
                           type="file"
                           id="photo"
                           name="photo"
+                          multiple="multiple"
                   />
                 </span>
               </div>
