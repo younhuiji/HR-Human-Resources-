@@ -33,3 +33,7 @@ input{display:inline-block; width: 366px;}
 #employeeNo,#check_password,#name,#phone,#email,#password:focus{
     outline: none;
 }
+#employeeNo::-webkit-outer-spin-button,
+#employeeNo::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
