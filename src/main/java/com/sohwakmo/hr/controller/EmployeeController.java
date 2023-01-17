@@ -22,7 +22,7 @@ public class EmployeeController {
 
     @GetMapping("/join")
     public String join(){
-        return "/member/join";
+        return "/employee/join";
     }
 
     @PostMapping("/join")
@@ -30,8 +30,6 @@ public class EmployeeController {
         log.info("joinDto = {}", joinDto);
         log.info("part={}",part.toString());
 
-        //TODO 입사일 날짜 포맷 변경
-        //TODO 직책 기본값 설정.
         employeeService.join(joinDto,part,photo);
 
         return "index";

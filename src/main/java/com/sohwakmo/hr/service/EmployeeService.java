@@ -32,10 +32,10 @@ public class EmployeeService {
         String joinedDate = simpleDateFormat.format(joinDto.getJoinedDate());
         Date convertJoinDate = new SimpleDateFormat("yyyy-MM-dd").parse(joinedDate);
         joinDto.setJoinedDate(convertJoinDate);
-        // TODO 사진 주소저장
+        // 사진 주소저장
         String photoPath = saveImage(photo);
 
-        //TODO 직책 기본값 설정.
+        // 직책 기본값 설정.
         part.setPosition("사원");
 
         Employee employee = Employee.builder()
