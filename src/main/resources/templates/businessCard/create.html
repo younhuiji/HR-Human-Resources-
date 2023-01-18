@@ -55,130 +55,122 @@
     </style>
 </head>
     <div layout:fragment="content">
-        <body>
-        <div id="jb-container">
-            <div id="jb-header">
-                <h3>결재 작성</h3>
-                진행중인 결재내역을 확인하고 관리합니다.
-            </div>
-            <div id="jb-content">
-                <div id="jb-text">
-                    <fieldset class="border-0">
-                        <legend class="title">필수 입력 정보</legend>
-                            <table class="table" style="border-collapse: collapse">
-<!--                                <caption class="position-absolute" style="left: 9999em">명함 신청서</caption>-->
-                                <tr>
-                                    <th>보고서 분류</th>
-                                    <td>
-                                        <select>
-                                            <option>명함</option>
-                                            <option>휴가/연차/반차</option>
-                                            <option>출장</option>
-                                            <option>퇴사</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="first"><label for="">신청자</label></th>
-                                    <td><input type="text" class="textFrom" required autofocus></td>
-                                </tr>
-                                <tr>
-                                    <th class="first"><label for="">부서</label></th>
-                                    <td><input type="text" class="textFrom" required ></td>
-                                </tr>
-                                <tr>
-                                    <th class="first"><label for="">직급</label></th>
-                                    <td><input type="text" class="textFrom" required ></td>
-                                </tr>
-                                <tr >
-                                    <th class="first"><label for="">이메일</label></th>
-                                    <td><input type="email" class="textFrom" required ></td>
-                                </tr>
-                                <tr>
-                                    <th class="first"><label for="">전화번호</label></th>
-                                    <td><input type="tel" class="textFrom" required ></td>
-                                </tr>
-                                <tr>
-                                    <th><label for="">결재자 지정</label></th>
-                                    <td><input type="text" class="textFrom" required ></td>
-                                </tr>
-                                <tr>
-                                    <th class="first"><label for="">제목</label></th>
-                                    <td><input type="text" class="textFrom" required ></td>
-                                </tr>
-                                <tr>
-                                    <th class="first"><label for="">사유</label></th>
-                                    <td><textarea class="textFrom w-100" required ></textarea></td>
-                                </tr>
-                                <tr>
-                                    <th class="first"><label for="">작성일자</label></th>
-                                    <td><input type="date" class="textFrom" required ></td>
-                                </tr>
-                                <tr>
-                                    <th>성별</th>
-                                    <td>
-                                        <input type="radio" name="gender" id="male">
-                                        <label for="male">남</label>
-                                        <input type="radio" name="gender" id="female">
-                                        <label for="female">여</label>
-                                    </td>
-                                </tr>
-                            </table>
-                            <div>
-                                <input type="submit" class="btn btn-light"  style="float: right;" value="취소">
-
-                                <input type="submit" class="btn btn-light"  style="float: right;" value="요청">
-                            </div>
-                    </fieldset>
-                </div>
-            </div>
-            <div id="jb-sidebar">
-                <h4>기안 정보 등록</h4>
-                <form>
-                    <div class="row">
-                        <div class="col-10">
-                            <input type="text" class="form-control"
-                                   name="keyword" placeholder="결재자를 검색하세요" required autofocus />
+                <body>
+                    <div id="jb-container">
+                        <div id="jb-header">
+                            <h3>결재 작성</h3>
+                            진행중인 결재내역을 확인하고 관리합니다.
                         </div>
-                        <div class="col-2">
-                            <input type="submit" class="btn btn-light" value="찾기" />
+                        <div id="jb-content">
+                            <div id="jb-text">
+                                <form id="form" method="post" action="/businessCard/create">
+                                    <fieldset class="border-0">
+                                        <legend class="title">필수 입력 정보</legend>
+                                            <table class="table" style="border-collapse: collapse">
+                                                <tr>
+                                                    <th class="first"><label for="title">제목</label></th>
+                                                    <td><input type="text" class="textFrom" id="title" name="title" required autofocus></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>보고서 분류</th>
+                                                    <td>
+                                                        <select id="category" name="category">
+                                                            <option value="명함">명함</option>
+                                                            <option value="휴가/연차/반차">휴가/연차/반차</option>
+                                                            <option value="출장">출장</option>
+                                                            <option value="퇴사">퇴사</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="first"><label for="employeeName">신청자</label></th>
+                                                    <td><input type="text" class="textFrom" id="employeeName" name="employeeName" required ></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="first"><label for="department">부서</label></th>
+                                                    <td><input type="text" class="textFrom" id="department" required ></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="first"><label for="position">직급</label></th>
+                                                    <td><input type="text" class="textFrom" id="position"  required ></td>
+                                                </tr>
+                                                <tr >
+                                                    <th class="first"><label for="email">이메일</label></th>
+                                                    <td><input type="email"  id="email" name="email" required ></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="first"><label for="phone">전화번호</label></th>
+                                                    <td><input type="tel" class="textFrom" id="phone" name="phone" required ></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><label for="approverName">결재자 지정</label></th>
+                                                    <td><input type="text" class="textFrom" id="approverName" name="approverName" required  ></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="first"><label for="reason">사유</label></th>
+                                                    <td><textarea class="textFrom w-100" id="reason" name="reason" required ></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="first"><label for="writeDate">신청일자</label></th>
+                                                    <td><input type="date" class="textFrom" id="writeDate" name="writeDate" required ></td>
+                                                </tr>
+                                            </table>
+                                            <div class="text-end">
+                                                <button type="submit" class="btn btn-light" id="insertButton">요청</button>
+
+                                                <button type="submit" class="btn btn-light">취소</button>
+                                            </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="jb-sidebar">
+                            <h4>기안 정보 등록</h4>
+                            <form>
+                                <div class="row">
+                                    <div class="col-10">
+                                        <input type="text" class="form-control"
+                                               name="keyword" placeholder="결재자를 검색하세요" required autofocus />
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="submit" class="btn btn-light" value="찾기" />
+                                    </div>
+                                </div>
+                            </form>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="col-3">번호</th>
+                                        <th class="col-9">결재자 지정</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <tr>
+                                            <td > 1.</td>
+                                            <td > 000 팀장</td>
+                                            <td style="text-align: right">
+                                                <input type="submit" class="btn btn-light" value="추가">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td > 2.</td>
+                                            <td > 000 팀장</td>
+                                            <td style="text-align: right">
+                                                <input type="submit" class="btn btn-light" value="추가">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td > 3.</td>
+                                            <td > 000 팀장</td>
+                                            <td style="text-align: right">
+                                                <input type="submit" class="btn btn-light" value="추가">
+                                            </td>
+                                        </tr>
+                                </tbody>
+                            </table>
+
                         </div>
                     </div>
-                </form>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th class="col-3">번호</th>
-                            <th class="col-9">결재자 지정</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                            <tr>
-                                <td > 1.</td>
-                                <td > 000 팀장</td>
-                                <td style="text-align: right">
-                                    <input type="submit" class="btn btn-light" value="추가">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td > 2.</td>
-                                <td > 000 팀장</td>
-                                <td style="text-align: right">
-                                    <input type="submit" class="btn btn-light" value="추가">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td > 3.</td>
-                                <td > 000 팀장</td>
-                                <td style="text-align: right">
-                                    <input type="submit" class="btn btn-light" value="추가">
-                                </td>
-                            </tr>
-                    </tbody>
-                </table>
-
+                </body>
             </div>
-        </div>
-        </body>
-    </div>
 </html>

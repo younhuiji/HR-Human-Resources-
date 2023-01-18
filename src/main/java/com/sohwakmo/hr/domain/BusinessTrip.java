@@ -2,6 +2,7 @@ package com.sohwakmo.hr.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 
@@ -21,6 +22,9 @@ public class BusinessTrip {
     @Column(nullable = false) // 시행자 사번
     private Long employeeNo;
 
+    @Column(nullable = false) // 시행자 이름
+    private String employeeName;
+
     @Column(nullable = false) // 승인자1 사번
     private Long approverNo;
 
@@ -39,14 +43,14 @@ public class BusinessTrip {
     @Column // 반려 사유
     private String returnReason;
 
-    @Column(nullable = false) // 작성일자
+    @ColumnDefault("SYSDATE") // 작성일자
     private LocalDateTime writeDate;
 
     @Column(nullable = false) // 시행일자
-    private LocalDateTime effectiveDate;
+    private String effectiveDate;
 
     @Column(nullable = false) // 종료일자
-    private LocalDateTime expirationDate;
+    private String expirationDate;
 
     @Column // 결재일시
     private LocalDateTime competeDate;

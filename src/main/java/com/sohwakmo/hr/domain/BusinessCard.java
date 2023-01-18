@@ -21,6 +21,9 @@ public class BusinessCard {
     @Column(nullable = false) // 시행자 사번
     private Long employeeNo;
 
+    @Column(nullable = false) // 시행자 이름
+    private String employeeName;
+
     @Column(nullable = false) // 승인자1 사번
     private Long approverNo;
 
@@ -40,10 +43,7 @@ public class BusinessCard {
     private String returnReason;
 
     @Column(nullable = false) // 작성일자
-    private LocalDateTime writeDate;
-
-    @Column // 결재일시
-    private LocalDateTime competeDate;
+    private String writeDate;
 
     @Column(nullable = false, unique = true) // 명함에 쓰일 이메일
     private String email;
