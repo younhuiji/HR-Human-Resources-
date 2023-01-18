@@ -37,3 +37,9 @@ input{display:inline-block; width: 366px;}
 #employeeNo::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
+.border_success{
+    border: 2px solid green;
+}
+.border_danger{
+    border: 2px solid red;
+}

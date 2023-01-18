@@ -24,7 +24,7 @@ public class Employee {
     private Long id;
 
     @Column(nullable = false,unique = true)
-    private Long employeeNo; // 사원 번호
+    private Integer employeeNo; // 사원 번호
 
     @Column(nullable = false)
     private String password;

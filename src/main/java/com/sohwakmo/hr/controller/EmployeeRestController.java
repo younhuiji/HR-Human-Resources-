@@ -14,9 +14,14 @@ public class EmployeeRestController {
     private final EmployeeService employeeService;
 
     @PostMapping("/checkNo")
-    public ResponseEntity<Integer> checkEmployeeNo(Integer employeeNoValue) {
+    public ResponseEntity<String> checkEmployeeNo(Integer employeeNoValue) {
         log.info("employeeNoValue={}", employeeNoValue);
-
-        return ResponseEntity.ok(1);
+        // 아이디가 있는지 중복확인
+        boolean doubleCheckResult = employeeService.doubleCheck(employeeNoValue);
+        if(doubleCheckResult){
+            return ResponseEntity.ok("employeeNoNotOk");
+        }else{
+            return ResponseEntity.ok("employeeNoOk");
+        }
     }
 }

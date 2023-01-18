@@ -41,10 +41,10 @@
                         required
                         autofocus/>
                 </span>
-                <div id="employeeIdOk" class="d-none">
+                <div id="employeeNoOk" class="d-none">
                   <p>사용할 수 있는 번호 입니다.</p>
                 </div>
-                <div id="employeeIdNok" class="d-none">
+                <div id="employeeNoNotOk" class="d-none">
                   <p>이미 사용중이거나 사용할 수 없는 아이디 입니다.</p>
                 </div>
               </div>
@@ -70,12 +70,12 @@
                   <span id="passwordOk" class="d-none">
                     <span><img th:src="@{아이콘 이미지}" alt="checkIcon"/></span>
                   </span>
-                  <span id="passwordNok" class="d-none">
+                  <span id="passwordNotOk" class="d-none">
                     <span><img th:src="@{아이콘 이미지}" alt="errorIcon"/></span>
                   </span>
               </span>
-                <div id="passwordNok2" class="d-none">
-                  <p class="text-danger">비밀번호 에러문구.</p>
+                <div id="passwordNotOkMsg" class="d-none">
+                  <p class="text-danger">비밀번호는 8자이상 15자이하여야 합니다.</p>
                 </div>
               </div>
             </div>
@@ -98,6 +98,12 @@
                     name="check_password"
                     required
                   />
+                  <span id="double_check_password_ok" class="d-none">
+                      <span><img th:src="@{아이콘 이미지}" alt="checkIcon"></span>
+                  </span>
+                  <span id="double_check_password_not_ok" class="d-none">
+                      <span><img th:src="@{아이콘 이미지}" alt="errorIcon"></span>
+                  </span>
                 </span>
                 <div id="password_check_text" class="d-none">
                   <p class="text-danger">비밀번호를 다시 확인해주세요.</p>
@@ -123,6 +129,9 @@
                   />
                 </span>
               </div>
+              <div id="name_not_ok" class="d-none">
+                  <p class="text-danger">필수 정보입니다.</p>
+              </div>
             </div>
           </div>
 
@@ -142,6 +151,9 @@
                           required
                   />
                 </span>
+              </div>
+              <div id="phone_not_ok" class="d-none">
+                  <p class="text-danger">필수 정보입니다.</p>
               </div>
             </div>
           </div>
@@ -223,6 +235,7 @@
               type="submit"
               value="가입하기"
               id="btnSubmit"
+              class="disabled"
               />
           </div>
 

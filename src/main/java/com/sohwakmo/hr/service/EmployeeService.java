@@ -12,12 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-
-import static groovyjarjarantlr4.v4.gui.GraphicsSupport.saveImage;
 
 @Service
 @Slf4j
@@ -26,6 +22,14 @@ public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
+    /**
+     * 회원가입
+     *
+     * @param joinDto
+     * @param part    사원 부서,팀,직책, 맡은일 컬럼만 모아놓음
+     * @param photo   사원이미지
+     * @throws Exception
+     */
     public void join(EmployeeJoinDto joinDto, Part part, MultipartFile photo) throws Exception {
         // 입사일 날짜 포맷 변경 후 저장
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -45,7 +49,7 @@ public class EmployeeService {
                 .phone(joinDto.getPhone())
                 .email(joinDto.getEmail())
                 .part(part)
-                .photo("/employeeImage/"+photoPath)
+                .photo("/employeeImage/" + photoPath)
                 .joinedDate(joinDto.getJoinedDate())
                 .build();
         employee.setEmployeePosition(EmployeePosition.LEVEL_1);
@@ -53,11 +57,24 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
+    /**
+     * 회원가입시 사원 이미지를 받고 저장.
+     *
+     * @param photo input type file로 받은 이미지를 저장
+     * @return 파일경로
+     * @throws IOException
+     */
     private String saveImage(MultipartFile photo) throws IOException {
         String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\employeeImage";
         String fileName = photo.getOriginalFilename();
         File saveFile = new File(projectPath, fileName);
         photo.transferTo(saveFile);
         return fileName;
+    }
+
+    public boolean doubleCheck(Integer employeeNoValue) {
+        boolean result = employeeRepository.existsByEmployeeNo(employeeNoValue);
+        log.info("result={}",result);
+        return result;
     }
 }
