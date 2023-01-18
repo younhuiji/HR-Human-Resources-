@@ -43,3 +43,54 @@ input{display:inline-block; width: 366px;}
 .border_danger{
     border: 2px solid red;
 }
+.select_part {
+    width: 210px;
+    height: 50px;
+    border: solid 1px #dadada;
+
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.select_part option{
+    text-align: center;
+}
+.select_part::-ms-expand {
+    display: none;
+}
+
+.team,.work{
+    margin-left: 33px;
+}
+label{
+    margin-top: 1em;
+}
+.filebox .upload-name {
+    width: 83%;
+    display: inline-block;
+    position: relative;
+    height: 51px;
+    border: solid 1px #dadada;
+    padding: 10px 110px 10px 14px;
+    vertical-align: top;
+}
+.filebox #select_file {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 50px;
+    margin-top: 0;
+    margin-left: 8px;
+}
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}

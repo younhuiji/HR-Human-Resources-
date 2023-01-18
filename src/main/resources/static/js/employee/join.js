@@ -101,7 +101,73 @@ window.addEventListener('DOMContentLoaded', function (){
     const phone_not_ok = document.querySelector('#phone_not_ok');
 
     // 사내 전화번호 이벤트 작성.
-    phone.addEventListener('chane', function (){
-
+    phone.addEventListener('change', function (){
+        let phone_length = phone.value.length;
+        if (phone_length === 11) {
+            phone.classList.add('border_success');
+            phone.classList.remove('border_danger');
+            phone_not_ok.className = 'd-none';
+        }else{
+            phone.classList.add('border_danger');
+            phone.classList.remove('border_success');
+            phone_not_ok.className = '';
+        }
     })
+
+    // 이메일 값 가져오기
+    const email = document.querySelector('#email');
+    const email_not_ok = document.querySelector('#email_not_ok');
+    // 이메일 input에 이벤트 주기
+    email.addEventListener('change', function (){
+        let email_length = email.value.length;
+        if (email_length < 1) {
+            email.classList.add('border_danger');
+            email.classList.remove('border_success');
+            email_not_ok.className = '';
+        }else{
+            email.classList.add('border_success');
+            email.classList.remove('border_danger');
+            email_not_ok.className = 'd-none';
+        }
+    })
+
+    // select 박스 부서에맞게 변경되게하기
+    // 부서
+    const department = document.querySelector('#department');
+    
+    //팀
+    const team = document.querySelector('#team');
+    const team_develop = document.querySelectorAll('.develop');
+    const team_human = document.querySelectorAll('.human');
+    // 맡은일
+    department.addEventListener('change',function (){
+        let department_value = department.value;
+        console.log(department_value);
+        if (department_value == 1) {
+            // 인사부일경우
+            for(let i=0; i<team_develop.length; i++){
+                team_develop[i].setAttribute('hidden','hidden');
+            }
+            for (let i = 0; i < team_human.length; i++) {
+                team_human[i].removeAttribute('hidden');
+            }
+
+
+        }else if(department_value==2){
+            // 개발부일경우
+            for(let i=0; i<team_human.length; i++){
+                team_human[i].setAttribute('hidden','hidden');
+            }
+            for (let i = 0; i < team_develop.length; i++) {
+                team_develop[i].removeAttribute('hidden');
+            }
+        }
+    })
+})
+
+const photo = document.querySelector('#photo');
+let upload_name = document.querySelector('.upload-name');
+photo.addEventListener('change',function (){
+    let fileName = photo.value;
+    upload_name.value = fileName;
 })

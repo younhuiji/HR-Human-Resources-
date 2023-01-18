@@ -159,23 +159,32 @@
           </div>
 
           <!--사진-->
-          <div>
-            <div>
-              <div id="join_photo_lbl" class="allLabelLeft">
-                <label for="phone" id="photo_lbl" class="form-label">사진</label>
-              </div>
-              <div>
-                <span id="photo_span">
-                  <input
-                          type="file"
-                          id="photo"
-                          name="photo"
-                          multiple="multiple"
-                  />
-                </span>
-              </div>
+<!--          <div>-->
+<!--            <div class="filebox">-->
+<!--              <input class="upload-name" value="첨부파일" placeholder="첨부파일"/>-->
+<!--              <div id="join_photo_lbl" class="allLabelLeft">-->
+<!--                <label for="photo" id="photo_lbl" class="form-label">사진</label>-->
+<!--              </div>-->
+<!--              <div>-->
+<!--                <span id="photo_span">-->
+<!--                  <input-->
+<!--                          type="file"-->
+<!--                          id="photo"-->
+<!--                          name="photo"-->
+<!--                          multiple="multiple"-->
+<!--                  />-->
+<!--                </span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+            <div class="filebox">
+                <div id="show_file_name" class="allLabelLeft">
+                    <label for="show_file_input" class="form-label">사진</label>
+                </div>
+                <input id="show_file_input" class="upload-name" value="첨부파일" placeholder="첨부파일">
+                <label for="photo" id="select_file">파일찾기</label>
+                <input type="file" id="photo">
             </div>
-          </div>
 
           <!--부서-->
           <div>
@@ -184,16 +193,23 @@
                 <label for="department" id="department_lbl" class="form-label">부서/직책</label>
               </div>
               <div>
-                <select id="department" th:name="department">
-                  <option th:value="A" th:text="인사과">인사과</option>
-                  <option value="2">개발팀</option>
-                  <option value="3">기획팀</option>
+                <select id="department" class="select_part" th:name="department">
+                  <option selected disabled>부서</option>
+                  <option th:value="1">인사부👨‍💼</option>
+                  <option value="2">개발부💻</option>
+                  <option value="3">기획부✏️</option>
+                  <option value="4">마케팅부📑</option>
                 </select>
-                <select id="team" th:name="team">
-                  <option th:value="B">개발1팀</option>
+                <select id="team" class="select_part team" th:name="team">
+                  <option selected disabled>팀</option>
+                  <option th:value="a" class="develop">개발1팀</option>
+                  <option th:value="r" class="develop">개발2팀</option>
+                  <option value="b" class="human">인사1팀</option>
                 </select>
-                <select id="work" th:name="work">
-                  <option th:value="C">프론트</option>
+                <select id="work" class="select_part work" th:name="work">
+                  <option selected disabled>담당</option>
+                  <option th:value="c" class="develop">프론트엔드</option>
+                  <option th:value="p" class="develop">백엔드</option>
                 </select>
               </div>
             </div>
@@ -210,6 +226,9 @@
                   <input type="email" id="email" name="email" class="allInputBox"/>
                 </span>
               </div>
+              <div id="email_not_ok" class="d-none">
+                  <p class="text-danger">필수 정보입니다.</p>
+              </div>
             </div>
           </div>
 
@@ -222,6 +241,8 @@
               <div>
                 <input
                   id="joinedDate"
+                  class="allInputBox"
+                  placeholder="입사일 입력"
                   name="joinedDate"
                   type="date"
                 >
@@ -252,5 +273,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   <!--회원가입 html js-->
   <script th:src="@{/js/employee/join.js}"></script>
+
 </body>
 </html>
