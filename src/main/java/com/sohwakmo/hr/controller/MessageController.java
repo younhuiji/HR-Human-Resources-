@@ -14,9 +14,14 @@ public class MessageController {
     public String receiveList() {
         log.info("receiveList()");
 
-
-
         return "/message/receiveList";
+    }
+
+    @GetMapping("/writeMessage")
+    public String writeMessage() {
+        log.info("writeMessage()");
+
+        return "/message/writeMessage";
     }
 
 }

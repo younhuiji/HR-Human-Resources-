@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{ layout/layout.html }">
+<head>
+    <meta charset="UTF-8">
+    <title>쪽지 쓰기</title>
+    <link rel="stylesheet" th:href="@{/css/message/writeMessage.css}">
+</head>
+
+<div layout:fragment="content">
+
+    <div class="container my-2 main">
+        <header class="list-group-item h4 py-2 mb-4">
+            <p>쪽지 쓰기</p>
+        </header>
+        <div clas="card-body">
+            <form method="post" enctype="multipart/form-data" action="#">
+                <div class="py-3 border-bottom div1">
+                    <label for="emergency">긴급</label>
+                    <input type="checkbox" name="emergency"/>
+                    <label for="important">중요</label>
+                    <input type="checkbox" name="important"/>
+                    <label for="normal">일반</label>
+                    <input type="checkbox" name="normal"/>
+                </div>
+                <div class="py-3 border-bottom div2">
+                    <label for="title">제목</label>
+                    <input type="text" placeholder="제목을 입력해주세요."/>
+                </div>
+                <div class="py-3 border-bottom">
+                    <label for="receiver">수신자</label>
+                    <input type="text" placeholder="받는 사람" readonly/>
+                    <input type="button" value="주소록"/>
+                </div>
+                <div class="py-3 border-bottom">
+                    <textarea name="content" placeholder="내용"></textarea>
+                </div>
+                <div class="py-3 border-bottom">
+                    <label>파일 업로드</label>
+                    <input type="file" multiple="multiple">
+                </div>
+                <div class="py-3 border-bottom">
+                    <button type="submit">보내기</button>
+                    <button type="submit">취소</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+    <script src="/js/message/writeMessage.js"></script>
+</th:block>
+
+</html>
