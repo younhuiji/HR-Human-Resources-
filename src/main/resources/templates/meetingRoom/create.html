@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{ layout/layout.html}">
+
+<div layout:fragment="content">
+    <div class="col" style="background-size: 5px">
+        <div class ="container">
+            <div class="section-header">
+                <h1 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >회의실 예약신청</h1>
+            </div>
+            <form method = "post" action = "/meetingRoom/create" name="formCreate">
+                <input type="hidden" name="employeeNo" th:value="1" />
+                <div class="p-3 border-bottom">
+                    <label for="reservationName" style=" width: 150px; ">예약자</label>
+                    <input id="reservationName" type="text" name="reservationName" th:value="김김김" readonly />
+                </div>
+                <div class = "p-3 border-bottom">
+                    <label for="title" style=" width: 150px; ">제목</label>
+                    <input id="title" class="align-text-top"
+                           type="text" name="title" placeholder="제목을 입력해주세요." required autofocus />
+                </div>
+                <div class = "p-3 border-bottom">
+                    <label for="roomName" style=" width: 150px; ">회의실명</label>
+                    <input id="roomName" class="align-text-top"
+                           type="text" name="roomName" required />
+                </div>
+                <div class = "p-3 border-bottom">
+                    <label for="roomPlace" style=" width: 150px; " >회의실 위치</label>
+                    <input id="roomPlace" class="align-text-top"
+                            type="text" name="roomPlace"  required/>
+                </div>
+                <div class = "p-3 border-bottom">
+                    <label for="reserveDate" style=" width: 150px; ">예약날짜</label>
+                    <input id="reserveDate" class="align-text-top"
+                           type="date" name="reserveDate" required />
+                </div>
+                <div class= "p-3 border-bottom">
+                    <label for="attendee" style=" width: 150px; ">참석자</label>
+                    <input id="attendee" class="align-text-top"
+                           type="text" name="attendee" required />
+                </div>
+                <div class= "p-3 border-bottom">
+                    <label for="attendeeMax" style=" width: 150px; " >인원</label>
+                    <input id="attendeeMax" class="align-text-top" size="2"
+                           type="number" name="attendeeMax" required />
+                    <span class="mt-auto m-2 pb-3 pt-xl-5">명</span>
+                </div>
+                <div class= "p-3 mt-2 border-bottom">
+                    <label for="purpose" style=" width: 150px; " >사용목적</label>
+                    <textarea rows="5" cols="80" id="purpose" class="align-text-top"
+                              name="purpose" placeholder="사용목적을 입력해주세요." required></textarea>
+                </div>
+
+                <div class="pb-3 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-outline-info me-md-1" id="createBtn">저장</button>
+                    <a class="btn btn-outline-info" href="/meetingRoom/list" id="cancelCreate">목록</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script th src="@{ /js/meetingRoomCreate.js}"></script>
+
+</th:block>
+</html>
