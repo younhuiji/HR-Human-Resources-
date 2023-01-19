@@ -6,7 +6,16 @@ window.addEventListener('DOMContentLoaded', function (){
     // 아이디 입력시 변화 감지
     employeeNo.addEventListener('change',function(){
         const employeeNoValue = employeeNo.value;
-        console.log(employeeNoValue);
+        const employeeNoLength = employeeNoValue.length;
+        const employeeNo_length_errorMsg = document.querySelector('#employeeNo_length_errorMsg');
+        console.log(employeeNoLength);
+        if (employeeNoLength < 8 || employeeNoLength > 15) {
+            employeeNo_length_errorMsg.classList.remove('d-none');
+            inputEmployeeNo.classList.add('error_icon','border_danger')
+            inputEmployeeNo.classList.remove('border_success', 'ok_icon');
+            employeeNoOkMsg.className = 'd-none';
+            return;
+        }
         axios
             .get('/checkNo?employeeNoValue='+employeeNoValue)
             .then(function (response) {
@@ -22,11 +31,13 @@ window.addEventListener('DOMContentLoaded', function (){
     const employeeNoOkMsg = document.getElementById('employeeNoOk');
     const inputEmployeeNo = document.querySelector('#employeeNo');
     const employeeNoNotOkMsg = document.querySelector('#employeeNoNotOk');
+    const employeeNo_length_errorMsg = document.querySelector('#employeeNo_length_errorMsg');
     function displayEmployeeNoCheckMsg(data) {
         if (data === 'employeeNoOk') {
             employeeNoOkMsg.className='text-success';
             inputEmployeeNo.classList.add('border_success','ok_icon');
             inputEmployeeNo.classList.remove('border_danger','error_icon')
+            employeeNo_length_errorMsg.className='d-none';
             employeeNoNotOkMsg.className = 'd-none';
         }else{
             employeeNoNotOkMsg.className = 'text-danger';
@@ -36,7 +47,7 @@ window.addEventListener('DOMContentLoaded', function (){
         }
     }
 
-    // 아이디 글자개수 제한 제약 8자이상 15자 이하
+
 
 
     // 비밀번호가져오기
@@ -65,8 +76,10 @@ window.addEventListener('DOMContentLoaded', function (){
         let check_password_value = check_password.value
         let pass_word_value = password.value
         if (check_password_value === pass_word_value) {
+            password_check_text.className = 'd-none';
             check_password.classList.add('border_success','ok_icon')
             check_password.classList.remove('border_danger','error_icon');
+
         }else{
             password_check_text.className = 'text-danger';
             check_password.classList.add('border_danger','error_icon')
