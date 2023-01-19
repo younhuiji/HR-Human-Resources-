@@ -1,9 +1,11 @@
-/*.main{ width: 80%; height: 100vh; border: 1px solid #f2f2f2; margin: 0 auto; }*/
-/*.main > header { text-align: center; font-size: 30px; background:#ccc; }*/
 
-.div1{ border-bottom:1px solid #ccc;}
-.div2 > input{ display:inline-block; width:90%;}
+header{background: #ccc;}
+.column { width: 100px; font-weight: bold;}
+.titleInputBox { width:90%;}
+.receiverDiv { width: 90%; display: inline-block;}
+.receiverDiv > input { width: 93%;}
+.receiverDiv > div {width: 7%; float: right;}
+.receiverDiv > div > input {width:100%; }
 
-.my-2 > textarea{ width:100%; height:300px;}
-
-div > label{ width:100px;}
+textarea { min-width:100%;}
+.buttonBox {text-align: right}

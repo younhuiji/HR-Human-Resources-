@@ -3,6 +3,7 @@ package com.sohwakmo.hr.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
@@ -22,6 +23,14 @@ public class MessageController {
         log.info("writeMessage()");
 
         return "/message/writeMessage";
+    }
+
+    @PostMapping("/sendMessage")
+    public String sendMessage() {
+        log.info("sendMessage()");
+
+
+        return "redirect:/message/receiveList";
     }
 
 }

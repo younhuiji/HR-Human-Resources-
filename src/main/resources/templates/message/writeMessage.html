@@ -12,46 +12,49 @@
 <div layout:fragment="content">
 
     <div class="container my-2 main">
-        <header class="list-group-item h4 py-2 mb-4">
+        <header>
             <p>쪽지 쓰기</p>
         </header>
         <div clas="card-body">
-            <form method="post" enctype="multipart/form-data" action="#">
-                <div class="py-3 border-bottom div1">
-                    <label for="emergency">긴급</label>
-                    <input type="checkbox" name="emergency"/>
-                    <label for="important">중요</label>
-                    <input type="checkbox" name="important"/>
-                    <label for="normal">일반</label>
-                    <input type="checkbox" name="normal"/>
-                </div>
-                <div class="py-3 border-bottom div2">
-                    <label for="title">제목</label>
-                    <input type="text" placeholder="제목을 입력해주세요."/>
+            <form enctype="multipart/form-data" id="formBody">
+                <div class="py-3 border-bottom">
+                    <input type="radio" name="checkBox" value="emergency" />긴급
+                    <input type="radio" name="checkBox" value="important" />중요
+                    <input type="radio" name="checkBox" value="normal" />일반
                 </div>
                 <div class="py-3 border-bottom">
-                    <label for="receiver">수신자</label>
-                    <input type="text" placeholder="받는 사람" readonly/>
-                    <input type="button" value="주소록"/>
+                    <label for="title" class="column">제목</label>
+                    <input type="text" class="titleInputBox" id="title" name="title" placeholder="제목을 입력해주세요."/>
                 </div>
                 <div class="py-3 border-bottom">
-                    <textarea name="content" placeholder="내용"></textarea>
+                    <label for="receiver" class="column">수신자</label>
+                    <div class="receiverDiv">
+                        <input type="text" id="receiver" name="receiver" placeholder="받는 사람" readonly/>
+                        <div>
+                            <input type="button" value="주소록"/>
+                        </div>
+                    </div>
                 </div>
                 <div class="py-3 border-bottom">
-                    <label>파일 업로드</label>
-                    <input type="file" multiple="multiple">
+                    <textarea rows="5" name="content" placeholder="내용"></textarea>
                 </div>
-                <div class="py-3 border-bottom">
-                    <button type="submit">보내기</button>
-                    <button type="submit">취소</button>
+                <div class="py-3 border-bottom" name="file[]">
+                    <label class="column">파일 업로드</label>
+                    <input type="file" id="file" multiple accept="image/jpeg, image/png, .pdf, .txt">
+                </div>
+                <div class="py-3 border-bottom buttonBox">
+                    <button class="btn btn-secondary" id="btnSend">보내기</button>
+                    <button class="btn btn-outline-secondary" id="btnCancel">취소</button>
                 </div>
             </form>
         </div>
     </div>
+
 </div>
 
+<!--<script th:src="@{/js/message/writeMessage.js}"></script>-->
 <th:block layout:fragment="script">
-    <script src="/js/message/writeMessage.js"></script>
+    <script th:src="@{/js/message/writeMessage.js}"></script>
 </th:block>
 
 </html>
