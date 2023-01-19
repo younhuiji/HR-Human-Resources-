@@ -10,6 +10,10 @@
 #logoText{
     margin-top: 8%;
 }
+#employee_pw{
+    background: white;
+    width: 100%;
+}
 .allInputBox{
     margin: 4px 0;
     width: 100%;
@@ -20,6 +24,27 @@
     padding: 10px 110px 10px 14px;
     vertical-align: top;
 }
+input[type="password"] {
+    background-color : white;
+}
+input[type="text"] {
+    background-color : white;
+}
+input[type="email"] {
+    background-color : white;
+}
+.ok_icon{
+    padding-right: 55px;
+    background: url("checkImages/check.png") no-repeat;
+    background-size: 25px;
+    background-position:98% 50%;
+}
+.error_icon{
+    padding-right: 55px;
+    background: url("checkImages/error.png") no-repeat;
+    background-size: 25px;
+    background-position:98% 50%;
+}
 .allLabelLeft{
     text-align: left;
 }
@@ -27,8 +52,6 @@
 
 p{font-size: 13px; padding: 4px 0 0 8px;}
 span>p{display: inline;}
-span img{margin-top: -4px;}
-input{display:inline-block; width: 366px;}
 #btnSubmit{font-size: 15px;  margin: 40px auto 20px auto; width: 100%; height: 42px;}
 #employeeNo,#check_password,#name,#phone,#email,#password:focus{
     outline: none;

@@ -8,9 +8,7 @@ window.addEventListener('DOMContentLoaded', function (){
         const employeeNoValue = employeeNo.value;
         console.log(employeeNoValue);
         axios
-            .post('/checkNo',{
-                No : employeeNoValue
-            })
+            .get('/checkNo?employeeNoValue='+employeeNoValue)
             .then(function (response) {
                 displayEmployeeNoCheckMsg(response.data);
             })
@@ -19,63 +17,57 @@ window.addEventListener('DOMContentLoaded', function (){
             });
     })
 
+
     // 아이디중복확인
+    const employeeNoOkMsg = document.getElementById('employeeNoOk');
+    const inputEmployeeNo = document.querySelector('#employeeNo');
+    const employeeNoNotOkMsg = document.querySelector('#employeeNoNotOk');
     function displayEmployeeNoCheckMsg(data) {
         if (data === 'employeeNoOk') {
-            const employeeNoOkMsg = document.getElementById('employeeNoOk');
-            const inputEmployeeNo = document.querySelector('#employeeNo');
             employeeNoOkMsg.className='text-success';
-            inputEmployeeNo.classList.add('border_success');
+            inputEmployeeNo.classList.add('border_success','ok_icon');
+            inputEmployeeNo.classList.remove('border_danger','error_icon')
+            employeeNoNotOkMsg.className = 'd-none';
         }else{
-            const employeeNoNotOkMsg = document.querySelector('#employeeNoNotOk');
             employeeNoNotOkMsg.className = 'text-danger';
+            inputEmployeeNo.classList.add('error_icon','border_danger')
+            inputEmployeeNo.classList.remove('border_success', 'ok_icon');
+            employeeNoOkMsg.className = 'd-none';
         }
     }
 
     // 비밀번호가져오기
     const password = document.querySelector('#password');
-    const passwordNotOk = document.querySelector('#passwordNotOk');
     const passwordNotOkMsg = document.querySelector('#passwordNotOkMsg');
-    const passwordOk = document.querySelector('#passwordOk');
     // 비밀번호 입력시 체크
     password.addEventListener('change', function (){
         let pw_length = password.value.length
         if (pw_length< 8 || pw_length > 15) {
-            passwordNotOk.className = '';
             passwordNotOkMsg.className = '';
-            passwordOk.className = 'd-none';
-            password.classList.add('border_danger')
-            password.classList.remove('border_success');
+            password.classList.add('border_danger','error_icon')
+            password.classList.remove('border_success','ok_icon');
         }else{
-            passwordOk.className = '';
-            passwordNotOk.className = 'd-none';
             passwordNotOkMsg.className = 'd-none';
-            password.classList.add('border_success');
-            password.classList.remove('border_danger');
+            password.classList.add('border_success','ok_icon');
+            password.classList.remove('border_danger','error_icon');
         }
     })
 
     // 비밀번호 재확인
     // 비밀번호 재확인 값 가져오기
     const check_password = document.querySelector('#check_password');
-    const double_check_password_ok = document.querySelector('#double_check_password_ok');
-    const double_check_password_not_ok = document.querySelector('#double_check_password_not_ok');
     const password_check_text = document.querySelector('#password_check_text');
     // 비밀번호가 일치하는지 확인
     check_password.addEventListener('change',function (){
         let check_password_value = check_password.value
         let pass_word_value = password.value
         if (check_password_value === pass_word_value) {
-            double_check_password_ok.className = '';
-            double_check_password_not_ok.className = 'd-none';
-            check_password.classList.add('border_success')
-            check_password.classList.remove('border_danger');
+            check_password.classList.add('border_success','ok_icon')
+            check_password.classList.remove('border_danger','error_icon');
         }else{
             password_check_text.className = 'text-danger';
-            double_check_password_ok.className = 'd-none';
-            double_check_password_not_ok.className = '';
-            check_password.classList.add('border_danger')
-            check_password.classList.remove('border_success');
+            check_password.classList.add('border_danger','error_icon')
+            check_password.classList.remove('border_success','ok_icon');
         }
     })
 
@@ -86,12 +78,12 @@ window.addEventListener('DOMContentLoaded', function (){
     name.addEventListener('change',function (){
         let name_length = name.value.length;
         if (name_length > 0) {
-            name.classList.add('border_success');
-            name.classList.remove('border_danger');
+            name.classList.add('border_success','ok_icon');
+            name.classList.remove('border_danger','error_icon');
             name_not_ok.className = 'd-none';
         } else {
-            name.classList.add('border_danger');
-            name.classList.remove('border_success');
+            name.classList.add('border_danger','error_icon');
+            name.classList.remove('border_success','ok_icon');
             name_not_ok.className = '';
         }
     })
@@ -104,30 +96,30 @@ window.addEventListener('DOMContentLoaded', function (){
     phone.addEventListener('change', function (){
         let phone_length = phone.value.length;
         if (phone_length === 11) {
-            phone.classList.add('border_success');
-            phone.classList.remove('border_danger');
+            phone.classList.add('border_success','ok_icon');
+            phone.classList.remove('border_danger','error_icon');
             phone_not_ok.className = 'd-none';
         }else{
-            phone.classList.add('border_danger');
-            phone.classList.remove('border_success');
+            phone.classList.add('border_danger','error_icon');
+            phone.classList.remove('border_success','ok_icon');
             phone_not_ok.className = '';
         }
     })
 
     // 이메일 값 가져오기
     const email = document.querySelector('#email');
-    const email_not_ok = document.querySelector('#email_not_ok');
+    const email_blank = document.querySelector('#email_blank');
     // 이메일 input에 이벤트 주기
     email.addEventListener('change', function (){
         let email_length = email.value.length;
         if (email_length < 1) {
-            email.classList.add('border_danger');
-            email.classList.remove('border_success');
-            email_not_ok.className = '';
+            email.classList.add('border_danger','error_icon');
+            email.classList.remove('border_success','ok_icon');
+            email_blank.className = '';
         }else{
-            email.classList.add('border_success');
-            email.classList.remove('border_danger');
-            email_not_ok.className = 'd-none';
+            email.classList.add('border_success','ok_icon');
+            email.classList.remove('border_danger','error_icon');
+            email_blank.className = 'd-none';
         }
     })
 
@@ -167,7 +159,8 @@ window.addEventListener('DOMContentLoaded', function (){
 
 const photo = document.querySelector('#photo');
 let upload_name = document.querySelector('.upload-name');
+console.log(photo.files)
 photo.addEventListener('change',function (){
-    let fileName = photo.value;
-    upload_name.value = fileName;
+    let fileName = photo.files;
+    upload_name.value = fileName[0].name;
 })

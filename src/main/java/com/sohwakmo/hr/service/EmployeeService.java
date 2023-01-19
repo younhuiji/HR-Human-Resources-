@@ -37,7 +37,13 @@ public class EmployeeService {
         Date convertJoinDate = new SimpleDateFormat("yyyy-MM-dd").parse(joinedDate);
         joinDto.setJoinedDate(convertJoinDate);
         // 사진 주소저장
-        String photoPath = saveImage(photo);
+        String photoPath;
+        if (photo.getSize() != 0) {
+            photoPath = saveImage(photo);
+        }else {
+            photoPath = "사진미정";
+        }
+
 
         // 직책 기본값 설정.
         part.setPosition("사원");
@@ -73,6 +79,7 @@ public class EmployeeService {
     }
 
     public boolean doubleCheck(Integer employeeNoValue) {
+        log.info("emplno={}",employeeNoValue);
         boolean result = employeeRepository.existsByEmployeeNo(employeeNoValue);
         log.info("result={}",result);
         return result;

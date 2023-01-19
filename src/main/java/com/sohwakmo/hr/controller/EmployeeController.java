@@ -29,7 +29,7 @@ public class EmployeeController {
     public String join(EmployeeJoinDto joinDto, Part part, MultipartFile photo) throws Exception {
         log.info("joinDto = {}", joinDto);
         log.info("part={}",part.toString());
-
+        log.info("photo={}",photo.getSize());
         employeeService.join(joinDto,part,photo);
 
         return "index";

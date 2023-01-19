@@ -60,20 +60,12 @@
                 </label>
               </div>
               <div>
-                <span id="employee_pw">
-                  <input
+                <input
                         type="password"
                         class="allInputBox"
                         id="password"
                         name="password"
                         required/>
-                  <span id="passwordOk" class="d-none">
-                    <span><img th:src="@{아이콘 이미지}" alt="checkIcon"/></span>
-                  </span>
-                  <span id="passwordNotOk" class="d-none">
-                    <span><img th:src="@{아이콘 이미지}" alt="errorIcon"/></span>
-                  </span>
-              </span>
                 <div id="passwordNotOkMsg" class="d-none">
                   <p class="text-danger">비밀번호는 8자이상 15자이하여야 합니다.</p>
                 </div>
@@ -98,12 +90,6 @@
                     name="check_password"
                     required
                   />
-                  <span id="double_check_password_ok" class="d-none">
-                      <span><img th:src="@{아이콘 이미지}" alt="checkIcon"></span>
-                  </span>
-                  <span id="double_check_password_not_ok" class="d-none">
-                      <span><img th:src="@{아이콘 이미지}" alt="errorIcon"></span>
-                  </span>
                 </span>
                 <div id="password_check_text" class="d-none">
                   <p class="text-danger">비밀번호를 다시 확인해주세요.</p>
@@ -119,7 +105,6 @@
                 <label for="name" id="name_lbl" class="form-label">이름</label>
               </div>
               <div>
-                <span id="name_span">
                   <input
                     type="text"
                     class="allInputBox"
@@ -127,7 +112,6 @@
                     name="name"
                     required
                   />
-                </span>
               </div>
               <div id="name_not_ok" class="d-none">
                   <p class="text-danger">필수 정보입니다.</p>
@@ -142,7 +126,6 @@
                 <label for="phone" id="phone_lbl" class="form-label">사내전화</label>
               </div>
               <div>
-                <span id="phone_span">
                   <input
                           type="text"
                           class="allInputBox"
@@ -150,7 +133,6 @@
                           name="phone"
                           required
                   />
-                </span>
               </div>
               <div id="phone_not_ok" class="d-none">
                   <p class="text-danger">필수 정보입니다.</p>
@@ -159,31 +141,13 @@
           </div>
 
           <!--사진-->
-<!--          <div>-->
-<!--            <div class="filebox">-->
-<!--              <input class="upload-name" value="첨부파일" placeholder="첨부파일"/>-->
-<!--              <div id="join_photo_lbl" class="allLabelLeft">-->
-<!--                <label for="photo" id="photo_lbl" class="form-label">사진</label>-->
-<!--              </div>-->
-<!--              <div>-->
-<!--                <span id="photo_span">-->
-<!--                  <input-->
-<!--                          type="file"-->
-<!--                          id="photo"-->
-<!--                          name="photo"-->
-<!--                          multiple="multiple"-->
-<!--                  />-->
-<!--                </span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
             <div class="filebox">
                 <div id="show_file_name" class="allLabelLeft">
                     <label for="show_file_input" class="form-label">사진</label>
                 </div>
                 <input id="show_file_input" class="upload-name" value="첨부파일" placeholder="첨부파일">
                 <label for="photo" id="select_file">파일찾기</label>
-                <input type="file" id="photo">
+                <input type="file" id="photo" name="photo">
             </div>
 
           <!--부서-->
@@ -222,11 +186,9 @@
                 <label for="email" id="email_lbl" class="form-label">이메일</label>
               </div>
               <div>
-                <span id="join_email_span">
                   <input type="email" id="email" name="email" class="allInputBox"/>
-                </span>
               </div>
-              <div id="email_not_ok" class="d-none">
+              <div id="email_blank" class="d-none">
                   <p class="text-danger">필수 정보입니다.</p>
               </div>
             </div>
