@@ -81,10 +81,21 @@ public class EmployeeService {
         return fileName;
     }
 
-    public boolean doubleCheck(Integer employeeNoValue) {
-        log.info("emplno={}",employeeNoValue);
-        boolean result = employeeRepository.existsByEmployeeNo(employeeNoValue);
-        log.info("result={}",result);
-        return result;
+    /**
+     * 사원번호가 데이터베이스에 존재하는지 확인
+     * @param employeeNoValue 회원가입 페이지에서 작성한 사원번호
+     * @return 존재하면 true, 존재하지 않으면 false
+     */
+    public boolean employeeNoDoubleCheck(Integer employeeNoValue) {
+        return employeeRepository.existsByEmployeeNo(employeeNoValue);
+    }
+
+    /**
+     * 이메일이 데이터베이스에 존재하는지 확인
+     * @param email 회원가입 페이지에서 작성한 사내전화
+     * @return 존재하면 true, 존재하지 않으면 false
+     */
+    public boolean emailDoubleCheck(String email) {
+        return employeeRepository.existsByEmail(email);
     }
 }

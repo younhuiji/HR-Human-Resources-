@@ -32,6 +32,6 @@ public class EmployeeController {
         log.info("photo={}",photo.getSize());
         employeeService.join(joinDto,part,photo);
 
-        return "index";
+        return "redirect:/";
     }
 }

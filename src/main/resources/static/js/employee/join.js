@@ -4,7 +4,7 @@ window.addEventListener('DOMContentLoaded', function (){
     const employeeNo = document.querySelector('#employeeNo');
 
     // 아이디 입력시 변화 감지
-    employeeNo.addEventListener('change',function(){
+    employeeNo.addEventListener('keydown',function(){
         const employeeNoValue = employeeNo.value;
         const employeeNoLength = employeeNoValue.length;
         const employeeNo_length_errorMsg = document.querySelector('#employeeNo_length_errorMsg');
@@ -15,15 +15,17 @@ window.addEventListener('DOMContentLoaded', function (){
             inputEmployeeNo.classList.remove('border_success', 'ok_icon');
             employeeNoOkMsg.className = 'd-none';
             return;
+        }else{
+            axios
+                .get('/checkNo?employeeNoValue='+employeeNoValue)
+                .then(function (response) {
+                    displayEmployeeNoCheckMsg(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
-        axios
-            .get('/checkNo?employeeNoValue='+employeeNoValue)
-            .then(function (response) {
-                displayEmployeeNoCheckMsg(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+
     })
 
 
@@ -111,7 +113,7 @@ window.addEventListener('DOMContentLoaded', function (){
     // 사내 전화번호 이벤트 작성.
     phone.addEventListener('change', function (){
         let phone_length = phone.value.length;
-        if (phone_length === 11) {
+        if (11<=phone_length<=13) {
             phone.classList.add('border_success','ok_icon');
             phone.classList.remove('border_danger','error_icon');
             phone_not_ok.className = 'd-none';
@@ -128,16 +130,40 @@ window.addEventListener('DOMContentLoaded', function (){
     // 이메일 input에 이벤트 주기
     email.addEventListener('change', function (){
         let email_length = email.value.length;
+        const emailValue = email.value;
         if (email_length < 1) {
             email.classList.add('border_danger','error_icon');
             email.classList.remove('border_success','ok_icon');
             email_blank.className = '';
         }else{
+            axios
+                .get('/checkEmail?emailValue='+emailValue)
+                .then(function (response) {
+                    console.log(response)
+                    displayEmailCheckMsg(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    })
+
+    //이메일 중복확인 함수
+    const duplicateEmailMsg = document.querySelector('#duplicateEmailMsg');
+    function displayEmailCheckMsg(data){
+        if (data === 'emailNotOk') {
+            console.log(data);
+            email.classList.add('border_danger','error_icon');
+            email.classList.remove('border_success','ok_icon');
+            duplicateEmailMsg.className = '';
+        }else{
+            console.log(data);
             email.classList.add('border_success','ok_icon');
             email.classList.remove('border_danger','error_icon');
             email_blank.className = 'd-none';
+            duplicateEmailMsg.className = 'd-none';
         }
-    })
+    }
 
     // select 박스 부서에맞게 변경되게하기
     // 부서

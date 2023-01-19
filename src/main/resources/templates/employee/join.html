@@ -138,7 +138,7 @@
                   />
               </div>
               <div id="phone_not_ok" class="d-none">
-                  <p class="text-danger">필수 정보입니다.</p>
+                  <p class="text-danger">사내전화번호는 11자이상 13자 이하로 작성해주세요.('-'포함가능)</p>
               </div>
             </div>
           </div>
@@ -194,6 +194,9 @@
               <div id="email_blank" class="d-none">
                   <p class="text-danger">필수 정보입니다.</p>
               </div>
+              <div id="duplicateEmailMsg" class="d-none">
+                <p class="text-danger">이미 존재하는 이메일 입니다.</p>
+              </div>
             </div>
           </div>
 
@@ -210,6 +213,7 @@
                   placeholder="입사일 입력"
                   name="joinedDate"
                   type="date"
+                  required
                 >
               </div>
             </div>
