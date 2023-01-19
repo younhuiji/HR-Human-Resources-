@@ -125,52 +125,52 @@
                             </div>
                         </div>
                         <div id="jb-sidebar">
-                            <h4>기안 정보 등록</h4>
-                            <form>
-                                <div class="row">
-                                    <div class="col-10">
-                                        <input type="text" class="form-control"
-                                               name="keyword" placeholder="결재자를 검색하세요" required autofocus />
+                            <form th:action="@{/businessCard/search}" method="get">
+                                <h4>기안 정보 등록</h4>
+                                <form>
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <input type="text" class="form-control"
+                                                   name="keyword" placeholder="결재자를 검색하세요" required autofocus />
+                                        </div>
+                                        <div class="col-2">
+                                            <input type="submit" class="btn btn-light" value="찾기" />
+                                        </div>
                                     </div>
-                                    <div class="col-2">
-                                        <input type="submit" class="btn btn-light" value="찾기" />
-                                    </div>
-                                </div>
+                                </form>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-2">번호</th>
+                                            <th class="col-4">결재자 지정</th>
+                                            <th class="col-6"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr th:each=" e : ${list}" >
+                                                <!-- TODO: 임원 사진 추가 하기 -->
+                                                <td></td>
+                                                <td th:text="${e.name}"></td>
+                                                <td th:text="${e.part.getPosition()}" ></td>
+                                                <td style="text-align: right">
+                                                    <input type="submit" class="btn btn-light" value="추가">
+                                                </td>
+                                            </tr>
+                                    </tbody>
+                                </table>
                             </form>
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th class="col-3">번호</th>
-                                        <th class="col-9">결재자 지정</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                        <tr>
-                                            <td > 1.</td>
-                                            <td > 000 팀장</td>
-                                            <td style="text-align: right">
-                                                <input type="submit" class="btn btn-light" value="추가">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td > 2.</td>
-                                            <td > 000 팀장</td>
-                                            <td style="text-align: right">
-                                                <input type="submit" class="btn btn-light" value="추가">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td > 3.</td>
-                                            <td > 000 팀장</td>
-                                            <td style="text-align: right">
-                                                <input type="submit" class="btn btn-light" value="추가">
-                                            </td>
-                                        </tr>
-                                </tbody>
-                            </table>
-
                         </div>
                     </div>
                 </body>
             </div>
+
+
+<td th:switch="${#strings.toString(item.stats)}" >
+    <span th:case="대기"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
+    <span th:case="할당"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
+    <span th:case="진행"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
+    <span th:case="완료"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
+    <span th:case="취소"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
+</td>
+
 </html>

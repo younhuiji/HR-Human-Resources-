@@ -2,8 +2,10 @@ package com.sohwakmo.hr.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
 
 @Embeddable
+@Getter
 public class Part {
 
     @Column(name = "DEPARTMENT_NAME",nullable = false)
