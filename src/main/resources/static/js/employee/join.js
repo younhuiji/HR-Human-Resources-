@@ -36,6 +36,9 @@ window.addEventListener('DOMContentLoaded', function (){
         }
     }
 
+    // 아이디 글자개수 제한 제약 8자이상 15자 이하
+
+
     // 비밀번호가져오기
     const password = document.querySelector('#password');
     const passwordNotOkMsg = document.querySelector('#passwordNotOkMsg');
