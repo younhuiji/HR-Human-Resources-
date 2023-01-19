@@ -43,6 +43,9 @@ public class EmployeeService {
         }else {
             photoPath = "사진미정";
         }
+        // 사내번호 문자열 처리하기
+        String companyPhone = joinDto.getPhone();
+        companyPhone = joinDto.getPhone().replaceAll("-", "");
 
 
         // 직책 기본값 설정.
@@ -52,7 +55,7 @@ public class EmployeeService {
                 .employeeNo(joinDto.getEmployeeNo())
                 .password(joinDto.getPassword())
                 .name(joinDto.getName())
-                .phone(joinDto.getPhone())
+                .phone(companyPhone)
                 .email(joinDto.getEmail())
                 .part(part)
                 .photo("/employeeImage/" + photoPath)
