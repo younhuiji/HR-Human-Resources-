@@ -205,6 +205,7 @@ window.addEventListener('DOMContentLoaded', function (){
     const team_develop = document.querySelectorAll('.develop');
     const team_human = document.querySelectorAll('.human');
     // 맡은일
+    const work = document.querySelector('#work');
     department.addEventListener('change',function (){
         let department_value = department.value;
         console.log(department_value);
@@ -229,6 +230,9 @@ window.addEventListener('DOMContentLoaded', function (){
         }
     })
 
+    // 입사일
+    const joinedDate = document.querySelector('#joinedDate');
+
     // 가입하기 버튼 활성화 / 비활성화
     const btnSubmit = document.querySelector('#btnSubmit');
     const form = document.querySelector('#form');
@@ -247,11 +251,16 @@ window.addEventListener('DOMContentLoaded', function (){
         phone.value===''||
         email.value===''){
             alert('작성되지 않은 내용이 있습니다.')
+        }else if(department.value===''||team.value===''||work.value===''){
+            alert("소속을 입력해주세요");
+        }else if(joinedDate.value===''){
+            alert('입사일을 입력해주세요.');
         }
         else{
             form.action = "/join";
             form.method = "post";
             form.submit();
+            alert('가입을 환영합니다.')
         }
     })
 
