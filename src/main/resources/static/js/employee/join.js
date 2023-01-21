@@ -2,20 +2,19 @@ window.addEventListener('DOMContentLoaded', function (){
 
     // input 아이디 가져오기
     const employeeNo = document.querySelector('#employeeNo');
-
     // 아이디 입력시 변화 감지
-    employeeNo.addEventListener('keydown',function(){
-        const employeeNoValue = employeeNo.value;
+    employeeNo.addEventListener('keyup',function(){
+        let employeeNoValue = employeeNo.value;
         const employeeNoLength = employeeNoValue.length;
         const employeeNo_length_errorMsg = document.querySelector('#employeeNo_length_errorMsg');
         console.log(employeeNoLength);
-        if (employeeNoLength < 8 || employeeNoLength > 15) {
+        if (employeeNoLength < 8) {
             employeeNo_length_errorMsg.classList.remove('d-none');
             inputEmployeeNo.classList.add('error_icon','border_danger')
             inputEmployeeNo.classList.remove('border_success', 'ok_icon');
             employeeNoOkMsg.className = 'd-none';
-            return;
         }else{
+            console.log(employeeNoValue);
             axios
                 .get('/checkNo?employeeNoValue='+employeeNoValue)
                 .then(function (response) {
@@ -46,6 +45,7 @@ window.addEventListener('DOMContentLoaded', function (){
             inputEmployeeNo.classList.add('error_icon','border_danger')
             inputEmployeeNo.classList.remove('border_success', 'ok_icon');
             employeeNoOkMsg.className = 'd-none';
+            employeeNo_length_errorMsg.className = 'd-none';
         }
     }
 
@@ -56,9 +56,9 @@ window.addEventListener('DOMContentLoaded', function (){
     const password = document.querySelector('#password');
     const passwordNotOkMsg = document.querySelector('#passwordNotOkMsg');
     // 비밀번호 입력시 체크
-    password.addEventListener('change', function (){
+    password.addEventListener('keydown', function (){
         let pw_length = password.value.length
-        if (pw_length< 8 || pw_length > 15) {
+        if (pw_length< 7) {
             passwordNotOkMsg.className = '';
             password.classList.add('border_danger','error_icon')
             password.classList.remove('border_success','ok_icon');
@@ -109,24 +109,49 @@ window.addEventListener('DOMContentLoaded', function (){
     // 사내 전화번호
     const phone = document.querySelector('#phone');
     const phone_not_ok = document.querySelector('#phone_not_ok');
-
+    const phone_duplicate = document.querySelector('#phone_duplicate');
     // 사내 전화번호 이벤트 작성.
-    phone.addEventListener('change', function (){
+    phone.addEventListener('keyup', function (){
         let phone_length = phone.value.length;
-        if (11<=phone_length<=13) {
-            phone.classList.add('border_success','ok_icon');
-            phone.classList.remove('border_danger','error_icon');
-            phone_not_ok.className = 'd-none';
-        }else{
+        let phoneValue = phone.value;
+        if (phone_length<10) {
             phone.classList.add('border_danger','error_icon');
             phone.classList.remove('border_success','ok_icon');
             phone_not_ok.className = '';
+        }else{
+            axios
+                .get('/checkPhone?phoneValue='+phoneValue)
+                .then(function (response) {
+                    console.log(response.data)
+                    displayPhoneCheckMsg(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
         }
     })
+
+    // 사내전화 중복확인 axios 결과
+    function displayPhoneCheckMsg(data) {
+        if (data === 'phoneOk') {
+            phone.classList.add('border_success','ok_icon');
+            phone.classList.remove('border_danger','error_icon');
+            phone_not_ok.className = 'd-none';
+            phone_duplicate.className = 'd-none';
+        }else{
+            phone.classList.add('border_danger','error_icon');
+            phone.classList.remove('border_success','ok_icon');
+            phone_duplicate.className = '';
+            phone_not_ok.className = 'd-none';
+        }
+    }
+
 
     // 이메일 값 가져오기
     const email = document.querySelector('#email');
     const email_blank = document.querySelector('#email_blank');
+    const duplicateEmailMsg = document.querySelector('#duplicateEmailMsg');
     // 이메일 input에 이벤트 주기
     email.addEventListener('change', function (){
         let email_length = email.value.length;
@@ -135,11 +160,13 @@ window.addEventListener('DOMContentLoaded', function (){
             email.classList.add('border_danger','error_icon');
             email.classList.remove('border_success','ok_icon');
             email_blank.className = '';
+            duplicateEmailMsg.className = 'd-none';
+
         }else{
             axios
                 .get('/checkEmail?emailValue='+emailValue)
                 .then(function (response) {
-                    console.log(response)
+                    console.log(response.data)
                     displayEmailCheckMsg(response.data);
                 })
                 .catch(function (error) {
@@ -149,7 +176,7 @@ window.addEventListener('DOMContentLoaded', function (){
     })
 
     //이메일 중복확인 함수
-    const duplicateEmailMsg = document.querySelector('#duplicateEmailMsg');
+
     function displayEmailCheckMsg(data){
         if (data === 'emailNotOk') {
             console.log(data);

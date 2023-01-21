@@ -29,15 +29,21 @@ public class EmployeeRestController {
         }
     }
 
+    @GetMapping("/checkPhone")
+    public ResponseEntity<String> checkPone(String phoneValue) {
+        log.info("phoneValue={}", phoneValue);
+        boolean doubleCheckPhoneValue = employeeService.phoneDoubleCheck(phoneValue);
+        if (doubleCheckPhoneValue) return ResponseEntity.ok("phoneNotOk");
+        else return ResponseEntity.ok("phoneOk");
+    }
+
     @GetMapping("/checkEmail")
-    public ResponseEntity<String> checkEmail(String email) {
-        log.info("email={}", email);
-        boolean doubleCheckResult = employeeService.emailDoubleCheck(email);
-        if (doubleCheckResult) {
-            return ResponseEntity.ok("emailOk");
-        }else{
-            return ResponseEntity.ok("emailNotOk");
-        }
+    public ResponseEntity<String> checkEmail(String emailValue) {
+        log.info("email={}", emailValue);
+        boolean doubleCheckResult = employeeService.emailDoubleCheck(emailValue);
+        if (doubleCheckResult) return ResponseEntity.ok("emailNotOk");
+        else return ResponseEntity.ok("emailOk");
+
     }
 
 }

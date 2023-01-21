@@ -11,6 +11,15 @@
   <link rel="stylesheet" th:href="@{/css/employee/join.css}" />
     <title>제목미정</title>
 </head>
+<!--input type number를 자르기 위해서-->
+<script type="text/javascript">
+  function maxLengthCheck(object){
+    if (object.value.length > object.maxLength){
+      object.value = object.value.slice(0, object.maxLength);
+    }
+  }
+</script>
+
 <body id="body">
   <div id="wrap">
     <div id ="header">
@@ -36,10 +45,12 @@
                 <input
                         type="number"
                         class="allInputBox"
+                        maxlength="10"
+                        oninput="maxLengthCheck(this)"
                         id="employeeNo"
                         name="employeeNo"
                         required
-                        autofocus/>
+                        />
                 </span>
                 <div id="employeeNoOk" class="d-none">
                   <p>사용할 수 있는 번호 입니다.</p>
@@ -48,7 +59,7 @@
                   <p>이미 사용중이거나 사용할 수 없는 아이디 입니다.</p>
                 </div>
                 <div id="employeeNo_length_errorMsg" class="d-none">
-                  <p class="text-danger">비밀번호는 8자이상 15자이하여야 합니다.</p>
+                  <p class="text-danger">사원번호는 8자이상 10자이하여야 합니다.</p>
                 </div>
               </div>
             </div>
@@ -67,6 +78,7 @@
                         type="password"
                         class="allInputBox"
                         id="password"
+                        maxlength="15"
                         name="password"
                         required/>
                 <div id="passwordNotOkMsg" class="d-none">
@@ -89,6 +101,7 @@
                   <input
                     type="password"
                     class="allInputBox"
+                    maxlength="15"
                     id="check_password"
                     name="check_password"
                     required
@@ -112,6 +125,7 @@
                     type="text"
                     class="allInputBox"
                     id="name"
+                    maxlength="10"
                     name="name"
                     required
                   />
@@ -132,6 +146,7 @@
                   <input
                           type="text"
                           class="allInputBox"
+                          maxlength="13"
                           id="phone"
                           name="phone"
                           required
@@ -139,6 +154,9 @@
               </div>
               <div id="phone_not_ok" class="d-none">
                   <p class="text-danger">사내전화번호는 11자이상 13자 이하로 작성해주세요.('-'포함가능)</p>
+              </div>
+              <div id="phone_duplicate" class="d-none">
+                <p class="text-danger">이미 사용중인 사내전화 입니다.</p>
               </div>
             </div>
           </div>

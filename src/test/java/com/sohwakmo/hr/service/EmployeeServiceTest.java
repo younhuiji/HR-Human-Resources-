@@ -26,8 +26,15 @@ class EmployeeServiceTest {
 
     @Test
     public void checkEmail(){
-        String email = "asdcz@naver.com";
+        String email = "lee@test.com";
         boolean result = employeeRepository.existsByEmail(email);
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void checkPhone() {
+        String phone = "010-000-000";
+        boolean result = employeeRepository.existsByPhone(phone);
         Assertions.assertTrue(result);
     }
 
