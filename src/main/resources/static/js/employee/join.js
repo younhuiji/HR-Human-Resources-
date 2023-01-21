@@ -7,14 +7,12 @@ window.addEventListener('DOMContentLoaded', function (){
         let employeeNoValue = employeeNo.value;
         const employeeNoLength = employeeNoValue.length;
         const employeeNo_length_errorMsg = document.querySelector('#employeeNo_length_errorMsg');
-        console.log(employeeNoLength);
         if (employeeNoLength < 8) {
             employeeNo_length_errorMsg.classList.remove('d-none');
             inputEmployeeNo.classList.add('error_icon','border_danger')
             inputEmployeeNo.classList.remove('border_success', 'ok_icon');
             employeeNoOkMsg.className = 'd-none';
         }else{
-            console.log(employeeNoValue);
             axios
                 .get('/checkNo?employeeNoValue='+employeeNoValue)
                 .then(function (response) {
@@ -122,7 +120,6 @@ window.addEventListener('DOMContentLoaded', function (){
             axios
                 .get('/checkPhone?phoneValue='+phoneValue)
                 .then(function (response) {
-                    console.log(response.data)
                     displayPhoneCheckMsg(response.data);
                 })
                 .catch(function (error) {
@@ -152,6 +149,7 @@ window.addEventListener('DOMContentLoaded', function (){
     const email = document.querySelector('#email');
     const email_blank = document.querySelector('#email_blank');
     const duplicateEmailMsg = document.querySelector('#duplicateEmailMsg');
+    const notEmailForm = document.querySelector('#notEmailForm');
     // 이메일 input에 이벤트 주기
     email.addEventListener('change', function (){
         let email_length = email.value.length;
@@ -161,34 +159,40 @@ window.addEventListener('DOMContentLoaded', function (){
             email.classList.remove('border_success','ok_icon');
             email_blank.className = '';
             duplicateEmailMsg.className = 'd-none';
-
-        }else{
-            axios
-                .get('/checkEmail?emailValue='+emailValue)
-                .then(function (response) {
-                    console.log(response.data)
-                    displayEmailCheckMsg(response.data);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+        } else{
+            const substring = '@';
+            if (emailValue.indexOf(substring) === -1) {
+                email.classList.add('border_danger','error_icon');
+                email.classList.remove('border_success','ok_icon');
+                email_blank.className = 'd-none';
+                duplicateEmailMsg.className = 'd-none';
+                notEmailForm.className = '';
+            }else{
+                axios
+                    .get('/checkEmail?emailValue='+emailValue)
+                    .then(function (response) {
+                        console.log(response.data)
+                        displayEmailCheckMsg(response.data);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
         }
     })
 
     //이메일 중복확인 함수
-
     function displayEmailCheckMsg(data){
         if (data === 'emailNotOk') {
-            console.log(data);
             email.classList.add('border_danger','error_icon');
             email.classList.remove('border_success','ok_icon');
             duplicateEmailMsg.className = '';
         }else{
-            console.log(data);
             email.classList.add('border_success','ok_icon');
             email.classList.remove('border_danger','error_icon');
             email_blank.className = 'd-none';
             duplicateEmailMsg.className = 'd-none';
+            notEmailForm.className = 'd-none';
         }
     }
 
@@ -224,6 +228,34 @@ window.addEventListener('DOMContentLoaded', function (){
             }
         }
     })
+
+    // 가입하기 버튼 활성화 / 비활성화
+    const btnSubmit = document.querySelector('#btnSubmit');
+    const form = document.querySelector('#form');
+    btnSubmit.addEventListener('click',function (){
+        if(employeeNo.classList.contains('border_danger')||
+            password.classList.contains('border_danger')||
+            check_password.classList.contains('border_danger')||
+            name.classList.contains('border_danger')||
+            phone.classList.contains('border_danger')||
+            email.classList.contains('border_danger')){
+            alert("형식에 맞게 작성해 주세요.")
+        }else if(employeeNo.value===''||
+        password.value===''||
+        check_password.value===''||
+        name.value===''||
+        phone.value===''||
+        email.value===''){
+            alert('작성되지 않은 내용이 있습니다.')
+        }
+        else{
+            form.action = "/join";
+            form.method = "post";
+            form.submit();
+        }
+    })
+
+
 })
 
 const photo = document.querySelector('#photo');

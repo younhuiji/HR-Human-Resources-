@@ -30,7 +30,7 @@
       </div>
     </div> <!--header 끝-->
     <div id="joinFrom">
-      <form method = "post" id="form" th:action="@{/join}" enctype="multipart/form-data">
+      <form id="form"  enctype="multipart/form-data">
         <div>
           <!--아이디(사원번호 입력)-->
           <div>
@@ -207,13 +207,16 @@
                 <label for="email" id="email_lbl" class="form-label">이메일</label>
               </div>
               <div>
-                  <input type="email" id="email" name="email" class="allInputBox"/>
+                  <input type="email" id="email" name="email" class="allInputBox" maxlength="30"/>
               </div>
               <div id="email_blank" class="d-none">
                   <p class="text-danger">필수 정보입니다.</p>
               </div>
               <div id="duplicateEmailMsg" class="d-none">
                 <p class="text-danger">이미 존재하는 이메일 입니다.</p>
+              </div>
+              <div id="notEmailForm" class="d-none">
+                <p class="text-danger">이메일 양식을 지켜주세요(@ 미포함)</p>
               </div>
             </div>
           </div>
@@ -243,7 +246,6 @@
               type="submit"
               value="가입하기"
               id="btnSubmit"
-              class="disabled"
               />
           </div>
 
