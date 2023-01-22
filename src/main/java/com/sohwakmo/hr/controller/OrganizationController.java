@@ -14,4 +14,7 @@ public class OrganizationController {
     public void orgList(){
         log.info("orgList()");
     }
+
+    @GetMapping("/calendar")
+    public void calendar(){log.info("calendar()");}
 }
