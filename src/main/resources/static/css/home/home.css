@@ -1,0 +1,26 @@
+#wrap{
+    margin: 2% 3%;
+}
+#headerMsg{
+    border: solid 1px #dadada;
+    border-radius: 15px;
+    box-shadow : 2px 3px 5px 0px ;
+}
+#headerMsg h3{
+    padding: 12px;
+    display: inline-block;
+}
+
+#myWork{
+    margin-top: 2%;
+    margin-right: 2%;
+    border: 1px solid black;
+    display: inline-block;
+    padding: 12px 25% 12px 12px;
+}
+
+#todo{
+    display: inline-block;
+    border: 1px solid black;
+    padding: 1%;
+}
