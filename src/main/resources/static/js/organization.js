@@ -7,6 +7,43 @@ window.addEventListener('DOMContentLoaded', event =>{
     const orgTree = document.querySelector('#orgTree');
 
     readAllOrgList();
+    let orgMember;
+
+    //사용자 상세정보
+    const name = document.querySelector('#name');
+    const phone = document.querySelector('#phone');
+    const department = document.querySelector('#department');
+    const team = document.querySelector('#team')
+    const level = document.querySelector('#level');
+    const work = document.querySelector('#work');
+
+    function updateDetailInfo(member) {
+        console.log(member);
+        name.value = member[0].name;
+        phone.value = member[0].phone;
+        department.value = member[0].department;
+        team.value = member[0].team;
+        level.value = member[0].position;
+        work.value = member[0].work;
+
+        
+    }
+
+    function findByMemeber(orgMember) {
+        for(let i = 0; i<orgMember.length; i++){
+            orgMember[i].addEventListener('click', (e) => {
+                let memberNo = orgMember[i].getAttribute('data-id');
+                axios.get('/api/org/memberInfo/'+ memberNo)
+                    .then(response =>{
+                        updateDetailInfo(response.data)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            })
+        }
+    }
+
 
     function readAllOrgList() {
         axios.get('/api/org/allList')
@@ -42,7 +79,9 @@ window.addEventListener('DOMContentLoaded', event =>{
                     + '<ul>'
                 team = l.team;
             }
-            str += '<li><span class="tree_label">' + l.name +' '+ l.position + '</span></li>'
+            str += '<li>'
+                // + '<input class="tree_label" type="text" data-id='+l.id+' value='+l.name +' '+ l.position +' readonly/></li>'
+                + '<span class="tree_label" id="memberInfo" data-id="'+l.id+'">' + l.name +' '+ l.position + '</span></li>'
 
         }
 
@@ -64,8 +103,14 @@ window.addEventListener('DOMContentLoaded', event =>{
 
         orgTree.innerHTML = str;
 
-        console.log(str)
+        orgMember = document.querySelectorAll('#memberInfo')
+        findByMemeber(orgMember)
+
+
     }
+
+
+
 
 });
 

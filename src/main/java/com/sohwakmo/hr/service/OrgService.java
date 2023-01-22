@@ -25,4 +25,14 @@ public class OrgService {
                 .toList();
     }
 
+    public List<OrgReadDto> readMemberInfo(Long memberNo) {
+        log.info("readMemberInfo(member={})", memberNo);
+
+        List<Employee> memberInfo = orgRepository.findById(memberNo);
+        log.info("memberInfo={}", memberInfo);
+
+        return memberInfo.stream()
+                .map(OrgReadDto::fromEntity)
+                .toList();
+    }
 }
