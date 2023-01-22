@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,13 +18,14 @@ import java.util.List;
 public class OrgRestController {
     private final OrgService orgService;
 
-    @GetMapping("/all/{team}")
-    public ResponseEntity<List<OrgReadDto>> readAllOrgMember(@PathVariable String team){
-        log.info("readAllOrgMember(team={})",team);
+    @GetMapping("/allList")
+    public ResponseEntity<List<OrgReadDto>> readAllOrgList(){
+        log.info("readAllOrgList()");
 
-        List<OrgReadDto> list = orgService.readOrgMember(team);
+        List<OrgReadDto> list = orgService.readAllOrgList();
         log.info("# of list={}", list.size());
         return ResponseEntity.ok(list);
     }
+
 
 }

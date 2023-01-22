@@ -2,49 +2,71 @@
  * organization View
  */
 window.addEventListener('DOMContentLoaded', event =>{
-    console.log("org()!!!!")
 
-    //checkbox 여부
-    const team1_Level2 = document.querySelector('#team1_Level2');
-    const team2_Level2 = document.querySelector('#team2_Level2');
-
-    //innerhtml
-    const team1 = document.querySelector('#team1');
-    const team2 = document.querySelector('#team2');
-
-    //team check
-    const team1Input = document.querySelector('#team1Input')
+    //innerHTML ID
+    const orgTree = document.querySelector('#orgTree');
 
     readAllOrgList();
 
-    //일단 팀1만 load
-    function readAllOrgList(){
-        axios.get('/api/org/all/'+ team1Input.value)
+    function readAllOrgList() {
+        axios.get('/api/org/allList')
             .then(response => {
                 updateOrgList(response.data)
             })
             .catch(err => {
-                console.log(err);
+                console.log(err)
             })
-
     }
 
-    function updateOrgList(data) {
+    function updateOrgList(orgList) {
         let str = '';
-        for(let m of data){
-            str += '<li><span class="tree_label">'+m.name +' '+ m.position+'</span></li>'
+
+        //현재 depart, team값
+        let depart = '';
+        let team = '';
+
+        for (let l of orgList) {
+            if (l.department != depart) {
+                endDepartTag()
+                str += '<li>'
+                    + '<input type="checkbox" id="' + l.department + '"/>'
+                    + '<label class="tree_label" for="' + l.department + '">' + l.department + '</label>'
+                    + '<ul>'
+                depart = l.department;
+            }
+            if (l.team != team) {
+                endTeamTag()
+                str +='<li>'
+                    + '<input type="checkbox" id="' + l.team + '"/>'
+                    + '<label for="' + l.team + '" class="tree_label">' + l.team + '</label>'
+                    + '<ul>'
+                team = l.team;
+            }
+            str += '<li><span class="tree_label">' + l.name +' '+ l.position + '</span></li>'
+
         }
-        team1.innerHTML = str;
+
+        function endDepartTag(){
+            if(depart != '') {
+                endTeamTag()
+                str +='</ul>'
+                    + '</li>'
+                team = '';
+            }
+        }
+
+        function endTeamTag(){
+            if(team != '') {
+                str += '</ul>'
+                    + '</li>'
+            }
+        }
+
+        orgTree.innerHTML = str;
 
         console.log(str)
     }
 
-    // const li = document.querySelectorAll('.tree_label li')
-    // for(let i = 0; i<li.length; i++){
-    //     li[i].addEventListener('click',(e) => {
-    //         console.log(e.target.innerText);
-    //     });
-    // }
 });
 
 

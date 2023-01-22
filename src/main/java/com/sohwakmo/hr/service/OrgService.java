@@ -16,12 +16,13 @@ public class OrgService {
 
     private final OrgRepository orgRepository;
 
-    public List<OrgReadDto> readOrgMember(String team) {
-        log.info("readOrgMember(team={})", team);
-        List<Employee> list = orgRepository.findByPartTeamOrderByIdDesc(team);
+    public List<OrgReadDto> readAllOrgList() {
+        log.info("readAllOrgList()");
+        List<Employee> list = orgRepository.findByOrderByPartDepartmentAscPartTeamAscEmployeePositionDesc();
 
         return list.stream()
                 .map(OrgReadDto::fromEntity)
                 .toList();
     }
+
 }

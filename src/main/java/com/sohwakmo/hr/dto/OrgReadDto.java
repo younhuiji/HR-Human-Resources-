@@ -1,6 +1,7 @@
 package com.sohwakmo.hr.dto;
 
 import com.sohwakmo.hr.domain.Employee;
+import com.sohwakmo.hr.domain.EmployeePosition;
 import com.sohwakmo.hr.domain.Part;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,9 +18,13 @@ public class OrgReadDto {
     private String name;
     private String phone;
     private String photo;
-    private Part part;
+    private String department;
+    private String team;
+    private String work;
     private String position;
+    private EmployeePosition employeePosition;
     private String email;
+
 
     public static OrgReadDto fromEntity(Employee entity){
         return OrgReadDto.builder()
@@ -27,8 +32,11 @@ public class OrgReadDto {
                 .name(entity.getName())
                 .phone(entity.getPhone())
                 .photo(entity.getPhoto())
-                .part(entity.getPart())
+                .department(entity.getPart().getDepartment())
+                .team(entity.getPart().getTeam())
+                .work(entity.getPart().getWork())
                 .position(entity.getPart().getPosition())
+                .employeePosition(entity.getEmployeePosition())
                 .email(entity.getEmail())
                 .build();
     }
