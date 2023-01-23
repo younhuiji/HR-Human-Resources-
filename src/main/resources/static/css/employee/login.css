@@ -1,0 +1,41 @@
+body{
+    background: #f5f5f5;
+}
+.wrapper {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+}
+
+#logoText{
+    text-align: center;
+}
+
+/*--------------로고--------------*/
+
+.input_interval{
+    margin: 1%;
+}
+
+#employeeNo,#password{
+    padding: 2%;
+    width: 100%;
+}
+
+/*--------------로그인 인풋 박스-------------*/
+
+#login_button button{
+    width: 100%;
+    border: 1px solid black;
+    margin: 1%;
+}
+
+/*--------------로그인 버튼--------------*/
+#find span{
+    text-align: center;
+    font-size: 13px;
+    margin-left: 12px;
+}
+#find #find_password_msg #join{
+    margin-left: 5%;
+}

@@ -20,6 +20,13 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
+    @GetMapping("/login")
+    public String login() {
+
+        return "/employee/login";
+    }
+
+
     @GetMapping("/join")
     public String join(){
         return "/employee/join";
