@@ -11,9 +11,11 @@
     background: white;
 }
 #headerMsg h3{
-    padding: 12px;
+    padding: 20px 20px 20px 30px;
     display: inline-block;
 }
+
+/*-------------------header------------------------*/
 
 #myWork{
     margin-top: 2%;
@@ -28,8 +30,11 @@
     color: white;
 }
 
+/*-------------------myWork------------------------*/
+
 #todo{
     display: inline-block;
     border: 1px solid black;
     padding: 1%;
 }
+/*-------------------문서결제------------------------*/
