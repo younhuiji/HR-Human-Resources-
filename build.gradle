@@ -33,6 +33,15 @@ dependencies {
 	// Thymeleaf에 layout 기능을 추가하기 위해서.
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
 
+	// Spring Security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	// Thymeleaf의 Spring Security 확장 기능
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+	// Spring Security Test
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
 }
 
 tasks.named('test') {
