@@ -35,12 +35,9 @@ dependencies {
 
 	// Spring Security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	// Thymeleaf의 Spring Security 확장 기능
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-
-	// Spring Security Test
-	testImplementation 'org.springframework.security:spring-security-test'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//  Temporary explicit version to fix Thymeleaf bug
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+	implementation 'org.springframework.security:spring-security-test'
 
 }
 
