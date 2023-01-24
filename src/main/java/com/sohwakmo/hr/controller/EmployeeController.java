@@ -5,6 +5,7 @@ import com.sohwakmo.hr.dto.EmployeeJoinDto;
 import com.sohwakmo.hr.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +27,7 @@ public class EmployeeController {
         return "/employee/login";
     }
 
-
+//    @PreAuthorize("isAuthenticated()")
     @GetMapping("/join")
     public String join(){
         return "/employee/join";

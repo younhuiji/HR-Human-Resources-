@@ -67,7 +67,7 @@ public class EmployeeService {
                 .photo("/employeeImage/" + photoPath)
                 .joinedDate(joinDto.getJoinedDate())
                 .build();
-        employee.setEmployeePosition(EmployeePosition.LEVEL_1);
+        employee.addRole(EmployeePosition.LEVEL_1);
         log.info("employee={}", employee.toString());
         employeeRepository.save(employee);
     }
@@ -92,7 +92,7 @@ public class EmployeeService {
      * @param employeeNoValue 회원가입 페이지에서 작성한 사원번호
      * @return 존재하면 true, 존재하지 않으면 false
      */
-    public boolean employeeNoDoubleCheck(Integer employeeNoValue) {
+    public boolean employeeNoDoubleCheck(String employeeNoValue) {
         return employeeRepository.existsByEmployeeNo(employeeNoValue);
     }
 

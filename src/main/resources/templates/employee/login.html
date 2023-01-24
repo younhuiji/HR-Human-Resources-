@@ -13,20 +13,25 @@
             <div id="logoText">
                 <a href="#">로고가들어가게</a>
             </div>
-            <div id="login_box">
-                <div id="employeeNo_box" class="input_interval">
-                    <label for="employeeNo">사원번호</label>
-                    <input type="text" id="employeeNo" name="#"/>
+            <form th:acntion="@{/login}" method="post">
+                <div id="login_box">
+                    <div id="employeeNo_box" class="input_interval">
+                        <label for="employeeNo">사원번호</label>
+                        <input type="text" id="employeeNo" name="username"/>
+                    </div>
+                    <div id="password_box" class="input_interval">
+                        <label for="password">비밀번호</label>
+                        <input type="password" id="password" name="password"/>
+                    </div>
                 </div>
-                <div id="password_box" class="input_interval">
-                    <label for="password">비밀번호</label>
-                    <input type="password" id="password" name="#"/>
+                <div id="login_button">
+                    <input type="submit" value="로그인"/>
                 </div>
+            </form>
+           <!--에러메시지-->
+            <div th:if="${param.error}">
+                <p class="text-danger">사원번호와 비밀번호를 다시 확인해주세요.</p>
             </div>
-            <div id="login_button">
-                <button>로그인</button>
-            </div>
-
             <div id="find">
                 <span>아이디 찾기</span>
                 <span id="find_password_msg">비밀번호 찾기</span>
