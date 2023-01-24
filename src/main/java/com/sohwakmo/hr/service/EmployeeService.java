@@ -7,6 +7,7 @@ import com.sohwakmo.hr.dto.EmployeeJoinDto;
 import com.sohwakmo.hr.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +22,7 @@ import java.util.Date;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * 회원가입
@@ -51,6 +53,10 @@ public class EmployeeService {
         // 직책 기본값 설정.
         part.setPosition("사원");
 
+        // 비밀번호 암호화
+        joinDto.setPassword(passwordEncoder.encode(joinDto.getPassword()));
+
+        // 설정을 완료하고 사원 객체로 변환후 저장.
         Employee employee = Employee.builder()
                 .employeeNo(joinDto.getEmployeeNo())
                 .password(joinDto.getPassword())
@@ -61,7 +67,7 @@ public class EmployeeService {
                 .photo("/employeeImage/" + photoPath)
                 .joinedDate(joinDto.getJoinedDate())
                 .build();
-        employee.setEmployeePosition(EmployeePosition.LEVEL_1);
+        employee.addRole(EmployeePosition.LEVEL_1);
         log.info("employee={}", employee.toString());
         employeeRepository.save(employee);
     }
@@ -86,7 +92,7 @@ public class EmployeeService {
      * @param employeeNoValue 회원가입 페이지에서 작성한 사원번호
      * @return 존재하면 true, 존재하지 않으면 false
      */
-    public boolean employeeNoDoubleCheck(Integer employeeNoValue) {
+    public boolean employeeNoDoubleCheck(String employeeNoValue) {
         return employeeRepository.existsByEmployeeNo(employeeNoValue);
     }
 

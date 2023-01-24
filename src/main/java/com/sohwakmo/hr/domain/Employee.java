@@ -1,12 +1,12 @@
 package com.sohwakmo.hr.domain;
 
-import jakarta.persistence.*;
-import lombok.*;
 
-import java.time.LocalDateTime;
+import lombok.*;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 
 @Entity
 @NoArgsConstructor
@@ -24,7 +24,7 @@ public class Employee {
     private Long id;
 
     @Column(nullable = false,unique = true)
-    private Integer employeeNo; // 사원 번호
+    private String employeeNo; // 사원 번호
 
     @Column(nullable = false)
     private String password;
@@ -48,6 +48,14 @@ public class Employee {
     @Column(nullable = false)
     private Date joinedDate; // 입사일
 
+
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    private EmployeePosition employeePosition; // 직책에따른 권한
+    @Builder.Default
+    private Set<EmployeePosition> employeePosition = new HashSet<>(); // 직책에따른 권한
+
+    public Employee addRole(EmployeePosition position) {
+        employeePosition.add(position);
+        return this;
+    }
 }

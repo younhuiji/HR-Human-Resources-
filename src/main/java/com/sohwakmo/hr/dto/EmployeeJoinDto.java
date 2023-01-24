@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 @Builder
 public class EmployeeJoinDto {
-    private Integer employeeNo;
+    private String employeeNo;
     private String password;
     private String name;
     private String phone; // 사내 전화번호

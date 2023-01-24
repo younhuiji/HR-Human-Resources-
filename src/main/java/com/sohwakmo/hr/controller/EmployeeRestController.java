@@ -18,7 +18,7 @@ public class EmployeeRestController {
      * @return
      */
     @GetMapping("/checkNo")
-    public ResponseEntity<String> checkEmployeeNo(Integer employeeNoValue) {
+    public ResponseEntity<String> checkEmployeeNo(String employeeNoValue) {
         log.info("employeeNoValue={}", employeeNoValue);
         // 아이디가 있는지 중복확인
         boolean doubleCheckResult = employeeService.employeeNoDoubleCheck(employeeNoValue);

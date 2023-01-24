@@ -12,7 +12,7 @@
 <div id="body">
     <div id="wrap">
         <div id="headerMsg">
-            <h3>Hi! ~ 님</h3>
+            <h3>Hi! <span th:text="${#authentication.principal.name}"></span>님</h3>
             <span>~님의 업무 환영 문구~</span>
         </div>
 
