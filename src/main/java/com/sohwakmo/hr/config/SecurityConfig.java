@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity //
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean // 스프링 컨텍스트에서 생성, 관리하는 객체 - 필요한 곳에 의존성 주입.
@@ -22,11 +22,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeHttpRequests((requests) -> requests.requestMatchers("/", "/home").permitAll()
-                        .anyRequest().authenticated())
+        http
+                .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/", "/home").permitAll()
+                        .anyRequest().authenticated()
+                )
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .permitAll())
+                        .permitAll()
+                )
                 .logout(LogoutConfigurer::permitAll);
         return http.build();
     }
