@@ -1,0 +1,112 @@
+/**
+ * calendar.js
+ */
+
+document.addEventListener('DOMContentLoaded', function() {
+    //today
+    var today = new Date();
+
+    var year = today.getFullYear();
+    var month = ('0' + (today.getMonth() + 1)).slice(-2);
+    var day = ('0' + today.getDate()).slice(-2);
+
+    var dateString = year + '-' + month  + '-' + day;
+    console.log(dateString);
+
+    //calendar call
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        initialDate: dateString,
+        navLinks: true, // can click day/week names to navigate views
+        selectable: true,
+        selectMirror: true,
+        select: function(arg) {
+            var title = prompt('Event Title:');
+            if (title) {
+                calendar.addEvent({
+                    title: title,
+                    start: arg.start,
+                    end: arg.end,
+                    allDay: arg.allDay
+                })
+            }
+            calendar.unselect()
+        },
+        eventClick: function(arg) {
+            if (confirm('Are you sure you want to delete this event?')) {
+                arg.event.remove()
+            }
+        },
+        editable: true,
+        dayMaxEvents: true, // allow "more" link when too many events
+        events: schedule()
+
+    });
+
+    calendar.render();
+
+    function schedule() {
+        return [
+            {
+                title: '회의 1',
+                start: '2023-01-25'
+            },
+            {
+                title: 'Long Event',
+                start: '2020-09-07',
+                end: '2020-09-10'
+            },
+            {
+                groupId: 999,
+                title: 'Repeating Event',
+                start: '2020-09-09T16:00:00'
+            },
+            {
+                groupId: 999,
+                title: 'Repeating Event',
+                start: '2020-09-16T16:00:00'
+            },
+            {
+                title: 'Conference',
+                start: '2020-09-11',
+                end: '2020-09-13'
+            },
+            {
+                title: 'Meeting',
+                start: '2020-09-12T10:30:00',
+                end: '2020-09-12T12:30:00'
+            },
+            {
+                title: 'Lunch',
+                start: '2020-09-12T12:00:00'
+            },
+            {
+                title: 'Meeting',
+                start: '2020-09-12T14:30:00'
+            },
+            {
+                title: 'Happy Hour',
+                start: '2020-09-12T17:30:00'
+            },
+            {
+                title: 'Dinner',
+                start: '2020-09-12T20:00:00'
+            },
+            {
+                title: 'Birthday Party',
+                start: '2020-09-13T07:00:00'
+            },
+            {
+                title: 'Click for Google',
+                url: 'http://google.com/',
+                start: '2020-09-28'
+            }
+        ]
+    }
+});

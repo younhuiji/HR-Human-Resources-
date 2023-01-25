@@ -6340,8 +6340,8 @@ var FullCalendar = (function (exports) {
                 ref: chunkConfig.elRef,
                 role: 'presentation',
             }, h("div", { className: `fc-scroller-harness${isLiquid ? ' fc-scroller-harness-liquid' : ''}` },
-                h(Scroller, { ref: this.scrollerRefs.createRef(sectionKey), elRef: this.scrollerElRefs.createRef(sectionKey), overflowY: overflowY, overflowX: !props.liquid ? 'visible' : 'hidden' /* natural height? */, maxHeight: sectionConfig.maxHeight, liquid: isLiquid, liquidIsAbsolute // because its within a harness
-                    : true }, content)));
+                h(Scroller, { ref: this.scrollerRefs.createRef(sectionKey), elRef: this.scrollerElRefs.createRef(sectionKey), overflowY: overflowY, overflowX: !props.liquid ? 'visible' : 'hidden' /* natural height? */, maxHeight: sectionConfig.maxHeight, liquid: isLiquid,
+                    liquidIsAbsolute : true }, content)));
         }
         _handleScrollerEl(scrollerEl, key) {
             let section = getSectionByKey(this.props.sections, key);
