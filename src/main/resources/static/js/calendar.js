@@ -13,10 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var dateString = year + '-' + month  + '-' + day;
     console.log(dateString);
 
-    //modal
-     const divModal = document.querySelector('#calendarModal')
-     const calendarModal = new bootstrap.Modal(divModal)
-
     //schedule Array
     let scheList = [];
 
