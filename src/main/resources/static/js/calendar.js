@@ -13,6 +13,14 @@ document.addEventListener('DOMContentLoaded', function() {
     var dateString = year + '-' + month  + '-' + day;
     console.log(dateString);
 
+    //modal
+     const divModal = document.querySelector('#calendarModal')
+     const calendarModal = new bootstrap.Modal(divModal)
+
+    //schedule Array
+    let scheList = [];
+
+
     //calendar call
     var calendarEl = document.getElementById('calendar');
 
@@ -39,74 +47,49 @@ document.addEventListener('DOMContentLoaded', function() {
             calendar.unselect()
         },
         eventClick: function(arg) {
-            if (confirm('Are you sure you want to delete this event?')) {
-                arg.event.remove()
+            // if (confirm('Are you sure you want to delete this event?')) {
+            //     arg.event.remove()
+            // }
+            //calendarModal.show();
+            for(let l of scheList){
+                if(l.meetingRoomNo == arg.event.id){
+                    alert(
+                        '회의명: '+ l.title +
+                        '\n회의내용: '+l.purpose +
+                        '\n참석자: '+l.attendee +
+                        '\n회의시간:'+l.start+'~'+l.end +
+                        '\n장소: '+l.roomName + l.roomPlace
+                    )
+                    return
+                }
             }
+
         },
         editable: true,
         dayMaxEvents: true, // allow "more" link when too many events
-        events: schedule()
+        events: function (info, successCallback, failureCallback){
+            let events =[];
+            axios.get('/api/org/calendarList')
+                .then(response => {
+                    console.log(response.data);
+                    scheList = response.data;
+                    for(let l of response.data){
+                        events.push({
+                            id: l.meetingRoomNo,
+                            title: l.title,
+                            start: l.reserveDate + 'T'+ l.start,
+                            end: l.reserveDate + 'T'+l.end
+                        })
+                    }
+                    successCallback(events);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
 
     });
 
     calendar.render();
 
-    function schedule() {
-        return [
-            {
-                title: '회의 1',
-                start: '2023-01-25'
-            },
-            {
-                title: 'Long Event',
-                start: '2020-09-07',
-                end: '2020-09-10'
-            },
-            {
-                groupId: 999,
-                title: 'Repeating Event',
-                start: '2020-09-09T16:00:00'
-            },
-            {
-                groupId: 999,
-                title: 'Repeating Event',
-                start: '2020-09-16T16:00:00'
-            },
-            {
-                title: 'Conference',
-                start: '2020-09-11',
-                end: '2020-09-13'
-            },
-            {
-                title: 'Meeting',
-                start: '2020-09-12T10:30:00',
-                end: '2020-09-12T12:30:00'
-            },
-            {
-                title: 'Lunch',
-                start: '2020-09-12T12:00:00'
-            },
-            {
-                title: 'Meeting',
-                start: '2020-09-12T14:30:00'
-            },
-            {
-                title: 'Happy Hour',
-                start: '2020-09-12T17:30:00'
-            },
-            {
-                title: 'Dinner',
-                start: '2020-09-12T20:00:00'
-            },
-            {
-                title: 'Birthday Party',
-                start: '2020-09-13T07:00:00'
-            },
-            {
-                title: 'Click for Google',
-                url: 'http://google.com/',
-                start: '2020-09-28'
-            }
-        ]
-    }
 });

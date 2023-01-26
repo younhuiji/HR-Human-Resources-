@@ -1,5 +1,6 @@
 package com.sohwakmo.hr.controller;
 
+import com.sohwakmo.hr.dto.CalReadDto;
 import com.sohwakmo.hr.dto.OrgReadDto;
 import com.sohwakmo.hr.service.OrgService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,16 @@ public class OrgRestController {
         log.info("memberEntity ok");
 
         return ResponseEntity.ok(memberEntity);
+    }
+
+    @GetMapping("/calendarList")
+    public ResponseEntity<List<CalReadDto>> readAllCalList(){
+        log.info("readAllCalList()");
+
+        List<CalReadDto> list = orgService.readAllCalList();
+        log.info("# of list={}", list.size());
+
+        return ResponseEntity.ok(list);
     }
 
 
