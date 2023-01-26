@@ -20,16 +20,17 @@ public class Message {
     private String messageType;
     private String title;
     private String content;
-    private String file1;
-    private String file2;
-    private String file3;
+    private String fileUrl1;
+    private String fileUrl2;
+    private String fileUrl3;
     private LocalDateTime sendTime;
     private LocalDateTime readTime;
     private Integer receiveNo;
     private Integer receiveReadCheck;
     private Integer receiveTrash;
+    private Integer receiveDelete;
     private Integer senderNo;
     private Integer senderTrash;
+    private Integer senderDelete;
 
-    
 }

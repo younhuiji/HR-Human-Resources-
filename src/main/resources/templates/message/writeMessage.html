@@ -17,19 +17,21 @@
         </header>
         <div clas="card-body">
             <form enctype="multipart/form-data" id="formBody">
+                <input type="hidden" name="employeeNo" th:value="1"/>
+
                 <div class="py-3 border-bottom">
-                    <input type="radio" name="checkBox" value="emergency" />긴급
-                    <input type="radio" name="checkBox" value="important" />중요
-                    <input type="radio" name="checkBox" value="normal" />일반
+                    <input type="radio" name="messageType" value="emergency" />긴급
+                    <input type="radio" name="messageType" value="important" />중요
+                    <input type="radio" name="messageType" value="normal" />일반
                 </div>
                 <div class="py-3 border-bottom">
                     <label for="title" class="column">제목</label>
                     <input type="text" class="titleInputBox" id="title" name="title" placeholder="제목을 입력해주세요."/>
                 </div>
                 <div class="py-3 border-bottom">
-                    <label for="receiver" class="column">수신자</label>
+                    <label for="receiveNo" class="column">수신자</label>
                     <div class="receiverDiv">
-                        <input type="text" id="receiver" name="receiver" placeholder="받는 사람" readonly/>
+                        <input type="text" id="receiveNo" name="receiveNo" placeholder="받는 사람" />
                         <div>
                             <input type="button" value="주소록"/>
                         </div>
@@ -38,9 +40,9 @@
                 <div class="py-3 border-bottom">
                     <textarea rows="5" name="content" placeholder="내용"></textarea>
                 </div>
-                <div class="py-3 border-bottom" name="file[]">
+                <div class="py-3 border-bottom">
                     <label class="column">파일 업로드</label>
-                    <input type="file" id="file" multiple accept="image/jpeg, image/png, .pdf, .txt">
+                    <input type="file" id="file" name="files" multiple="multiple" accept="image/jpeg, image/png, .pdf, .txt">
                 </div>
                 <div class="py-3 border-bottom buttonBox">
                     <button class="btn btn-secondary" id="btnSend">보내기</button>

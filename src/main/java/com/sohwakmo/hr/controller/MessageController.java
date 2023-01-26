@@ -1,5 +1,6 @@
 package com.sohwakmo.hr.controller;
 
+import com.sohwakmo.hr.dto.MessageSendDto;
 import com.sohwakmo.hr.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -43,8 +48,18 @@ public class MessageController {
      * @return
      */
     @PostMapping("/sendMessage")
-    public String sendMessage() {
-        log.info("sendMessage()");
+    public String sendMessage(Integer employeeNo, MessageSendDto dto, @RequestParam("files") List<MultipartFile> files) {
+        log.info("sendMessage(employeeNo = {})", employeeNo);
+        log.info("dto = {}", dto);
+        log.info("files = {}", files);
+
+
+        for (MultipartFile multipartFile : files) {
+//            messageService.sendMessage();
+            log.info("1");
+            log.info("multipartFile = {}", multipartFile.isEmpty());
+//            log.info("ㅎㅎ = {}", multipartFile.getOriginalFilename());
+        }
 
 
         return "redirect:/message/receiveList";
