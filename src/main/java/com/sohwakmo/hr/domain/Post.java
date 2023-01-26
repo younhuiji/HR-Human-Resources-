@@ -24,9 +24,21 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Employee employee;
+    @Column(nullable = false)
+    private String writer;
 
     @ColumnDefault("0")
-    private Integer clickCount;
+    private Integer views;
+
+    public Post update(String title, String content){
+        this.title= title;
+        this.content= content;
+        return this;
+    }
+
+    public Post viewCount(Integer views){
+        this.views= views;
+        return this;
+    }
+
 }
