@@ -132,49 +132,42 @@
                 </div>
             </div>
             <div id="jb-sidebar">
-                <h4>기안 정보 등록</h4>
+                 <legend class="title">휴가 신청 리스트</legend>
+                <br>
                 <form>
-                    <div class="row">
+                    <div class="row" style="padding: 10px">
                         <div class="col-10">
                             <input type="text" class="form-control"
-                                   name="keyword" placeholder="결재자를 검색하세요" required autofocus />
+                                   name="keyword" placeholder="검색어를 입력하세요" required autofocus />
                         </div>
                         <div class="col-2">
                             <input type="submit" class="btn btn-light" value="찾기" />
                         </div>
                     </div>
                 </form>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th class="col-3">번호</th>
-                            <th class="col-9">결재자 지정</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <form  >
+                    <fieldset class="border-0">
+
+                        <table class="table" style="border-collapse: collapse">
+                            <thead>
                             <tr>
-                                <td > 1.</td>
-                                <td > 000 팀장</td>
-                                <td style="text-align: right">
-                                    <input type="submit" class="btn btn-light" value="추가">
-                                </td>
+                                <th>번호</th>
+                                <th>제목</th>
+                                <th>작성 시간</th>
+                                <th>결재 상태</th>
                             </tr>
-                            <tr>
-                                <td > 2.</td>
-                                <td > 000 팀장</td>
-                                <td style="text-align: right">
-                                    <input type="submit" class="btn btn-light" value="추가">
-                                </td>
+                            </thead>
+                            <tbody>
+                            <tr th:each="v : ${vacation}">
+                                <td th:text="${v.no}"></td>
+                                <td th:text="${v.title}"></td>
+                                <td th:text="${v.writeDate}"></td>
+                                <td th:text="${v.state}"></td>
                             </tr>
-                            <tr>
-                                <td > 3.</td>
-                                <td > 000 팀장</td>
-                                <td style="text-align: right">
-                                    <input type="submit" class="btn btn-light" value="추가">
-                                </td>
-                            </tr>
-                    </tbody>
-                </table>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </form>
 
             </div>
         </div>

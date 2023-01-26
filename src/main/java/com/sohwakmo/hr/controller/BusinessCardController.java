@@ -26,10 +26,10 @@ public class BusinessCardController {
 
     @GetMapping("/create")
     public  String create(Model model){
-        // 회원 테이블에서 팀장, 상무의 이름 리스트 읽어오기
-        String Level3 = "LEVEL_3";
-        List<Employee> list = employeeService.read(Level3);
-        model.addAttribute("list", list);
+
+        String category = "명함";
+        List<BusinessCard> list = businessCardService.selectByCategory(category);
+        model.addAttribute("card", list);
 
         log.info("list={}", list);
         log.info("listsize={}",list.size());
@@ -52,5 +52,21 @@ public class BusinessCardController {
 
         return "/businessCard/create";
     }
+
+    @GetMapping("/approver")
+    public String approver( Model model ){
+
+        String teamName = "인사팀";
+        // TODO: 조직도 클릭 시 값을 받아와서 필터링해서 보여주기
+        List<Employee> list = employeeService.readPart(teamName);
+        model.addAttribute("list", list);
+
+        log.info("list={}", list);
+        log.info("listsize={}",list.size());
+
+        return "/businessCard/approver";
+    }
+
+
 
 }

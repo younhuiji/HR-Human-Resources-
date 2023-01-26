@@ -1,0 +1,180 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="utf-8">
+  <title>Approver</title>
+  <style>
+   * {
+       font: 16px "나눔고딕", "Nanum Gothic", "sans-serif";
+       color: #333;
+     }
+
+    #jb-container {
+
+      width: 1030px;
+      margin: 10px auto;
+      padding: 20px;
+      border: 1px solid #bcbcbc;
+      height: 740px;
+    }
+    #jb-header {
+      padding: 5px;
+      width: 1100px;
+      margin-bottom: 10px;
+      /*border: 1px solid #bcbcbc;*/
+    }
+    #jb-content {
+      margin-top: 0px;
+      width: 400px;
+      padding: 20px;
+      height: 580px;
+      margin-bottom: 20px;
+      float: left;
+      border: 1px solid;
+    }
+
+   #jb-button {
+     margin-top: 200px;
+     width: 105px;
+     padding-left: 40px;
+     height: 90px;
+     margin-bottom: 200px;
+     float: left;
+     /*border: 1px solid;*/
+   }
+
+   #jb-button2 {
+     margin-top: 290px;
+     margin-right: 60px;
+     width: 200px;
+     padding-left: 6px;
+     height: 45px;
+     /*margin-bottom: 100px;*/
+     /*border: 1px solid;*/
+
+   }
+
+    #jb-sidebar {
+      width: 400px;
+      padding: 20px;
+      height: 580px;
+      margin-bottom: 20px;
+      float: right;
+      border: 1px solid ;
+
+    }
+
+    #jb-text {
+      width: 350px;
+      padding: 20px;
+      height: 650px;
+      margin-bottom: 20px;
+      float: left;
+      /*border: 1px solid #bcbcbc;*/
+    }
+
+  </style>
+
+  <link th:href="@{/css/layout/styles.css}" rel="stylesheet" />
+
+</head>
+<body>
+
+
+  <div>
+      <div id="jb-container">
+        <h2 style="font-size: 30px">결재자 지정</h2>
+        <div id="jb-header">
+          결재내용의 결재자를 지정합니다.
+        </div>
+
+        <div id="jb-content">
+          <div id="jb-text">
+              <fieldset class="border-0" style="height: 450px; border: 1px solid #bcbcbc">
+                <div class="container">
+                  <ul class="tree" id="orgTree">
+
+                  </ul>
+                </div>
+              </fieldset>
+
+          </div>
+        </div>
+        <div id="jb-button">
+          <input type="button" style="width: 90px; height: 35px; " value="추가">
+          <br/>
+          <br/>
+          <input type="button" style="width: 90px; height: 35px;"  value="삭제">
+
+          <div id="jb-button2">
+            <input type="button" style="width: 90px; height: 35px; " value="적용">
+            <input type="button" style="width: 90px; height: 35px;"  value="취소">
+          </div>
+        </div>
+
+
+
+        <div id="jb-sidebar">
+          <form th:action="@{/businessCard/search}" method="get">
+            <br>
+            <form >
+                  <div class="row">
+                    <div class="col-10">
+                      <input type="text" class="form-control"
+                             name="keyword" placeholder="결재자를 검색하세요" required autofocus />
+                    </div>
+                    <div class="col-2">
+                      <input type="button" class="btn btn-light" value="찾기" />
+                    </div>
+                  </div>
+            </form>
+                <table class="table table-hover" >
+                  <thead>
+                    <tr>
+                      <th class="col-2"></th>
+                      <th class="col-6"></th>
+                      <th class="col-4"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each=" e : ${list}" >
+                      <!-- TODO: 임원 사진 추가 하기 -->
+                      <td></td>
+                      <td th:text="${e.name}"></td>
+                      <td th:text="${e.part.getPosition()}" ></td>
+                      <td style="text-align: right">
+                        <input type="submit" class="btn btn-light" value="추가">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+          </form>
+
+<!--          <div id="jb-button2">-->
+<!--            <input type="button" style="width: 90px; height: 35px; " value="적용">-->
+<!--            <input type="button" style="width: 90px; height: 35px;"  value="취소">-->
+<!--          </div>-->
+
+        </div>
+
+
+
+        </div>
+      </div>
+      </body>
+    </div>
+
+
+  </div>
+
+<!-- axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/layout/scripts.js"></script>
+<!-- script -->
+<th:block layout:fragment="script">
+  <script th:src="@{/js/organizationRefer.js}"></script>
+</th:block>
+
+</body>
+</html>

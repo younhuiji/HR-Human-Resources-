@@ -18,9 +18,15 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
     // 직책이 팀장 혹은 상무인 임원 리스트
-    public List<Employee> read(String Level3){
-        log.info("포지션:{}", Level3);
-        return employeeRepository.selectByPosition(Level3);
+    public List<Employee> read(String a){
+        log.info("상무:{}", a);
+        return employeeRepository.selectByPosition(a);
+    }
+
+    // 결재자 지정할 때에 임시방편으로 모든 리스트 불러옴
+    public List<Employee> readPart(String teamName) {
+
+        return employeeRepository.selectByPart(teamName);
     }
 
 }

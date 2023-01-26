@@ -104,7 +104,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th><label for="approverName">결재자 지정</label></th>
-                                                    <td><input type="text" class="textFrom" id="approverName" name="approverName" required  ></td>
+                                                    <td><input type="text" class="textFrom" id="approverName" name="approverName" required  > <input type="button" class="btn btn-light" value="찾기" onclick="window.open('http://localhost:8889/businessCard/approver', 'approver', 'width=1100 height=800 top=100 left=400');" /></td>
                                                 </tr>
                                                 <tr>
                                                     <th class="first"><label for="reason">사유</label></th>
@@ -125,40 +125,78 @@
                             </div>
                         </div>
                         <div id="jb-sidebar">
-                            <form th:action="@{/businessCard/search}" method="get">
-                                <h4>기안 정보 등록</h4>
-                                <form>
-                                    <div class="row">
-                                        <div class="col-10">
-                                            <input type="text" class="form-control"
-                                                   name="keyword" placeholder="결재자를 검색하세요" required autofocus />
-                                        </div>
-                                        <div class="col-2">
-                                            <input type="submit" class="btn btn-light" value="찾기" />
-                                        </div>
+                            <legend class="title">명함 신청 리스트</legend>
+                            <br>
+                            <form>
+                                <div class="row" style="padding: 10px">
+                                    <div class="col-10">
+                                        <input type="text" class="form-control"
+                                               name="keyword" placeholder="검색어를 입력하세요" required autofocus />
                                     </div>
-                                </form>
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th class="col-2">번호</th>
-                                            <th class="col-4">결재자 지정</th>
-                                            <th class="col-6"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                            <tr th:each=" e : ${list}" >
-                                                <!-- TODO: 임원 사진 추가 하기 -->
-                                                <td></td>
-                                                <td th:text="${e.name}"></td>
-                                                <td th:text="${e.part.getPosition()}" ></td>
-                                                <td style="text-align: right">
-                                                    <input type="submit" class="btn btn-light" value="추가">
-                                                </td>
-                                            </tr>
-                                    </tbody>
-                                </table>
+                                    <div class="col-2">
+                                        <input type="submit" class="btn btn-light" value="찾기" />
+                                    </div>
+                                </div>
                             </form>
+                            <form  >
+                                <fieldset class="border-0">
+
+                                    <table class="table" style="border-collapse: collapse">
+                                        <thead>
+                                        <tr>
+                                            <th>번호</th>
+                                            <th>제목</th>
+                                            <th>작성 시간</th>
+                                            <th>결재 상태</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="c : ${card}">
+                                            <td th:text="${c.no}"></td>
+                                            <td th:text="${c.title}"></td>
+                                            <td th:text="${c.writeDate}"></td>
+                                            <td th:text="${c.state}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </fieldset>
+                            </form>
+
+
+<!--                            <form th:action="@{/businessCard/search}" method="get">-->
+<!--                                <h4>기안 정보 등록</h4>-->
+<!--                                <form>-->
+<!--                                    <div class="row">-->
+<!--                                        <div class="col-10">-->
+<!--                                            <input type="text" class="form-control"-->
+<!--                                                   name="keyword" placeholder="결재자를 검색하세요" required autofocus />-->
+<!--                                        </div>-->
+<!--                                        <div class="col-2">-->
+<!--                                            <input type="button" class="btn btn-light" value="찾기" onclick="window.open('http://localhost:8889/businessCard/approver', 'approver', 'width=1100 height=800 top=100 left=400');" />-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </form>-->
+<!--                                <table class="table table-hover">-->
+<!--                                    <thead>-->
+<!--                                        <tr>-->
+<!--                                            <th class="col-2">번호</th>-->
+<!--                                            <th class="col-4">결재자 지정</th>-->
+<!--                                            <th class="col-6"></th>-->
+<!--                                        </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody>-->
+<!--                                            <tr th:each=" e : ${list}" >-->
+<!--                                                &lt;!&ndash; TODO: 임원 사진 추가 하기 &ndash;&gt;-->
+<!--                                                <td></td>-->
+<!--                                                <td th:text="${e.name}"></td>-->
+<!--                                                <td th:text="${e.part.getPosition()}" ></td>-->
+<!--                                                <td style="text-align: right">-->
+<!--                                                    <input type="submit" class="btn btn-light" value="추가">-->
+<!--                                                </td>-->
+<!--                                            </tr>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                            </form>-->
                         </div>
                     </div>
                 </body>
@@ -172,5 +210,6 @@
     <span th:case="완료"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
     <span th:case="취소"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
 </td>
+
 
 </html>
