@@ -1,10 +1,10 @@
 body{
     background: #f5f5f5;
 }
-.wrapper {
-    display: grid;
-    place-items: center;
-    min-height: 100vh;
+.content{
+    margin-top: 10%;
+    margin-right: 39%;
+    margin-left: 39%;
 }
 
 #logoText{
@@ -17,24 +17,48 @@ body{
     margin: 1%;
 }
 
+#employeeNo_box,#password_box{
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
 #employeeNo,#password{
-    padding: 2%;
+    margin: 4px 0;
+    padding: 3%;
     width: 100%;
+    border: 1px solid #dadada;
+    border-radius: 6px 6px 6px 6px;
+}
+
+#error_msg{
+    margin-left: 5px;
+    margin-top: 10px;
+}
+#error_msg p{
+    font-weight: bold;
 }
 
 /*--------------로그인 인풋 박스-------------*/
 
-#login_button button{
-    width: 100%;
-    border: 1px solid black;
-    margin: 1%;
+#login_button_div #login_button{
+    width: 98%;
+    text-align: center;
+    margin-left: 5px;
+    padding: 10px 1px;
+    margin-top: 1%;
+    margin-bottom: 3%;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 /*--------------로그인 버튼--------------*/
-#find span{
+#find a{
     text-align: center;
-    font-size: 13px;
-    margin-left: 12px;
+    font-size: 16px;
+    margin-left: 10%;
+    text-decoration: none;
+    color: #888;
 }
 #find #find_password_msg #join{
     margin-left: 5%;

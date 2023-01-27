@@ -8,7 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/employee/login.css}" />
 </head>
 <body>
-    <div class="wrapper">
+    <div class="wrapper" >
         <div class="content">
             <div id="logoText">
                 <a href="#">로고가들어가게</a>
@@ -24,18 +24,18 @@
                         <input type="password" id="password" name="password"/>
                     </div>
                 </div>
-                <div id="login_button">
-                    <input type="submit" value="로그인"/>
+                <!--에러메시지-->
+                <div th:if="${param.error}" id="error_msg">
+                    <p class="text-danger">사원번호와 비밀번호를 다시 확인해주세요.</p>
+                </div>
+                <div id="login_button_div">
+                    <input id="login_button" class="btn btn-primary" type="submit" value="로그인"/>
                 </div>
             </form>
-           <!--에러메시지-->
-            <div th:if="${param.error}">
-                <p class="text-danger">사원번호와 비밀번호를 다시 확인해주세요.</p>
-            </div>
             <div id="find">
-                <span>아이디 찾기</span>
-                <span id="find_password_msg">비밀번호 찾기</span>
-                <span id="join">회원가입</span>
+                <a th:href="@{/#}">아이디 찾기</a>
+                <a th:href="@{/#}">비밀번호 찾기</a>
+                <a th:href="@{/join}">회원가입</a>
             </div>
         </div>
     </div>
