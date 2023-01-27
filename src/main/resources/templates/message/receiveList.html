@@ -10,6 +10,43 @@
 </head>
 
 <div layout:fragment="content">
+    <h1>받은쪽지함</h1>
+    <hr>
+
+    <div class="card my-2">
+        <div class="card-body">
+            <div class="my-2">
+                <form method="get">
+                    <div class="row">
+                        <div class="col-4">
+                            <select name="type" class="form-control">
+                                <option value="t">제목</option>
+                                <option value="a">작성자</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control" name="keyword" placeholder="검색어" required autofocus />
+                        </div>
+                        <div class="col-2">
+                            <input type="submit" class="btn btn-outline-info" value="검색" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>제목</th>
+                        <th>보낸사람</th>
+                        <th>일시</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
     <div>
         <a href="writeMessage">쪽지 쓰기</a>
     </div>

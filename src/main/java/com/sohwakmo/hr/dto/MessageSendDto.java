@@ -3,9 +3,6 @@ package com.sohwakmo.hr.dto;
 import com.sohwakmo.hr.domain.Message;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @Builder
 @Data
