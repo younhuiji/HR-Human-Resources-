@@ -22,15 +22,32 @@
         <!--end.bannerSection-->
         
         <div id="formWrap">
-            <span id="titleSpan">
-                <label for="titleInput">제목</label></span>
-                <input id="titleInput" type="text" name="title" required autofocus />
-            </span>
+            <form method="post" id="postForm">
+                <div>
+                    <label for="titleInput">제목</label></span>
+                    <span id="titleSpan">
+                        <input id="titleInput" type="text" name="title" required autofocus />
+                    </span>
+                </div>
 
-            <span id="contentSpan">
-                <label for="editor">내용</label></span>
-                <div id="editor"></div>
-            </span>
+                <div>
+                    <label for="editor">내용</label></span>
+                    <span id="contentSpan">
+                        <div id="editor" name="content"></div>
+                    </span>
+                </div>
+
+                <div>
+                    <label for="writerInput">작성자</label></span>
+                    <span id="writerSpan">
+                        <input id="writerInput" type="text" name="writer" required autofocus />
+                    </span>
+                </div>
+
+                <div>
+                    <input type="submit" value="등록" id="btnSubmit">
+                </div>
+            </form>
         </div>
 
     </div>
@@ -38,16 +55,20 @@
 </div><!--content-->
 
 <script layout:fragment="script" th:inline="javascript">
+
     const Editor = toastui.Editor;
+    const colorSyntax= Editor.plugin;
 
     const editor = new Editor({
             el: document.querySelector('#editor'),
-            height: '700px',
+            height: '600px',
             initialEditType: 'wysiwyg',
-            previewStyle: 'vertical'
+            previewStyle: 'vertical',
+            plugins: colorSyntax
         });
 
     editor.getMarkdown();
+
 </script>
 
 </html>

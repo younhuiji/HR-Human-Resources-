@@ -37,12 +37,11 @@ public class PostController {
         log.info("/post/create");
     }
 
-    @PostMapping("/create") // Post 방식의 /post/create 요청을 처리하는 메서드.
+    @PostMapping("/create")
     public String create(PostCreateDto dto, RedirectAttributes attrs) {
         log.info("create(dto= {})", dto);
 
         Post entity = postService.create(dto);
-        attrs.addFlashAttribute("createdId", entity.getPostNo());
 
         return "redirect:/";
     }
