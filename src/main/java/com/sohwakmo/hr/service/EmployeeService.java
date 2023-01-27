@@ -32,12 +32,12 @@ public class EmployeeService {
      * @param photo   사원이미지
      * @throws Exception
      */
-    public void join(EmployeeJoinDto joinDto, Part part, MultipartFile photo) throws Exception {
+    public void join(EmployeeJoinDto joinDto, Part part, MultipartFile photo,Date joinedDate) throws Exception {
         // 입사일 날짜 포맷 변경 후 저장
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String joinedDate = simpleDateFormat.format(joinDto.getJoinedDate());
-        Date convertJoinDate = new SimpleDateFormat("yyyy-MM-dd").parse(joinedDate);
-        joinDto.setJoinedDate(convertJoinDate);
+        String joinedDateToString = simpleDateFormat.format(joinedDate);
+        log.info("joinDate = {}", joinedDateToString);
+
         // 사진 주소저장
         String photoPath;
         if (photo.getSize() != 0) {
@@ -65,7 +65,7 @@ public class EmployeeService {
                 .email(joinDto.getEmail())
                 .part(part)
                 .photo("/employeeImage/" + photoPath)
-                .joinedDate(joinDto.getJoinedDate())
+                .joinedDate(joinedDateToString)
                 .build();
         employee.addRole(EmployeePosition.LEVEL_1);
         log.info("employee={}", employee.toString());

@@ -44,9 +44,8 @@ public class Employee {
     @Column(nullable = false)
     private String email; // 사내 email or 쪽지 주소
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date joinedDate; // 입사일
+    private String joinedDate; // 입사일
 
 
     @ElementCollection(fetch = FetchType.EAGER)

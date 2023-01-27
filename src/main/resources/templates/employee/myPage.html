@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{ layout/layout.html }">
+<head>
+    <meta charset="UTF-8">
+    <title>내 정보</title>
+    <link rel="stylesheet" th:href="@{/css/employee/myPage.css}">
+</head>
+<body>
+<div layout:fragment="content">
+    <div id="wrap">
+        <div id="header_info">
+            <div id="image">
+                <img src="#" alt="사원사진"/>
+            </div>
+            <div id="name_team_info">
+                <p id="header_name" class="header_title_color" th:text="${#authentication.principal.name}"></p>
+                <p id ="header_team" class="header_content_color" th:text="${#authentication.principal.part.team}"></p>
+            </div>
+
+            <div id="header_info_wrap">
+                <div id="header_info_1">
+                    <div>
+                        <p class="info_1_title header_title_color">* 사번</p>
+                        <p class="header_content_color" th:text="${#authentication.principal.employeeNo}"></p>
+                    </div>
+                    <div>
+                        <p class="info_1_title header_title_color" style="padding-right: 89px">* 소속</p>
+                        <p class="header_content_color" th:text="${#authentication.principal.part.department}"></p>
+                    </div>
+                    <div>
+                        <p class="info_1_title header_title_color" style="padding-right: 155px">* 팀</p>
+                        <p class="header_content_color" th:text="${#authentication.principal.part.team}"></p>
+                    </div>
+                    <div>
+                        <p class="info_1_title header_title_color" style="padding-right: 67px">* 직책</p>
+                        <p class="header_content_color" th:text="${#authentication.principal.part.work}"></p>
+                    </div>
+                </div>
+                <div id="header_info_2">
+                    <div>
+                        <p class="info_1_title header_title_color">* 성명</p>
+                        <p class="header_content_color" th:text="${#authentication.principal.name}"></p>
+                    </div>
+                    <div>
+                        <p class="info_1_title header_title_color">* 입사일</p>
+                        <p class="header_content_color" th:text="${#authentication.principal.joinedDate}"></p>
+                    </div>
+                    <div>
+                        <p class="info_1_title header_title_color">* 사내 이메일</p>
+                        <p class="header_content_color" th:text="${#authentication.principal.email}"></p>
+                    </div>
+                    <div>
+                        <p class="info_1_title header_title_color">* 사내 번호</p>
+                        <p class="header_content_color" th:text="${#authentication.principal.phone}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="body_wrap">
+            <div id="div_body_cover">
+                <form>
+                    <div id="employeeNo_name">
+                        <div id="div_employeeNo">
+                            <span style="display: inline">사원번호</span>
+                            <input class="design-input" th:value="${#authentication.principal.employeeNo}" type="text" readonly />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/employee/myPage.js}"></script>
+</th:block>
+</body>
+</html>

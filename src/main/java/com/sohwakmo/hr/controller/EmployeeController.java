@@ -5,13 +5,16 @@ import com.sohwakmo.hr.dto.EmployeeJoinDto;
 import com.sohwakmo.hr.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -34,12 +37,15 @@ public class EmployeeController {
     }
 
     @PostMapping("/join")
-    public String join(EmployeeJoinDto joinDto, Part part, MultipartFile photo) throws Exception {
+    public String join(EmployeeJoinDto joinDto, Part part, MultipartFile photo, @DateTimeFormat(pattern= "yyyy-MM-dd")Date joinedDate) throws Exception {
         log.info("joinDto = {}", joinDto);
         log.info("part={}",part.toString());
         log.info("photo={}",photo.getSize());
-        employeeService.join(joinDto,part,photo);
+        employeeService.join(joinDto,part,photo,joinedDate);
 
         return "redirect:/";
     }
+
+    @GetMapping("/myPage")
+    public String myPage(){return "/employee/myPage";}
 }

@@ -1,0 +1,92 @@
+/*-----사원 대략 header 정보-----*/
+#header_info{
+    margin: 1.5em;
+    background: rgb(65,76,95);
+    border-radius: 6px;
+}
+
+/*공통 크기 사이즈*/
+.header_title_color{
+    color: #dadada;
+    font-size: 17px;
+}
+.header_content_color{
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    margin-left: 14px;
+}
+
+/*-----사진 이름 소속팀-----*/
+#image{
+    display: inline-block;
+    margin-left: 10%;
+    margin-right: 4%;
+}
+#name_team_info{
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 70px;
+}
+#header_name{
+    font-weight: bold;
+    font-size: 17px;
+}
+#header_team{
+
+}
+/*----header 첫번째줄 info----*/
+#header_info_wrap{
+    display: inline-block;
+}
+
+.info_1_title{
+    margin-bottom: 8px;
+}
+
+#header_info_1{
+    margin-left: 10px;
+}
+#header_info_1 div{
+    display: inline-block;
+    margin-top: 15px;
+    padding-right: 191px;
+}
+#header_info_2{
+    margin-left: 10px;
+}
+
+#header_info_2 div{
+    display: inline-block;
+    margin-bottom: 10px;
+    padding-right: 220px;
+}
+
+/*------공통 인풋 디자인------*/
+.design-input{
+    width: 100%;
+    border: 1px solid #dadada;
+    border-radius: 6px 6px 6px 6px;
+}
+/*------메인 내용 시작-------*/
+#body_wrap{
+    margin: 1.5em;
+    border-top: 2px solid #dadada;
+    border-bottom: 2px solid #dadada;
+}
+#div_body_cover{
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    border-top: 2px solid #dadada;
+    border-bottom: 2px solid #dadada;
+}
+#employeeNo_name{
+    margin: 20px;
+}
+
+#div_employeeNo{
+    display: inline-block;
+}
+
+
