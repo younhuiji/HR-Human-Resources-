@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,7 +22,12 @@ public class BusinessCardService {
     }
 
     public List<BusinessCard> selectByCategory(String card) {
+
         return businessCardRepository.selectByCard(card);
+    }
+
+    public BusinessCard selectByNo(Integer cardNo){
+        return businessCardRepository.findById(cardNo).orElse(null);
     }
 
 }

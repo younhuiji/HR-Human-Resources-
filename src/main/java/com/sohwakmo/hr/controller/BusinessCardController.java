@@ -67,6 +67,19 @@ public class BusinessCardController {
         return "/businessCard/approver";
     }
 
+    @GetMapping("/detail")
+    public String detail(Model model) {
 
+        Integer cardNo = 39;
+        BusinessCard card = businessCardService.selectByNo(cardNo);
+        model.addAttribute("card", card);
 
+        return "/businessCard/detail";
+    }
+
+    @GetMapping("/returns")
+    public String returns() {
+
+        return "/businessCard/returns";
+    }
 }
