@@ -10,7 +10,7 @@ import java.util.List;
 @Builder
 @Data
 public class MessageSendDto {
-
+    private Integer senderNo;
     private String messageType;
     private String title;
     private Integer receiveNo;
@@ -18,6 +18,7 @@ public class MessageSendDto {
 
     public Message toEntity() {
         return Message.builder()
+                .senderNo(senderNo)
                 .messageType(messageType)
                 .title(title)
                 .receiveNo(receiveNo)

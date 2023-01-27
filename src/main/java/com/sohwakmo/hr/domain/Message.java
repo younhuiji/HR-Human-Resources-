@@ -2,6 +2,7 @@ package com.sohwakmo.hr.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Getter
+@Setter
 @ToString
 @Entity(name = "MESSAGE")
 @SequenceGenerator(name = "MESSAGE_SEQ_GEN", sequenceName = "MESSAGE_SEQ", allocationSize = 1)
@@ -20,17 +22,25 @@ public class Message {
     private String messageType;
     private String title;
     private String content;
-    private String fileUrl1;
-    private String fileUrl2;
-    private String fileUrl3;
+    private String filePath1;
+    private String fileName1;
+    private String filePath2;
+    private String fileName2;
+    private String filePath3;
+    private String fileName3;
     private LocalDateTime sendTime;
     private LocalDateTime readTime;
     private Integer receiveNo;
+    @ColumnDefault("0")
     private Integer receiveReadCheck;
+    @ColumnDefault("0")
     private Integer receiveTrash;
+    @ColumnDefault("0")
     private Integer receiveDelete;
     private Integer senderNo;
+    @ColumnDefault("0")
     private Integer senderTrash;
+    @ColumnDefault("0")
     private Integer senderDelete;
 
 }
