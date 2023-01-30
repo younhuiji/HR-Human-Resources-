@@ -2,6 +2,7 @@ package com.sohwakmo.hr.controller;
 
 import com.sohwakmo.hr.domain.BusinessCard;
 import com.sohwakmo.hr.domain.Employee;
+import com.sohwakmo.hr.domain.PaymentState;
 import com.sohwakmo.hr.dto.BusinessCardCreateDto;
 import com.sohwakmo.hr.service.BusinessCardService;
 import com.sohwakmo.hr.service.EmployeeService;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -43,12 +45,15 @@ public class BusinessCardController {
         // TODO: employee에서 시행자 이름, 사번, 결재자 사번, 직급, 직책 가져오기
         // Employee employee = employeeService.findEmployeeByNo(no);
 
+        PaymentState state = PaymentState.PROGRESS;
+        log.info("state={}", state);
+
         BusinessCard businessCard = BusinessCard.builder()
-                .title(dto.getTitle()).state(dto.getState()).employeeName(dto.getEmployeeName()).employeeNo(1L).category(dto.getCategory())
+                .title(dto.getTitle()).state(PaymentState.PROGRESS).employeeName(dto.getEmployeeName()).employeeNo(1L).category(dto.getCategory())
                 .email(dto.getEmail()).phone(dto.getPhone()).approverNo(0L).reason(dto.getReason()).writeDate(dto.getWriteDate()).build();
 
         BusinessCard businessCards = businessCardService.create(businessCard);
-        log.info("명함 신청 양식:", businessCards);
+        log.info("명함 신청 양식={}", businessCard);
 
         return "/businessCard/create";
     }
@@ -68,10 +73,11 @@ public class BusinessCardController {
     }
 
     @GetMapping("/detail")
-    public String detail(Model model) {
+    public String detail(Model model, @RequestParam Integer no) {
+        log.info("리스트 번호={}", no);
 
-        Integer cardNo = 39;
-        BusinessCard card = businessCardService.selectByNo(cardNo);
+//        Integer cardNo = 21;
+        BusinessCard card = businessCardService.selectByNo(no);
         model.addAttribute("card", card);
 
         return "/businessCard/detail";

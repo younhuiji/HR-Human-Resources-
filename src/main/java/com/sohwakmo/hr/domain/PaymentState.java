@@ -1,5 +1,8 @@
 package com.sohwakmo.hr.domain;
 
+import lombok.Getter;
+
+@Getter
 public enum PaymentState {
     PROGRESS, // 결재 진행중
     RETURN, // 결재 반려

@@ -45,8 +45,8 @@
    }
 
    #jb-button2 {
-     margin-top: 290px;
-     margin-right: 60px;
+     margin-top: 390px;
+     margin-right: 90px;
      width: 200px;
      padding-left: 6px;
      height: 45px;
@@ -91,81 +91,84 @@
 
         <div id="jb-content">
           <div id="jb-text">
-              <fieldset class="border-0" style="height: 450px; border: 1px solid #bcbcbc">
-                <div class="container">
-                  <ul class="tree" id="orgTree">
-
-                  </ul>
-                </div>
-              </fieldset>
+<!--              <fieldset class="border-0" style="height: 450px; border: 1px solid #bcbcbc">-->
+<!--                <div class="container">-->
+<!--                  <ul class="tree" id="orgTree">-->
+<!--                    &lt;!&ndash;TODO: 조직도 나오기 전 test 용 &ndash;&gt;-->
+<!--                    <li th:value="인사팀">인사팀</li>-->
+<!--                    <li th:value="개발팀">개발팀</li>-->
+<!--                    <li th:value="총무팀">총무팀</li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </fieldset>-->
 
           </div>
         </div>
-        <div id="jb-button">
-          <input type="button" style="width: 90px; height: 35px; " value="추가">
-          <br/>
-          <br/>
-          <input type="button" style="width: 90px; height: 35px;"  value="삭제">
+<!--        <div id="jb-button">-->
+<!--&lt;!&ndash;          <input type="button" style="width: 90px; height: 35px; " value="추가" th:onclick="|location.href='@{/businessCard/approver(no=${c.no})}'|">&ndash;&gt;-->
+<!--&lt;!&ndash;          <br/>&ndash;&gt;-->
+<!--&lt;!&ndash;          <br/>&ndash;&gt;-->
+<!--&lt;!&ndash;          <input type="button" style="width: 90px; height: 35px;"  value="삭제">&ndash;&gt;-->
 
-          <div id="jb-button2">
-            <input type="button" style="width: 90px; height: 35px; " class="btn btn-warning center" value="적용">
-            <input type="button" style="width: 90px; height: 35px;" value="취소" onClick="window.close()">
-          </div>
+<!--          <div id="jb-button2">-->
+<!--            <input type="button" style="width: 90px; height: 35px; " class="btn btn-warning center" value="적용">-->
+<!--            <input type="button" style="width: 90px; height: 35px;" value="취소" onClick="window.close()">-->
+<!--          </div>-->
 
-        </div>
+<!--        </div>-->
 
 
 
 
 
         <div id="jb-sidebar">
-          <form th:action="@{/businessCard/search}" method="get">
-            <br>
-            <form >
-                  <div class="row">
-                    <div class="col-10">
-                      <input type="text" class="form-control"
-                             name="keyword" placeholder="결재자를 검색하세요" required autofocus />
-                    </div>
-                    <div class="col-2">
-                      <input type="button" class="btn btn-light" value="찾기" />
-                    </div>
-                  </div>
-            </form>
-                <table class="table table-hover" >
-                  <thead>
-                    <tr>
-                      <th class="col-2"></th>
-                      <th class="col-6"></th>
-                      <th class="col-4"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr th:each=" e : ${list}" >
-                      <!-- TODO: 임원 사진 추가 하기 -->
-                      <td></td>
-                      <td th:text="${e.name}"></td>
-                      <td th:text="${e.part.getPosition()}" ></td>
-                      <td style="text-align: right">
-                        <input type="submit" class="btn btn-light" value="추가">
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-          </form>
+<!--          <form th:action="@{/businessCard/search}" method="get">-->
+<!--            <br>-->
+<!--            <form >-->
+<!--                  <div class="row">-->
+<!--                    <div class="col-10">-->
+<!--                      <input type="text" class="form-control"-->
+<!--                             name="keyword" placeholder="결재자를 검색하세요" required autofocus />-->
+<!--                    </div>-->
+<!--                    <div class="col-2">-->
+<!--                      <input type="button" class="btn btn-light" value="찾기" />-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--            </form>-->
+<!--                <table class="table table-hover" >-->
+<!--                  <thead>-->
+<!--                    <tr>-->
+<!--                      <th class="col-2"></th>-->
+<!--                      <th class="col-6"></th>-->
+<!--                      <th class="col-4"></th>-->
+<!--                    </tr>-->
+<!--                  </thead>-->
+<!--                  <tbody>-->
+<!--                    <tr th:each=" e : ${list}" >-->
+<!--                      &lt;!&ndash; TODO: 임원 사진 추가 하기 &ndash;&gt;-->
+<!--                      <td></td>-->
+<!--                      <td th:text="${e.name}"></td>-->
+<!--                      <td th:text="${e.part.getPosition()}" ></td>-->
+<!--                      <td style="text-align: right">-->
+<!--                        <input type="submit" class="btn btn-light" value="추가">-->
+<!--                      </td>-->
+<!--                    </tr>-->
+<!--                  </tbody>-->
+<!--                </table>-->
+<!--          </form>-->
 
-<!--          <div id="jb-button2">-->
-<!--            <input type="button" style="width: 90px; height: 35px; " value="적용">-->
-<!--            <input type="button" style="width: 90px; height: 35px;"  value="취소">-->
-<!--          </div>-->
-
-        </div>
-
-
+<!--&lt;!&ndash;          <div id="jb-button2">&ndash;&gt;-->
+<!--&lt;!&ndash;            <input type="button" style="width: 90px; height: 35px; " value="적용">&ndash;&gt;-->
+<!--&lt;!&ndash;            <input type="button" style="width: 90px; height: 35px;"  value="취소">&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
 
         </div>
-      </div>
-      </body>
+
+
+
+<!--        </div>-->
+<!--      </div>-->
+
     </div>
 
 
@@ -180,4 +183,11 @@
 </th:block>
 
 </body>
+
+
+<th:block layout:fragment="script">
+  <!--  Ajax를 사용하기 위한 axios 자바스크립트 라이브러리 추가 -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script th:src="@{/js/payment/approver.js}"></script>
+</th:block>
 </html>

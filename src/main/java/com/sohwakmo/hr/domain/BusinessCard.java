@@ -36,7 +36,7 @@ public class BusinessCard {
     @Column(nullable = false) // 결재 분류
     private String category;
 
-    @Embedded // 결재 상태
+    @Enumerated(EnumType.STRING) // 결재 상태
     private PaymentState state;
 
     @Column // 반려 사유

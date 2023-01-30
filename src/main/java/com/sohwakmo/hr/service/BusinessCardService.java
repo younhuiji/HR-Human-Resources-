@@ -27,6 +27,7 @@ public class BusinessCardService {
     }
 
     public BusinessCard selectByNo(Integer cardNo){
+
         return businessCardRepository.findById(cardNo).orElse(null);
     }
 

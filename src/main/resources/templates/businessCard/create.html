@@ -104,7 +104,8 @@
                                                 </tr>
                                                 <tr>
                                                     <th><label for="approverName">결재자 지정</label></th>
-                                                    <td><input type="text" class="textFrom" id="approverName" name="approverName" required  > <input type="button" class="btn btn-light" value="찾기" onclick="window.open('http://localhost:8889/businessCard/approver', 'approver', 'width=1100 height=800 top=100 left=400');" /></td>
+                                                    <td><input type="text" class="textFrom" id="approverNo" name="approverNo"  readonly  >
+                                                    <td><input type="text" class="textFrom" id="approverName" name="approverName" required readonly  > <input type="button" class="btn btn-light" value="찾기" onclick="window.open('http://localhost:8889/businessCard/approver', 'approver', 'width=1100 height=800 top=100 left=400');" /></td>
                                                 </tr>
                                                 <tr>
                                                     <th class="first"><label for="reason">사유</label></th>
@@ -151,7 +152,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="c : ${card}" th:onclick="|location.href='http://localhost:8889/businessCard/detail'|">
+                                        <tr th:each="c : ${card}" th:onclick="|location.href='@{/businessCard/detail(no=${c.no})}'|">
                                             <td th:text="${c.no}"></td>
                                             <td th:text="${c.title}"></td>
                                             <td th:text="${c.writeDate}"></td>
