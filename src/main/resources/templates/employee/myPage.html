@@ -60,13 +60,64 @@
             </div>
         </div>
         <div id="body_wrap">
-            <div id="div_body_cover">
-                <form>
-                    <div id="employeeNo_name">
-                        <div id="div_employeeNo">
-                            <span style="display: inline">사원번호</span>
+            <div id="div_body_cover container">
+                <form id="form" enctype="multipart/form-data">
+                    <!-- 사원번호 이름 -->
+                    <div id="employeeNo_name" class="wrap_div row">
+                        <div id="div_employeeNo" class="input_wrap_div text-left col-xxl-6">
+                            <span>사원번호</span>
                             <input class="design-input" th:value="${#authentication.principal.employeeNo}" type="text" readonly />
                         </div>
+                        <div id="div_name" class="input_wrap_div text-left col-xxl-6">
+                            <span>이름</span>
+                            <input class="design-input" th:value="${#authentication.principal.name}" type="text" />
+                        </div>
+                    </div>
+
+                    <!--입사일, 사내 번호-->
+                    <div id="joinedDate_phone" class="wrap_div row">
+                          <div id="div_joinedDate" class="input_wrap_div text-left col-6">
+                              <span>입사일</span>
+                              <input class="design-input" th:value="${#authentication.principal.joinedDate}" type="text" readonly />
+                        </div>
+                        <div id="div_phone" class="input_wrap_div text-left col-xxl-6">
+                            <span>사내 번호</span>
+                            <input class="design-input" th:value="${#authentication.principal.phone}" type="text" />
+                        </div>
+                    </div>
+
+                    <!--사내이메일 , 부서 팀 직책-->
+                    <div id="email_team" class="wrap_div row">
+                        <div id="div_email" class="input_wrap_div col-xxl-6 col-md-3 text-left" style="display: inline-block">
+                            <span>사내 이메일</span>
+                            <input class="design-input" th:value="${#authentication.principal.email}" type="email" readonly/>
+                        </div>
+                        <div id="div_team" class="col-xxl-6 text-left" style="display: inline-block">
+                            <span>부서/직책</span>
+                            <select id="department" class="select_part" th:name="department">
+                                <option selected disabled>부서</option>
+                                <option th:value="1">인사부👨‍💼</option>
+                                <option value="2">개발부💻</option>
+                                <option value="3">기획부✏️</option>
+                                <option value="4">마케팅부📑</option>
+                            </select>
+                            <select id="team" class="select_part team" th:name="team">
+                                <option selected disabled>팀</option>
+                                <option th:value="a" class="develop">개발1팀</option>
+                                <option th:value="r" class="develop">개발2팀</option>
+                                <option value="b" class="human">인사1팀</option>
+                            </select>
+                            <select id="work" class="select_part work" th:name="work">
+                                <option selected disabled>담당</option>
+                                <option th:value="c" class="develop">프론트엔드</option>
+                                <option th:value="p" class="develop">백엔드</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--수정 버튼-->
+                    <div>
+                        <input type="submit" value="가입하기" id="buttonUpdate">
                     </div>
                 </form>
             </div>

@@ -65,9 +65,26 @@
 
 /*------공통 인풋 디자인------*/
 .design-input{
-    width: 100%;
     border: 1px solid #dadada;
     border-radius: 6px 6px 6px 6px;
+    padding: 1em;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 20px 30px;
+    width: 64%;
+    float: right;
+}
+
+.input_wrap_div{
+    display: inline-block;
+}
+
+.wrap_div{
+    margin: 30px;
+}
+.wrap_div span{
+    margin-top: 50px;
+    font-size: 20px;
 }
 /*------메인 내용 시작-------*/
 #body_wrap{
@@ -85,8 +102,29 @@
     margin: 20px;
 }
 
-#div_employeeNo{
-    display: inline-block;
+/*---부서, 팀 ,직책 css---*/
+#div_team{
+
+}
+.select_part {
+    width: 100px;
+    height: 50px;
+    border: solid 1px #dadada;
+
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.select_part option{
+    text-align: center;
+}
+.select_part::-ms-expand {
+    display: none;
+}
+
+.team,.work{
+
 }
 
 
