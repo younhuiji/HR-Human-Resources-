@@ -9,12 +9,14 @@ public class PostCreateDto {
     private String title;
     private String content;
     private String writer;
+    private Integer views;
 
     public Post toEntity(){
         return Post.builder()
                 .title(title)
                 .content(content)
                 .writer(writer)
+                .views(views)
                 .build();
     }
 }

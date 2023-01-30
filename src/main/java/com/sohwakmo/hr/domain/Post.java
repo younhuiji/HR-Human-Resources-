@@ -3,6 +3,7 @@ package com.sohwakmo.hr.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -10,6 +11,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Getter
 @Setter
 @ToString
+@DynamicInsert
 @Entity(name= "POSTS")
 @SequenceGenerator(name = "POSTS_SEQ_GEN", sequenceName = "POSTS_SEQ", initialValue = 1, allocationSize = 1)
 public class Post extends BaseTimeEntity {
@@ -21,7 +23,7 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column
     private String content;
 
     @Column(nullable = false)

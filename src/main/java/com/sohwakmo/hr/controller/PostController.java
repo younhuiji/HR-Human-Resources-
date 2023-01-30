@@ -43,7 +43,7 @@ public class PostController {
 
         Post entity = postService.create(dto);
 
-        return "redirect:/";
+        return "redirect:/post/list";
     }
 
 }
