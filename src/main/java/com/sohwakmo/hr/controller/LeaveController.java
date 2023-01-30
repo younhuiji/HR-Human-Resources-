@@ -39,6 +39,7 @@ public class LeaveController {
         Leave leave = Leave.builder()
                 .title(dto.getTitle()).category(dto.getCategory()).employeeNo(1L)
                 .effectiveDate(dto.getEffectiveDate()).approverNo(0L).secondApproverNO(1L).reason(dto.getReason())
+                .employeeTeam(dto.getEmployeeTeam()).employeePosition(dto.getEmployeePosition())
                 .build();
         Leave leaves = leaveService.create(leave);
 

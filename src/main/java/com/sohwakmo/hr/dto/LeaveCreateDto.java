@@ -25,6 +25,8 @@ public class LeaveCreateDto {
     private LocalDateTime writeDate;
     private String effectiveDate;
     private LocalDateTime competeDate;
+    private String employeeTeam;
+    private String employeePosition;
 
     public Leave toEntity() {
         return Leave.builder()
@@ -40,6 +42,8 @@ public class LeaveCreateDto {
                 .writeDate(writeDate)
                 .effectiveDate(effectiveDate)
                 .competeDate(competeDate)
+                .employeeTeam(employeeTeam)
+                .employeePosition(employeePosition)
                 .build();
     }
 
