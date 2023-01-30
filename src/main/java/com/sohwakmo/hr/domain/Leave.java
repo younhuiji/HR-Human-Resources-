@@ -23,9 +23,6 @@ public class Leave {
     @Column(nullable = false) // 시행자 사번
     private Long employeeNo;
 
-    @Column(nullable = false) // 시행자 이름
-    private String employeeName;
-
     @Column(nullable = false) // 승인자1 사번
     private Long approverNo;
 
@@ -49,6 +46,9 @@ public class Leave {
 
     @ColumnDefault("SYSDATE") // 작성일자
     private LocalDateTime writeDate;
+
+    @Column(nullable = false) // 입사일자
+    private String joinedDate;
 
     @Column(nullable = false) // 시행일자
     private String effectiveDate;

@@ -15,7 +15,6 @@ public class LeaveCreateDto {
 
     private Integer no;
     private Long employeeNo;
-    private String employeeName;
     private Long approverNo;
     private Long secondApproverNO;
     private String title;
@@ -31,7 +30,6 @@ public class LeaveCreateDto {
         return Leave.builder()
                 .no(no)
                 .employeeNo(employeeNo)
-                .employeeName(employeeName)
                 .approverNo(approverNo)
                 .secondApproverNO(secondApproverNO)
                 .title(title)

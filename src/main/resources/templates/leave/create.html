@@ -87,12 +87,12 @@
                                         <td><input type="text" class="textFrom" id="employeeName" name="employeeName" required autofocus></td>
                                     </tr>
                                     <tr>
-                                        <th class="first"><label for="department">부서</label></th>
-                                        <td><input type="text" class="textFrom" id="department" name="department" required ></td>
+                                        <th class="first"><label for="employeeTeam">부서</label></th>
+                                        <td><input type="text" class="textFrom" id="employeeTeam" name="employeeTeam" required ></td>
                                     </tr>
                                     <tr>
-                                        <th class="first"><label for="position">직급</label></th>
-                                        <td><input type="text" class="textFrom" id="position" name="position" required ></td>
+                                        <th class="first"><label for="employeePosition">직급</label></th>
+                                        <td><input type="text" class="textFrom" id="employeePosition" name="employeePosition" required ></td>
                                     </tr>
                                     <tr>
                                         <th class="first"><label for="effectiveDate">시행 일자</label></th>
@@ -144,7 +144,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="l : ${leave}">
+                            <tr th:each="l : ${leave}" th:onclick="|location.href='@{/leave/detail(no=${l.no})}'|">
                                 <td th:text="${l.no}"></td>
                                 <td th:text="${l.title}"></td>
                                 <td th:text="${l.writeDate}"></td>

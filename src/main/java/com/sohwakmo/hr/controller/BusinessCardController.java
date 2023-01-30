@@ -76,7 +76,6 @@ public class BusinessCardController {
     public String detail(Model model, @RequestParam Integer no) {
         log.info("리스트 번호={}", no);
 
-//        Integer cardNo = 21;
         BusinessCard card = businessCardService.selectByNo(no);
         model.addAttribute("card", card);
 

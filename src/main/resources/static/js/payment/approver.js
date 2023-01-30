@@ -23,7 +23,9 @@ window.addEventListener('DOMContentLoaded', event => {
         for (let r of data) {
 
             str1 +=
-                `<h2>안녕</h2>`;
+                `    <li>인사팀</li>
+                    <li>개발팀</li>
+                    <li>총무팀</li>`;
 
                 `<!--<div id="jb-text">-->
 <!--              <fieldset class="border-0" style="height: 450px; border: 1px solid #bcbcbc">-->
