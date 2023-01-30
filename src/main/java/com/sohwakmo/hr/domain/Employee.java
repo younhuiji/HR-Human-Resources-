@@ -2,6 +2,10 @@ package com.sohwakmo.hr.domain;
 
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -9,12 +13,12 @@ import java.util.Set;
 
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
-@ToString
+@Data
 @Table(uniqueConstraints = {@UniqueConstraint(name = "PHONE_EMAIL_UNIQUE", columnNames = {"PHONE","EMAIL"})})
 @SequenceGenerator(name = "EMPLOYEES_SEQ_GEN",sequenceName = "EMPLOYEE_SEQ", allocationSize = 1)
 public class Employee {
@@ -39,14 +43,16 @@ public class Employee {
     private String photo;
 
     @Embedded
-    private Part part; // 부서,팀,맡은일, 직책
+    private Part part; // 부서,팀,맡은일
+
+    @Column(columnDefinition = "varchar(255) default '사원'")
+    private String position; // 직책
 
     @Column(nullable = false)
     private String email; // 사내 email or 쪽지 주소
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date joinedDate; // 입사일
+    private String joinedDate; // 입사일
 
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -56,6 +62,13 @@ public class Employee {
 
     public Employee addRole(EmployeePosition position) {
         employeePosition.add(position);
+        return this;
+    }
+
+    public Employee update(String name, String phone, Part part) {
+        this.name = name;
+        this.phone = phone;
+        this.part = part;
         return this;
     }
 }

@@ -4,6 +4,7 @@ import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.EmployeePosition;
 import com.sohwakmo.hr.domain.Part;
 import com.sohwakmo.hr.dto.EmployeeJoinDto;
+import com.sohwakmo.hr.dto.EmployeeUpdateDto;
 import com.sohwakmo.hr.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -28,16 +30,16 @@ public class EmployeeService {
      * 회원가입
      *
      * @param joinDto
-     * @param part    사원 부서,팀,직책, 맡은일 컬럼만 모아놓음
+     * @param part    사원 부서, 팀, 맡은일 컬럼만 모아놓음
      * @param photo   사원이미지
      * @throws Exception
      */
-    public void join(EmployeeJoinDto joinDto, Part part, MultipartFile photo) throws Exception {
+    public void join(EmployeeJoinDto joinDto, Part part, MultipartFile photo,Date joinedDate) throws Exception {
         // 입사일 날짜 포맷 변경 후 저장
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String joinedDate = simpleDateFormat.format(joinDto.getJoinedDate());
-        Date convertJoinDate = new SimpleDateFormat("yyyy-MM-dd").parse(joinedDate);
-        joinDto.setJoinedDate(convertJoinDate);
+        String joinedDateToString = simpleDateFormat.format(joinedDate);
+        log.info("joinDate = {}", joinedDateToString);
+
         // 사진 주소저장
         String photoPath;
         if (photo.getSize() != 0) {
@@ -48,10 +50,6 @@ public class EmployeeService {
         // 사내번호 문자열 처리하기
         String companyPhone = joinDto.getPhone();
         companyPhone = joinDto.getPhone().replaceAll("-", "");
-
-
-        // 직책 기본값 설정.
-        part.setPosition("사원");
 
         // 비밀번호 암호화
         joinDto.setPassword(passwordEncoder.encode(joinDto.getPassword()));
@@ -64,8 +62,8 @@ public class EmployeeService {
                 .phone(companyPhone)
                 .email(joinDto.getEmail())
                 .part(part)
-                .photo("/employeeImage/" + photoPath)
-                .joinedDate(joinDto.getJoinedDate())
+                .photo("/images/employeeImage/" + photoPath)
+                .joinedDate(joinedDateToString)
                 .build();
         employee.addRole(EmployeePosition.LEVEL_1);
         log.info("employee={}", employee.toString());
@@ -112,5 +110,25 @@ public class EmployeeService {
      */
     public boolean phoneDoubleCheck(String phoneValue) {
         return employeeRepository.existsByPhone(phoneValue);
+    }
+
+    /**
+     * 회원 정보 수정
+     * @param dto 이름, 전화번호
+     * @param part 부서,팀 , 맡은일 설정
+     */
+    @Transactional
+    public void update(EmployeeUpdateDto dto, Part part) {
+        Employee employee = employeeRepository.findByEmployeeNo(dto.getEmployeeNo());
+        employee = employee.update(dto.getName(),dto.getPhone(),part);
+    }
+
+    /**
+     * 사원번호로 사원찾기
+     * @param employeeNo 고유한 사원 번호
+     * @return 사원객체
+     */
+    public Employee findEmployee(String employeeNo) {
+        return employeeRepository.findByEmployeeNo(employeeNo);
     }
 }

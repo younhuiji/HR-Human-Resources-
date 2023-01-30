@@ -17,8 +17,6 @@ public class EmployeeJoinDto {
     private String name;
     private String phone; // 사내 전화번호
     private String email;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date joinedDate;
 
     public Employee toEntity(){
         return Employee.builder()
