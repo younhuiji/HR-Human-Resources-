@@ -35,6 +35,12 @@ public class Leave {
     @Column(nullable = false, length = 100) // 제목
     private String title;
 
+    @Column(nullable = false) // 시행자 팀
+    private String employeeTeam;
+
+    @Column(nullable = false) // 시행자 직급
+    private String employeePosition;
+
     @Column(nullable = false) // 사유
     private String reason;
 
