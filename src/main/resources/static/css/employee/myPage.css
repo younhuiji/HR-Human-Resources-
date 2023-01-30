@@ -1,6 +1,6 @@
 /*-----사원 대략 header 정보-----*/
 #header_info{
-    margin: 1.5em;
+    margin: 8em 4em ;
     background: rgb(65,76,95);
     border-radius: 6px;
 }
@@ -8,11 +8,11 @@
 /*공통 크기 사이즈*/
 .header_title_color{
     color: #dadada;
-    font-size: 17px;
+    font-size: 15px;
 }
 .header_content_color{
     color: white;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: bold;
     margin-left: 14px;
 }
@@ -51,7 +51,7 @@
 #header_info_1 div{
     display: inline-block;
     margin-top: 15px;
-    padding-right: 191px;
+    /*padding-right: 191px;*/
 }
 #header_info_2{
     margin-left: 10px;
@@ -60,35 +60,39 @@
 #header_info_2 div{
     display: inline-block;
     margin-bottom: 10px;
-    padding-right: 220px;
+    /*padding-right: 220px;*/
 }
 
 /*------공통 인풋 디자인------*/
 .design-input{
     border: 1px solid #dadada;
     border-radius: 6px 6px 6px 6px;
-    padding: 1em;
+    padding: 0.7em;
     font-weight: bold;
     font-size: 18px;
-    margin: 20px 30px;
     width: 64%;
-    float: right;
+    margin: 10px 0;
 }
 
 .input_wrap_div{
     display: inline-block;
+    height: 100%;
 }
 
 .wrap_div{
+    /*border: 2px solid black;*/
     margin: 30px;
+    height: 80px;
 }
 .wrap_div span{
-    margin-top: 50px;
     font-size: 20px;
+    float: left;
+    width: 150px;
+    line-height: 80px;
 }
 /*------메인 내용 시작-------*/
 #body_wrap{
-    margin: 1.5em;
+    margin: 4em 4em 1em 4em;
     border-top: 2px solid #dadada;
     border-bottom: 2px solid #dadada;
 }
@@ -107,8 +111,9 @@
 
 }
 .select_part {
-    width: 100px;
+    width: 176px;
     height: 50px;
+    margin-top: 14px;
     border: solid 1px #dadada;
 
     -o-appearance: none;
@@ -127,4 +132,9 @@
 
 }
 
+/*----수정버튼----*/
+#div_updateButton{
+    margin: 0 4em;
+    float: right;
+}
 

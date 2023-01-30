@@ -62,7 +62,7 @@ public class EmployeeService {
                 .phone(companyPhone)
                 .email(joinDto.getEmail())
                 .part(part)
-                .photo("/employeeImage/" + photoPath)
+                .photo("/images/employeeImage/" + photoPath)
                 .joinedDate(joinedDateToString)
                 .build();
         employee.addRole(EmployeePosition.LEVEL_1);

@@ -13,115 +13,106 @@
     <div id="wrap">
         <div id="header_info">
             <div id="image">
-                <img src="#" alt="사원사진"/>
+                <img src="/images/employeeImage/cha.jpg" alt="사원사진"/>
             </div>
-            <div id="name_team_info">
-                <p id="header_name" class="header_title_color" th:text="${employee.name}"></p>
-                <p id ="header_team" class="header_content_color" th:text="${employee.part.team}"></p>
-            </div>
-
-            <div id="header_info_wrap">
-                <div id="header_info_1">
-                    <div>
+            <div id="header_info_wrap" class="container">
+                <div id="header_info_1" class="row">
+                    <div class="col-xxl-3">
                         <p class="info_1_title header_title_color">* 사번</p>
                         <p class="header_content_color" th:text="${employee.employeeNo}"></p>
                     </div>
-                    <div>
-                        <p class="info_1_title header_title_color" style="padding-right: 89px">* 소속</p>
+                    <div class="col-xxl-3">
+                        <p class="info_1_title header_title_color">* 소속</p>
                         <p class="header_content_color" th:text="${employee.part.department}"></p>
                     </div>
-                    <div>
-                        <p class="info_1_title header_title_color" style="padding-right: 155px">* 팀</p>
+                    <div class="col-xxl-3">
+                        <p class="info_1_title header_title_color">* 팀</p>
                         <p class="header_content_color" th:text="${employee.part.team}"></p>
                     </div>
-                    <div>
-                        <p class="info_1_title header_title_color" style="padding-right: 67px">* 직책</p>
+                    <div class="col-xxl-3">
+                        <p class="info_1_title header_title_color">* 직책</p>
                         <p class="header_content_color" th:text="${employee.part.work}"></p>
                     </div>
                 </div>
-                <div id="header_info_2">
-                    <div>
+                <div id="header_info_2" class="row">
+                    <div class="col-xxl-3">
                         <p class="info_1_title header_title_color">* 성명</p>
                         <p class="header_content_color" th:text="${employee.name}"></p>
                     </div>
-                    <div>
+                    <div class="col-xxl-3">
                         <p class="info_1_title header_title_color">* 입사일</p>
                         <p class="header_content_color" th:text="${employee.joinedDate}"></p>
                     </div>
-                    <div>
+                    <div class="col-xxl-3">
                         <p class="info_1_title header_title_color">* 사내 이메일</p>
                         <p class="header_content_color" th:text="${employee.email}"></p>
                     </div>
-                    <div>
+                    <div class="col-xxl-3">
                         <p class="info_1_title header_title_color">* 사내 번호</p>
                         <p class="header_content_color" th:text="${employee.phone}"></p>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="body_wrap">
-            <div id="div_body_cover container">
-                <form id="form" enctype="multipart/form-data">
-                    <!-- 사원번호 이름 -->
-                    <div id="employeeNo_name" class="wrap_div row">
-                        <div id="div_employeeNo" class="input_wrap_div text-left col-xxl-6">
-                            <span>사원번호</span>
-                            <input class="design-input" th:value="${employee.employeeNo}" type="text" readonly name="employeeNo"/>
+        <form id="form" enctype="multipart/form-data">
+            <div id="body_wrap">
+                <div id="div_body_cover container">
+                        <!-- 사원번호 이름 -->
+                        <div id="employeeNo_name" class="wrap_div row">
+                            <div id="div_employeeNo" class="input_wrap_div text-left col-xxl-6">
+                                <span>사원번호</span>
+                                <input class="design-input" th:value="${employee.employeeNo}" type="text" readonly name="employeeNo"/>
+                            </div>
+                            <div id="div_name" class="input_wrap_div text-left col-xxl-6">
+                                <span>이름</span>
+                                <input class="design-input" th:value="${employee.name}" type="text" name="name"/>
+                            </div>
                         </div>
-                        <div id="div_name" class="input_wrap_div text-left col-xxl-6">
-                            <span>이름</span>
-                            <input class="design-input" th:value="${employee.name}" type="text" name="name"/>
-                        </div>
-                    </div>
 
-                    <!--입사일, 사내 번호-->
-                    <div id="joinedDate_phone" class="wrap_div row">
-                          <div id="div_joinedDate" class="input_wrap_div text-left col-6">
-                              <span>입사일</span>
-                              <input class="design-input" th:value="${employee.joinedDate}" type="date" readonly />
+                        <!--입사일, 사내 번호-->
+                        <div id="joinedDate_phone" class="wrap_div row">
+                            <div id="div_joinedDate" class="input_wrap_div text-left col-6">
+                                <span>입사일</span>
+                                <input class="design-input" th:value="${employee.joinedDate}" type="date" readonly />
+                            </div>
+                            <div id="div_phone" class="input_wrap_div text-left col-xxl-6">
+                                <span>사내 번호</span>
+                                <input class="design-input" th:value="${employee.phone}" type="text" name="phone"/>
+                            </div>
                         </div>
-                        <div id="div_phone" class="input_wrap_div text-left col-xxl-6">
-                            <span>사내 번호</span>
-                            <input class="design-input" th:value="${employee.phone}" type="text" name="phone"/>
-                        </div>
-                    </div>
 
-                    <!--사내이메일 , 부서 팀 직책-->
-                    <div id="email_team" class="wrap_div row">
-                        <div id="div_email" class="input_wrap_div col-xxl-6 col-md-3 text-left" style="display: inline-block">
-                            <span>사내 이메일</span>
-                            <input class="design-input" th:value="${employee.email}" type="email" readonly/>
-                        </div>
-                        <div id="div_team" class="col-xxl-6 text-left" style="display: inline-block">
-                            <span>부서/직책</span>
-                            <select id="department" class="select_part" th:name="department">
-                                <option selected disabled>부서</option>
-                                <option th:value="1">인사부👨‍💼</option>
-                                <option value="2">개발부💻</option>
-                                <option value="3">기획부✏️</option>
-                                <option value="4">마케팅부📑</option>
-                            </select>
-                            <select id="team" class="select_part team" th:name="team">
-                                <option selected disabled>팀</option>
-                                <option th:value="a" class="develop">개발1팀</option>
-                                <option th:value="r" class="develop">개발2팀</option>
-                                <option value="b" class="human">인사1팀</option>
-                            </select>
-                            <select id="work" class="select_part work" th:name="work">
-                                <option selected disabled>담당</option>
-                                <option th:value="c" class="develop">프론트엔드</option>
-                                <option th:value="p" class="develop">백엔드</option>
-                            </select>
+                        <!--사내이메일 , 부서 팀 직책-->
+                        <div id="email_team" class="wrap_div row">
+                            <div id="div_email" class="input_wrap_div col-xxl-6 col-md-3 text-left" style="display: inline-block">
+                                <span>사내 이메일</span>
+                                <input class="design-input" th:value="${employee.email}" type="email" readonly/>
+                            </div>
+                            <div id="div_team" class="col-xxl-6 text-left" style="display: inline-block">
+                                <span>부서/직책</span>
+                                <select id="department" class="select_part" th:name="department">
+                                    <option th:value="인사부 " value="인사부" th:selected="${employee.part.department} == '인사부'">인사부👨‍💼</option>
+                                    <option th:value="개발부" th:selected="${employee.part.department} == '개발부'">개발부💻</option>
+                                    <option value="기획부">기획부✏️</option>
+                                    <option value="마케팅부">마케팅부📑</option>
+                                </select>
+                                <select id="team" class="select_part team" th:name="team">
+                                    <option value="개발1팀" class="develop" th:selected="${employee.part.team} == '개발1팀'">개발1팀</option>
+                                    <option value="개발2팀" class="develop" th:selected="${employee.part.team} == '개발2팀'">개발2팀</option>
+                                    <option value="인사1팀" class="human" th:selected="${employee.part.team} == '인사1팀'">인사1팀</option>
+                                </select>
+                                <select id="work" class="select_part work" th:name="work">
+                                    <option value="프론트" class="develop">프론트엔드</option>
+                                    <option value="백엔드" class="develop">백엔드</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-
-                    <!--수정 버튼-->
-                    <div>
-                        <input type="submit" value="가입하기" id="buttonUpdate">
-                    </div>
-                </form>
+                </div>
+            <!--수정 버튼-->
+            <div id="div_updateButton">
+                <input type="submit" value="수정" class="btn btn-primary" id="buttonUpdate">
             </div>
-        </div>
+        </form>
     </div>
 
 </div>
