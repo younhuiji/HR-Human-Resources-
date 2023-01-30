@@ -1,5 +1,6 @@
 package com.sohwakmo.hr.controller;
 
+import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.Part;
 import com.sohwakmo.hr.dto.EmployeeJoinDto;
 import com.sohwakmo.hr.dto.EmployeeUpdateDto;
@@ -48,13 +49,18 @@ public class EmployeeController {
     }
 
     @GetMapping("/myPage")
-    public String myPage(){return "/employee/myPage";}
+    public String myPage(Model model, String employeeNo){
+        Employee employee = employeeService.findEmployee(employeeNo);
+        log.info(employee.toString());
+        model.addAttribute("employee", employee);
+        return "/employee/myPage";
+    }
 
     @PostMapping("/myPage/update")
     public String myPageUpdate(EmployeeUpdateDto dto,Part part) {
         log.info(dto.toString());
         log.info(part.toString());
         employeeService.update(dto, part);
-        return "redirect:/myPage";
+        return "redirect:/myPage?employeeNo="+dto.getEmployeeNo();
      }
 }

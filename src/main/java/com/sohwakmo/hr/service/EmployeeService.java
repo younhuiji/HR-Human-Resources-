@@ -112,9 +112,23 @@ public class EmployeeService {
         return employeeRepository.existsByPhone(phoneValue);
     }
 
+    /**
+     * 회원 정보 수정
+     * @param dto 이름, 전화번호
+     * @param part 부서,팀 , 맡은일 설정
+     */
     @Transactional
     public void update(EmployeeUpdateDto dto, Part part) {
         Employee employee = employeeRepository.findByEmployeeNo(dto.getEmployeeNo());
         employee = employee.update(dto.getName(),dto.getPhone(),part);
+    }
+
+    /**
+     * 사원번호로 사원찾기
+     * @param employeeNo 고유한 사원 번호
+     * @return 사원객체
+     */
+    public Employee findEmployee(String employeeNo) {
+        return employeeRepository.findByEmployeeNo(employeeNo);
     }
 }
