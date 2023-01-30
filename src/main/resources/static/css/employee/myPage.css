@@ -138,3 +138,16 @@
     float: right;
 }
 
+/*----이미지 동그랗게----*/
+#image{
+    width: 150px;
+    height: 150px;
+    border-radius: 70%;
+    overflow: hidden;
+    display: inline-block;
+}
+#image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
