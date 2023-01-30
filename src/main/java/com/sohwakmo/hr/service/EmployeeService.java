@@ -4,6 +4,7 @@ import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.EmployeePosition;
 import com.sohwakmo.hr.domain.Part;
 import com.sohwakmo.hr.dto.EmployeeJoinDto;
+import com.sohwakmo.hr.dto.EmployeeUpdateDto;
 import com.sohwakmo.hr.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -28,7 +30,7 @@ public class EmployeeService {
      * 회원가입
      *
      * @param joinDto
-     * @param part    사원 부서,팀,직책, 맡은일 컬럼만 모아놓음
+     * @param part    사원 부서, 팀, 맡은일 컬럼만 모아놓음
      * @param photo   사원이미지
      * @throws Exception
      */
@@ -48,10 +50,6 @@ public class EmployeeService {
         // 사내번호 문자열 처리하기
         String companyPhone = joinDto.getPhone();
         companyPhone = joinDto.getPhone().replaceAll("-", "");
-
-
-        // 직책 기본값 설정.
-        part.setPosition("사원");
 
         // 비밀번호 암호화
         joinDto.setPassword(passwordEncoder.encode(joinDto.getPassword()));
@@ -112,5 +110,11 @@ public class EmployeeService {
      */
     public boolean phoneDoubleCheck(String phoneValue) {
         return employeeRepository.existsByPhone(phoneValue);
+    }
+
+    @Transactional
+    public void update(EmployeeUpdateDto dto, Part part) {
+        Employee employee = employeeRepository.findByEmployeeNo(dto.getEmployeeNo());
+        employee = employee.update(dto.getName(),dto.getPhone(),part);
     }
 }

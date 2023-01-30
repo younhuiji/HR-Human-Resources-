@@ -2,6 +2,7 @@ package com.sohwakmo.hr.controller;
 
 import com.sohwakmo.hr.domain.Part;
 import com.sohwakmo.hr.dto.EmployeeJoinDto;
+import com.sohwakmo.hr.dto.EmployeeUpdateDto;
 import com.sohwakmo.hr.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ public class EmployeeController {
         return "/employee/login";
     }
 
-//    @PreAuthorize("isAuthenticated()")
+
     @GetMapping("/join")
     public String join(){
         return "/employee/join";
@@ -48,4 +49,12 @@ public class EmployeeController {
 
     @GetMapping("/myPage")
     public String myPage(){return "/employee/myPage";}
+
+    @PostMapping("/myPage/update")
+    public String myPageUpdate(EmployeeUpdateDto dto,Part part) {
+        log.info(dto.toString());
+        log.info(part.toString());
+        employeeService.update(dto, part);
+        return "redirect:/myPage";
+     }
 }

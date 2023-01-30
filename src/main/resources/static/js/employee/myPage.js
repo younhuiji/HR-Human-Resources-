@@ -36,7 +36,7 @@ window.addEventListener('DOMContentLoaded',function (){
     const buttonUpdate = document.querySelector('#buttonUpdate');
     const form = document.querySelector('#form');
     buttonUpdate.addEventListener('click', function (){
-        form.action = "/update";
+        form.action = "/myPage/update";
         form.method = "post";
         form.submit();
         alert('수정 완료');

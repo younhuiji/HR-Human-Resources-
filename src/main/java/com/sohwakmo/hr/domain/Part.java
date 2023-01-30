@@ -2,6 +2,11 @@ package com.sohwakmo.hr.domain;
 
 
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import javax.persistence.*;
 
 @Embeddable
@@ -17,6 +22,4 @@ public class Part {
     @Column(name = "ASSIGNED_WORK",nullable = false)
     private String work; // 맡은일
 
-    // 처음에는 전부 사원으로 해놓고 나중에 관리자가 직책과 레벨변경
-    private String position; // 직책
 }
