@@ -1,6 +1,8 @@
 package com.sohwakmo.hr.controller;
 
+import com.sohwakmo.hr.domain.BaseTimeEntity;
 import com.sohwakmo.hr.domain.Leave;
+import com.sohwakmo.hr.domain.PaymentState;
 import com.sohwakmo.hr.dto.LeaveCreateDto;
 import com.sohwakmo.hr.service.LeaveService;
 import lombok.RequiredArgsConstructor;
@@ -18,15 +20,16 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/leave")
-public class LeaveController {
+public class LeaveController  {
 
     private final LeaveService leaveService;
 
     @GetMapping("/create")
     public String create(Model model){
 
-        String name = "홍길동";
-        List<Leave> leave = leaveService.selectByName(name);
+        // TODO: 임원 테이블 연결 시에 수정하기
+        Integer no = 1;
+        List<Leave> leave = leaveService.selectByName(no);
         log.info("컨트롤={}", leave);
         model.addAttribute("leave", leave);
 
@@ -36,10 +39,16 @@ public class LeaveController {
     @PostMapping("/create")
     public String create(LeaveCreateDto dto){
 
+        // TODO: payment enum 값으로 가져오기
+
         Leave leave = Leave.builder()
-                .title(dto.getTitle()).category(dto.getCategory()).employeeNo(1L)
-                .effectiveDate(dto.getEffectiveDate()).approverNo(0L).secondApproverNO(1L).reason(dto.getReason())
-                .employeeTeam(dto.getEmployeeTeam()).employeePosition(dto.getEmployeePosition())
+                // TODO: 시행자, 승인자 번호 임원 테이블 연결 시에 수정하기
+//                .employeeNo(dto.getEmployeeNo()).approverNo(dto.getApproverNo()).secondApproverNO(dto.getSecondApproverNO())
+//                .title(dto.getTitle()).reason(dto.getReason()).category(dto.getCategory()).state(dto.getState())
+//                .returnReason(dto.getReturnReason()).writeDate(dto.getWriteDate()).effectiveDate(dto.getEffectiveDate()).competeDate(dto.getCompeteDate())
+                .employeeNo(1L).approverNo(1L).secondApproverNO(1L)
+                .title(dto.getTitle()).reason(dto.getReason()).category(dto.getCategory())
+                .effectiveDate(dto.getEffectiveDate())
                 .build();
         Leave leaves = leaveService.create(leave);
 

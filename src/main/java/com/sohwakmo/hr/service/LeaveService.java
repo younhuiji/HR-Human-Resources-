@@ -18,12 +18,13 @@ public class LeaveService {
     private final LeaveRepository leaveRepository;
 
     public Leave create(Leave leave){
+
         return leaveRepository.save(leave);
     }
 
-    public List<Leave> selectByName(String employeeName){
-        log.info("서비스 까지 넘어옴={}", employeeName);
-        return leaveRepository.selectByName(employeeName);
+    public List<Leave> selectByName(Integer no){
+        log.info("서비스 까지 넘어옴={}", no);
+        return leaveRepository.selectByName(no);
     }
 
     public Leave selectByNo(Integer no){

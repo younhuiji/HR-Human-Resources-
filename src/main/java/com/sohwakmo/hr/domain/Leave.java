@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @ToString
 @Entity(name="LEAVE")
 @SequenceGenerator(name = "LEAVE_SEQ_GEN", sequenceName = "LEAVE_SEQ", allocationSize = 1)
-public class Leave {
+public class Leave extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LEAVE_SEQ_GEN")
@@ -23,20 +23,14 @@ public class Leave {
     @Column(nullable = false) // 시행자 사번
     private Long employeeNo;
 
-    @Column(nullable = false) // 승인자1 사번
+    @Column(nullable = false) // 승인자 사번
     private Long approverNo;
 
-    @Column // 승인자2 사번 (상무)
+    @Column(nullable = false) // 승인자2 사번 (상무)
     private Long secondApproverNO;
 
     @Column(nullable = false, length = 100) // 제목
     private String title;
-
-    @Column(nullable = false) // 시행자 팀
-    private String employeeTeam;
-
-    @Column(nullable = false) // 시행자 직급
-    private String employeePosition;
 
     @Column(nullable = false) // 사유
     private String reason;
@@ -44,17 +38,11 @@ public class Leave {
     @Column(nullable = false) // 결재 분류
     private String category;
 
-    @Embedded // 결재 상태
+    @Enumerated(EnumType.STRING) // 결재 상태
     private PaymentState state;
 
     @Column // 반려 사유
     private String returnReason;
-
-    @ColumnDefault("SYSDATE") // 작성일자
-    private LocalDateTime writeDate;
-
-    @Column(nullable = false) // 입사일자
-    private String joinedDate;
 
     @Column(nullable = false) // 시행일자
     private String effectiveDate;

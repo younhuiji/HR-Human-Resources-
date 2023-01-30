@@ -83,8 +83,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="first"><label for="employeeName">신청자</label></th>
-                                        <td><input type="text" class="textFrom" id="employeeName" name="employeeName" required autofocus></td>
+                                        <th class="first"><label >신청자</label></th>
+                                        <td><input type="text" class="textFrom"  required autofocus></td>
+                                        <td><input type="hidden" class="textFrom" id="employeeNo" name="employeeNo" required autofocus></td>
                                     </tr>
                                     <tr>
                                         <th class="first"><label for="employeeTeam">부서</label></th>
@@ -99,8 +100,8 @@
                                         <td><input type="date" class="textFrom" id="effectiveDate" name="effectiveDate" required ></td>
                                     </tr>
                                     <tr>
-                                        <th><label for="approverName">결재자 지정</label></th>
-                                        <td><input type="text" class="textFrom" id="approverName" name="approverName" required ></td>
+                                        <th><label for="approverNo">결재자 지정</label></th>
+                                        <td><input type="text" class="textFrom" id="approverNo" name="approverNo" required ></td>
                                     </tr>
                                     <tr>
                                         <th class="first"><label for="reason">사유</label></th>
@@ -147,7 +148,6 @@
                             <tr th:each="l : ${leave}" th:onclick="|location.href='@{/leave/detail(no=${l.no})}'|">
                                 <td th:text="${l.no}"></td>
                                 <td th:text="${l.title}"></td>
-                                <td th:text="${l.writeDate}"></td>
                                 <td th:text="${l.state}"></td>
                             </tr>
                             </tbody>

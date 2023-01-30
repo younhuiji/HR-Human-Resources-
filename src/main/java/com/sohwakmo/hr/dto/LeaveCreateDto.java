@@ -13,20 +13,17 @@ import java.time.LocalDateTime;
 @Data
 public class LeaveCreateDto {
 
-    private Integer no;
-    private Long employeeNo;
-    private Long approverNo;
-    private Long secondApproverNO;
-    private String title;
-    private String reason;
-    private String category;
-    private PaymentState state;
-    private String returnReason;
-    private LocalDateTime writeDate;
-    private String effectiveDate;
-    private LocalDateTime competeDate;
-    private String employeeTeam;
-    private String employeePosition;
+    private Integer no; // PK
+    private Long employeeNo; // 시행자 사번
+    private Long approverNo; // 승인자 사번
+    private Long secondApproverNO; // 승인자2 사번
+    private String title; // 제목
+    private String reason; // 사유
+    private String category; // 결재 분류
+    private PaymentState state; // 결재 상태
+    private String returnReason; // 반려 사유
+    private String effectiveDate; // 시행 일자
+    private LocalDateTime competeDate; // 결재 일시
 
     public Leave toEntity() {
         return Leave.builder()
@@ -39,11 +36,8 @@ public class LeaveCreateDto {
                 .category(category)
                 .state(state)
                 .returnReason(returnReason)
-                .writeDate(writeDate)
                 .effectiveDate(effectiveDate)
                 .competeDate(competeDate)
-                .employeeTeam(employeeTeam)
-                .employeePosition(employeePosition)
                 .build();
     }
 

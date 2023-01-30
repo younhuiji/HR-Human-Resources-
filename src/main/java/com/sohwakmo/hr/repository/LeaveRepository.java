@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface LeaveRepository extends JpaRepository<Leave, Integer> {
 
-    @Query("select l from LEAVE l where l.employeeName = :name ")
-    List<Leave> selectByName(@Param(value = "name")String name);
+    @Query("select l from LEAVE l where l.employeeNo = :no ")
+    List<Leave> selectByName(@Param(value = "no")Integer no);
 
     @Query("select l from LEAVE l where l.no = :no ")
     Leave selectByNo(@Param(value = "no")Integer no);
