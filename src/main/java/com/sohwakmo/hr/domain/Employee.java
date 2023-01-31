@@ -17,6 +17,7 @@ import java.util.*;
 @AllArgsConstructor
 @Builder
 @Data
+@ToString(exclude = {"attendances"})
 @Table(uniqueConstraints = {@UniqueConstraint(name = "PHONE_EMAIL_UNIQUE", columnNames = {"PHONE","EMAIL"})})
 @SequenceGenerator(name = "EMPLOYEES_SEQ_GEN",sequenceName = "EMPLOYEE_SEQ", allocationSize = 1)
 public class Employee {

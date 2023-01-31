@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class AttendanceDto {
-    private String month;
-    private String date;
+    private Integer month;
+    private Integer day;
     private Integer hours;
     private Integer minutes;
     private String employeeNo;

@@ -46,9 +46,15 @@ public class EmployeeRestController {
         else return ResponseEntity.ok("emailOk");
     }
 
+    /**
+     * 업무 시작 시간 받아오기
+     * @param dto 업무시작 시간,날짜 받아오기
+     * @return 예상퇴근시간 리턴
+     */
     @PostMapping("/attendance")
-    public ResponseEntity<Integer> attendace(@RequestBody AttendanceDto dto){
+    public ResponseEntity<Integer> attendance(@RequestBody AttendanceDto dto){
         log.info(dto.toString());
+        employeeService.startWork(dto);
         return ResponseEntity.ok(1);
     }
 

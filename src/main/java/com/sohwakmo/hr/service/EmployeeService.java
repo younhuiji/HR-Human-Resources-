@@ -1,10 +1,13 @@
 package com.sohwakmo.hr.service;
 
+import com.sohwakmo.hr.domain.Attendance;
 import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.EmployeePosition;
 import com.sohwakmo.hr.domain.Part;
+import com.sohwakmo.hr.dto.AttendanceDto;
 import com.sohwakmo.hr.dto.EmployeeJoinDto;
 import com.sohwakmo.hr.dto.EmployeeUpdateDto;
+import com.sohwakmo.hr.repository.AttendanceRepository;
 import com.sohwakmo.hr.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +27,7 @@ import java.util.Date;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final AttendanceRepository attendanceRepository;
     private final PasswordEncoder passwordEncoder;
 
     /**
@@ -130,5 +134,34 @@ public class EmployeeService {
      */
     public Employee findEmployee(String employeeNo) {
         return employeeRepository.findByEmployeeNo(employeeNo);
+    }
+
+    public void startWork(AttendanceDto dto) {
+        String month;
+        String day;
+        String hours;
+        String minutes;
+
+        // 달 String 으로 변환
+        if (dto.getMonth() / 10 == 0)  month = "0" + String.valueOf(dto.getMonth());
+        else month = String.valueOf(dto.getMonth());
+
+        // 날짜 String 으로 변환
+        if (dto.getDay() / 10 == 0)  day = "0" + String.valueOf(dto.getDay());
+        else day = String.valueOf(dto.getDay());
+
+        if (dto.getHours() / 10 == 0)  hours = "0" + String.valueOf(dto.getHours());
+        else hours = String.valueOf(dto.getHours());
+
+        if (dto.getMinutes() / 10 == 0)  minutes = "0" + String.valueOf(dto.getMinutes());
+        else minutes = String.valueOf(dto.getMinutes());
+
+        Employee employee = employeeRepository.findByEmployeeNo(dto.getEmployeeNo());
+
+        Attendance attendance = Attendance.builder()
+                .employee(employee).startTime(hours + ":" + minutes).month(month).day(day).build();
+
+        log.info(attendance.toString());
+        attendanceRepository.save(attendance);
     }
 }
