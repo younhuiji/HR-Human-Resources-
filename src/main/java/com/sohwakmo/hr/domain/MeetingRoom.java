@@ -42,7 +42,7 @@ public class MeetingRoom {
     private String endTime;  // 종료시간
 
     @Column(nullable = false)
-    private String reservationName; // 예약자
+    private Integer reservationName; // 예약자
 
     @Column(nullable = false)
     private String attendee;  // 참석자

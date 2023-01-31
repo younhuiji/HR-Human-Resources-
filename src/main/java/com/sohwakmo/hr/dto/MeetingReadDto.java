@@ -6,13 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Date;
-
 @AllArgsConstructor
 @Builder
 @Getter
 @ToString
-public class CalReadDto {
+public class MeetingReadDto {
     private Integer meetingRoomNo;
     private String title;
     private String roomName;
@@ -23,8 +21,8 @@ public class CalReadDto {
     private String attendee;
     private String purpose;
 
-    public static CalReadDto fromEntity(MeetingRoom entity){
-        return CalReadDto.builder()
+    public static MeetingReadDto fromEntity(MeetingRoom entity){
+        return MeetingReadDto.builder()
                 .meetingRoomNo(entity.getMeetingRoomNo())
                 .title(entity.getTitle())
                 .roomName(entity.getRoomName())

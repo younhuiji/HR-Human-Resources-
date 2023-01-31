@@ -1,7 +1,10 @@
 package com.sohwakmo.hr.controller;
 
-import com.sohwakmo.hr.dto.CalReadDto;
+import com.sohwakmo.hr.domain.BusinessTrip;
+import com.sohwakmo.hr.dto.BusinessTripReadDto;
+import com.sohwakmo.hr.dto.MeetingReadDto;
 import com.sohwakmo.hr.dto.OrgReadDto;
+import com.sohwakmo.hr.dto.VacationListReadDto;
 import com.sohwakmo.hr.service.OrgService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,15 +42,34 @@ public class OrgRestController {
         return ResponseEntity.ok(memberEntity);
     }
 
-    @GetMapping("/calendarList")
-    public ResponseEntity<List<CalReadDto>> readAllCalList(){
-        log.info("readAllCalList()");
+    @GetMapping("/meetingList/{loginUser}")
+    public ResponseEntity<List<MeetingReadDto>> readMeetingList(@PathVariable Integer loginUser ){
+        log.info("readAllCalList(loginUser={})", loginUser);
 
-        List<CalReadDto> list = orgService.readAllCalList();
+        List<MeetingReadDto> list = orgService.readMeetingList(loginUser);
         log.info("# of list={}", list.size());
 
         return ResponseEntity.ok(list);
     }
 
+//    @GetMapping("/businessTripList")
+//    public ResponseEntity<List<BusinessTripReadDto>> readBusinessTripList(){
+//        log.info("readBusinessTripList()");
+//
+//        List<BusinessTripReadDto> list = orgService.readBusinessTripList();
+//        log.info("# of list={}", list.size());
+//
+//        return ResponseEntity.ok(list);
+//    }
+//
+//    @GetMapping("/vacationList")
+//    public ResponseEntity<List<VacationListReadDto>> readVacationList(){
+//        log.info("readVacationList()");
+//
+//        List<VacationListReadDto> list = orgService.readVacationList();
+//        log.info("# of list={}", list.size());
+//
+//        return ResponseEntity.ok(list);
+//    }
 
 }

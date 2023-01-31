@@ -14,7 +14,10 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log(dateString);
 
     //schedule Array
-    let scheList = [];
+    let meetingList = [];
+
+    //loginUser
+    const loginUser = document.querySelector('#loginUser');
 
 
     //calendar call
@@ -47,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             //     arg.event.remove()
             // }
             //calendarModal.show();
-            for(let l of scheList){
+            for(let l of meetingList){
                 if(l.meetingRoomNo == arg.event.id){
                     alert(
                         '회의명: '+ l.title +
@@ -63,26 +66,64 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         editable: true,
         dayMaxEvents: true, // allow "more" link when too many events
-        events: function (info, successCallback, failureCallback){
-            let events =[];
-            axios.get('/api/org/calendarList')
-                .then(response => {
-                    console.log(response.data);
-                    scheList = response.data;
-                    for(let l of response.data){
-                        events.push({
-                            id: l.meetingRoomNo,
-                            title: l.title,
-                            start: l.reserveDate + 'T'+ l.start,
-                            end: l.reserveDate + 'T'+l.end
-                        })
-                    }
-                    successCallback(events);
-                })
-                .catch(err => {
-                    console.log(err);
-                })
+        eventSources: [{
+            events: function (info, successCallback, failureCallback) {
+                let events = [];
+                axios.get('/api/org/meetingList/'+loginUser)
+                    .then(response => {
+                        console.log(response.data);
+                        meetingList = response.data;
+                        for (let l of response.data) {
+                            events.push({
+                                id: l.meetingRoomNo,
+                                title: l.title,
+                                start: l.reserveDate + 'T' + l.start,
+                                end: l.reserveDate + 'T' + l.end
+                            })
+                        }
+                        successCallback(events);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            }
+            ,color: "#FF0000"
+            ,textColor: "#FFFFFF"
+        },
+        {
+            events:function (info, successCallback, failureCallback) {
+                let events = []
+                axios.get('/api/org/businessTripList')
+                    .then(response => {
+                        console.log(response.data);
+                        successCallback(events);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            }
+            ,color : "#0000FF"
+            ,textColor: "#FFFFFF"
+        },
+        {
+            events:function (info, successCallback, failureCallback) {
+                let events = [];
+                axios.get('/api/org/vacationList')
+                    .then(response => {
+                        console.log(response.data);
+                        successCallback(events);
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
+            ,color : "#00CC00"
+            ,textColor : "#FFFFFF"
+                
         }
+
+        ]
+
 
     });
 

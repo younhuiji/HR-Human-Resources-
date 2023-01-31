@@ -2,7 +2,7 @@ package com.sohwakmo.hr.service;
 
 import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.MeetingRoom;
-import com.sohwakmo.hr.dto.CalReadDto;
+import com.sohwakmo.hr.dto.MeetingReadDto;
 import com.sohwakmo.hr.dto.OrgReadDto;
 import com.sohwakmo.hr.repository.MeetingRoomRepository;
 import com.sohwakmo.hr.repository.OrgRepository;
@@ -42,14 +42,15 @@ public class OrgService {
                 .toList();
     }
 
-    public List<CalReadDto> readAllCalList() {
-        log.info("readAllCalList()");
+    public List<MeetingReadDto> readMeetingList(Integer loginUser) {
+        log.info("readAllCalList(loginUser={})", loginUser);
+
 
         List<MeetingRoom> scheduleInfo = meetingRoomRepository.findAll();
         log.info("scheduleInfo={}", scheduleInfo);
 
         return scheduleInfo.stream()
-                .map(CalReadDto::fromEntity)
+                .map(MeetingReadDto::fromEntity)
                 .toList();
     }
 }
