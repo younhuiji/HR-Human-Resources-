@@ -8,6 +8,7 @@ import lombok.Data;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Builder
 @Data
@@ -24,22 +25,33 @@ public class LeaveCreateDto {
     private String returnReason; // 반려 사유
     private String effectiveDate; // 시행 일자
     private LocalDateTime competeDate; // 결재 일시
+    private String createdTime; // 작성 일시
+    private String modifiedTime; // 수정 일시
 
-    public Leave toEntity() {
-        return Leave.builder()
-                .no(no)
-                .employeeNo(employeeNo)
-                .approverNo(approverNo)
-                .secondApproverNO(secondApproverNO)
-                .title(title)
-                .reason(reason)
-                .category(category)
-                .state(state)
-                .returnReason(returnReason)
-                .effectiveDate(effectiveDate)
-                .competeDate(competeDate)
+    public static LeaveCreateDto fromEntity(Leave entity){
+        LeaveCreateDto build = LeaveCreateDto.builder()
+                .no(entity.getNo())
+                .employeeNo(entity.getEmployeeNo())
+                .approverNo(entity.getApproverNo())
+                .secondApproverNO(entity.getApproverNo())
+                .title(entity.getTitle())
+                .reason(entity.getReason())
+                .category(entity.getCategory())
+                .state(entity.getState())
+                .returnReason(entity.getReturnReason())
+                .effectiveDate(entity.getEffectiveDate())
+                .competeDate(entity.getCompeteDate())
+                .createdTime(formatDate(entity.getCreatedTime()))
+                .modifiedTime(formatDate(entity.getModifiedTime()))
                 .build();
+        return build;
     }
+
+    public static String formatDate(LocalDateTime time){
+        String formatDate = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        return formatDate;
+    }
+
 
 
 }

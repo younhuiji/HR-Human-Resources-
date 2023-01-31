@@ -6,6 +6,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -49,5 +50,10 @@ public class Leave extends BaseTimeEntity {
 
     @Column // 결재일시
     private LocalDateTime competeDate;
+
+    public static String formatDate(LocalDateTime time){
+        String formatDate = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        return formatDate;
+    }
 
 }
