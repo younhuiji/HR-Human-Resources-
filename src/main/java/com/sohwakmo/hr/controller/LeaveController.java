@@ -1,9 +1,11 @@
 package com.sohwakmo.hr.controller;
 
 import com.sohwakmo.hr.domain.BaseTimeEntity;
+import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.Leave;
 import com.sohwakmo.hr.domain.PaymentState;
 import com.sohwakmo.hr.dto.LeaveCreateDto;
+import com.sohwakmo.hr.service.EmployeeService;
 import com.sohwakmo.hr.service.LeaveService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,7 @@ import java.util.List;
 @RequestMapping("/leave")
 public class LeaveController  {
 
+    private final EmployeeService employeeService;
     private final LeaveService leaveService;
 
     @GetMapping("/create")
@@ -59,8 +62,14 @@ public class LeaveController  {
     public String detail(@RequestParam Integer no, Model model) {
 
         Leave leave = leaveService.selectByNo(no);
+        log.info("디테일리리리리리ㅣ리={}", leave.getEmployeeNo());
+        Employee employee = employeeService.selectByNo(leave.getEmployeeNo());
+
         model.addAttribute("leave",leave);
+        model.addAttribute("employee", employee);
+
         log.info("leave 받은 데이터={}", leave);
+        log.info("employee 받은 데이터={}", employee);
 
         return "/leave/detail";
     }

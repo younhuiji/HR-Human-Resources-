@@ -2,6 +2,7 @@ package com.sohwakmo.hr.service;
 
 import com.sohwakmo.hr.domain.BusinessCard;
 import com.sohwakmo.hr.domain.Leave;
+import com.sohwakmo.hr.domain.PaymentState;
 import com.sohwakmo.hr.repository.BusinessCardRepository;
 import com.sohwakmo.hr.repository.LeaveRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,9 @@ public class LeaveService {
     private final LeaveRepository leaveRepository;
 
     public Leave create(Leave leave){
+        leave.addRole(PaymentState.진행중);
+
+        log.info("상태 값 확인하기={}", leave);
 
         return leaveRepository.save(leave);
     }

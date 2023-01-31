@@ -23,4 +23,9 @@ public class EmployeeService {
         return employeeRepository.selectByPart(teamName);
     }
 
+    public Employee selectByNo(Long no) {
+            log.info("no={}", no);
+        return employeeRepository.selectByNo(no);
+    }
+
 }

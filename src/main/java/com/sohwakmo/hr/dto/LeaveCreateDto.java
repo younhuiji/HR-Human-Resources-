@@ -37,7 +37,6 @@ public class LeaveCreateDto {
                 .title(entity.getTitle())
                 .reason(entity.getReason())
                 .category(entity.getCategory())
-                .state(entity.getState())
                 .returnReason(entity.getReturnReason())
                 .effectiveDate(entity.getEffectiveDate())
                 .competeDate(entity.getCompeteDate())

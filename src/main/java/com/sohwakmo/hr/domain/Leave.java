@@ -7,6 +7,8 @@ import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,8 +41,10 @@ public class Leave extends BaseTimeEntity {
     @Column(nullable = false) // 결재 분류
     private String category;
 
-    @Enumerated(EnumType.STRING) // 결재 상태
-    private PaymentState state;
+    @ElementCollection(fetch = FetchType.EAGER) // 결재 상태
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private Set<PaymentState> state = new HashSet<>();
 
     @Column // 반려 사유
     private String returnReason;
@@ -51,9 +55,10 @@ public class Leave extends BaseTimeEntity {
     @Column // 결재일시
     private LocalDateTime competeDate;
 
-    public static String formatDate(LocalDateTime time){
-        String formatDate = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        return formatDate;
+    public Leave addRole(PaymentState status) {
+        state.add(status);
+        return this;
     }
+
 
 }

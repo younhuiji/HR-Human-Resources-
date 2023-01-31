@@ -43,13 +43,10 @@ public class BusinessCardController {
     public String create(BusinessCardCreateDto dto){
 
         // TODO: employee에서 시행자 이름, 사번, 결재자 사번, 직급, 직책 가져오기
-        // Employee employee = employeeService.findEmployeeByNo(no);
-
-        PaymentState state = PaymentState.PROGRESS;
-        log.info("state={}", state);
+        // Employee employee = employeeService.findEmployeeByNo(no);;
 
         BusinessCard businessCard = BusinessCard.builder()
-                .title(dto.getTitle()).state(PaymentState.PROGRESS).employeeName(dto.getEmployeeName()).employeeNo(1L).category(dto.getCategory())
+                .title(dto.getTitle()).employeeName(dto.getEmployeeName()).employeeNo(1L).category(dto.getCategory())
                 .email(dto.getEmail()).phone(dto.getPhone()).approverNo(0L).reason(dto.getReason()).writeDate(dto.getWriteDate()).build();
 
         BusinessCard businessCards = businessCardService.create(businessCard);
@@ -76,7 +73,9 @@ public class BusinessCardController {
     public String detail(Model model, @RequestParam Integer no) {
         log.info("리스트 번호={}", no);
 
+
         BusinessCard card = businessCardService.selectByNo(no);
+
         model.addAttribute("card", card);
 
         return "/businessCard/detail";

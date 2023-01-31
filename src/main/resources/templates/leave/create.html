@@ -148,6 +148,7 @@
                             <tr th:each="l : ${leave}" th:onclick="|location.href='@{/leave/detail(no=${l.no})}'|">
                                 <td th:text="${l.no}"></td>
                                 <td th:text="${l.title}"></td>
+                                <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
                                 <td th:text="${l.state}"></td>
                             </tr>
                             </tbody>
