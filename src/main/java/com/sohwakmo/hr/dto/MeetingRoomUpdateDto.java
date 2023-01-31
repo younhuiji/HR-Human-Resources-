@@ -19,13 +19,11 @@ public class MeetingRoomUpdateDto {
 
     private String roomPlace;
 
-    private String reserveDate;
-
     private String startTime;
 
     private String endTime;
 
-    private String attendee;
+    private Integer attendee;
 
     private Integer attendeeMax;
 
@@ -37,7 +35,6 @@ public class MeetingRoomUpdateDto {
                 .title(title)
                 .roomName(roomName)
                 .roomPlace(roomPlace)
-                .reserveDate(reserveDate)
                 .startTime(startTime)
                 .endTime(endTime)
                 .attendee(attendee)

@@ -42,7 +42,9 @@ public class MeetingRoomService {
     public Integer delete(Integer meetingRoomNo) {
         log.info("delete(meetingRoomNo={})", meetingRoomNo);
 
+
         MeetingRoom meetingRoom =meetingRoomRepository.findById(meetingRoomNo).get();
+        log.info("meetingRoom = {}", meetingRoom);
 
         return meetingRoomNo;
     }
@@ -51,7 +53,7 @@ public class MeetingRoomService {
         log.info("update(dto={})", dto);
 
         MeetingRoom entity = meetingRoomRepository.findById(dto.getMeetingRoomNo()).get();
-        MeetingRoom newMeetingRoom = entity.update(dto.getTitle(), dto.getRoomName(), dto.getRoomPlace(), dto.getReserveDate(), dto.getStartTime(), dto.getEndTime(), dto.getAttendee(), dto.getAttendeeMax(), dto.getPurpose());
+        MeetingRoom newMeetingRoom = entity.update(dto.getTitle(), dto.getRoomName(), dto.getRoomPlace(), dto.getStartTime(), dto.getEndTime(), dto.getAttendee(), dto.getAttendeeMax(), dto.getPurpose());
         log.info("newMeetingRoom={}");
 
         return entity.getMeetingRoomNo();

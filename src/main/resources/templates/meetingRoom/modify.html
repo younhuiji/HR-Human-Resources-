@@ -11,6 +11,7 @@
       </div>
       <form id="formModify" name="formModify">
         <input type="hidden" id="meetingRoomNo" name="meetingRoomNo" th:value="${meetingRoom.meetingRoomNo}" readonly />
+        <input type="hidden" id="roomPlace" name="roomPlace" th:value="${meetingRoom.roomPlace}" />
 <!--        <div class="p-3 border-bottom">-->
 <!--          <label for="reservationName" style=" width: 150px; ">예약자</label>-->
 <!--          <input id="reservationName" type="text" name="reservationName" th:value="김김김" readonly />-->
@@ -22,7 +23,7 @@
         </div>
         <div class = "p-3 border-bottom">
           <label for="roomName" style=" width: 150px; ">회의실</label>
-          <select id="roomName" class="align-text-top"  name="roomName" onchange="roomNamePlace(this)">
+          <select id="roomName" class="align-text-top"  name="roomName" >
             <option>회의실을 선택해주세요</option>
             <option th:selected="${meetingRoom.roomName}=='회의실1'" value="회의실1">회의실1</option>
             <option th:selected="${meetingRoom.roomName}=='회의실2'" value="회의실2">회의실2</option>
@@ -46,9 +47,9 @@
 <!--          &lt;!&ndash;                            type="text" name="roomPlace" readonly required/>&ndash;&gt;-->
 <!--        </div>-->
         <div class = "p-3 border-bottom">
-          <label for="reserveDate" style=" width: 150px; ">예약날짜</label>
-          <span id="reserveDate" class="align-text-top"
-                th:text="${meetingRoom.reserveDate}" name="reserveDate" readonly></span>
+          <label for="startTime" style=" width: 150px; ">예약날짜</label>
+<!--          <span id="reserveDate" class="align-text-top"-->
+<!--                th:text="${meetingRoom.reserveDate}" name="reserveDate" readonly></span>-->
 <!--          <input id="reserveDate" class="align-text-top"-->
 <!--                 th:text="""${meetingRoom.reserveDate}" name="reserveDate" readonly/>-->
           <select id="startTime" class="align-text-top"  name="startTime">
@@ -104,7 +105,7 @@
         </div>
 
         <div class="pb-3 d-md-flex justify-content-md-end">
-          <button type="submit" class="btn btn-outline-info me-md-1" id="modifyBtn">저장</button>
+          <button type="button" class="btn btn-outline-info me-md-1" id="modifyBtn">저장</button>
           <a class="btn btn-outline-info" href="/meetingRoom/list" id="cancelModify">취소</a>
         </div>
       </form>

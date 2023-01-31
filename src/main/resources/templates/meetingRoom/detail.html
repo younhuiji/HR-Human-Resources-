@@ -10,8 +10,8 @@
         <h1 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >회의실 상세보기</h1>
       </div>
       <form id="formDetail">
-        <input type="hidden" name="employeeNo" th:value="1" />
-          <input type="hidden" name="meetingRoomNo" th:value="123" />
+          <input type="hidden" name="reservationNo" th:value="1" />
+          <input type="hidden" name="meetingRoomNo" th:value="${meetingRoom.meetingRoomNo}" />
         <div class="p-3 border-bottom">
             <label for="reservationName" style=" width: 150px; ">예약자</label>
             <input id="reservationName" name="reservationName" th:value="김김김" style="border: none; background: transparent;" readonly />
@@ -48,8 +48,9 @@
         </div>
         <div class= "p-3 border-bottom">
             <label for="attendee" style=" width: 150px; ">참석자</label>
-            <input id="attendee" class="align-text-top"
-                   th:value="${meetingRoom.attendee}" readonly/>
+            <span  id="attendee" class="align-text-top"
+                   th:text="${meetingRoom.attendee}" readonly></span>
+
         </div>
         <div class= "p-3 border-bottom">
             <label for="attendeeMax" style=" width: 150px; " >인원</label>

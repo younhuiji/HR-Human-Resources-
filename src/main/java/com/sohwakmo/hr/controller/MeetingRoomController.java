@@ -4,7 +4,6 @@ import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.MeetingRoom;
 import com.sohwakmo.hr.dto.MeetingRoomCreateDto;
 import com.sohwakmo.hr.dto.MeetingRoomUpdateDto;
-import com.sohwakmo.hr.service.EmployeeService;
 import com.sohwakmo.hr.service.MeetingRoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +23,6 @@ import java.util.List;
 public class MeetingRoomController {
 
     private final MeetingRoomService meetingRoomService;
-
-    private final EmployeeService employeeService;
 
     @GetMapping("/list")
     public String list(Model model) {
@@ -58,8 +55,6 @@ public class MeetingRoomController {
 
         MeetingRoom entity = meetingRoomService.create(dto);
 
-
-
         attrs.addFlashAttribute("createdNo", entity.getMeetingRoomNo());
 
         return "redirect:/meetingRoom/list";
@@ -73,7 +68,7 @@ public class MeetingRoomController {
         MeetingRoom meetingRoom = meetingRoomService.read(meetingRoomNo);
 
         model.addAttribute("meetingRoom", meetingRoom);
-        model.addAttribute("employee", meetingRoom.getEmployee());
+//        model.addAttribute("reservationNo", meetingRoom.getReservationNo());
 
         return "/meetingRoom/detail";
     }

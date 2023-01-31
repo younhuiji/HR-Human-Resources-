@@ -10,7 +10,7 @@
                 <h1 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >회의실 예약신청</h1>
             </div>
             <form method = "post" action = "/meetingRoom/create" name="formCreate">
-                <input  type="hidden" name="employeeNo" th:value="111" />
+                <input  type="hidden" name="reservationNo" th:value="1" />
                 <div class="p-3 border-bottom">
                     <label for="reservationName" style=" width: 150px; ">예약자</label>
                     <input id="reservationName" type="text" name="reservationName" th:value="김김김" style="border: none; background: transparent;" readonly />
@@ -51,23 +51,23 @@
                     <input id="reserveDate" class="align-text-top"
                            type="date" name="reserveDate" required />
 
-                    <input type="text" name="datetimes" />
-<!--                    <select id="startTime" class="align-text-top"  name="startTime">-->
-<!--                        <option>시간을 선택해주세요</option>-->
-<!--                        <option value="08:00">08:00</option>-->
-<!--                        <option value="09:00">09:00</option>-->
-<!--                        <option value="10:00">10:00</option>-->
-<!--                        <option value="11:00">11:00</option>-->
-<!--                        <option value="12:00">12:00</option>-->
-<!--                        <option value="13:00">13:00</option>-->
-<!--                        <option value="14:00">14:00</option>-->
-<!--                        <option value="15:00">15:00</option>-->
-<!--                        <option value="16:00">16:00</option>-->
-<!--                        <option value="17:00">17:00</option>-->
-<!--                        <option value="18:00">18:00</option>-->
-<!--                        <option value="19:00">19:00</option>-->
-<!--                        <option value="20:00">20:00</option>-->
-<!--                    </select>-->
+<!--                    <input type="text" name="datetimes" />-->
+                    <select id="startTime" class="align-text-top"  name="startTime">
+                        <option>시간을 선택해주세요</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                    </select>
                     <span class="mt-auto m-2 pb-3 pt-xl-5">~</span>
                     <select id="endTime" class="align-text-top" name="endTime">
                         <option>시간을 선택해주세요</option>
@@ -89,7 +89,7 @@
                 <div class= "p-3 border-bottom">
                     <label for="attendee" style=" width: 150px; ">참석자</label>
                     <input id="attendee" class="align-text-top"
-                           type="text" name="attendee" required />
+                           type="number" name="attendee" required />
                     <button id="invite">참석자</button>
                 </div>
                 <div class= "p-3 border-bottom">
