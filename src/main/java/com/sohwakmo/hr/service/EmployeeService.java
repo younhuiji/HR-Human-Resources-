@@ -136,6 +136,10 @@ public class EmployeeService {
         return employeeRepository.findByEmployeeNo(employeeNo);
     }
 
+    /**
+     * 업무시작 버튼 누를시 해당 달,날짜,시간 DB에 저장
+     * @param dto 자바스크립트에서 받아온 오늘 날짜.
+     */
     public void startWork(AttendanceDto dto) {
         String month;
         String day;
@@ -163,5 +167,18 @@ public class EmployeeService {
 
         log.info(attendance.toString());
         attendanceRepository.save(attendance);
+    }
+
+    /**
+     * 예상 퇴근 시간을 구해서 리턴
+     * @param hours
+     * @param minutes
+     * @return 예상 퇴근 시간
+     *
+     */
+    public String getEndTime(Integer hours, Integer minutes) {
+        String endHours = String.valueOf(hours + 9);
+        String endMinutes = String.valueOf(minutes);
+        return endHours + ":" + endMinutes;
     }
 }

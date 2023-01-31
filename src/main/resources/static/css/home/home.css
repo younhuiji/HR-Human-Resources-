@@ -41,7 +41,7 @@
     margin-right: 2%;
     border: 1px solid black;
     display: inline-block;
-    padding: 12px 100px 12px 12px;
+    padding: 12px 150px 12px 12px;
     background: rgb(65,76,95);
     border-radius: 8px;
 }
@@ -50,7 +50,7 @@
 }
 
 #startButton{
-    width: 129%;
+    width: 151%;
     font-size: 24px;
     padding: 12px 24px;
 }
@@ -63,3 +63,41 @@
     padding: 1%;
 }
 /*-------------------문서결제------------------------*/
+#attendance_wrap{
+    margin: 2% 0;
+    border: 1px solid #dadada;
+    padding: 12px 12px 12px 12px;
+    border-radius: 8px;
+    width: 27%;
+}
+#state_time{
+    padding: 0.5em;
+}
+#state_time p {
+    font-size: 13px;
+    text-align: center;
+}
+
+#time_info{
+    border: 1px solid black;
+}
+#div_time{
+    padding: 2em 0 2em 2em;
+}
+
+#startTime{
+    display: inline-block;
+}
+#startTime p{
+    font-weight: bold;
+    font-size: 17px;
+    text-align: center;
+}
+#endTme{
+    display: inline-block;
+}
+#endTme p{
+    font-weight: bold;
+    font-size: 17px;
+    text-align: center;
+}

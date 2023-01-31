@@ -52,10 +52,11 @@ public class EmployeeRestController {
      * @return 예상퇴근시간 리턴
      */
     @PostMapping("/attendance")
-    public ResponseEntity<Integer> attendance(@RequestBody AttendanceDto dto){
+    public ResponseEntity<String> attendance(@RequestBody AttendanceDto dto){
         log.info(dto.toString());
         employeeService.startWork(dto);
-        return ResponseEntity.ok(1);
+        String endTime = employeeService.getEndTime(dto.getHours(), dto.getMinutes());
+        return ResponseEntity.ok(endTime);
     }
 
 }
