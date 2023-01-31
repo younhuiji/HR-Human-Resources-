@@ -27,7 +27,7 @@ public class PostService {
     public Post create(PostCreateDto dto){
         log.info("create(dto= {})", dto);
 
-        Post entity = postRepository.save(dto.toEntity());
+        Post entity= postRepository.save(dto.toEntity());
 
         return entity;
     }

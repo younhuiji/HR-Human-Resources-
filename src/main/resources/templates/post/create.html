@@ -64,8 +64,16 @@
         height: '600px',
         initialEditType: 'wysiwyg',
         previewStyle: 'vertical',
-        plugins: colorSyntax
+        plugins: colorSyntax,
+        hooks: {
+            addImageBlobHook: async (blob, callback)=> {
+                const upload= uploadImage(blob);
+                callback(upload, 'alt text');
+
+            }
+        }
     });
+<!--https://yulsfamily.tistory.com/356-->
 
     editor.getMarkdown();
 

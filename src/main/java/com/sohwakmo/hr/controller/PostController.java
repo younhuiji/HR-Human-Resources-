@@ -41,7 +41,7 @@ public class PostController {
     public String create(PostCreateDto dto, RedirectAttributes attrs) {
         log.info("create(dto= {})", dto);
 
-        Post entity = postService.create(dto);
+        Post entity= postService.create(dto);
 
         return "redirect:/post/list";
     }
