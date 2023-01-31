@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @ToString
 @Entity(name = "MESSAGE")
 @SequenceGenerator(name = "MESSAGE_SEQ_GEN", sequenceName = "MESSAGE_SEQ", allocationSize = 1)
-public class Message {
+public class Message extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MESSAGE_SEQ_GEN")
     private Integer messageNo;
@@ -28,8 +28,6 @@ public class Message {
     private String fileName2;
     private String filePath3;
     private String fileName3;
-    private LocalDateTime sendTime;
-    private LocalDateTime readTime;
     private Integer receiveNo;
     @ColumnDefault("0")
     private Integer receiveReadCheck;

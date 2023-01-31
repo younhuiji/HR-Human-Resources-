@@ -19,8 +19,14 @@
                 <form method="get">
                     <div class="row">
                         <div class="col-2">
-                            받은 쪽지 개수
-                            <input type="checkbox" />
+                            전체 <span style="color:red;" th:text=" ${ messageCount }"></span>
+                        </div>
+                        <div class="col-2">
+                            <select name="messageType" class="form-control">
+                                <option value="긴급">긴급</option>
+                                <option value="중요">중요</option>
+                                <option value="일반">일반</option>
+                            </select>
                         </div>
                         <div class="col-2">
                             <select name="type" class="form-control">
@@ -54,12 +60,13 @@
                     <tr th:each="message : ${messageList}">
                         <td><input type="checkbox"/></td>
                         <th:block>
-                            <td th:if="${message.getMessageType() == 'emergency'}" style="color: red">!</td>
-                            <td th:if="${message.getMessageType() != 'emergency'}">!</td>
+                            <td th:if="${message.getMessageType() == '긴급'}" style="color: red">!</td>
+                            <td th:if="${message.getMessageType() != '긴급'}">!</td>
                         </th:block>
                         <td th:text="${ message.getMessageType()}"></td>
                         <td th:text="${ message.getTitle()}"></td>
-                        <td th:text="${ message.getSenderNo()}"></td>
+                        <td th:text="${ message.getEmployee().getName()}"></td>
+                        <td th:text="${ #temporals.format(message.getSendTime(), 'yyyy-MM-dd HH:mm') }"></td>
                     </tr>
                 </tbody>
             </table>

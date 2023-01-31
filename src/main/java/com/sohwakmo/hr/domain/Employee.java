@@ -32,7 +32,6 @@ public class Employee {
     @Column(nullable = false,unique = true)
     private String phone; // 사내 전화번호
 
-
     private String photo;
 
     @Embedded

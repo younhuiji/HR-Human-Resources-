@@ -38,8 +38,10 @@ public class MessageController {
 
         List<Message> messageList = messageService.read(employeeNo);
         log.info("messageList = {}", messageList);
+        log.info("messageCount = {}", messageList.size());
 
         model.addAttribute("messageList", messageList);
+        model.addAttribute("messageCount", messageList.size());
 
         return "/message/receiveList";
     }
@@ -54,30 +56,6 @@ public class MessageController {
 
         return "/message/writeMessage";
     }
-
-//    /**
-//     * 쪽지 보내고 받은쪽지함으로 이동.
-//     * @return
-//     */
-//    @PostMapping("/sendMessage")
-//    public String sendMessage(MessageSendDto dto, @RequestParam("files") List<MultipartFile> files) throws IOException {
-//        log.info("sendMessage(dto = {}, files = {})", dto, files);
-//
-//        Message message = MessageSendDto.builder()
-//                .senderNo(dto.getSenderNo()).messageType(dto.getMessageType()).title(dto.getTitle()).receiveNo(dto.getReceiveNo()).content(dto.getContent())
-//                .build().toEntity();
-//        log.info("message = {}", message);
-//
-//        for (MultipartFile multipartFile : files) {
-//            if(multipartFile.isEmpty()) {
-//                messageService.create(message);
-//            } else {
-//                messageService.create(message, multipartFile);
-//            }
-//        }
-//
-//        return "redirect:/message/receiveList";
-//    }
 
     /**
      * 쪽지 보내기 기능

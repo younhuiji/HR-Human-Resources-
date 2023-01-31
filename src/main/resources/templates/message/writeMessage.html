@@ -20,9 +20,9 @@
                 <input type="hidden" name="senderNo" th:value="1"/>
 
                 <div class="py-3 border-bottom">
-                    <input type="radio" name="messageType" value="emergency" />긴급
-                    <input type="radio" name="messageType" value="important" />중요
-                    <input type="radio" name="messageType" value="normal" />일반
+                    <input type="radio" name="messageType" value="긴급" />긴급
+                    <input type="radio" name="messageType" value="중요" />중요
+                    <input type="radio" name="messageType" value="일반" checked="checked" />일반
                 </div>
                 <div class="py-3 border-bottom">
                     <label for="title" class="column">제목</label>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="py-3 border-bottom buttonBox">
                     <button class="btn btn-secondary" id="btnSend">보내기</button>
-                    <button class="btn btn-outline-secondary" id="btnCancel">취소</button>
+                    <a class="btn btn-outline-secondary" href="/message/receiveList" >취소</a>
                 </div>
             </form>
         </div>

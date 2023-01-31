@@ -26,12 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     btnCancel.addEventListener("click", function(e) {
-        e.preventDefault();
-        const result = confirm("취소하시겠습니까?");
-        if(result) {
-            formBody.action = '';
 
-        }
     });
 
 });
