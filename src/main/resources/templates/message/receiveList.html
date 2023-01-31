@@ -18,13 +18,18 @@
             <div class="my-2">
                 <form method="get">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-2">
+                            받은 쪽지 개수
+                            <input type="checkbox" />
+                        </div>
+                        <div class="col-2">
                             <select name="type" class="form-control">
+                                <option value="all">전체</option>
                                 <option value="t">제목</option>
                                 <option value="a">작성자</option>
                             </select>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <input type="text" class="form-control" name="keyword" placeholder="검색어" required autofocus />
                         </div>
                         <div class="col-2">
@@ -37,12 +42,26 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
+                        <th><input type="checkbox"/></th>
+                        <th style="color:red;">!</th>
                         <th>분류</th>
                         <th>제목</th>
                         <th>보낸사람</th>
                         <th>일시</th>
                     </tr>
                 </thead>
+                <tbody>
+                    <tr th:each="message : ${messageList}">
+                        <td><input type="checkbox"/></td>
+                        <th:block>
+                            <td th:if="${message.getMessageType() == 'emergency'}" style="color: red">!</td>
+                            <td th:if="${message.getMessageType() != 'emergency'}">!</td>
+                        </th:block>
+                        <td th:text="${ message.getMessageType()}"></td>
+                        <td th:text="${ message.getTitle()}"></td>
+                        <td th:text="${ message.getSenderNo()}"></td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>

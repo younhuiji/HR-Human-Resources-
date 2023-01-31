@@ -47,4 +47,6 @@ public class Employee {
 
     @Enumerated(EnumType.STRING)
     private EmployeePosition employeePosition; // 직책에따른 권한
+
+
 }

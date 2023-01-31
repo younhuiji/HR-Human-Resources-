@@ -1,6 +1,9 @@
 package com.sohwakmo.hr.service;
 
+import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.Message;
+import com.sohwakmo.hr.dto.MessageSendDto;
+import com.sohwakmo.hr.repository.EmployeeRepository;
 import com.sohwakmo.hr.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -17,24 +22,110 @@ import java.util.UUID;
 public class MessageService {
 
     private final MessageRepository messageRepository;
+    private final EmployeeRepository employeeRepository;
 
     /**
-     * 파일 첨부없이 메세지를 보낼 때 사용
-     * @param message
+     * 받은쪽지함 들어가면 로그인한 번호가 받은쪽지 보여주기
+     * @param employeeNo
      */
-    public void create(Message message) {
-        log.info("create(Message = {})", message);
-        
-        messageRepository.save(message);
+    public List<Message> read(Integer employeeNo) {
+        log.info("read(employeeNo = {})", employeeNo);
+
+        List<Message> messageList = new ArrayList<>();
+        messageList = messageRepository.findByReceiveNoOrderByMessageNoDesc(employeeNo);
+        log.info("messageList = {}", messageList);
+
+
+
+        return messageList;
+    }
+
+//    /**
+//     * 파일 첨부없이 메세지를 보낼 때 사용
+//     * @param message
+//     */
+//    public void create(Message message) {
+//        log.info("create(Message = {})", message);
+//
+//        messageRepository.save(message);
+//    }
+
+//    /**
+//     * 파일 첨부와 함께 메세지를 보낼 때 사용
+//     * @param message
+//     * @param file
+//     */
+//    public void create(Message message, MultipartFile file) throws IOException {
+//        log.info("create(message = {}, file = {})", message, file);
+//
+//        // 파일 저장 경로
+//        String projectFilePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files\\message";
+//        log.info("projectFilePath = {}", projectFilePath);
+//
+//        // 파일 이름
+//        UUID uuid = UUID.randomUUID();
+//        String fileName = uuid.toString() + "_" + file.getOriginalFilename();
+//        log.info("fileName = {}", fileName);
+//
+//        File saveFile = new File(projectFilePath, fileName);
+//
+//        // 파일을 해당경로에 저장
+//        file.transferTo(saveFile);
+//
+//        if (message.getFilePath1() == null) {
+//            message.setFilePath1(projectFilePath + "\\" + fileName);
+//            message.setFileName1(file.getOriginalFilename());
+//            log.info("message = {}", message);
+//        } else if (message.getFilePath2() == null) {
+//            message.setFilePath2(projectFilePath + "\\" + fileName);
+//            message.setFileName2(file.getOriginalFilename());
+//            log.info("message = {}", message);
+//        } else if (message.getFilePath3() == null) {
+//            message.setFilePath3(projectFilePath + "\\" + fileName);
+//            message.setFileName3(file.getOriginalFilename());
+//            log.info("message = {}", message);
+//        }
+//
+//        messageRepository.save(message);
+//    }
+
+    /**
+     * 메세지 보내기 기능 수행할 때 db에 저장하고 파일을 저장
+     * @param dto
+     * @param files
+     * @throws IOException
+     */
+    public void create(MessageSendDto dto, List<MultipartFile> files) throws IOException {
+        log.info("create(dto = {}, files = {})", dto, files);
+
+        long employeeNo = dto.getSenderNo();
+        Employee employee = employeeRepository.findByEmployeeNo(employeeNo);
+        log.info("employee = {}", employee);
+
+        Message message = MessageSendDto.builder()
+                .senderNo(dto.getSenderNo()).messageType(dto.getMessageType()).title(dto.getTitle()).receiveNo(dto.getReceiveNo()).content(dto.getContent()).employee(employee)
+                .build().toEntity();
+        log.info("message = {}", message);
+
+        for (MultipartFile multipartFile : files) {
+            if(multipartFile.isEmpty()) {
+                messageRepository.save(message);
+            } else {
+                saveFile(multipartFile, message);
+                messageRepository.save(message);
+            }
+        }
+
     }
 
     /**
-     * 파일 첨부와 함께 메세지를 보낼 때 사용
-     * @param message
+     * 파일을 저장하는 메서드
      * @param file
+     * @param message
+     * @throws IOException
      */
-    public void create(Message message, MultipartFile file) throws IOException {
-        log.info("create(message = {}, file = {})", message, file);
+    public void saveFile(MultipartFile file, Message message) throws IOException {
+        log.info("saveFile(file = {}, message = {})", file, message);
 
         // 파일 저장 경로
         String projectFilePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files\\message";
@@ -64,7 +155,7 @@ public class MessageService {
             log.info("message = {}", message);
         }
 
-        messageRepository.save(message);
     }
+
 
 }

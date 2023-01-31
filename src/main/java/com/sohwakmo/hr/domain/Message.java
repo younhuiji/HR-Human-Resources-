@@ -43,4 +43,8 @@ public class Message {
     @ColumnDefault("0")
     private Integer senderDelete;
 
+    @ManyToOne
+    @JoinColumn(name = "employeeNo")
+    private Employee employee;
+
 }
