@@ -7,9 +7,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -53,6 +51,9 @@ public class Employee {
 
     @Column(nullable = false)
     private String joinedDate; // 입사일
+
+    @OneToMany(mappedBy = "employee")
+    private List<Attendance> attendances = new ArrayList<Attendance>(); // 사원번호로 출격 관리 리스트 불러오기
 
 
     @ElementCollection(fetch = FetchType.EAGER)

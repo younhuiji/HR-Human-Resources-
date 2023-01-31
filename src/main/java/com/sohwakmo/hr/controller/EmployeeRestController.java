@@ -1,5 +1,6 @@
 package com.sohwakmo.hr.controller;
 
+import com.sohwakmo.hr.dto.AttendanceDto;
 import com.sohwakmo.hr.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +44,12 @@ public class EmployeeRestController {
         boolean doubleCheckResult = employeeService.emailDoubleCheck(emailValue);
         if (doubleCheckResult) return ResponseEntity.ok("emailNotOk");
         else return ResponseEntity.ok("emailOk");
+    }
 
+    @PostMapping("/attendance")
+    public ResponseEntity<Integer> attendace(@RequestBody AttendanceDto dto){
+        log.info(dto.toString());
+        return ResponseEntity.ok(1);
     }
 
 }
