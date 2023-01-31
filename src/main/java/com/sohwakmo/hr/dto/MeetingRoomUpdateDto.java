@@ -1,17 +1,18 @@
 package com.sohwakmo.hr.dto;
 
-import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.MeetingRoom;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
-@Builder
 @Data
-public class MeetingRoomCreateDto {
+@Builder
+public class MeetingRoomUpdateDto {
 
     private Integer meetingRoomNo;
+
     private String title;
 
     private String roomName;
@@ -30,10 +31,6 @@ public class MeetingRoomCreateDto {
 
     private String purpose;
 
-    private Employee employee;
-
-    private String reservationName;
-
     public MeetingRoom toEntity() {
         return MeetingRoom.builder()
                 .meetingRoomNo(meetingRoomNo)
@@ -46,12 +43,6 @@ public class MeetingRoomCreateDto {
                 .attendee(attendee)
                 .attendeeMax(attendeeMax)
                 .purpose(purpose)
-                .employee(employee)
-                .reservationName(reservationName)
                 .build();
     }
-
-
-
-
 }
