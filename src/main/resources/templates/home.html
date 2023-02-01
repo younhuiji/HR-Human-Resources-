@@ -69,6 +69,7 @@
                 <!------------------ 출근xxxxxxxxxxxxx ---------->
                 <div th:if="${attendance=='notAttendance'}">
                     <div id="state_time2" class="state_time">
+                        <sapn>🔴 </sapn>
                         <p>업무중이 아닙니다.</p>
                     </div>
                     <div id="div_time2" class="div_time">
@@ -87,7 +88,8 @@
                    <!--예상 퇴근시간 -->
                    <div th:if="${attendance.endTime == '00:00'}">
                        <div id="state_time0" class="state_time">
-                           <p>업무중입니다.</p>
+                           <sapn>🟢</sapn>
+                           <p> 업무중입니다.</p>
                        </div>
                        <div id="startTime0" class="startTime">
                            <p>출근 시간</p>
