@@ -53,7 +53,7 @@
         <!-- 출결 관리 -->
         <div id="attendance_wrap">
             <div id="time_info">
-                <!-- 2번이 리턴된경우-->
+                <!------------------ 출근xxxxxxxxxxxxx ---------->
                 <div th:if="${attendance=='notAttendance'}">
                     <div id="state_time2" class="state_time">
                         <!--TODO 업무중인지 아닌지에따라 다르게 설정-->
@@ -70,35 +70,35 @@
                         </div>
                     </div>
                 </div>
-                <!-- 0번이 리턴된 경우-->
+                <!------------------ 출근oooooooooooo ---------->
                <div th:if="${attendance != 'notAttendance' }">
-                   <div id="state_time0" class="state_time">
-                       <!--TODO 업무중인지 아닌지에따라 다르게 설정-->
-                       <p>업무중입니다.</p>
-                   </div>
-                   <div id="div_time0" class="div_time">
+                   <!--예상 퇴근시간 -->
+                   <div th:if="${attendance.endTime == '00:00'}">
+                       <div id="state_time0" class="state_time">
+                           <p>업무중입니다.</p>
+                       </div>
                        <div id="startTime0" class="startTime">
                            <p>출근 시간</p>
                            <p th:text="${attendance.startTime}"></p>
                        </div>
-                       <!--예상 퇴근시간 -->
-                       <div th:if="${attendance.endTime == '00:00'}">
-                           <div class="endTme">
-                               <p>예상 퇴근 시간</p>
-                               <p th:text="${attendance.expectEndTime}"></p>
-                           </div>
+                       <div class="endTme">
+                           <p>예상 퇴근 시간</p>
+                           <p th:text="${attendance.expectEndTime}"></p>
                        </div>
-                       <!-- 진짜 퇴근시간-->
-                       <div th:if="${attendance.endTime != '00:00'}">
-                           <div class="endTme">
-                               <p>퇴근 시간</p>
-                               <p th:text="${attendance.endTime}"></p>
-                           </div>
+                   </div>
+                   <!-- 진짜 퇴근시간-->
+                   <div th:if="${attendance.endTime != '00:00'}">
+                       <div class="state_time">
+                           <p>내일도 화이팅!!</p>
                        </div>
-<!--                       <div id="endTme0" class="endTme">-->
-<!--                           <p>퇴근 시간</p>-->
-<!--                           <p th:text="${attendance.endTime}"></p>-->
-<!--                       </div>-->
+                       <div class="startTime">
+                           <p>출근 시간</p>
+                           <p th:text="${attendance.startTime}"></p>
+                       </div>
+                       <div class="endTme">
+                           <p>퇴근 시간</p>
+                           <p th:text="${attendance.endTime}"></p>
+                       </div>
                    </div>
                </div>
             </div>
