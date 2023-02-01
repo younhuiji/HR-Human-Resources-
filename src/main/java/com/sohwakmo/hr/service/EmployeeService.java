@@ -1,10 +1,13 @@
 package com.sohwakmo.hr.service;
 
+import com.sohwakmo.hr.domain.Attendance;
 import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.EmployeePosition;
 import com.sohwakmo.hr.domain.Part;
+import com.sohwakmo.hr.dto.AttendanceDto;
 import com.sohwakmo.hr.dto.EmployeeJoinDto;
 import com.sohwakmo.hr.dto.EmployeeUpdateDto;
+import com.sohwakmo.hr.repository.AttendanceRepository;
 import com.sohwakmo.hr.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +19,10 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -24,6 +30,7 @@ import java.util.Date;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final AttendanceRepository attendanceRepository;
     private final PasswordEncoder passwordEncoder;
 
     /**
@@ -130,5 +137,116 @@ public class EmployeeService {
      */
     public Employee findEmployee(String employeeNo) {
         return employeeRepository.findByEmployeeNo(employeeNo);
+    }
+
+    /**
+     * 업무시작 버튼 누를시 해당 달,날짜,시간 DB에 저장
+     * @param dto 자바스크립트에서 받아온 오늘 날짜.
+     */
+    public void startWork(AttendanceDto dto) {
+        String month;
+        String day;
+        String hours;
+        String minutes;
+
+        // 달 String 으로 변환
+        if (dto.getMonth() / 10 == 0)  month = "0" + String.valueOf(dto.getMonth());
+        else month = String.valueOf(dto.getMonth());
+
+        // 날짜 String 으로 변환
+        if (dto.getDay() / 10 == 0)  day = "0" + String.valueOf(dto.getDay());
+        else day = String.valueOf(dto.getDay());
+
+        if (dto.getHours() / 10 == 0)  hours = "0" + String.valueOf(dto.getHours());
+        else hours = String.valueOf(dto.getHours());
+
+        if (dto.getMinutes() / 10 == 0)  minutes = "0" + String.valueOf(dto.getMinutes());
+        else minutes = String.valueOf(dto.getMinutes());
+
+        Employee employee = employeeRepository.findByEmployeeNo(dto.getEmployeeNo());
+
+        Attendance attendance = Attendance.builder()
+                .employee(employee).startTime(hours + ":" + minutes).expectEndTime(getExpectEndTime(dto.getHours(),dto.getMinutes())).month(month).day(day).state(0).build();
+
+        log.info(attendance.toString());
+        attendanceRepository.save(attendance);
+    }
+
+    /**
+     * 예상 퇴근 시간을 구해서 리턴
+     * @param hours
+     * @param minutes
+     * @return 예상 퇴근 시간
+     *
+     */
+    public String getExpectEndTime(Integer hours, Integer minutes) {
+        String endHours = String.valueOf(hours + 9);
+        String endMinutes = String.valueOf(minutes);
+        if (endMinutes.length() == 1) {
+            endMinutes = "0" + String.valueOf(minutes);
+        }
+        return endHours + ":" + endMinutes;
+    }
+
+    /**
+     * 오늘 날짜를 받고 업무시작을 눌렀는지 안눌렀는지 확인한다.
+     * @param employeeNo 자신의 사원번호
+     * @param formatedNow 오늘 날짜
+     * @return 출근했으면 0 아니면 2를 리턴.
+     */
+    public Long checkAttendance(String employeeNo,String formatedNow) {
+        Long attendanceNo = getRecentAttendance(employeeNo); // 가장 최근에 한 출근 내용을 불러오는 메서드
+        if(attendanceNo==-1L)return -1L;
+        else return attendanceNo;
+//        String checkAttendance = attendance.getMonth() + "/" + attendance.getDay();
+//        if(formatedNow.equals(checkAttendance)) return attendance;
+//        else return null;
+    }
+
+    /**
+     * 업무 종료 시간을 DB에 저장
+     * @param hours 업무 종료를 누른 시간
+     * @param minutes 업무 종료를 누른 분
+     * @param employeeNo 사원번호
+     */
+    public void setEndTime(Integer hours, Integer minutes, String employeeNo) {
+        Long attendanceNo = getRecentAttendance(employeeNo);
+        Attendance attendance = attendanceRepository.findById(attendanceNo).get();
+        String endHours = String.valueOf(hours);
+        String endMinutes;
+        if (String.valueOf(minutes).length() == 1) {
+            endMinutes = "0" + String.valueOf(minutes);
+        }else{
+            endMinutes = String.valueOf(minutes);
+        }
+        attendance.setEndTime(endHours + ":" + endMinutes);
+        attendanceRepository.save(attendance);
+    }
+
+    /**
+     * 가장 최근에 한 출근 내용을 불러오는 메서드
+     * @param employeeNo 사원번호
+     * @return 어제나 오늘한 가장 최근 출근 객체를 리턴
+     */
+    private Long getRecentAttendance(String employeeNo) {
+        Employee employee = employeeRepository.findByEmployeeNo(employeeNo);
+        List<Attendance> list = employee.getAttendances();
+        if (list.size() == 0) {
+            return -1L;
+        } else {
+            Collections.reverse(list);
+            Attendance attendance = list.stream().findAny().orElse(null);
+            assert attendance != null;
+            return attendance.getId();
+        }
+    }
+
+    /**
+     * 출근 퇴근 기록 가져오기
+     * @param attendanceNo
+     * @return
+     */
+    public Attendance getAttendance(Long attendanceNo) {
+        return attendanceRepository.findById(attendanceNo).get();
     }
 }
