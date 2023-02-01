@@ -4,8 +4,6 @@ import com.sohwakmo.hr.domain.MeetingRoom;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @Builder

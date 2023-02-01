@@ -9,7 +9,7 @@
       <div class="section-header">
         <h1 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >회의실 예약수정</h1>
       </div>
-      <form id="formModify" name="formModify">
+      <form id="formModify" >
         <input type="hidden" id="meetingRoomNo" name="meetingRoomNo" th:value="${meetingRoom.meetingRoomNo}" readonly />
         <input type="hidden" id="roomPlace" name="roomPlace" th:value="${meetingRoom.roomPlace}" />
 <!--        <div class="p-3 border-bottom">-->
@@ -23,7 +23,7 @@
         </div>
         <div class = "p-3 border-bottom">
           <label for="roomName" style=" width: 150px; ">회의실</label>
-          <select id="roomName" class="align-text-top"  name="roomName" >
+          <select id="roomName" class="align-text-top"  name="roomName" th:value="${meetingRoom.roomName}">
             <option>회의실을 선택해주세요</option>
             <option th:selected="${meetingRoom.roomName}=='회의실1'" value="회의실1">회의실1</option>
             <option th:selected="${meetingRoom.roomName}=='회의실2'" value="회의실2">회의실2</option>
@@ -52,7 +52,7 @@
 <!--                th:text="${meetingRoom.reserveDate}" name="reserveDate" readonly></span>-->
 <!--          <input id="reserveDate" class="align-text-top"-->
 <!--                 th:text="""${meetingRoom.reserveDate}" name="reserveDate" readonly/>-->
-          <select id="startTime" class="align-text-top"  name="startTime">
+          <select id="startTime" class="align-text-top"  name="startTime" th:value="${meetingRoom.startTime}">
             <option>시간을 선택해주세요</option>
             <option th:selected="${meetingRoom.startTime}=='08:00'" value="08:00">08:00</option>
             <option th:selected="${meetingRoom.startTime}=='09:00'" value="09:00">09:00</option>
@@ -69,7 +69,7 @@
             <option th:selected="${meetingRoom.startTime}=='20:00'" value="20:00">20:00</option>
           </select>
           <span class="mt-auto m-2 pb-3 pt-xl-5">~</span>
-          <select id="endTime" class="align-text-top" name="endTime">
+          <select id="endTime" class="align-text-top" name="endTime" th:value="${meetingRoom.endTime}">
             <option>시간을 선택해주세요</option>
             <option th:selected="${meetingRoom.endTime}=='08:00'" value="08:00">08:00</option>
             <option th:selected="${meetingRoom.endTime}=='09:00'" value="09:00">09:00</option>

@@ -4,7 +4,7 @@ modifyBtn.addEventListener('click', function(){
     const title = document.querySelector('#title').value;
     const purpose = document.querySelector('#purpose').text;
     if (title === '') {
-        alert('제목을 입력해주세요..')
+        alert('제목을 입력해주세요.')
         return;
     } else if (purpose === '') {
         alert('사용목적을 입력해주세요.')

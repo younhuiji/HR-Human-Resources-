@@ -1,6 +1,5 @@
 package com.sohwakmo.hr.controller;
 
-import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.MeetingRoom;
 import com.sohwakmo.hr.dto.MeetingRoomCreateDto;
 import com.sohwakmo.hr.dto.MeetingRoomUpdateDto;
@@ -68,7 +67,7 @@ public class MeetingRoomController {
         MeetingRoom meetingRoom = meetingRoomService.read(meetingRoomNo);
 
         model.addAttribute("meetingRoom", meetingRoom);
-//        model.addAttribute("reservationNo", meetingRoom.getReservationNo());
+        model.addAttribute("reservationNo", meetingRoom.getReservationNo());
 
         return "/meetingRoom/detail";
     }
@@ -90,6 +89,7 @@ public class MeetingRoomController {
 
         Integer meetingRoomNo = meetingRoomService.update(dto);
 
+
         return "redirect:/meetingRoom/detail?meetingRoomNo=" + dto.getMeetingRoomNo();
     }
 
@@ -101,6 +101,7 @@ public class MeetingRoomController {
         meetingRoomService.delete(meetingRoomNo);
 
         return "redirect:/meetingRoom/list";
+
     }
 }
 

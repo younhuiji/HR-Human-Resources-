@@ -5,6 +5,7 @@
 <head>
     <title>hr</title>
     <link rel="stylesheet" th:href="@{/css/meetingRoom/meetingRoom.css}" />
+    <link rel="stylesheet" th:href="@{/css/meetingRoom/calendar.css}" />
 </head>
 <div layout:fragment="content">
     <div class="col" style="background-size: 5px">
@@ -13,11 +14,26 @@
             <div class="section-header">
                 <h1 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >회의실 예약</h1>
                 <input type="date" value="xxx" min="yyy" max="zzz" id="reserveDate" placeholder="검색일자를 입력해주세요.">
+                <input id="input_submit" type="submit" onclick="input()" value="확인" />
+
             </div>
             <div class="col-3">
                 <a th:href="@{/meetingRoom/create}" class="btn btn-outline-info">예약</a>
             </div>
-            <div class="section-header">
+            <div class="calendar"></div>
+                <div class="calendar_nav">
+                    <button class="nav-btn go-prev">&lt;</button>
+                    <span class="year"></span>년
+                    <span class="month"></span>월
+                    <span class="day"></span>일
+                    <button type="button"  class="checkBtn">click</button>
+                    <!-- <button class="nav-btn go-today">오늘로 가기</button> -->
+                    <button class="nav-btn go-next">&gt;</button>
+                </div>
+            </div>
+
+
+        <div class="section-header">
                 <table drag-select class="table table-bordered" id="listTable">
                     <thead>
                         <tr>
@@ -57,21 +73,21 @@
                             <td><button type="button"  class="checkBtn">click</button></td>
                         </tr>
                         <tr>
-                            <th >회의실2</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><button type="button"  class="checkBtn">click</button></td>
+                            <th>회의실2</th>
+                            <td value="08:00"><input value="08:00" type="hidden"/></td>
+                            <td><input value="09:00" type="hidden"/></td>
+                            <td><input value="10:00" type="hidden" /></td>
+                            <td><input value="11:00" type="hidden" /></td>
+                            <td><input value="12:00" type="hidden" /></td>
+                            <td><input value="13:00" type="hidden" /></td>
+                            <td><input value="14:00" type="hidden" /></td>
+                            <td><input value="15:00" type="hidden" /></td>
+                            <td><input value="16:00" type="hidden" /></td>
+                            <td><input value="17:00" type="hidden" /></td>
+                            <td><input value="18:00" type="hidden" /></td>
+                            <td><input value="19:00" type="hidden" /></td>
+                            <td><input value="20:00" type="hidden" /></td>
+                            <td><button type="button" class="saveBtn">click</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -124,6 +140,8 @@
     <script type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
     <script th:src="@{ /js/meetingRoomList.js}" th:inline="javascript"></script>
+<!--    <script th:src="@{ /js/meetingRoomCalendar.js}"></script>-->
+
 </th:block>
 
 

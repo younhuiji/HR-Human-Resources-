@@ -18,7 +18,7 @@
         </div>
         <div class = "p-3 border-bottom">
             <label for="title" style=" width: 150px; ">제목</label>
-            <input id="title" class="align-text-top"
+            <input id="title" class="align-text-top" name="title"
                    th:value="${meetingRoom.title}" readonly />
         </div>
         <div class = "p-3 border-bottom">
@@ -48,7 +48,7 @@
         </div>
         <div class= "p-3 border-bottom">
             <label for="attendee" style=" width: 150px; ">참석자</label>
-            <span  id="attendee" class="align-text-top"
+            <span  id="attendee" class="align-text-top" name="attendee"
                    th:text="${meetingRoom.attendee}" readonly></span>
 
         </div>
@@ -60,7 +60,7 @@
         </div>
         <div class= "p-3 mt-2 border-bottom">
             <label for="purpose" style=" width: 150px; " >사용목적</label>
-            <span id="purpose" class="align-text-top" style="width: 1000px; height: 200px;"
+            <span id="purpose" class="align-text-top" style="width: 1000px; height: 200px;" name="purpose"
                   th:text="${meetingRoom.purpose}" readonly ></span>
 <!--            <input id="purpose" class="align-text-top" style="width: 1000px; height: 200px;"-->
 <!--                    th:text="${meetingRoom.purpose}" readonly >-->

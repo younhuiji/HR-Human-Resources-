@@ -1,46 +1,85 @@
-var calendar = document.querySelector('#calendar');
-var select_ym = document.querySelector('#select_ym');
-var output = document.querySelector('#output');
+let date = new Date();
 
-var v_date = today.getDate(); // 오늘 일수
-var v_day = today.getDay(); // 오늘 요일
+const renderCalender = () => {
+    const viewYear = date.getFullYear();
+    const viewMonth = date.getMonth();
 
-var year = today.getFullYear(); // 올해
-var month = today.getMonth(); // 이번 달
-var v_year = today.getFullYear(); // 올해 (변함)
-var v_month = today.getMonth(); // 이번 달 (변함)
+    document.querySelector('.year').textContent = `${viewYear}`;
+    document.querySelector('.month').textContent = `${viewMonth + 1}`;
 
-function calendar_make(a, b) {
-    if (a != undefined && b != undefined) { // 인수를 전달 받을 시 (달력 넘기기)
-        v_year = a;
-        v_month = b;
-    } else { // 오늘로 이동
-        v_year = year;
-        v_month = month;
-    }
-    // 인수 받는 것을 처음에 둬야 이후 변수들에 대입되어 오류가 안 난다.
-    var last_date = new Date(v_year, v_month + 1, 0).getDate(); // 이번달 마지막 일
-    var first_day = new Date(v_year, v_month, 1).getDay(); // 이번 달 시작 요일 (0=>일, 1=>월 ...)
-    select_ym.innerHTML = '<div>' + v_year + '년 ' + (v_month + 1) + '월' + '</div>';
+    const prevLast = new Date(viewYear, viewMonth, 0);
+    const thisLast = new Date(viewYear, viewMonth + 1, 0);
 
-    var row = calendar.insertRow();
-    for (var i = 0; i < first_day; i++) { // 월의 시작일 전의 빈 칸
-        var cell = row.insertCell();
-    }
-    for (var i = 1; i <= last_date; i++) { // 빈칸 이후의 달의 일수
-        if (first_day != 7) {
-            cell = row.insertCell();
-            first_day += 1;
-        } else {
-            row = calendar.insertRow();
-            cell = row.insertCell();
-            first_day -= 6;
+    const PLDate = prevLast.getDate();
+    const PLDay = prevLast.getDay();
+
+    const TLDate = thisLast.getDate();
+    const TLDay = thisLast.getDay();
+
+    const prevDates = [];
+    const thisDates = [...Array(TLDate + 1).keys()].slice(1);
+    const nextDates = [];
+
+    if (PLDay !== 6) {
+        for (let i = 0; i < PLDay + 1; i++) {
+            prevDates.unshift(PLDate - i);
         }
-        cell.setAttribute('id', i);
-        cell.setAttribute('class', 'days');
-        cell.addEventListener('click', function (self) {
-            document.querySelector('#word_add').setAttribute('onclick', 'javascript:words_add(' + self.target.id + ')');
-        })
-        cell.innerHTML = i;
     }
-}
+
+    for (let i = 1; i < 7 - TLDay; i++) {
+        nextDates.push(i);
+    }
+
+    const dates = prevDates.concat(thisDates, nextDates);
+    const firstDateIndex = dates.indexOf(1);
+    const lastDateIndex = dates.lastIndexOf(TLDate);
+
+    dates.forEach((date, i) => {
+        const condition = i >= firstDateIndex && i < lastDateIndex + 1 ?
+            'this' :
+            'other';
+        dates[i] = `
+            <div class="date ${condition}">
+
+                <div class="date-itm">
+                    ${date}
+                </div>
+
+                <div class="date_event">
+                    <div class="event-itm">EVENT</div>
+                </div>
+
+            </div>
+        `;
+    });
+
+    document.querySelector('.dates').innerHTML = dates.join('');
+
+    const today = new Date();
+    if (viewMonth === today.getMonth() && viewYear === today.getFullYear()) {
+        for (let date of document.querySelectorAll('.date-itm')) {
+            if (+date.innerText === today.getDate()) {
+                date.parentNode.classList.add('today');
+                break;
+
+            }
+        }
+    }
+};
+
+renderCalender();
+
+const prevMonth = () => {
+    date.setMonth(date.getMonth() - 1);
+    renderCalender();
+};
+
+const nextMonth = () => {
+    date.setMonth(date.getMonth() + 1);
+    renderCalender();
+};
+
+const goToday = () => {
+    date = new Date();
+    renderCalender();
+};

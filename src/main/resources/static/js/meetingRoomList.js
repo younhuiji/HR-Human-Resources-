@@ -144,3 +144,37 @@ var now_utc = Date.now()
 var timeOff = new Date().getTimezoneOffset()*60000;
 var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
 document.getElementById("reserveDate").setAttribute("min", today);
+
+
+// list 첫 화면 오늘 날짜로 맞추기.
+window.onload = function() {
+    today = new Date();
+    console.log("today.toISOString() >>>" + today.toISOString());
+    today = today.toISOString().slice(0, 10);
+    console.log("today >>>> " + today);
+    bir = document.getElementById("reserveDate");
+    bir.value = today;
+}
+
+$('.saveBtn').on('click', function() {
+
+    //현재 row의 정보 가져오기
+    var thisRow = $(this).closest('tr');
+
+    //주소 input 값 가져오기
+    var addr = thisRow.find('td:eq(0)').find('input').val();
+    //섦졍 input 값 가져오기
+    var txt = thisRow.find('td:eq(1)').find('input').val();
+
+    alert(addr + ", " + txt + "을(를) 클릭하였습니다.");
+
+})
+
+
+////////
+function input() {
+    const dday = document.querySelector('#reserveDate').value;
+    console.log(dday)
+}
+
+
