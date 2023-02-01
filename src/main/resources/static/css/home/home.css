@@ -49,12 +49,7 @@
     color: white;
 }
 
-#startButton{
-    width: 151%;
-    font-size: 24px;
-    padding: 12px 24px;
-}
-#endButton{
+.allButton{
     width: 151%;
     font-size: 24px;
     padding: 12px 24px;

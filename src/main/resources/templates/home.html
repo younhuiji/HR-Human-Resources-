@@ -24,21 +24,34 @@
             <div class="interval">
                 <!--TODO 출근 전후로 나눠서 문구 출력-->
                 <h3>Hi! <span th:text="${#authentication.principal.name}"></span>님,</h3>
-                <h3>아직 출근 전입니다 :)</h3>
-            </div>
-<!--            <div class="interval">-->
-<!--                <div id="image">-->
-<!--                    <img src="/images/employeeImage/cha.jpg" alt="사원사진"/>-->
-<!--                </div>-->
-<!--            </div>-->
-            <div th:if="${attendance=='notAttendance'}">
-                <div class="interval">
-                    <button id="startButton" type="button" class="btn btn-primary startButton">업무 시작</button>
+                <div id="notWorking_msg" th:if="${attendance=='notAttendance'}">
+                    <h3>아직 출근 전입니다 :)</h3>
+                </div>
+                <div th:if="${attendance!='notAttendance'}">
+                    <div id="working_msg" th:if="${attendance.endTime == '00:00'}">
+                        <h3>조금만 힘내요!!</h3>
+                    </div>
+                    <div id="endWork_msg" th:if="${attendance.endTime != '00:00'}">
+                        <h3>오늘도 수고하셨습니다!</h3>
+                    </div>
                 </div>
             </div>
-            <div th:if="${attendance != 'notAttendance'}">
+            <!-- 업무시작 버튼-->
+            <!-- 출근전 버튼 -->
+            <div th:if="${attendance=='notAttendance'}">
                 <div class="interval">
-                    <button id="endButton" type="button" class="btn btn-danger endButton">업무 종료</button>
+                    <button id="startButton" type="button" class="btn btn-primary allButton">업무 시작</button>
+                </div>
+            </div>
+            <!-- 출근후 버튼 -->
+            <div th:if="${attendance != 'notAttendance'}">
+                <!--아직 업무중일때 버튼 -->
+                <div class="interval" th:if="${attendance.endTime == '00:00'}">
+                    <button type="button" id="endButton" class="btn btn-danger allButton">업무 종료</button>
+                </div>
+                <!-- 업무가 다끝났을때 버튼 -->
+                <div class="interval" th:if="${attendance.endTime != '00:00'}">
+                    <button type="button" class="btn btn-secondary allButton" disabled>퇴근 완료</button>
                 </div>
             </div>
         </div>
@@ -56,7 +69,6 @@
                 <!------------------ 출근xxxxxxxxxxxxx ---------->
                 <div th:if="${attendance=='notAttendance'}">
                     <div id="state_time2" class="state_time">
-                        <!--TODO 업무중인지 아닌지에따라 다르게 설정-->
                         <p>업무중이 아닙니다.</p>
                     </div>
                     <div id="div_time2" class="div_time">
