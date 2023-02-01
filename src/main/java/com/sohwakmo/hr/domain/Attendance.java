@@ -24,6 +24,8 @@ public class Attendance {
     @Column(columnDefinition = "varchar(255) default '00:00'")
     private String startTime; // 출근시간
     @Column(columnDefinition = "varchar(255) default '00:00'")
+    private String expectEndTime; // 예상 퇴근시간
+    @Column(columnDefinition = "varchar(255) default '00:00'")
     private String endTime; // 퇴근시간
     @Column(columnDefinition = "integer default 2") //  출근 0, 지각,조퇴 1, 결근 2
     private Integer state; // 출근, 지각, 조퇴, 결근

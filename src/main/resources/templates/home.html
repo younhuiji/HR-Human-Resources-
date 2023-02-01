@@ -81,10 +81,24 @@
                            <p>출근 시간</p>
                            <p th:text="${attendance.startTime}"></p>
                        </div>
-                       <div id="endTme0" class="endTme">
-                           <p>퇴근 시간</p>
-                           <p th:text="${attendance.endTime}"></p>
+                       <!--예상 퇴근시간 -->
+                       <div th:if="${attendance.endTime == '00:00'}">
+                           <div class="endTme">
+                               <p>예상 퇴근 시간</p>
+                               <p th:text="${attendance.expectEndTime}"></p>
+                           </div>
                        </div>
+                       <!-- 진짜 퇴근시간-->
+                       <div th:if="${attendance.endTime != '00:00'}">
+                           <div class="endTme">
+                               <p>퇴근 시간</p>
+                               <p th:text="${attendance.endTime}"></p>
+                           </div>
+                       </div>
+<!--                       <div id="endTme0" class="endTme">-->
+<!--                           <p>퇴근 시간</p>-->
+<!--                           <p th:text="${attendance.endTime}"></p>-->
+<!--                       </div>-->
                    </div>
                </div>
             </div>

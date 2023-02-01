@@ -21,7 +21,7 @@ public class HomeController {
 
     @GetMapping("/")
     @PreAuthorize("isAuthenticated()")
-    public String index(Model model, Principal principal) {
+    public String index(Model model, Principal principal){
         String employeeNo = principal.getName();
         // 현재 날짜 구하기
         LocalDate now = LocalDate.now();
@@ -29,9 +29,10 @@ public class HomeController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd");
         // 포맷 적용
         String formatedNow = now.format(formatter);
-        Attendance attendance = employeeService.checkAttendance(employeeNo,formatedNow);
+        Long attendanceNo = employeeService.checkAttendance(employeeNo,formatedNow);
 
-        if (attendance != null) {
+        if (attendanceNo != -1) {
+            Attendance attendance = employeeService.getAttendance(attendanceNo);
             model.addAttribute("attendance", attendance);
         }else{
             model.addAttribute("attendance","notAttendance");

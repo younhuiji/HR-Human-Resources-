@@ -166,7 +166,7 @@ public class EmployeeService {
         Employee employee = employeeRepository.findByEmployeeNo(dto.getEmployeeNo());
 
         Attendance attendance = Attendance.builder()
-                .employee(employee).startTime(hours + ":" + minutes).endTime(getEndTime(dto.getHours(),dto.getMinutes())).month(month).day(day).state(0).build();
+                .employee(employee).startTime(hours + ":" + minutes).expectEndTime(getExpectEndTime(dto.getHours(),dto.getMinutes())).month(month).day(day).state(0).build();
 
         log.info(attendance.toString());
         attendanceRepository.save(attendance);
@@ -179,9 +179,12 @@ public class EmployeeService {
      * @return 예상 퇴근 시간
      *
      */
-    public String getEndTime(Integer hours, Integer minutes) {
+    public String getExpectEndTime(Integer hours, Integer minutes) {
         String endHours = String.valueOf(hours + 9);
         String endMinutes = String.valueOf(minutes);
+        if (endMinutes.length() == 1) {
+            endMinutes = "0" + String.valueOf(minutes);
+        }
         return endHours + ":" + endMinutes;
     }
 
@@ -191,11 +194,13 @@ public class EmployeeService {
      * @param formatedNow 오늘 날짜
      * @return 출근했으면 0 아니면 2를 리턴.
      */
-    public Attendance checkAttendance(String employeeNo,String formatedNow) {
-        Attendance attendance = getRecentAttendance(employeeNo); // 가장 최근에 한 출근 내용을 불러오는 메서드
-        String checkAttendance = attendance.getMonth() + "/" + attendance.getDay();
-        if(formatedNow.equals(checkAttendance)) return attendance;
-        else return null;
+    public Long checkAttendance(String employeeNo,String formatedNow) {
+        Long attendanceNo = getRecentAttendance(employeeNo); // 가장 최근에 한 출근 내용을 불러오는 메서드
+        if(attendanceNo==-1L)return -1L;
+        else return attendanceNo;
+//        String checkAttendance = attendance.getMonth() + "/" + attendance.getDay();
+//        if(formatedNow.equals(checkAttendance)) return attendance;
+//        else return null;
     }
 
     /**
@@ -205,7 +210,8 @@ public class EmployeeService {
      * @param employeeNo 사원번호
      */
     public void setEndTime(Integer hours, Integer minutes, String employeeNo) {
-        Attendance attendance = getRecentAttendance(employeeNo);
+        Long attendanceNo = getRecentAttendance(employeeNo);
+        Attendance attendance = attendanceRepository.findById(attendanceNo).get();
         String endHours = String.valueOf(hours);
         String endMinutes;
         if (String.valueOf(minutes).length() == 1) {
@@ -213,8 +219,7 @@ public class EmployeeService {
         }else{
             endMinutes = String.valueOf(minutes);
         }
-        attendance = attendance.builder()
-                .endTime(endHours + ":" + endMinutes).build();
+        attendance.setEndTime(endHours + ":" + endMinutes);
         attendanceRepository.save(attendance);
     }
 
@@ -223,11 +228,25 @@ public class EmployeeService {
      * @param employeeNo 사원번호
      * @return 어제나 오늘한 가장 최근 출근 객체를 리턴
      */
-    private Attendance getRecentAttendance(String employeeNo) {
+    private Long getRecentAttendance(String employeeNo) {
         Employee employee = employeeRepository.findByEmployeeNo(employeeNo);
         List<Attendance> list = employee.getAttendances();
-        Collections.reverse(list);
-        Attendance attendance = list.stream().findAny().get();
-        return attendance;
+        if (list.size() == 0) {
+            return -1L;
+        } else {
+            Collections.reverse(list);
+            Attendance attendance = list.stream().findAny().orElse(null);
+            assert attendance != null;
+            return attendance.getId();
+        }
+    }
+
+    /**
+     * 출근 퇴근 기록 가져오기
+     * @param attendanceNo
+     * @return
+     */
+    public Attendance getAttendance(Long attendanceNo) {
+        return attendanceRepository.findById(attendanceNo).get();
     }
 }
