@@ -53,7 +53,8 @@ public class Employee {
     @Column(nullable = false)
     private String joinedDate; // 입사일
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    @Builder.Default
     private List<Attendance> attendances = new ArrayList<Attendance>(); // 사원번호로 출격 관리 리스트 불러오기
 
 

@@ -54,6 +54,11 @@
     font-size: 24px;
     padding: 12px 24px;
 }
+#endButton{
+    width: 151%;
+    font-size: 24px;
+    padding: 12px 24px;
+}
 
 /*-------------------myWork------------------------*/
 
@@ -70,33 +75,33 @@
     border-radius: 8px;
     width: 27%;
 }
-#state_time{
+.state_time{
     padding: 0.5em;
 }
-#state_time p {
+.state_time p {
     font-size: 13px;
     text-align: center;
 }
 
-#time_info{
+.time_info{
     border: 1px solid black;
 }
-#div_time{
+.div_time{
     padding: 2em 0 2em 2em;
 }
 
-#startTime{
+.startTime{
     display: inline-block;
 }
-#startTime p{
+.startTime p{
     font-weight: bold;
     font-size: 17px;
     text-align: center;
 }
-#endTme{
+.endTme{
     display: inline-block;
 }
-#endTme p{
+.endTme p{
     font-weight: bold;
     font-size: 17px;
     text-align: center;

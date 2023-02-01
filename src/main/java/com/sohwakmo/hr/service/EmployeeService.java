@@ -19,7 +19,10 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -163,7 +166,7 @@ public class EmployeeService {
         Employee employee = employeeRepository.findByEmployeeNo(dto.getEmployeeNo());
 
         Attendance attendance = Attendance.builder()
-                .employee(employee).startTime(hours + ":" + minutes).month(month).day(day).build();
+                .employee(employee).startTime(hours + ":" + minutes).endTime(getEndTime(dto.getHours(),dto.getMinutes())).month(month).day(day).state(0).build();
 
         log.info(attendance.toString());
         attendanceRepository.save(attendance);
@@ -180,5 +183,51 @@ public class EmployeeService {
         String endHours = String.valueOf(hours + 9);
         String endMinutes = String.valueOf(minutes);
         return endHours + ":" + endMinutes;
+    }
+
+    /**
+     * 오늘 날짜를 받고 업무시작을 눌렀는지 안눌렀는지 확인한다.
+     * @param employeeNo 자신의 사원번호
+     * @param formatedNow 오늘 날짜
+     * @return 출근했으면 0 아니면 2를 리턴.
+     */
+    public Attendance checkAttendance(String employeeNo,String formatedNow) {
+        Attendance attendance = getRecentAttendance(employeeNo); // 가장 최근에 한 출근 내용을 불러오는 메서드
+        String checkAttendance = attendance.getMonth() + "/" + attendance.getDay();
+        if(formatedNow.equals(checkAttendance)) return attendance;
+        else return null;
+    }
+
+    /**
+     * 업무 종료 시간을 DB에 저장
+     * @param hours 업무 종료를 누른 시간
+     * @param minutes 업무 종료를 누른 분
+     * @param employeeNo 사원번호
+     */
+    public void setEndTime(Integer hours, Integer minutes, String employeeNo) {
+        Attendance attendance = getRecentAttendance(employeeNo);
+        String endHours = String.valueOf(hours);
+        String endMinutes;
+        if (String.valueOf(minutes).length() == 1) {
+            endMinutes = "0" + String.valueOf(minutes);
+        }else{
+            endMinutes = String.valueOf(minutes);
+        }
+        attendance = attendance.builder()
+                .endTime(endHours + ":" + endMinutes).build();
+        attendanceRepository.save(attendance);
+    }
+
+    /**
+     * 가장 최근에 한 출근 내용을 불러오는 메서드
+     * @param employeeNo 사원번호
+     * @return 어제나 오늘한 가장 최근 출근 객체를 리턴
+     */
+    private Attendance getRecentAttendance(String employeeNo) {
+        Employee employee = employeeRepository.findByEmployeeNo(employeeNo);
+        List<Attendance> list = employee.getAttendances();
+        Collections.reverse(list);
+        Attendance attendance = list.stream().findAny().get();
+        return attendance;
     }
 }
