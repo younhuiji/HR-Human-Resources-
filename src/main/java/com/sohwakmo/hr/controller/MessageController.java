@@ -25,28 +25,6 @@ public class MessageController {
     private final MessageService messageService;
 
     /**
-     * 받은쪽지함으로 이동시키기
-     * @return
-     */
-    @GetMapping("/receiveList")
-    public String receiveList(Integer employeeNo, Model model) {
-        log.info("receiveList()");
-
-        // 로그인한 사원 번호 임시 값
-        employeeNo = 2;
-        log.info("employeeNo = {}", employeeNo);
-
-        List<Message> messageList = messageService.read(employeeNo);
-        log.info("messageList = {}", messageList);
-        log.info("messageCount = {}", messageList.size());
-
-        model.addAttribute("messageList", messageList);
-        model.addAttribute("messageCount", messageList.size());
-
-        return "/message/receiveList";
-    }
-
-    /**
      * 쪽지 작성 페이지로 이동
      * @return
      */
@@ -72,5 +50,40 @@ public class MessageController {
 
         return "redirect:/message/receiveList";
     }
+
+    /**
+     * 받은쪽지함으로 이동시키기
+     * @param employeeNo
+     * @param model
+     * @return
+     */
+    @GetMapping("/receiveList")
+    public String receiveList(Integer employeeNo, Model model, String messageType, String contentType, String keyword) {
+        log.info("receiveList(messageType = {}, contentType = {}, keyword = {})", messageType, contentType, keyword);
+
+        // 로그인한 사원 번호 임시 값
+        employeeNo = 2;
+        log.info("employeeNo = {}", employeeNo);
+
+        List<Message> messageList;
+
+        // 리스트로 바로 들어온 경우(검색하지 않은 경우)
+        if(messageType == null && contentType == null && keyword == null) {
+            log.info("검색하지 않은 경우");
+            messageList = messageService.read(employeeNo);
+        } else {
+            log.info("검색한 경우");
+            messageList = messageService.searchMessage(employeeNo, messageType, contentType, keyword);
+        }
+
+        log.info("messageList = {}", messageList);
+        log.info("messageCount = {}", messageList.size());
+
+        model.addAttribute("messageList", messageList);
+        model.addAttribute("messageCount", messageList.size());
+
+        return "/message/receiveList";
+    }
+
 
 }

@@ -26,20 +26,6 @@ public class MessageService {
     private final EmployeeRepository employeeRepository;
 
     /**
-     * 받은쪽지함 들어가면 로그인한 번호로 받은쪽지 보여주기
-     * @param employeeNo
-     */
-    public List<Message> read(Integer employeeNo) {
-        log.info("read(employeeNo = {})", employeeNo);
-
-        List<Message> messageList = new ArrayList<>();
-        messageList = messageRepository.findByReceiveNoOrderByMessageNoDesc(employeeNo);
-        log.info("messageList = {}", messageList);
-
-        return messageList;
-    }
-
-    /**
      * 메세지 보내기 기능 수행할 때 db에 저장하고 파일을 저장
      * @param dto
      * @param files
@@ -107,6 +93,64 @@ public class MessageService {
             log.info("message = {}", message);
         }
 
+    }
+
+    /**
+     * 받은쪽지함 들어가면 로그인한 번호로 받은쪽지 보여주기
+     * @param employeeNo
+     */
+    public List<Message> read(Integer employeeNo) {
+        log.info("read(employeeNo = {})", employeeNo);
+
+        List<Message> messageList = new ArrayList<>();
+        messageList = messageRepository.findByReceiveNoOrderByMessageNoDesc(employeeNo);
+        log.info("messageList = {}", messageList);
+
+        return messageList;
+    }
+
+    /**
+     * 받은쪽지함 검색
+     * @param employeeNo
+     * @param messageType
+     * @param contentType
+     * @param keyword
+     * @return
+     */
+    public List<Message> searchMessage(Integer employeeNo, String messageType, String contentType, String keyword) {
+        log.info("searchMessage(employeeNo = {}, messageType = {}, contentType = {}, keyword = {})", employeeNo, messageType, contentType, keyword);
+
+        List<Message> messageList = new ArrayList<>();
+
+        if (messageType == null) { // 메세지 타입이 null인 경우
+            log.info("null");
+            switch(contentType) {
+                case "all" :
+//                    messageList = messageRepository.findByReceiveNoAndTitleIgnoreCaseContainingOrderByMessageNoDesc(employeeNo, keyword);
+                    break;
+                case "title" :
+                    messageList = messageRepository.findByReceiveNoAndTitleIgnoreCaseContainingOrderByMessageNoDesc(employeeNo, keyword);
+                    break;
+                case "sender" :
+                    break;
+            }
+            
+        } else { // 메세지 타입이 있는 경우
+            log.info("not null");
+            switch(contentType) {
+                case "all" :
+                    break;
+                case "title" :
+                    break;
+                case "sender" :
+                    break;
+            }
+
+        }
+
+        log.info("messageList = {}", messageList);
+        
+        return messageList;
     }
 
 

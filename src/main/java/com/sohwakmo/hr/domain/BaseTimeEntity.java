@@ -17,7 +17,6 @@ public class BaseTimeEntity {
 
     @CreatedDate
     private LocalDateTime sendTime;
-    @LastModifiedDate
     private LocalDateTime readTime;
 
 }
