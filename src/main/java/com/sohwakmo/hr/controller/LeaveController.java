@@ -42,13 +42,7 @@ public class LeaveController  {
     @PostMapping("/create")
     public String create(LeaveCreateDto dto){
 
-        // TODO: payment enum 값으로 가져오기
-
         Leave leave = Leave.builder()
-                // TODO: 시행자, 승인자 번호 임원 테이블 연결 시에 수정하기
-//                .employeeNo(dto.getEmployeeNo()).approverNo(dto.getApproverNo()).secondApproverNO(dto.getSecondApproverNO())
-//                .title(dto.getTitle()).reason(dto.getReason()).category(dto.getCategory()).state(dto.getState())
-//                .returnReason(dto.getReturnReason()).writeDate(dto.getWriteDate()).effectiveDate(dto.getEffectiveDate()).competeDate(dto.getCompeteDate())
                 .employeeNo(1L).approverNo(1L).secondApproverNO(1L)
                 .title(dto.getTitle()).reason(dto.getReason()).category(dto.getCategory())
                 .effectiveDate(dto.getEffectiveDate())

@@ -2,11 +2,9 @@ package com.sohwakmo.hr.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Getter
+@Setter
 @ToString
 @Entity(name="LEAVE")
 @SequenceGenerator(name = "LEAVE_SEQ_GEN", sequenceName = "LEAVE_SEQ", allocationSize = 1)
@@ -41,6 +40,9 @@ public class Leave extends BaseTimeEntity {
     @Column(nullable = false) // 결재 분류
     private String category;
 
+    @Column // 세미 결재 분류
+    private boolean semiState;
+
     @ElementCollection(fetch = FetchType.EAGER) // 결재 상태
     @Enumerated(EnumType.STRING)
     @Builder.Default
@@ -57,6 +59,11 @@ public class Leave extends BaseTimeEntity {
 
     public Leave addRole(PaymentState status) {
         state.add(status);
+        return this;
+    }
+
+    public Leave add(LocalDateTime competeDate){
+        competeDate.toLocalDate();
         return this;
     }
 

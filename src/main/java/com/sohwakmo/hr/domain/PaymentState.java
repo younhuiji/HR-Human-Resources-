@@ -1,6 +1,7 @@
 package com.sohwakmo.hr.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public enum PaymentState {
