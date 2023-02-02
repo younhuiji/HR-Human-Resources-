@@ -18,6 +18,37 @@ document.addEventListener('DOMContentLoaded', function() {
     let businessTripList = [];
     let vacationList = [];
 
+    //modal
+    const myModal = document.querySelector('#divModal');
+    const calendarModal = new bootstrap.Modal(myModal);
+    let modalText = document.querySelector('#modalBody');
+    const modalTitle = document.querySelector('#ModalTitle');
+
+    function showModal(list, groupId) {
+        let str = '';
+        if (groupId == 'meetingRoom') {
+            str += '<p> 회의명: ' + list.title + '</p>'
+                + '<p> 회의내용: '+ list.purpose +'</p>'
+                + '<p>참석자: ' + list.attendee +'</p>'
+                + '<p>회의시간:' + list.start + '~' + list.end + '</p>'
+                + '<p>장소: ' + list.roomName + list.roomPlace+'</p>';
+        } else if (groupId == 'businessTrip') {
+            str += '<p>출장명: ' + list.title +'</p>'
+                + '<p>출장내용: ' + list.reason +'</p>'
+                + '<p>출장일자: ' + list.start + '~' + list.end +'</p>'
+                + '<p>장소: ' + list.place + '</p>'
+                + '<p>동반출장자 사번: ' + list.companionNo+'</p>'
+        } else if (groupId == 'vacation'){
+            str += '<p>휴가명: '+list.title+'</p>'
+                + '<p>휴가일자: '+list.start+'~'+list.end+'</p>'
+                + '<p>사유: '+list.reason+'</p>'
+        }
+
+        modalText.innerHTML = str;
+        modalTitle.innerHTML = groupId;
+        calendarModal.show();
+    }
+
     //loginUser
     const loginUser = document.querySelector('#loginUser').value;
 
@@ -51,41 +82,25 @@ document.addEventListener('DOMContentLoaded', function() {
             //     arg.event.remove()
             // }
             //calendarModal.show();
-            console.log(arg)
             if(arg.event.groupId == 'meetingRoom'){
                 for(let l of meetingList){
                     if(l.meetingRoomNo == arg.event.id){
-                        alert(
-                            '회의명: '+ l.title +
-                            '\n회의내용: '+l.purpose +
-                            '\n참석자: '+l.attendee +
-                            '\n회의시간:'+l.start+'~'+l.end +
-                            '\n장소: '+l.roomName + l.roomPlace
-                        )
-                        return
+                        showModal(l, arg.event.groupId);
+                        return;
                     }
                 }
             }else if(arg.event.groupId == 'businessTrip'){
                 for(let l of businessTripList){
                     if(l.businessNo == arg.event.id){
-                        alert(
-                            '출장명: '+ l.title +
-                            '\n출장내용: '+l.reason +
-                            '\n출장일자: '+l.start+'~'+l.end+
-                            '\n장소: '+l.place+
-                            '\n동반출장자 사번: '+ l.companionNo
-                        )
+                        showModal(l, arg.event.groupId);
                         return;
                     }
                 }
             }else if(arg.event.groupId =='vacation'){
                 for(let l of vacationList){
                     if(l.vacationNo == arg.event.id){
-                        alert(
-                            '휴가명: '+l.title+
-                            '\n휴가일자: '+l.start+'~'+l.end+
-                            '\n사유: '+l.reason
-                        )
+                        showModal(l, arg.event.groupId);
+                        return;
                     }
                 }
             }
