@@ -56,6 +56,9 @@
 </head>
     <div layout:fragment="content">
         <body>
+
+        <input type="hidden" value="1" />
+
         <div id="jb-container">
             <div id="jb-header">
                 <h3>결재 작성</h3>
@@ -110,7 +113,7 @@
 
                                 </table>
                                 <div class="text-end">
-                                    <button type="submit" class="btn btn-light" id="insertButton">요청</button>
+                                    <button type="submit" class="btn btn-light" id="insertButton" >요청</button>
 
                                     <button type="submit" class="btn btn-light">취소</button>
                                 </div>
@@ -160,4 +163,10 @@
         </div>
         </body>
     </div>
+
+    <th:block layout:fragment="script">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script th:src="@{ /js/payment/create.js }"></script>
+    </th:block>
+
 </html>

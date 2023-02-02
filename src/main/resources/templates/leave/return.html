@@ -52,6 +52,10 @@
       <body>
              <div>
                   <div id="jb-container">
+
+                    <!-- 반려 사유를 변경 할 PK -->
+                    <input type="text" th:value="${leave.no}" />
+
                     <h2 style="font-size: 30px">반려 사유</h2>
                       <form id="fromReturn">
                         <div id="jb-header">
@@ -82,12 +86,6 @@
 <th:block layout:fragment="script">
 <!--  <script th:src="@{/js/detail.js}"></script>-->
 </th:block>
-<!-- 부모 창으로 값 전달하기 -->
-<script>
-    function setReturnReason() {
-       opener.document.getElementById("pInput").value = document.getElementById("return").value;
-    }
-</script>
 
 </body>
 </html>

@@ -32,7 +32,7 @@ public class LeaveController  {
 
         // TODO: 임원 테이블 연결 시에 수정하기
         Integer no = 1;
-        List<Leave> leave = leaveService.selectByName(no);
+        List<Leave> leave = leaveService.selectByEmployeeNO(no);
         log.info("컨트롤={}", leave);
         model.addAttribute("leave", leave);
 

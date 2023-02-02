@@ -68,7 +68,6 @@
                             <td style="width:300px; border: 0; padding: 0 !important" class="dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
 
                                 <table class="__se_tbl" style="background: white; margin: 0px; border: 1px solid #bcbcbc; border-image: none; color: black; font-family: malgun gothic,dotum,arial,tahoma; font-size: 12px; border-collapse: collapse !important;">
-                                    <!-- User -->
                                     <tbody>
                                     <tr>
                                         <td style="width: 100px; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: center; font-weight: bold; background: rgb(221, 221, 221); padding: 3px !important;">
@@ -109,12 +108,10 @@
 
 
                             <td >
-                                <!-- 결재선 기본값으로 신청 1명, 승인 7명으로 설정-->
                                 <table style="height: 120px; width: 200px; background: white; margin: 0px; margin-left: 335px; border: 1px solid #bcbcbc;  color: black; font-size: 12px; ">
-                                    <!-- User -->
                                     <tbody>
                                     <tr>
-                                        <td rowspan="2"  style="width: 30px; height: 30px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: center; font-weight: bold; background: rgb(221, 221, 221); padding: 3px !important;">
+                                        <td rowspan="3"  style="width: 30px; height: 30px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: center; font-weight: bold; background: rgb(221, 221, 221); padding: 3px !important;">
                                             결 재
                                         </td>
                                         <td colspan="1" style="width: 45%;  height: 10%; vertical-align: middle; border: 1px solid #bcbcbc;  text-align: center; font-weight: bold; background: rgb(221, 221, 221); padding: 3px !important;">
@@ -130,10 +127,19 @@
                                                 <img src="/images/dojang.png" style="height: 65px; ">
                                             </div>
                                         </td>
+
                                         <td style=" height: 80%; padding: 3px;  vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
                                             <div th:if="${leave.competeDate != null}" style="text-align: center;">
                                                 <img src="/images/dojang2..jpg" style="height: 80px; ">
                                             </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="1" style="border: 1px solid #bcbcbc; text-align: center; height: 20px">
+                                            <span th:text="${ #temporals.format(leave.semiCompeteDate, 'yyyy.MM.dd') }"></span>
+                                        </td>
+                                        <td rowspan="1"  style="border: 1px solid #bcbcbc; text-align: center;">
+                                            <span th:text="${ #temporals.format(leave.competeDate, 'yyyy.MM.dd') }"></span>
                                         </td>
                                     </tr>
 
@@ -212,7 +218,7 @@
                                                                             </span>
                                                                         </td>
                                                                     </tr>
-                                                                    <tr>-->
+                                                                    <tr>
                                                                         <td colspan="4" style="width:800px; padding: 20px !important; height: 22px; vertical-align: middle;border: 1px solid #bcbcbc; text-align: left; background: rgb(255, 255, 255);">
                                                                             <br>
                                                                             <br>
@@ -237,14 +243,69 @@
                 </div>
             </fieldset>
         </div>
-        <!--                        <div th:if="${leave.state == '진행중' && employee.employeePosition == 'LEVEL_3'}">-->
+<!--      <div th:if="${employee.part.department == '팀장'}">-->
         <div style="float: right; margin-right: 150px; width: 150px; display: inline-block;" >
             <input type="submit" class="btn btn-secondary" id="btnCompete" value="승인" />
-            <input type="submit" class="btn btn-danger" value="반려" style="" onclick="window.open('http://localhost:8889/businessCard/returns', 'returns', 'width=600 height=550 top=100 left=400');"/>
+            <input type="submit" class="btn btn-danger" data-bs-toggle="modal" data-rid="${leave.no}" id="btnReturn" value="반려" />
         </div>
-        <!--                        </div>-->
+<!--      </div>-->
+      <div th:if="${employee.part.department == '상무' && leave.semiState == 1 } ">
+            <div style="float: right; margin-right: 150px; width: 150px; display: inline-block;" >
+                <input type="submit" class="btn btn-secondary" id="btnCompete2" value="승인" />
+                <input type="submit" class="btn btn-danger" value="반려" style="" onclick="window.open('http://localhost:8889/businessCard/returns', 'returns', 'width=600 height=550 top=100 left=400');"/>
+            </div>
+      </div>
+
     </div>
     </body>
+
+
+    <!-- Modal -->
+    <div
+            class="modal fade"
+            id="modal"
+            tabindex="-1"
+            aria-labelledby="ReplyModalLabel"
+            aria-hidden="true"
+    >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="ReplyModalLabel">반려 사유</h1>
+                    <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <!-- leaveNO 삽입 위치 -->
+                    <input type="hidden" readonly="readonly" id="modalLeaveNo" th:value="${leave.no}" />
+                    <!-- leave.returnReason 삽입 위치 -->
+                    <textarea class="form-control" id="modalReturnReason"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button
+                            type="button"
+                            class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal"
+                    >
+                        취소
+                    </button>
+                    <button
+                            type="button"
+                            class="btn btn-outline-success"
+                            id="modalBtnUpdate"
+                    >
+                        확인
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end Modal -->
+
 </div>
 
 

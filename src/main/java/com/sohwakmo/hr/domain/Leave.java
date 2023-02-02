@@ -54,18 +54,30 @@ public class Leave extends BaseTimeEntity {
     @Column(nullable = false) // 시행일자
     private String effectiveDate;
 
-    @Column // 결재일시
+    @Column // 중간 결재일시
+    private LocalDateTime semiCompeteDate;
+    @Column // 최종 결재일시
     private LocalDateTime competeDate;
 
     public Leave addRole(PaymentState status) {
         state.add(status);
         return this;
     }
-
-    public Leave add(LocalDateTime competeDate){
-        competeDate.toLocalDate();
+    public Leave semiAdd(LocalDateTime semiCompeteDate){
+        this.semiCompeteDate = semiCompeteDate;
         return this;
     }
+
+    public Leave add(LocalDateTime competeDate){
+        this.competeDate = competeDate;
+        return this;
+    }
+
+    public Leave returnReason(String returnReason){
+        this.returnReason = returnReason;
+        return this;
+    }
+
 
 
 }
