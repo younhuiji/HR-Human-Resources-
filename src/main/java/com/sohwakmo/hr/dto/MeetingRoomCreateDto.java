@@ -26,13 +26,9 @@ public class MeetingRoomCreateDto {
 
     private Integer attendee;
 
-    private Integer attendeeMax;
-
     private String purpose;
 
-    private Integer reservationNo;
-
-    private String reservationName;
+    private Long employeeNo;
 
     public MeetingRoom toEntity() {
         return MeetingRoom.builder()
@@ -44,10 +40,8 @@ public class MeetingRoomCreateDto {
                 .startTime(startTime)
                 .endTime(endTime)
                 .attendee(attendee)
-                .attendeeMax(attendeeMax)
                 .purpose(purpose)
-                .reservationNo(reservationNo)
-                .reservationName(reservationName)
+                .employeeNo(employeeNo)
                 .build();
     }
 

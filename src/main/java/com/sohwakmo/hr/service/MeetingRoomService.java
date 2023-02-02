@@ -1,15 +1,19 @@
 package com.sohwakmo.hr.service;
 
 import com.sohwakmo.hr.domain.MeetingRoom;
+import com.sohwakmo.hr.domain.MeetingRoomReservationTime;
 import com.sohwakmo.hr.dto.MeetingRoomCreateDto;
+import com.sohwakmo.hr.dto.MeetingRoomReservationTimeDto;
 import com.sohwakmo.hr.dto.MeetingRoomUpdateDto;
 import com.sohwakmo.hr.repository.MeetingRoomRepository;
+import com.sohwakmo.hr.repository.MeetingRoomReservationTimeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -17,6 +21,8 @@ import java.util.List;
 public class MeetingRoomService {
 
     private final MeetingRoomRepository meetingRoomRepository;
+
+    private final MeetingRoomReservationTimeRepository meetingRoomReservationTimeRepository;
 
 
     public List<MeetingRoom> read() {
@@ -54,10 +60,29 @@ public class MeetingRoomService {
         log.info("update(dto={})", dto);
 
         MeetingRoom entity = meetingRoomRepository.findById(dto.getMeetingRoomNo()).get();
-        MeetingRoom newMeetingRoom = entity.update(dto.getTitle(), dto.getRoomName(), dto.getRoomPlace(), dto.getStartTime(), dto.getEndTime(), dto.getAttendee(), dto.getAttendeeMax(), dto.getPurpose());
+        MeetingRoom newMeetingRoom = entity.update(dto.getTitle(), dto.getRoomName(), dto.getRoomPlace(), dto.getStartTime(), dto.getEndTime(), dto.getAttendee(), dto.getPurpose());
         log.info("newMeetingRoom = {}",newMeetingRoom.toString());
 
         return entity.getMeetingRoomNo();
     }
+
+    @Transactional
+    public Integer addReserveTime(MeetingRoomReservationTimeDto dto) {
+        MeetingRoom meetingRoom = meetingRoomRepository.findById(dto.getNo()).get();
+        log.info("meetingRoom={}", meetingRoom);
+
+        MeetingRoomReservationTime entity = MeetingRoomReservationTime.builder()
+                .reserveDate(dto.getReserveDate())
+                .roomName(dto.getRoomName())
+                .reserveTime(dto.getReserveTime())
+                .build();
+        log.info("entity={}", entity);
+        Optional<MeetingRoomReservationTime> result = meetingRoomReservationTimeRepository.findByMeetingRoomNo(dto.getMeetingRoomNo()); 
+
+        meetingRoomReservationTimeRepository.save(entity);
+
+        return entity.getNo();
+    }
+
 
 }

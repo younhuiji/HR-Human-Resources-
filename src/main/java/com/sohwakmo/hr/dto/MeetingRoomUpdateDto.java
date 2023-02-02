@@ -23,8 +23,6 @@ public class MeetingRoomUpdateDto {
 
     private Integer attendee;
 
-    private Integer attendeeMax;
-
     private String purpose;
 
     public MeetingRoom toEntity() {
@@ -36,7 +34,6 @@ public class MeetingRoomUpdateDto {
                 .startTime(startTime)
                 .endTime(endTime)
                 .attendee(attendee)
-                .attendeeMax(attendeeMax)
                 .purpose(purpose)
                 .build();
     }

@@ -2,7 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{ layout/layout.html}">
-
+<head>
+    <link th:href="@{/css/layout/styles.css}" rel="stylesheet"/>
+</head>
 <div layout:fragment="content">
     <div class="col" style="background-size: 5px">
         <div class ="container">
@@ -13,7 +15,7 @@
                 <input  type="hidden" name="reservationNo" th:value="1" />
                 <div class="p-3 border-bottom">
                     <label for="reservationName" style=" width: 150px; ">예약자</label>
-                    <input id="reservationName" type="text" name="reservationName" th:value="김김김" style="border: none; background: transparent;" readonly />
+                    <input id="reservationName" type="text" name="reservationName" style="border: none; background: transparent;" readonly />
                 </div>
                 <div class = "p-3 border-bottom">
                     <label for="title" style=" width: 150px; ">제목</label>
@@ -90,7 +92,19 @@
                     <label for="attendee" style=" width: 150px; ">참석자</label>
                     <input id="attendee" class="align-text-top"
                            type="number" name="attendee" required />
-                    <button id="invite">참석자</button>
+                    <button class="btn btn-light" id="invite">초대</button>
+                    <div class="invite-icon"><i class="fa-solid fa-user-plus"></i></div>
+                    <input type="submit" class="btn btn-light" value="확인">
+<!--                    <div class="member-serch">-->
+<!--                        <input type="text" placeholder="참석자를 명단을 입력해주세요.">-->
+<!--                        <button type="button"><i class="fa-solid fa-magnifying-glass" ></i></button>-->
+<!--                    </div>-->
+
+<!--                    <div class="container">-->
+<!--                        <ul class="tree" id="orgTree">-->
+
+<!--                        </ul>-->
+<!--                    </div>-->
                 </div>
                 <div class= "p-3 border-bottom">
                     <label for="attendeeMax" style=" width: 150px; " >인원</label>
@@ -105,8 +119,8 @@
                 </div>
 
                 <div class="pb-3 d-md-flex justify-content-md-end">
-                    <button type="submit" class="btn btn-outline-info me-md-1" id="createBtn">저장</button>
-                    <a class="btn btn-outline-info" href="/meetingRoom/list" >목록</a>
+                    <button type="submit" class="btn btn-light me-md-1" id="createBtn">저장</button>
+                    <a class="btn btn-light" href="/meetingRoom/list" >목록</a>
                 </div>
             </form>
 
@@ -117,6 +131,7 @@
 <th:block layout:fragment="script">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script th:src="@{ /js/meetingRoomCreate.js}"></script>
+<!--    <script th:src="@{/js/organizationRefer.js}"></script>-->
 
 </th:block>
 </html>

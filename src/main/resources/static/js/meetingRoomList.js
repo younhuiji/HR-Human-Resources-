@@ -171,10 +171,12 @@ $('.saveBtn').on('click', function() {
 })
 
 
-////////
+// input date 값 받아오기.
 function input() {
     const dday = document.querySelector('#reserveDate').value;
     console.log(dday)
+
+    document.getElementById("myid1").innerHTML += dday;
 }
 
 

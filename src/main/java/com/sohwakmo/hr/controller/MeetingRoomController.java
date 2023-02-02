@@ -1,16 +1,17 @@
 package com.sohwakmo.hr.controller;
 
 import com.sohwakmo.hr.domain.MeetingRoom;
+import com.sohwakmo.hr.domain.MeetingRoomReservationTime;
 import com.sohwakmo.hr.dto.MeetingRoomCreateDto;
+import com.sohwakmo.hr.dto.MeetingRoomReservationTimeDto;
 import com.sohwakmo.hr.dto.MeetingRoomUpdateDto;
 import com.sohwakmo.hr.service.MeetingRoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -67,7 +68,7 @@ public class MeetingRoomController {
         MeetingRoom meetingRoom = meetingRoomService.read(meetingRoomNo);
 
         model.addAttribute("meetingRoom", meetingRoom);
-        model.addAttribute("reservationNo", meetingRoom.getReservationNo());
+        model.addAttribute("reservationNo", meetingRoom.getEmployeeNo());
 
         return "/meetingRoom/detail";
     }
@@ -103,5 +104,17 @@ public class MeetingRoomController {
         return "redirect:/meetingRoom/list";
 
     }
+
+
+    // 회의실 예약 날짜 시간 저장.
+    @PatchMapping
+    public ResponseEntity<Integer> addReserveTime(MeetingRoomReservationTimeDto dto) {
+        log.info("addReservationTime", dto);
+
+        Integer result = meetingRoomService.addReserveTime(dto);
+
+        return ResponseEntity.ok(result);
+    }
+
 }
 
