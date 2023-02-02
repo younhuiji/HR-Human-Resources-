@@ -74,8 +74,16 @@
                                             기안자
                                         </td>
                                         <td style="width: 200px; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left; padding: 3px !important;">
-                                                                                    <span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="0" data-dsl="{{label:draftUser}}" data-wrapper="" style="" data-value="" data-autotype="">
-                                                                                        <span class="comp_item" th:text="${employee.name}" ></span><span contenteditable="false" class="comp_active" style="display:none;"> <span class="Active_dot1"></span><span class="Active_dot2"></span> <span class="Active_dot3"></span><span class="Active_dot4"></span> </span> <span contenteditable="false" class="comp_hover" data-content-protect-cover="true" data-origin="0"> <a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a> </span> </span>
+                                              <span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="0" data-dsl="{{label:draftUser}}" data-wrapper="" style="" data-value="" data-autotype="">
+                                                  <span class="comp_item" th:text="${employee.name}" ></span>
+<!--                                                  <span contenteditable="false" class="comp_active" style="display:none;">-->
+<!--                                                      <span class="Active_dot1"></span><span class="Active_dot2"></span>-->
+<!--                                                      <span class="Active_dot3"></span><span class="Active_dot4"></span>-->
+<!--                                                  </span>-->
+<!--                                                      <span contenteditable="false" class="comp_hover" data-content-protect-cover="true" data-origin="0">-->
+<!--                                                          <a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a>-->
+<!--                                                      </span>-->
+                                              </span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -157,86 +165,85 @@
                     </table>
                     <br>
                     <span id="timelineApprovalFormSection" style="width: 50%; height: 50%">
-                                                            <table id="timelineApprovalForm" class="__se_tbl" style="width: 830px; margin-top : 0px; margin-bottom:20px; border-collapse: collapse !important; color: black; background: white; font-size: 12px; font-family: malgun gothic,dotum,arial,tahoma;">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td colspan="4" style="width:800px; background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                            <table id="timelineApprovalForm" class="__se_tbl" style="width: 830px; margin-top : 0px; margin-bottom:20px; border-collapse: collapse !important; color: black; background: white; font-size: 12px; font-family: malgun gothic,dotum,arial,tahoma;">
+                                   <tbody>
+                                         <tr>
+                                             <td colspan="4" style="width:800px; background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
                                                                             신청&nbsp;현황
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td colspan="1" style="width:100px; background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
-                                                                            <b style="color: rgb(255, 0, 0);">*</b>부서
-                                                                        </td>
-                                                                        <td id="name" colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                                                <span th:text="${employee.part.department}" readonly></span>
-                                                                        </td>
-                                                                        <td colspan="1" style="width:200px; background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
-                                                                            <b style="color: rgb(255, 0, 0);">*</b>직위
-                                                                        </td>
+                                             </td>
+                                         </tr>
+                                         <tr>
+                                             <td colspan="1" style="width:100px; background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                                 <b style="color: rgb(255, 0, 0);">*</b>부서
+                                             </td>
+                                             <td id="name" colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                                  <span th:text="${employee.part.department}" readonly></span>
+                                             </td>
+                                             <td colspan="1" style="width:200px; background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                                  <b style="color: rgb(255, 0, 0);">*</b>직위
+                                             </td>
 
-                                                                        <td id="positionName" colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                                                <span th:text="${employee.part.position}" readonly></span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
-                                                                            <b style="color: rgb(255, 0, 0);">*</b>이름
-                                                                        </td>
-                                                                        <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                                                <span th:text="${employee.name}"></span>
-                                                                        </td>
-                                                                        <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc;height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
-                                                                            <b style="color: rgb(255, 0, 0);">*</b>연락처
-                                                                        </td>
-                                                                        <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                                                <span th:text="${employee.phone}"></span>
-                                                                        </td>
-                                                                    </tr>
-                                                                     <tr>
-                                                                        <td style="width:200px;background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
-                                                                            <b style="color: rgb(255, 0, 0);">*</b>입사일자
-                                                                        </td>
-                                                                        <td colspan="4" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                                                <span th:text="${ #temporals.format(employee.joinedDate, 'yyyy년 MM월 dd일') }"></span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td style="width:200px;background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 80px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
-                                                                            <b style="color: rgb(255, 0, 0);">*</b>신청&nbsp;사유
-                                                                        </td>
-                                                                        <td colspan="3" style="padding: 3px; border: 1px solid black; width: 450px; height: 100px; text-align: left; color: rgb(0, 0, 0); font-size: 12px;  vertical-align: top; background: rgb(255, 255, 255);">
-                                                                            <span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="8" data-dsl="{{textarea:description}}" data-wrapper="" style="width: 100%;" data-value="" data-autotype="">
-                                                                                <textarea class="txta_editor" style="width: 100%; height: 100%; " th:text="${leave.reason}" readonly></textarea>
-                                                                                <span contenteditable="false" class="comp_active" style="display: none;">
-                                                                                <span class="Active_dot1"></span><span class="Active_dot2"></span>
-                                                                                <span class="Active_dot3"></span><span class="Active_dot4"></span>
-                                                                            </span>
-                                                                                <span contenteditable="false" class="comp_hover" data-content-protect-cover="true" data-origin="8">
-                                                                                    <a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a>
-                                                                                </span>
-                                                                            </span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td colspan="4" style="width:800px; padding: 20px !important; height: 22px; vertical-align: middle;border: 1px solid #bcbcbc; text-align: left; background: rgb(255, 255, 255);">
-                                                                            <br>
-                                                                            <br>
-                                                                        <div style="text-align: center">
-                                                                             <p th:text="'상기 본인은 위와 같은 사정으로 인하여 ' + ${ leave.effectiveDate} + ' 부로 '"></p><p>사직하고자 하오니 결재하여 주시기 바랍니다. </p>
-                                                                            <br>
-                                                                            <br>
-                                                                            <p th:text="${ #temporals.format(leave.createdTime, 'yyyy년 MM월 dd일') }" style="text-align: center"></p>
-                                                                            <br>
+                                             <td id="positionName" colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                                  <span th:text="${employee.part.position}" readonly></span>
+                                             </td>
+                                         </tr>
+                                         <tr>
+                                             <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                                   <b style="color: rgb(255, 0, 0);">*</b>이름
+                                             </td>
+                                             <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                                  <span th:text="${employee.name}"></span>
+                                             </td>
+                                             <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc;height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                                  <b style="color: rgb(255, 0, 0);">*</b>연락처
+                                             </td>
+                                             <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                                  <span th:text="${employee.phone}"></span>
+                                             </td>
+                                         </tr>
+                                         <tr>
+                                             <td style="width:200px;background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                                   <b style="color: rgb(255, 0, 0);">*</b>입사일자
+                                             </td>
+                                             <td colspan="4" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                                   <span th:text="${ #temporals.format(employee.joinedDate, 'yyyy년 MM월 dd일') }"></span>
+                                             </td>
+                                         </tr>
+                                         <tr>
+                                              <td style="width:200px;background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 80px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                                   <b style="color: rgb(255, 0, 0);">*</b>신청&nbsp;사유
+                                              </td>
+                                              <td colspan="3" style="padding: 3px; border: 1px solid black; width: 450px; height: 100px; text-align: left; color: rgb(0, 0, 0); font-size: 12px;  vertical-align: top; background: rgb(255, 255, 255);">
+                                                    <span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="8" data-dsl="{{textarea:description}}" data-wrapper="" style="width: 100%;" data-value="" data-autotype="">
+                                                           <textarea class="txta_editor" style="width: 100%; height: 100%; " th:text="${leave.reason}" readonly></textarea>
+                                                                 <span contenteditable="false" class="comp_active" style="display: none;">
+                                                                     <span class="Active_dot1"></span><span class="Active_dot2"></span>
+                                                                     <span class="Active_dot3"></span><span class="Active_dot4"></span>
+                                                                 </span>
+                                                                 <span contenteditable="false" class="comp_hover" data-content-protect-cover="true" data-origin="8">
+                                                                       <a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a>
+                                                                 </span>
+                                                   </span>
+                                              </td>
+                                         </tr>
+                                         <tr>
+                                              <td colspan="4" style="width:800px; padding: 20px !important; height: 22px; vertical-align: middle;border: 1px solid #bcbcbc; text-align: left; background: rgb(255, 255, 255);">
+                                                  <br>
+                                                  <br>
+                                                  <div style="text-align: center">
+                                                        <p th:text="'상기 본인은 위와 같은 사정으로 인하여 ' + ${ leave.effectiveDate} + ' 부로 '"></p><p>사직하고자 하오니 결재하여 주시기 바랍니다. </p>
+                                                        <br>
+                                                        <br>
+                                                        <p th:text="${ #temporals.format(leave.createdTime, 'yyyy년 MM월 dd일') }" style="text-align: center"></p>
+                                                        <br>
+                                                        <p th:text="'신청인 : ' + ${employee.name}">  </p>
 
-                                                                            <p th:text="'신청인 : ' + ${employee.name}">  </p>
-
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                            </table>
-                                                             </span>
+                                                  </div>
+                                              </td>
+                                         </tr>
+                                   </tbody>
+                            </table>
+                       </span>
                     <span id="timelineApprovalDetailsSection"> </span>
 
                     </body>
@@ -286,6 +293,7 @@
                     <textarea class="form-control" id="modalReturnReason"></textarea>
                 </div>
                 <div class="modal-footer">
+
                     <button
                             type="button"
                             class="btn btn-outline-secondary"
@@ -293,6 +301,7 @@
                     >
                         취소
                     </button>
+
                     <button
                             type="button"
                             class="btn btn-outline-success"
@@ -300,6 +309,7 @@
                     >
                         확인
                     </button>
+
                 </div>
             </div>
         </div>
