@@ -2,6 +2,7 @@ package com.sohwakmo.hr.messageTest;
 
 import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.Message;
+import com.sohwakmo.hr.dto.MessageSearchDto;
 import com.sohwakmo.hr.repository.EmployeeRepository;
 import com.sohwakmo.hr.repository.MessageRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -20,25 +21,10 @@ public class MessageTest {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-//    @Test
-//    public void testReceiveFind() {
-//        List<Message> messageList = messageRepository.findByReceiveNoOrderByMessageNoDesc(2);
-//        for(Message m : messageList) {
-//            log.info("m = {}", m);
-//        }
-//    }
-
-//    @Test
-//    public void testSenderFind1() {
-//        Employee employee = employeeRepository.findByEmployeeNo(1L);
-//        log.info("employee = {}", employee);
-//    }
-
     @Test
     public void test() {
-        List<Message> message = messageRepository.searchBySenderName(2, "테스트");
-
-        for(Message m : message) {
+        List<MessageSearchDto> message = messageRepository.findByReceiveNoAndSenderName(2, "테");
+        for(MessageSearchDto m : message) {
             log.info("m = {}", m);
         }
     }

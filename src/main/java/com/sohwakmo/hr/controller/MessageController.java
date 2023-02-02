@@ -1,6 +1,7 @@
 package com.sohwakmo.hr.controller;
 
 import com.sohwakmo.hr.domain.Message;
+import com.sohwakmo.hr.dto.MessageSearchDto;
 import com.sohwakmo.hr.dto.MessageSendDto;
 import com.sohwakmo.hr.service.MessageService;
 import lombok.RequiredArgsConstructor;
@@ -65,22 +66,25 @@ public class MessageController {
         employeeNo = 2;
         log.info("employeeNo = {}", employeeNo);
 
-        List<Message> messageList;
-
         // 리스트로 바로 들어온 경우(검색하지 않은 경우)
         if(messageType == null && contentType == null && keyword == null) {
             log.info("검색하지 않은 경우");
-            messageList = messageService.read(employeeNo);
+            List<Message> messageList = messageService.read(employeeNo);
+
+            log.info("messageList = {}", messageList);
+            log.info("messageCount = {}", messageList.size());
+            model.addAttribute("messageList", messageList);
+            model.addAttribute("messageCount", messageList.size());
+
         } else {
             log.info("검색한 경우");
-            messageList = messageService.searchMessage(employeeNo, messageType, contentType, keyword);
+            List<MessageSearchDto> messageList = messageService.searchMessage(employeeNo, messageType, contentType, keyword);
+
+            log.info("messageList = {}", messageList);
+            log.info("messageCount = {}", messageList.size());
+            model.addAttribute("messageList", messageList);
+            model.addAttribute("messageCount", messageList.size());
         }
-
-        log.info("messageList = {}", messageList);
-        log.info("messageCount = {}", messageList.size());
-
-        model.addAttribute("messageList", messageList);
-        model.addAttribute("messageCount", messageList.size());
 
         return "/message/receiveList";
     }

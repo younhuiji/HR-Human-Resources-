@@ -2,6 +2,7 @@ package com.sohwakmo.hr.service;
 
 import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.Message;
+import com.sohwakmo.hr.dto.MessageSearchDto;
 import com.sohwakmo.hr.dto.MessageSendDto;
 import com.sohwakmo.hr.repository.EmployeeRepository;
 import com.sohwakmo.hr.repository.MessageRepository;
@@ -117,40 +118,42 @@ public class MessageService {
      * @param keyword
      * @return
      */
-    public List<Message> searchMessage(Integer employeeNo, String messageType, String contentType, String keyword) {
+    public List<MessageSearchDto> searchMessage(Integer employeeNo, String messageType, String contentType, String keyword) {
         log.info("searchMessage(employeeNo = {}, messageType = {}, contentType = {}, keyword = {})", employeeNo, messageType, contentType, keyword);
 
-        List<Message> messageList = new ArrayList<>();
+        List<MessageSearchDto> messageSearchDtoList = new ArrayList<>();
 
         if (messageType == null) { // 메세지 타입이 null인 경우
             log.info("null");
             switch(contentType) {
                 case "all" :
-//                    messageList = messageRepository.findByReceiveNoAndTitleIgnoreCaseContainingOrderByMessageNoDesc(employeeNo, keyword);
+                    messageSearchDtoList = messageRepository.findByReceiveNoAll(employeeNo, keyword);
                     break;
                 case "title" :
-                    messageList = messageRepository.findByReceiveNoAndTitleIgnoreCaseContainingOrderByMessageNoDesc(employeeNo, keyword);
+                    messageSearchDtoList = messageRepository.findByReceiveNoAndTitle(employeeNo, keyword);
                     break;
                 case "sender" :
+                    messageSearchDtoList = messageRepository.findByReceiveNoAndSenderName(employeeNo, keyword);
                     break;
             }
-            
         } else { // 메세지 타입이 있는 경우
             log.info("not null");
             switch(contentType) {
                 case "all" :
+                    messageSearchDtoList = messageRepository.findByMessageTypeAndReceiveNoAll(employeeNo, keyword, messageType);
                     break;
                 case "title" :
+                    messageSearchDtoList = messageRepository.findByMessageTypeAndReceiveNoAndTitle(employeeNo, keyword, messageType);
                     break;
                 case "sender" :
+                    messageSearchDtoList = messageRepository.findByMessageTypeAndReceiveNoAndName(employeeNo, keyword, messageType);
                     break;
             }
-
         }
 
-        log.info("messageList = {}", messageList);
-        
-        return messageList;
+        log.info("messageSearchDtoList = {}", messageSearchDtoList);
+
+        return messageSearchDtoList;
     }
 
 
