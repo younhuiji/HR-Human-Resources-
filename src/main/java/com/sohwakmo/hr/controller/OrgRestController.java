@@ -52,24 +52,24 @@ public class OrgRestController {
         return ResponseEntity.ok(list);
     }
 
-//    @GetMapping("/businessTripList")
-//    public ResponseEntity<List<BusinessTripReadDto>> readBusinessTripList(){
-//        log.info("readBusinessTripList()");
-//
-//        List<BusinessTripReadDto> list = orgService.readBusinessTripList();
-//        log.info("# of list={}", list.size());
-//
-//        return ResponseEntity.ok(list);
-//    }
-//
-//    @GetMapping("/vacationList")
-//    public ResponseEntity<List<VacationListReadDto>> readVacationList(){
-//        log.info("readVacationList()");
-//
-//        List<VacationListReadDto> list = orgService.readVacationList();
-//        log.info("# of list={}", list.size());
-//
-//        return ResponseEntity.ok(list);
-//    }
+    @GetMapping("/businessTripList/{loginUser}")
+    public ResponseEntity<List<BusinessTripReadDto>> readBusinessTripList(@PathVariable Integer loginUser){
+        log.info("readBusinessTripList(loginUser={})", loginUser);
+
+        List<BusinessTripReadDto> list = orgService.readBusinessTripList(loginUser);
+        log.info("# of list={}", list.size());
+
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/vacationList/{loginUser}")
+    public ResponseEntity<List<VacationListReadDto>> readVacationList(@PathVariable Integer loginUser){
+        log.info("readVacationList(loginUser={})", loginUser);
+
+        List<VacationListReadDto> list = orgService.readVacationList(loginUser);
+        log.info("# of list={}", list.size());
+
+        return ResponseEntity.ok(list);
+    }
 
 }

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface MeetingRoomRepository extends JpaRepository<MeetingRoom, Integer> {
     List<MeetingRoom> findAll();
+
+    List<MeetingRoom> findByAttendeeOrReservationNo(Integer attendee, Integer reservationNo);
 }
