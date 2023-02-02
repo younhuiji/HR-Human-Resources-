@@ -195,12 +195,19 @@ public class EmployeeService {
      * @return 출근했으면 0 아니면 2를 리턴.
      */
     public Long checkAttendance(String employeeNo,String formatedNow) {
-        Long attendanceNo = getRecentAttendance(employeeNo); // 가장 최근에 한 출근 내용을 불러오는 메서드
-        if(attendanceNo==-1L)return -1L;
-        else return attendanceNo;
-//        String checkAttendance = attendance.getMonth() + "/" + attendance.getDay();
-//        if(formatedNow.equals(checkAttendance)) return attendance;
-//        else return null;
+        Employee employee = employeeRepository.findByEmployeeNo(employeeNo);
+        List<Attendance> list = employee.getAttendances();
+        if (list.size() == 0) {
+            return -1L;
+        } else {
+            Collections.reverse(list);
+            Attendance attendance = list.stream().findAny().orElse(null);
+            String recentAttendace = attendance.getMonth() + "/" + attendance.getDay();
+            if (!recentAttendace.equals(formatedNow)) { // 오늘 날짜랑 데이테베이스의 가장 최근 데이터랑 비교해서 날짜가 다르면 업무시작 버튼 같으면 이미 업무시작 버튼을 누름.
+                return -1L;
+            }
+            return attendance.getId();
+        }
     }
 
     /**
@@ -224,9 +231,9 @@ public class EmployeeService {
     }
 
     /**
-     * 가장 최근에 한 출근 내용을 불러오는 메서드
+     * 가장 최근에 한 출근 내용의 ID 불러오는 메서드
      * @param employeeNo 사원번호
-     * @return 어제나 오늘한 가장 최근 출근 객체를 리턴
+     * @return 어제나 오늘한 가장 최근 출근 객체의 Id 를 리턴
      */
     private Long getRecentAttendance(String employeeNo) {
         Employee employee = employeeRepository.findByEmployeeNo(employeeNo);
@@ -243,10 +250,51 @@ public class EmployeeService {
 
     /**
      * 출근 퇴근 기록 가져오기
-     * @param attendanceNo
-     * @return
+     * @param attendanceNo 가장최근 출근 기록 id 번호
+     * @return 가징 최근 출근기록 객체
      */
     public Attendance getAttendance(Long attendanceNo) {
         return attendanceRepository.findById(attendanceNo).get();
+    }
+
+    /**
+     * 자리비움으로 인한 Attendance 값 1로 바꾸기
+     * @param employeeNo 사원번호
+     */
+    @Transactional
+    public void setStateOne(String employeeNo) {
+        Long recentAttendanceNo = getRecentAttendance(employeeNo); // 오늘 또는 가장 최근 출근 기록의 Id
+        Attendance attendance = attendanceRepository.findById(recentAttendanceNo).get();
+        attendance.setState(1); // 자리비움, 조퇴, 외출 등의 상태.
+    }
+
+    /**
+     * 자리비움해제를 통한 Attendance 값 0으로 바꾸기
+     * @param employeeNo 사원번호
+     */
+    @Transactional
+    public void setStateWork(String employeeNo) {
+        Long recentAttendanceNo = getRecentAttendance(employeeNo); // 오늘 또는 가장 최근 출근 기록의 Id
+        Attendance attendance = attendanceRepository.findById(recentAttendanceNo).get();
+        attendance.setState(0); // 자리비움, 조퇴, 외출 등의 상태.
+    }
+
+    /**
+     * 현재시간과 DB에 저장된 시간을 비교해서 지금까지한 업무 시간을 계산해서 리턴
+     * @param startTime DB에 저장된 시작시간
+     * @param nowTime 현재 시간
+     * @return 현재시간 - DB에 저장된 시간을 계산하여 총 업무시간을 리턴.
+     */
+    public String countWorkingTime(String startTime,String nowTime) {
+        Integer startWorkHour = Integer.parseInt(startTime.substring(0,2));
+        Integer nowTimeHour = Integer.parseInt(nowTime.substring(0,2));
+        String resultHour = String.valueOf(startWorkHour - nowTimeHour);
+
+        // 분
+        Integer startTimeMinutes = Integer.parseInt(startTime.substring(3));
+        Integer nowTimeMinutes = Integer.parseInt(nowTime.substring(3));
+        String resultMinutes = String.valueOf(nowTimeMinutes - startTimeMinutes);
+
+        return resultHour + "시간 " + resultMinutes +"분";
     }
 }

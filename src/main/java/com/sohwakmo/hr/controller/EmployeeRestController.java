@@ -75,4 +75,24 @@ public class EmployeeRestController {
     public void endWork(Integer hours, Integer minutes,String employeeNo) {
         employeeService.setEndTime(hours, minutes, employeeNo);
     }
+
+    /**
+     * 자리비움 버튼을 누르면 Attendance의 state 상태를 1로 바꾼다.
+     * @param employeeNo 사원 번호
+     */
+    @GetMapping("/absenceWork")
+    public void absenceWork(String employeeNo) {
+        log.info("absenceWork={}",employeeNo);
+        employeeService.setStateOne(employeeNo);
+    }
+
+    /**
+     * 자리 비움 해제 버튼을 눌렀을때 Attendance의 state 상태를 0으로 바꾼다.
+     * @param employeeNo 사원 번호
+     */
+    @GetMapping("/absenceReleaseButton")
+    public void absenceReleaseButton(String employeeNo) {
+        log.info("absenceReleaseButton={}", employeeNo);
+        employeeService.setStateWork(employeeNo);
+    }
 }

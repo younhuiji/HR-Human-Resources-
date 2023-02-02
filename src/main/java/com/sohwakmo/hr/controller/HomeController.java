@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 @Slf4j
@@ -24,16 +25,30 @@ public class HomeController {
     public String index(Model model, Principal principal){
         String employeeNo = principal.getName();
         // 현재 날짜 구하기
-        LocalDate now = LocalDate.now();
+        LocalDate nowDate = LocalDate.now();
+
         // 포맷 정의
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd");
         // 포맷 적용
-        String formatedNow = now.format(formatter);
+        String formatedNow = nowDate.format(dateFormatter);
+
         Long attendanceNo = employeeService.checkAttendance(employeeNo,formatedNow);
 
-        if (attendanceNo != -1) {
+        // 현재 시간
+        LocalTime now = LocalTime.now();
+
+        // 포맷 정의하기
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        // 포맷 적용하기
+        String formatedTime = now.format(timeFormatter);
+
+
+        if (attendanceNo != -1L) {
             Attendance attendance = employeeService.getAttendance(attendanceNo);
+            String workingTime = employeeService.countWorkingTime(attendance.getStartTime(),formatedTime);
             model.addAttribute("attendance", attendance);
+            model.addAttribute("workingTime", workingTime);
         }else{
             model.addAttribute("attendance","notAttendance");
         }
