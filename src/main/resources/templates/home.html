@@ -45,9 +45,18 @@
             </div>
             <!-- 출근후 버튼 -->
             <div th:if="${attendance != 'notAttendance'}">
+                <!-- 자리비움 버튼 -->
+                <div class="half_interval" th:if="${attendance.endTime == '00:00'}">
+                    <div th:if="${attendance.state != 1}">
+                        <button type="button" id="absenceButton" class="btn btn-secondary halfButton">자리 비움</button>
+                    </div>
+                    <div th:if="${attendance.state == 1}">
+                        <button type="button" id="absenceReleaseButton" class="btn btn-secondary halfButton">자리 비움 해제</button>
+                    </div>
+                </div>
                 <!--아직 업무중일때 버튼 -->
-                <div class="interval" th:if="${attendance.endTime == '00:00'}">
-                    <button type="button" id="endButton" class="btn btn-danger allButton">업무 종료</button>
+                <div class="half_interval" th:if="${attendance.endTime == '00:00'}">
+                    <button type="button" id="endButton" class="btn btn-danger halfButton">업무 종료</button>
                 </div>
                 <!-- 업무가 다끝났을때 버튼 -->
                 <div class="interval" th:if="${attendance.endTime != '00:00'}">
@@ -87,10 +96,22 @@
                <div th:if="${attendance != 'notAttendance' }">
                    <!--예상 퇴근시간 -->
                    <div th:if="${attendance.endTime == '00:00'}">
-                       <div id="state_time0" class="state_time">
-                           <sapn>🟢</sapn>
-                           <p> 업무중입니다.</p>
+                       <!-- 자리비움이 아닐때 -->
+                       <div th:if="${attendance.state!=1}">
+                           <div id="state_time0" class="state_time">
+                               <sapn>🟢</sapn>
+                               <p> 업무중 : <span th:text="${workingTime}"></span></p>
+                           </div>
                        </div>
+                       <!-- 자리비움 상태일때 -->
+                       <div>
+                           <div th:if="${attendance.state==1}">
+                               <div id="state_time" class="state_time">
+                                   <p>자리비움 상태 입니다.</p>
+                               </div>
+                           </div>
+                       </div>
+
                        <div id="startTime0" class="startTime">
                            <p>출근 시간</p>
                            <p th:text="${attendance.startTime}"></p>

@@ -21,6 +21,10 @@
 .interval{
     padding: 10px 20px 10px 20px;
 }
+.half_interval{
+    padding: 10px 20px 10px 20px;
+    display: inline-block;
+}
 
 /*-------사원 이미지----------*/
 #image{
@@ -53,6 +57,14 @@
     width: 151%;
     font-size: 24px;
     padding: 12px 24px;
+}
+.halfButton{
+    width: 130%;
+    font-size: 20px;
+    padding: 12px 24px;
+}
+#absenceButton{
+    margin-left: 2em;
 }
 
 /*-------------------myWork------------------------*/

@@ -59,6 +59,40 @@ window.addEventListener('DOMContentLoaded',function (){
             }
         });
     }
+
+    // 자리비움 버튼 클릭 시 멘트가 바뀌고 상태를 조퇴,지각 과 같은 1로변경
+    const absenceButton = document.querySelector('#absenceButton');
+    if (absenceButton != null) {
+        absenceButton.addEventListener('click',function (){
+            const result = confirm('자리비움 상태로 변경하시겠습니까?');
+            if (result) {
+                axios.get('/absenceWork?employeeNo='+employeeNo)
+                    .then(response=>{
+                        location.reload();
+                    })
+                    .catch(error=>{
+                        console.log(error.data);
+                    })
+            }
+        });
+    }
+
+    // 자리비움 해제 버튼 이벤트
+    const absenceReleaseButton = document.querySelector('#absenceReleaseButton');
+    if (absenceReleaseButton != null) {
+        absenceReleaseButton.addEventListener('click',function (){
+            const result = confirm('업무중으로 상태를 변경하시겠습니까?');
+            if (result) {
+                axios.get('/absenceReleaseButton?employeeNo='+employeeNo)
+                    .then(response =>{
+                        location.reload()
+                    })
+                    .catch(error=>{
+                        console.log(error.data);
+                    })
+            }
+        });
+    }
 })
 
 
