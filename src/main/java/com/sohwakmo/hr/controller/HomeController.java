@@ -31,7 +31,7 @@ public class HomeController {
         String formatedNow = now.format(formatter);
         Long attendanceNo = employeeService.checkAttendance(employeeNo,formatedNow);
 
-        if (attendanceNo != -1) {
+        if (attendanceNo != -1L) {
             Attendance attendance = employeeService.getAttendance(attendanceNo);
             model.addAttribute("attendance", attendance);
         }else{

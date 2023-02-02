@@ -195,12 +195,19 @@ public class EmployeeService {
      * @return 출근했으면 0 아니면 2를 리턴.
      */
     public Long checkAttendance(String employeeNo,String formatedNow) {
-        Long attendanceNo = getRecentAttendance(employeeNo); // 가장 최근에 한 출근 내용을 불러오는 메서드
-        if(attendanceNo==-1L)return -1L;
-        else return attendanceNo;
-//        String checkAttendance = attendance.getMonth() + "/" + attendance.getDay();
-//        if(formatedNow.equals(checkAttendance)) return attendance;
-//        else return null;
+        Employee employee = employeeRepository.findByEmployeeNo(employeeNo);
+        List<Attendance> list = employee.getAttendances();
+        if (list.size() == 0) {
+            return -1L;
+        } else {
+            Collections.reverse(list);
+            Attendance attendance = list.stream().findAny().orElse(null);
+            String recentAttendace = attendance.getMonth() + "/" + attendance.getDay();
+            if (!recentAttendace.equals(formatedNow)) { // 오늘 날짜랑 데이테베이스의 가장 최근 데이터랑 비교해서 날짜가 다르면 업무시작 버튼 같으면 이미 업무시작 버튼을 누름.
+                return -1L;
+            }
+            return attendance.getId();
+        }
     }
 
     /**
