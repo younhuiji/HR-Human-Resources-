@@ -59,7 +59,7 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <div class="sb-sidenav-menu-heading">서류,결제</div>
+                    <div class="sb-sidenav-menu-heading">서류 / 결재</div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         전자결재
@@ -70,14 +70,22 @@
                         회의실
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePostPages" aria-expanded="false" aria-controls="collapsePages">
+                        <div class="sb-nav-link-icon"><i class="bi bi-chat-left-text-fill"></i></div>
                         게시판
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
+                    <div class="collapse" id="collapsePostPages" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="/post/list">전체글보기</a>
+                            <a class="nav-link" href="/post/create">공지사항</a>
+                            <a class="nav-link" href="/post/create">인기글</a>
+                            <a class="nav-link" href="/post/create">글쓰기</a>
+                        </nav>
+                    </div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages1" aria-expanded="false" aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        메일
+                        <div class="sb-nav-link-icon"><i class="bi bi-envelope-fill"></i></div>
+                        쪽지
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
                     <div class="collapse" id="collapsePages1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
@@ -89,10 +97,13 @@
                         </nav>
                     </div>
 
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        조직도/일정/주소록
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    <a class="nav-link" href="/schedule/schList">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                        일정
+                    </a>
+                    <a class="nav-link" href="/organization/orgList">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        조직도
                     </a>
                     <div class="sb-sidenav-menu-heading">Addons</div>
                     <a class="nav-link" href="charts.html">
@@ -112,17 +123,12 @@
         </nav>
     </div>
     <section id="layoutSidenav_content">
-        <main layout:fragment="content"></main>
+        <main layout:fragment="content" style="padding: 24px;"></main>
         <!-- Footer -->
         <footer id="footer" class="py-4 bg-light mt-auto">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                    <div>
-                        <a href="#">Privacy Policy</a>
-                        &middot;
-                        <a href="#">Terms &amp; Conditions</a>
-                    </div>
+                    <div class="text-muted">COPYRIGHT &copy; 2022 SOHWAKMO. ALL RIGHT RESERVED.</div>
                 </div>
             </div>
         </footer>
