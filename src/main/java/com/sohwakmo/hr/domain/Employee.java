@@ -1,11 +1,11 @@
 package com.sohwakmo.hr.domain;
 
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 
 @Entity
 @NoArgsConstructor
@@ -42,7 +42,7 @@ public class Employee {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private LocalDateTime joinedDate; // 입사일
+    private Date joinedDate; // 입사일
 
     @Enumerated(EnumType.STRING)
     private EmployeePosition employeePosition; // 직책에따른 권한

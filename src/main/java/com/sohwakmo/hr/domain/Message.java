@@ -1,10 +1,9 @@
 package com.sohwakmo.hr.domain;
 
-import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.time.LocalDateTime;
+import javax.persistence.*;
 
 
 @NoArgsConstructor

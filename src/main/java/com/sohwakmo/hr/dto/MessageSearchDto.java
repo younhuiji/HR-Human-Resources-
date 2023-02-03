@@ -1,10 +1,7 @@
 package com.sohwakmo.hr.dto;
 
 import com.sohwakmo.hr.domain.Employee;
-import com.sohwakmo.hr.domain.Message;
-import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 
