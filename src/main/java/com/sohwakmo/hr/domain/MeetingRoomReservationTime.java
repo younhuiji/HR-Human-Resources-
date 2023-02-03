@@ -2,7 +2,6 @@ package com.sohwakmo.hr.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 
 @NoArgsConstructor

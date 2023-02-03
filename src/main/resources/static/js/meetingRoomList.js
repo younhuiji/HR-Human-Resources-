@@ -178,5 +178,3 @@ function input() {
 
     document.getElementById("myid1").innerHTML += dday;
 }
-
-

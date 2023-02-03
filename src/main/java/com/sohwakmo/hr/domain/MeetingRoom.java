@@ -27,6 +27,9 @@ public class MeetingRoom {
     @Column(nullable = false)
     private Long employeeNo;  // 예약자 사번
 
+//    @Column(nullable = false)
+//    private String reserveName;  // 예약자 이름
+
     @Column(nullable = false)
     private String title;  // 제목
 

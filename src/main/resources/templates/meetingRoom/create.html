@@ -12,7 +12,7 @@
                 <h1 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >회의실 예약신청</h1>
             </div>
             <form method = "post" action = "/meetingRoom/create" name="formCreate">
-                <input  type="hidden" name="reservationNo" th:value="1" />
+                <input  type="hidden" name="employeeNo" id="employeeNo" th:value="1" />
                 <div class="p-3 border-bottom">
                     <label for="reservationName" style=" width: 150px; ">예약자</label>
                     <input id="reservationName" type="text" name="reservationName" style="border: none; background: transparent;" readonly />

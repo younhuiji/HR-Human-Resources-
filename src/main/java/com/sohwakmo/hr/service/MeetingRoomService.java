@@ -67,7 +67,7 @@ public class MeetingRoomService {
     }
 
     @Transactional
-    public Integer addReserveTime(MeetingRoomReservationTimeDto dto) {
+    public void addReserveTime(MeetingRoomReservationTimeDto dto) {
         MeetingRoom meetingRoom = meetingRoomRepository.findById(dto.getNo()).get();
         log.info("meetingRoom={}", meetingRoom);
 
@@ -81,7 +81,7 @@ public class MeetingRoomService {
 
         meetingRoomReservationTimeRepository.save(entity);
 
-        return entity.getNo();
+
     }
 
 
