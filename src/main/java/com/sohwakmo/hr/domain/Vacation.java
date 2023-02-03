@@ -21,7 +21,7 @@ public class Vacation {
     private Integer no;
 
     @Column(nullable = false) // 시행자 사번
-    private Long employeeNo;
+    private String employeeNo;
 
     @Column(nullable = false) // 시행자 이름
     private String employeeName;

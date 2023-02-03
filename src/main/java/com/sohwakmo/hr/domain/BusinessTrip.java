@@ -21,7 +21,7 @@ public class BusinessTrip {
     private Integer no;
 
     @Column(nullable = false) // 시행자 사번
-    private Long employeeNo;
+    private String employeeNo;
 
     @Column(nullable = false) // 시행자 이름
     private String employeeName;
@@ -60,6 +60,6 @@ public class BusinessTrip {
     private String place;
 
     @Column // 동반 출장자
-    private Long companionNO;
+    private String companionNO;
 
 }

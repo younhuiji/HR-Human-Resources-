@@ -43,7 +43,7 @@ public class OrgRestController {
     }
 
     @GetMapping("/meetingList/{loginUser}")
-    public ResponseEntity<List<MeetingReadDto>> readMeetingList(@PathVariable Long loginUser ){
+    public ResponseEntity<List<MeetingReadDto>> readMeetingList(@PathVariable String loginUser ){
         log.info("readAllCalList(loginUser={})", loginUser);
 
         List<MeetingReadDto> list = orgService.readMeetingList(loginUser);
@@ -53,7 +53,7 @@ public class OrgRestController {
     }
 
     @GetMapping("/businessTripList/{loginUser}")
-    public ResponseEntity<List<BusinessTripReadDto>> readBusinessTripList(@PathVariable Long loginUser){
+    public ResponseEntity<List<BusinessTripReadDto>> readBusinessTripList(@PathVariable String loginUser){
         log.info("readBusinessTripList(loginUser={})", loginUser);
 
         List<BusinessTripReadDto> list = orgService.readBusinessTripList(loginUser);
@@ -63,7 +63,7 @@ public class OrgRestController {
     }
 
     @GetMapping("/vacationList/{loginUser}")
-    public ResponseEntity<List<VacationListReadDto>> readVacationList(@PathVariable Long loginUser){
+    public ResponseEntity<List<VacationListReadDto>> readVacationList(@PathVariable String loginUser){
         log.info("readVacationList(loginUser={})", loginUser);
 
         List<VacationListReadDto> list = orgService.readVacationList(loginUser);

@@ -12,13 +12,13 @@ import lombok.ToString;
 @ToString
 public class BusinessTripReadDto {
     private Integer businessNo;
-    private Long employeeNo;
+    private String employeeNo;
     private String title;
     private String reason;
     private String start;
     private String end;
     private String place;
-    private Long companionNo;
+    private String companionNo;
 
     public static BusinessTripReadDto fromEntity(BusinessTrip entity){
         return BusinessTripReadDto.builder()

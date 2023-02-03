@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString
 public class VacationListReadDto {
     private Integer vacationNo;
-    private Long employeeNo;
+    private String employeeNo;
     private String title;
     private String reason;
     private String start;
