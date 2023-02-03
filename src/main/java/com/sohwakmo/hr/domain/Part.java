@@ -1,5 +1,7 @@
 package com.sohwakmo.hr.domain;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
