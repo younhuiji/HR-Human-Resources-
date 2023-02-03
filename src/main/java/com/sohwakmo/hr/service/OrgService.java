@@ -55,7 +55,7 @@ public class OrgService {
         log.info("readAllCalList(loginUser={})", loginUser);
 
 
-        List<MeetingRoom> meetingSchedule = meetingRoomRepository.findByAttendeeOrReservationNo(loginUser, loginUser);
+        List<MeetingRoom> meetingSchedule = meetingRoomRepository.findByAttendeeOrEmployeeNo(loginUser, loginUser);
         log.info("meetingSchedule={}", meetingSchedule);
 
         return meetingSchedule.stream()

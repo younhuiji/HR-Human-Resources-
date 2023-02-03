@@ -8,7 +8,7 @@ import java.util.List;
 public interface MeetingRoomRepository extends JpaRepository<MeetingRoom, Integer> {
     List<MeetingRoom> findAll();
 
-    List<MeetingRoom> findByAttendeeOrReservationNo(String attendee, String reservationNo);
+    List<MeetingRoom> findByAttendeeOrEmployeeNo(String attendee, String employeeNo);
 
     List<MeetingRoom> findByOrderByMeetingRoomNoDesc();
 
