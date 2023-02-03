@@ -128,8 +128,7 @@
                         </tr>
                         <tr>
                             <th scope="row">출근 여부</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
+                            <td th:each="d : ${workState}" th:text="${d}"></td>
                         </tr>
                         </tbody>
                     </table>

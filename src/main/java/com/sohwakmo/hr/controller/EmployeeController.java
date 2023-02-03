@@ -55,7 +55,7 @@ public class EmployeeController {
         model.addAttribute("employee", employee);
         model.addAttribute("startTimeDays", employeeService.setStartTimeDays(list)); // 출근시간 배열
         model.addAttribute("endTimeDays",employeeService.setEndTimeDays(list)); // 퇴근 시간 배열
-        model.addAttribute("workState",employeeService.setWorkState(list));
+        model.addAttribute("workState",employeeService.setWorkState(list)); // 출근 현황 O,X 세모인 배열
         return "/employee/myPage";
     }
 

@@ -364,6 +364,39 @@ public class EmployeeService {
     }
 
     public String[] setWorkState(List<Attendance> list) {
-        return null;
+        Attendance attendance = list.get(list.size()-1);
+        int month = Integer.parseInt(attendance.getMonth());
+        // 2월인경우
+        if (month==2) {
+            String[] workState = new String[28];
+            setWorkStates(workState, list);
+            return workState;
+        } else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) { // 31일까지 있는 달
+            String[] workState = new String[31];
+            setWorkStates(workState, list);
+            return workState;
+        }else{ // 그외 30일 까지 있는달
+            String[] workState = new String[30];
+            setWorkStates(workState, list);
+            return workState;
+        }
+    }
+
+    /**
+     *
+     * @param workState
+     * @param list
+     */
+    private void setWorkStates(String[] workState, List<Attendance> list) {
+        for (Attendance a : list) {
+            int day = Integer.parseInt(a.getDay());
+            if(a.getState()==0) workState[day-1] = "O";
+            else if (a.getState()==1) workState[day - 1] = "*";
+            else workState[day - 1] = "X";
+        }
+        // 빈칸에 "-" 로 채우기
+        for (int i = 0; i < workState.length; i++) {
+            if (workState[i] == null) workState[i] = "-";
+        }
     }
 }
