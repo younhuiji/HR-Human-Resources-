@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{ layout/layout.html }">
+<head>
+    <meta charset="UTF-8">
+    <title>쪽지 쓰기</title>
+    <link rel="stylesheet" th:href="@{/css/message/writeMessage.css}">
+</head>
+
+<div layout:fragment="content">
+
+    <div class="container my-2 main">
+        <header>
+            <p>쪽지 쓰기</p>
+        </header>
+        <div clas="card-body">
+            <form enctype="multipart/form-data" id="formBody">
+                <input type="hidden" name="senderNo" th:value="1"/>
+
+                <div class="py-3 border-bottom">
+                    <input type="radio" name="messageType" value="긴급" />긴급
+                    <input type="radio" name="messageType" value="중요" />중요
+                    <input type="radio" name="messageType" value="일반" checked="checked" />일반
+                </div>
+                <div class="py-3 border-bottom">
+                    <label for="title" class="column">제목</label>
+                    <input type="text" class="titleInputBox" id="title" name="title" placeholder="제목을 입력해주세요."/>
+                </div>
+                <div class="py-3 border-bottom">
+                    <label for="receiveNo" class="column">수신자</label>
+                    <div class="receiverDiv">
+                        <input type="text" id="receiveNo" name="receiveNo" placeholder="받는 사람" />
+                        <div>
+                            <input type="button" value="주소록"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="py-3 border-bottom">
+                    <textarea rows="5" name="content" placeholder="내용"></textarea>
+                </div>
+                <div class="py-3 border-bottom">
+                    <label class="column">파일 업로드</label>
+                    <input type="file" id="file" name="files" multiple="multiple" accept="image/jpeg, image/png, .pdf, .txt">
+                </div>
+                <div class="py-3 border-bottom buttonBox">
+                    <button class="btn btn-secondary" id="btnSend">보내기</button>
+                    <a class="btn btn-outline-secondary" href="/message/receiveList" >취소</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<!--<script th:src="@{/js/message/writeMessage.js}"></script>-->
+<th:block layout:fragment="script">
+    <script th:src="@{/js/message/writeMessage.js}"></script>
+</th:block>
+
+</html>

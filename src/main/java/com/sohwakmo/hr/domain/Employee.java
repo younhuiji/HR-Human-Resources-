@@ -1,11 +1,11 @@
 package com.sohwakmo.hr.domain;
+
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -31,7 +31,7 @@ public class Employee {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String phone; // 사내 전화번호
 
 
@@ -40,8 +40,8 @@ public class Employee {
     @Embedded
     private Part part; // 부서,팀,맡은일, 직책
 
-    @Column(nullable = false)
-    private String email; // 사내 email or 쪽지 주소
+    @Column(unique = true,nullable = false)
+    private String email;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)

@@ -20,4 +20,8 @@ public class BaseTimeEntity {
     @LastModifiedDate
     private LocalDateTime modifiedTime;
 
+    @CreatedDate
+    private LocalDateTime sendTime;
+    private LocalDateTime readTime;
+
 }
