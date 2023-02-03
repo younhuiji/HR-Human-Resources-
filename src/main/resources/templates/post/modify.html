@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{ layout/layout }">
+
+<head>
+    <title>HR | 게시판</title>
+    <link rel="stylesheet" th:href="@{/css/post/postList.css}" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css" /> -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+                <!-- <script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.js"></script> -->
+</head>
+
+<div layout:fragment="content">
+    <div id="contentWrap">
+        <!--bannerSection-->
+        <div id="bannerSection">
+            <div id="bannerSectionWrap">
+                <h1>게시판</h1>
+                <p>게시판 &gt; 글 수정</p>
+            </div>
+        </div>
+        <!--end.bannerSection-->
+        
+        <div id="formWrap">
+            <form method="post" id="postForm">
+                <input id="postNo" name="postNo" th:value="${ post.postNo }" style="display: none;" />
+                <div>
+                    <span id="titleSpan">
+                        <input id="titleInput" type="text" name="title" th:value="${ post.title }" required autofocus />
+                    </span>
+                </div>
+                
+                <div>
+                    <span id="contentSpan">
+                        <div id="editor" name="content" th:value="${ post.content }"></div>
+                    </span>
+                </div>
+
+                <div>
+                    <span id="writerSpan">
+                        <input id="writerInput" type="text" name="writer" th:value="${ post.writer }" readonly/>
+                    </span>
+                </div>
+
+                <div>
+                    <input type="button" value="수정 완료" id="btnUpdate">
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <!--end#contentWrap-->
+</div><!--content-->
+
+<!-- axios-http JS -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script layout:fragment="script" th:inline="javascript">
+
+    const Editor = toastui.Editor;
+    const colorSyntax= Editor.plugin;
+
+    const editor = new Editor({
+        el: document.querySelector('#editor'),
+        height: '600px',
+        initialEditType: 'wysiwyg',
+        previewStyle: 'vertical',
+        previewHighlight: false,
+        plugins: colorSyntax,
+        language: 'ko-KR'
+    });
+
+    console.log(editor.getMarkdown());
+    console.log(editor.getHTML());
+
+    const form = document.querySelector('#postForm');
+    const btnUpdate= document.querySelector('#btnUpdate');
+    btnUpdate.addEventListener('click', function() {
+    	const title= document.querySelector('#titleInput').value;
+    	const content= editor.getMarkdown;
+    	if (title== ''|| content== '') {
+    		alert('제목과 내용을 입력해 주세요.');
+    		return;
+    	}
+    	
+    	const result = confirm('수정할까요?');
+    	if (result) {
+    		form.action = '/post/update';
+    		form.method = 'post';
+    		form.submit();
+    	}
+    });
+
+</script>
+
+</html>

@@ -1,11 +1,7 @@
 package com.sohwakmo.hr.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import lombok.Data;
-import lombok.ToString;
-import org.hibernate.annotations.ColumnDefault;
-import org.springframework.boot.context.properties.bind.DefaultValue;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 @Embeddable
 @Data

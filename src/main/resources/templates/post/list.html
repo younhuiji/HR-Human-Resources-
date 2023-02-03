@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{ layout/layout }">
+
+<head>
+  <title>HR | 게시판</title>
+  <link rel="stylesheet" th:href="@{/css/post/postList.css}" />
+</head>
+
+<div layout:fragment="content">
+    <div id="contentWrap">
+        <!--bannerSection-->
+        <div id="bannerSection">
+            <div id="bannerSectionWrap">
+                <h1>게시판</h1>
+                <p>게시판 &gt; 전체 글 보기</p>
+            </div>
+        </div>
+        <!--end.bannerSection-->
+
+        <table class="table table-hover">
+            <thead>
+                <tr class="tr">
+                    <th></th>
+                    <th scope="col">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">작성일</th>
+                    <th scope="col">조회수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="tr" th:each="post: ${list}" th:onclick="|location.href='@{ /post/detail(postNo=${ post.postNo }) }'|">
+                    <td th:text="${post.postNo}"></td>
+                    <td th:text="${post.title}"></td>
+                    <td th:text="${post.writer}"></td>
+                    <td th:text="${#temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm') }"></td>
+                    <td th:text="${post.viewCnt}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <!--end#contentWrap-->
+</div><!--content-->
+
+<script layout:fragment="script" th:inline="javascript">
+
+</script>
+
+</html>
