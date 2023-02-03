@@ -24,25 +24,12 @@ public class HomeController {
     @PreAuthorize("isAuthenticated()")
     public String index(Model model, Principal principal){
         String employeeNo = principal.getName();
-        // 현재 날짜 구하기
-        LocalDate nowDate = LocalDate.now();
-
-        // 포맷 정의
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd");
-        // 포맷 적용
-        String formatedNow = nowDate.format(dateFormatter);
-
+        // 오늘 날짜를 구하는 메서드
+        String formatedNow = getToday();
+        // DB에 저장되어 있는 최근 출근기록을 체크후 id값 출력
         Long attendanceNo = employeeService.checkAttendance(employeeNo,formatedNow);
-
-        // 현재 시간
-        LocalTime now = LocalTime.now();
-
-        // 포맷 정의하기
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-
-        // 포맷 적용하기
-        String formatedTime = now.format(timeFormatter);
-
+        // 현재 시간을 구하는 메서드
+        String formatedTime = getNowTime();
 
         if (attendanceNo != -1L) {
             Attendance attendance = employeeService.getAttendance(attendanceNo);
@@ -53,5 +40,21 @@ public class HomeController {
             model.addAttribute("attendance","notAttendance");
         }
         return "/home";
+    }
+
+    private String getNowTime() {
+        // 현재 시간
+        LocalTime now = LocalTime.now();
+        // 포맷 정의하기
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        return now.format(timeFormatter);
+    }
+
+    private String getToday() {
+        // 현재 날짜 구하기
+        LocalDate nowDate = LocalDate.now();
+        // 포맷 정의
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd");
+        return nowDate.format(dateFormatter);
     }
 }

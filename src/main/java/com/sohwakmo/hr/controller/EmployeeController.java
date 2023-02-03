@@ -1,5 +1,6 @@
 package com.sohwakmo.hr.controller;
 
+import com.sohwakmo.hr.domain.Attendance;
 import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.Part;
 import com.sohwakmo.hr.dto.EmployeeJoinDto;
@@ -8,14 +9,13 @@ import com.sohwakmo.hr.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -51,8 +51,12 @@ public class EmployeeController {
     @GetMapping("/myPage")
     public String myPage(Model model, String employeeNo){
         Employee employee = employeeService.findEmployee(employeeNo);
-        log.info(employee.toString());
+
+        List<Attendance> list = employeeService.getCurrentMonth(employee.getAttendances());
         model.addAttribute("employee", employee);
+        model.addAttribute("startTimeDays", employeeService.setStartTimeDays(list)); // 출근시간 배열
+        model.addAttribute("endTimeDays",employeeService.setEndTimeDays(list)); // 퇴근 시간 배열
+        model.addAttribute("workState",employeeService.setWorkState(list)); // 출근 현황 O,X 세모인 배열
         return "/employee/myPage";
     }
 
