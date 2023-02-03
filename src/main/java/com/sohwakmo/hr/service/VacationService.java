@@ -15,8 +15,8 @@ public class VacationService {
 
     private final VacationRepository vacationRepository;
 
+    // 휴가(vacation) create
     public Vacation create(Vacation vacation){
-
         return vacationRepository.save(vacation);
     }
 

@@ -10,7 +10,6 @@ import java.util.List;
 
 public interface BusinessCardRepository extends JpaRepository<BusinessCard, Integer> {
 
-
     @Query("select b from BUSINESSCARD b where b.category = :card ")
     List<BusinessCard> selectByCard(@Param(value = "card") String card);
 

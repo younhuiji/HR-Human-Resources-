@@ -19,20 +19,22 @@ public class VacationController {
 
     private final VacationService vacationService;
 
+    // 휴가(vacation) create list
     @GetMapping("/create")
     public String create(){
-
         return "/vacation/create";
     }
+
+    // 휴가(vacation) create
     @PostMapping("/create")
     public String create(VacationCreateDto dto){
 
-        Vacation vacation = Vacation.builder()
-                .title(dto.getTitle()).state(dto.getState()).employeeName(dto.getEmployeeName()).employeeNo(1L).category(dto.getCategory())
-                .returnReason(dto.getReturnReason()).writeDate(dto.getWriteDate()).effectiveDate(dto.getEffectiveDate())
-                .expirationDate(dto.getExpirationDate()).approverNo(0L).reason(dto.getReason()).competeDate(dto.getCompeteDate()).build();
-
-        Vacation vacations = vacationService.create(vacation);
+//        Vacation vacation = Vacation.builder()
+//                .title(dto.getTitle()).state(dto.getState()).employeeName(dto.getEmployeeName()).employeeNo(1L).category(dto.getCategory())
+//                .returnReason(dto.getReturnReason()).writeDate(dto.getWriteDate()).effectiveDate(dto.getEffectiveDate())
+//                .expirationDate(dto.getExpirationDate()).approverNo(0L).reason(dto.getReason()).competeDate(dto.getCompeteDate()).build();
+//
+//        Vacation vacations = vacationService.create(vacation);
 
         return "/vacation/create";
     }

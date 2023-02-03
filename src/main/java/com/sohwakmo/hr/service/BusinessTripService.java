@@ -15,6 +15,7 @@ public class BusinessTripService {
 
     private final BusinessTripRepository businessTripRepository;
 
+    // 출장(Bs trip) create
     public BusinessTrip create(BusinessTrip businessTrip){
         return businessTripRepository.save(businessTrip);
     }

@@ -27,23 +27,26 @@ public class LeaveController  {
     private final EmployeeService employeeService;
     private final LeaveService leaveService;
 
+    // 퇴사(list) create list
     @GetMapping("/create")
     public String create(Model model){
 
         // TODO: 임원 테이블 연결 시에 수정하기
-        Integer no = 1;
+        String no = "1";
         List<Leave> leave = leaveService.selectByEmployeeNO(no);
-        log.info("컨트롤={}", leave);
         model.addAttribute("leave", leave);
 
         return "/leave/create";
     }
 
+    // 퇴사(list) create
     @PostMapping("/create")
     public String create(LeaveCreateDto dto){
 
+        String no = "1";
+
         Leave leave = Leave.builder()
-                .employeeNo(1L).approverNo(1L).secondApproverNO(1L)
+                .employeeNo(no).approverNo(no).secondApproverNO(no)
                 .title(dto.getTitle()).reason(dto.getReason()).category(dto.getCategory())
                 .effectiveDate(dto.getEffectiveDate())
                 .build();
@@ -52,20 +55,22 @@ public class LeaveController  {
         return "/leave/create";
     }
 
+    // 퇴사(list) dtail
     @GetMapping("/detail")
     public String detail(@RequestParam Integer no, Model model) {
 
         Leave leave = leaveService.selectByNo(no);
-        log.info("디테일리리리리리ㅣ리={}", leave.getEmployeeNo());
         Employee employee = employeeService.selectByNo(leave.getEmployeeNo());
 
         model.addAttribute("leave",leave);
         model.addAttribute("employee", employee);
 
-        log.info("leave 받은 데이터={}", leave);
-        log.info("employee 받은 데이터={}", employee);
-
         return "/leave/detail";
+    }
+
+    @GetMapping("/sample")
+    public String sample(){
+        return "/leave/sample";
     }
 
 }

@@ -26,24 +26,24 @@ public class VacationCreateDto {
     private String expirationDate;
     private LocalDateTime competeDate;
 
-    public Vacation toEntity() {
-        return Vacation.builder()
-                .no(no)
-                .employeeNo(employeeNo)
-                .employeeName(employeeName)
-                .approverNo(approverNo)
-                .title(title)
-                .reason(reason)
-                .category(category)
-                .state(state)
-                .returnReason(returnReason)
-                .writeDate(writeDate)
-                .writeDate(writeDate)
-                .effectiveDate(effectiveDate)
-                .expirationDate(expirationDate)
-                .competeDate(competeDate)
-                .build();
-    }
+//    public Vacation toEntity() {
+//        return Vacation.builder()
+//                .no(no)
+//                .employeeNo(employeeNo)
+//                .employeeName(employeeName)
+//                .approverNo(approverNo)
+//                .title(title)
+//                .reason(reason)
+//                .category(category)
+//                .state(state)
+//                .returnReason(returnReason)
+//                .writeDate(writeDate)
+//                .writeDate(writeDate)
+//                .effectiveDate(effectiveDate)
+//                .expirationDate(expirationDate)
+//                .competeDate(competeDate)
+//                .build();
+//    }
 
 
 }

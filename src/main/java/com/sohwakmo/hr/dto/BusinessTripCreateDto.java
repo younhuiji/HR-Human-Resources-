@@ -29,25 +29,25 @@ public class BusinessTripCreateDto {
     private Long companionNo;
 
 
-    public BusinessTrip toEntity() {
-        return BusinessTrip.builder()
-                .no(no)
-                .employeeNo(employeeNo)
-                .employeeName(employeeName)
-                .approverNo(approverNo)
-                .title(title)
-                .reason(reason)
-                .category(category)
-                .state(state)
-                .returnReason(returnReason)
-                .writeDate(writeDate)
-                .effectiveDate(effectiveDate)
-                .expirationDate(expirationDate)
-                .competeDate(competeDate)
-                .place(place)
-                .companionNO(companionNo)
-                .build();
-    }
+//    public BusinessTrip toEntity() {
+//        return BusinessTrip.builder()
+//                .no(no)
+//                .employeeNo(employeeNo)
+//                .employeeName(employeeName)
+//                .approverNo(approverNo)
+//                .title(title)
+//                .reason(reason)
+//                .category(category)
+//                .state(state)
+//                .returnReason(returnReason)
+//                .writeDate(writeDate)
+//                .effectiveDate(effectiveDate)
+//                .expirationDate(expirationDate)
+//                .competeDate(competeDate)
+//                .place(place)
+//                .companionNO(companionNo)
+//                .build();
+//    }
 
 
 }

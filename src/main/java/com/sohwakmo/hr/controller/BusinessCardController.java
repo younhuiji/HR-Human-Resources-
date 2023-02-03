@@ -26,6 +26,7 @@ public class BusinessCardController {
     private final BusinessCardService businessCardService;
     private final EmployeeService employeeService;
 
+    // 명함(bs card) create list
     @GetMapping("/create")
     public  String create(Model model){
 
@@ -33,28 +34,26 @@ public class BusinessCardController {
         List<BusinessCard> list = businessCardService.selectByCategory(category);
         model.addAttribute("card", list);
 
-        log.info("list={}", list);
-        log.info("listsize={}",list.size());
-
         return "/businessCard/create";
     }
 
+    // 명함(bs card) create
     @PostMapping ("/create")
     public String create(BusinessCardCreateDto dto){
 
         // TODO: employee에서 시행자 이름, 사번, 결재자 사번, 직급, 직책 가져오기
         // Employee employee = employeeService.findEmployeeByNo(no);;
 
-        BusinessCard businessCard = BusinessCard.builder()
-                .title(dto.getTitle()).employeeName(dto.getEmployeeName()).employeeNo(1L).category(dto.getCategory())
-                .email(dto.getEmail()).phone(dto.getPhone()).approverNo(0L).reason(dto.getReason()).writeDate(dto.getWriteDate()).build();
+//        BusinessCard businessCard = BusinessCard.builder()
+//                .title(dto.getTitle()).employeeName(dto.getEmployeeName()).employeeNo(1L).category(dto.getCategory())
+//                .email(dto.getEmail()).phone(dto.getPhone()).approverNo(0L).reason(dto.getReason()).writeDate(dto.getWriteDate()).build();
 
-        BusinessCard businessCards = businessCardService.create(businessCard);
-        log.info("명함 신청 양식={}", businessCard);
+//        BusinessCard businessCards = businessCardService.create(businessCard);
 
         return "/businessCard/create";
     }
 
+    // 명함(bs card) create 결재자 지정
     @GetMapping("/approver")
     public String approver( Model model ){
 
@@ -63,27 +62,22 @@ public class BusinessCardController {
         List<Employee> list = employeeService.readPart(teamName);
         model.addAttribute("list", list);
 
-        log.info("list={}", list);
-        log.info("listsize={}",list.size());
-
         return "/businessCard/approver";
     }
 
+    // 명함(bs card) detail
     @GetMapping("/detail")
     public String detail(Model model, @RequestParam Integer no) {
-        log.info("리스트 번호={}", no);
-
 
         BusinessCard card = businessCardService.selectByNo(no);
-
         model.addAttribute("card", card);
 
         return "/businessCard/detail";
     }
 
+    // 명함(bs card) 반려
     @GetMapping("/returns")
     public String returns() {
-
         return "/businessCard/returns";
     }
 }

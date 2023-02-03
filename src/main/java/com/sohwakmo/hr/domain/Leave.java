@@ -1,6 +1,6 @@
 package com.sohwakmo.hr.domain;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -23,13 +23,13 @@ public class Leave extends BaseTimeEntity {
     private Integer no;
 
     @Column(nullable = false) // 시행자 사번
-    private Long employeeNo;
+    private String employeeNo;
 
     @Column(nullable = false) // 승인자 사번
-    private Long approverNo;
+    private String approverNo;
 
     @Column(nullable = false) // 승인자2 사번 (상무)
-    private Long secondApproverNO;
+    private String secondApproverNO;
 
     @Column(nullable = false, length = 100) // 제목
     private String title;
@@ -72,6 +72,7 @@ public class Leave extends BaseTimeEntity {
         this.competeDate = competeDate;
         return this;
     }
+
 
     public Leave returnReason(String returnReason){
         this.returnReason = returnReason;

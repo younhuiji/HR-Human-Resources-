@@ -15,9 +15,9 @@ import java.time.format.DateTimeFormatter;
 public class LeaveCreateDto {
 
     private Integer no; // PK
-    private Long employeeNo; // 시행자 사번
-    private Long approverNo; // 승인자 사번
-    private Long secondApproverNO; // 승인자2 사번
+    private String employeeNo; // 시행자 사번
+    private String approverNo; // 승인자 사번
+    private String secondApproverNO; // 승인자2 사번
     private String title; // 제목
     private String reason; // 사유
     private String category; // 결재 분류
@@ -26,7 +26,6 @@ public class LeaveCreateDto {
     private String effectiveDate; // 시행 일자
     private LocalDateTime competeDate; // 결재 일시
     private String createdTime; // 작성 일시
-    private String modifiedTime; // 수정 일시
 
     public static LeaveCreateDto fromEntity(Leave entity){
         LeaveCreateDto build = LeaveCreateDto.builder()
@@ -41,7 +40,6 @@ public class LeaveCreateDto {
                 .effectiveDate(entity.getEffectiveDate())
                 .competeDate(entity.getCompeteDate())
                 .createdTime(formatDate(entity.getCreatedTime()))
-                .modifiedTime(formatDate(entity.getModifiedTime()))
                 .build();
         return build;
     }

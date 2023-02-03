@@ -18,19 +18,21 @@ public class BusinessTripController {
 
     private final BusinessTripService businessTripService;
 
+    // 출장(Bs trip) create page
     @GetMapping("/create")
     public String create(){
         return "/businessTrip/create";
     }
 
+    // 출장(Bs trip) create
     @PostMapping("/create")
     public String create(BusinessTripCreateDto dto){
-        BusinessTrip businessTrip = BusinessTrip.builder()
-                .title(dto.getTitle()).state(dto.getState()).employeeName(dto.getEmployeeName()).employeeNo(1L).category(dto.getCategory())
-                .returnReason(dto.getReturnReason()).writeDate(dto.getWriteDate()).effectiveDate(dto.getEffectiveDate())
-                .expirationDate(dto.getExpirationDate()).place(dto.getPlace()).approverNo(0L).reason(dto.getReason()).build();
-
-        BusinessTrip businessTrips = businessTripService.create(businessTrip);
+//        BusinessTrip businessTrip = BusinessTrip.builder()
+//                .title(dto.getTitle()).state(dto.getState()).employeeName(dto.getEmployeeName()).employeeNo(1L).category(dto.getCategory())
+//                .returnReason(dto.getReturnReason()).writeDate(dto.getWriteDate()).effectiveDate(dto.getEffectiveDate())
+//                .expirationDate(dto.getExpirationDate()).place(dto.getPlace()).approverNo(0L).reason(dto.getReason()).build();
+//
+//        BusinessTrip businessTrips = businessTripService.create(businessTrip);
 
         return "/businessTrip/create";
     }

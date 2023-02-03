@@ -1,9 +1,11 @@
 package com.sohwakmo.hr.domain;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,20 +14,17 @@ import java.time.LocalDateTime;
 @ToString
 @Entity(name="BUSINESSCARD")
 @SequenceGenerator(name = "BUSINESSCARD_SEQ_GEN", sequenceName = "BUSINESSCARD_SEQ", allocationSize = 1)
-public class BusinessCard {
+public class BusinessCard extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BUSINESSCARD_SEQ_GEN")
     private Integer no;
 
     @Column(nullable = false) // 시행자 사번
-    private Long employeeNo;
+    private String employeeNo;
 
-    @Column(nullable = false) // 시행자 이름
-    private String employeeName;
-
-    @Column(nullable = false) // 승인자1 사번
-    private Long approverNo;
+    @Column(nullable = false) // 승인자 사번
+    private String approverNo;
 
     @Column(nullable = false, length = 100) // 제목
     private String title;
@@ -36,19 +35,15 @@ public class BusinessCard {
     @Column(nullable = false) // 결재 분류
     private String category;
 
-    @Enumerated(EnumType.STRING) // 결재 상태
-    private PaymentState state;
+    @ElementCollection(fetch = FetchType.EAGER) // 결재 상태
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private Set<PaymentState> state = new HashSet<>();
 
     @Column // 반려 사유
     private String returnReason;
 
-    @Column(nullable = false) // 작성일자
-    private String writeDate;
-
-    @Column(nullable = false, unique = true) // 명함에 쓰일 이메일
-    private String email;
-
-    @Column(nullable = false, unique = true) // 명함의 쓰일 전화번호
-    private String phone;
+    @Column // 최종 결재일시
+    private LocalDateTime competeDate;
 
 }

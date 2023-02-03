@@ -16,7 +16,7 @@
             width: 1665px;
             margin: 5px auto;
             padding: 20px;
-            /*border: 1px solid #bcbcbc;*/
+            border: 1px solid #bcbcbc;
             height: 1000px;
         }
         #jb-header {
@@ -76,13 +76,6 @@
                                         <td style="width: 200px; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left; padding: 3px !important;">
                                               <span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="0" data-dsl="{{label:draftUser}}" data-wrapper="" style="" data-value="" data-autotype="">
                                                   <span class="comp_item" th:text="${employee.name}" ></span>
-<!--                                                  <span contenteditable="false" class="comp_active" style="display:none;">-->
-<!--                                                      <span class="Active_dot1"></span><span class="Active_dot2"></span>-->
-<!--                                                      <span class="Active_dot3"></span><span class="Active_dot4"></span>-->
-<!--                                                  </span>-->
-<!--                                                      <span contenteditable="false" class="comp_hover" data-content-protect-cover="true" data-origin="0">-->
-<!--                                                          <a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a>-->
-<!--                                                      </span>-->
                                               </span>
                                         </td>
                                     </tr>
@@ -150,17 +143,12 @@
                                             <span th:text="${ #temporals.format(leave.competeDate, 'yyyy.MM.dd') }"></span>
                                         </td>
                                     </tr>
-
-
-
                                     <input type="hidden" id="leaveNo" th:value="${leave.no}" />
                                     </tbody>
                                 </table>
                             </td>
 
                         </tr>
-
-
                         </tbody>
                     </table>
                     <br>
@@ -206,7 +194,7 @@
                                                    <b style="color: rgb(255, 0, 0);">*</b>입사일자
                                              </td>
                                              <td colspan="4" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                   <span th:text="${ #temporals.format(employee.joinedDate, 'yyyy년 MM월 dd일') }"></span>
+                                                   <span th:text="${ employee.joinedDate }"></span>
                                              </td>
                                          </tr>
                                          <tr>
@@ -250,18 +238,18 @@
                 </div>
             </fieldset>
         </div>
-<!--      <div th:if="${employee.part.department == '팀장'}">-->
+      <div th:if="${employee.part.department == '팀장'}">
         <div style="float: right; margin-right: 150px; width: 150px; display: inline-block;" >
             <input type="submit" class="btn btn-secondary" id="btnCompete" value="승인" />
-            <input type="submit" class="btn btn-danger" data-bs-toggle="modal" data-rid="${leave.no}" id="btnReturn" value="반려" />
+            <input type="submit" class="btn btn-danger" data-bs-toggle="modal" data-rid="${leave.no}" id="btnReturn2" value="반려" />
         </div>
-<!--      </div>-->
-      <div th:if="${employee.part.department == '상무' && leave.semiState == 1 } ">
+      </div>
+<!--      <div th:if="${employee.part.department == '상무' && leave.semiState == 1 } ">-->
             <div style="float: right; margin-right: 150px; width: 150px; display: inline-block;" >
                 <input type="submit" class="btn btn-secondary" id="btnCompete2" value="승인" />
-                <input type="submit" class="btn btn-danger" value="반려" style="" onclick="window.open('http://localhost:8889/businessCard/returns', 'returns', 'width=600 height=550 top=100 left=400');"/>
+                <input type="submit" class="btn btn-danger" data-bs-toggle="modal" data-rid="${leave.no}" id="btnReturn" value="반려" />
             </div>
-      </div>
+<!--      </div>-->
 
     </div>
     </body>
@@ -317,7 +305,6 @@
     <!-- end Modal -->
 
 </div>
-
 
 <th:block layout:fragment="script">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

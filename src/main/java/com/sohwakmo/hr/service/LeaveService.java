@@ -3,7 +3,7 @@ package com.sohwakmo.hr.service;
 import com.sohwakmo.hr.domain.Leave;
 import com.sohwakmo.hr.domain.PaymentState;
 import com.sohwakmo.hr.repository.LeaveRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,23 +19,23 @@ public class LeaveService {
 
     private final LeaveRepository leaveRepository;
 
+    // 퇴사(leave) create 할 때에 state 값 "진행중"으로 입력
     public Leave create(Leave leave){
-
         leave.addRole(PaymentState.진행중);
-
         return leaveRepository.save(leave);
     }
 
-    public List<Leave> selectByEmployeeNO(Integer no){
-        log.info("서비스 까지 넘어옴={}", no);
+    // 퇴사(leave) EmployeeNO로 select
+    public List<Leave> selectByEmployeeNO(String no){
         return leaveRepository.selectByEmployeeNO(no);
     }
 
+    // 퇴사(leave) leaveNO로 select
     public Leave selectByNo(Integer no){
-
         return leaveRepository.selectByNo(no);
     }
 
+    // 퇴사(leave) 1차 승인
     @Transactional
     public Integer update(Integer no){
 
@@ -43,13 +43,11 @@ public class LeaveService {
         boolean true1 = true;
         entity.setSemiState(true1); // 1차 승인자
         entity.semiAdd(LocalDateTime.now()); // 1차 승인 시간
-        log.info("승인이됐을까?={}", entity);
 
         return no;
     }
 
-
-
+    // 퇴사(leave) 2차 승인
     @Transactional
     public Integer update2(Integer no){
 
@@ -57,18 +55,18 @@ public class LeaveService {
         boolean true1 = true;
         entity.setState(Collections.singleton(PaymentState.승인)); // 2차 승인자
         entity.add(LocalDateTime.now()); // 2차 승인 시간
-        log.info("승인이됐을까?={}", entity);
 
         return no;
     }
 
+    // 퇴사(leave) 반려
     @Transactional
     public Integer updateReturn(Integer no, String returnReason){
 
         Leave entity = leaveRepository.selectByNo(no);
-        entity.addRole(PaymentState.반려);
-        entity.returnReason(returnReason);
-        log.info("service");
+        entity.setState(Collections.singleton(PaymentState.반려));
+        entity.add(LocalDateTime.now()); // 반려 시간
+        entity.returnReason(returnReason); // 반려 사유
 
         return no;
     }

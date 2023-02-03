@@ -151,14 +151,14 @@
                                             <th>결재 상태</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr th:each="c : ${card}" th:onclick="|location.href='@{/businessCard/detail(no=${c.no})}'|">
-                                            <td th:text="${c.no}"></td>
-                                            <td th:text="${c.title}"></td>
-                                            <td th:text="${c.writeDate}"></td>
-                                            <td th:text="${c.state}"></td>
-                                        </tr>
-                                        </tbody>
+<!--                                        <tbody>-->
+<!--                                        <tr th:each="c : ${card}" th:onclick="|location.href='@{/businessCard/detail(no=${c.no})}'|">-->
+<!--                                            <td th:text="${c.no}"></td>-->
+<!--                                            <td th:text="${c.title}"></td>-->
+<!--                                            <td th:text="${c.writeDate}"></td>-->
+<!--                                            <td th:text="${c.state}"></td>-->
+<!--                                        </tr>-->
+<!--                                        </tbody>-->
                                     </table>
                                 </fieldset>
                             </form>

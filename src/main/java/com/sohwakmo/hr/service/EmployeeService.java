@@ -19,12 +19,11 @@ public class EmployeeService {
 
     // 결재자 지정할 때에 임시방편으로 모든 리스트 불러옴
     public List<Employee> readPart(String teamName) {
-
         return employeeRepository.selectByPart(teamName);
     }
 
-    public Employee selectByNo(Long no) {
-            log.info("no={}", no);
+    // 퇴사(leave) detail의 회원 정보 보냄
+    public Employee selectByNo(String no) {
         return employeeRepository.selectByNo(no);
     }
 

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{ layout/layout.html }">
+<head>
+    <meta charset="UTF-8">
+    <title>Leave</title>
+    <style>
+        * {
+            font: 16px "나눔고딕", "Nanum Gothic", "sans-serif";
+            color: #333;
+        }
+
+        #jb-container {
+            /*width: 1665px;*/
+            margin: 5px auto;
+            padding: 20px;
+            /*border: 1px solid #bcbcbc;*/
+            /*height: 1000px;*/
+        }
+        #jb-header {
+            padding: 10px;
+            height: 8%;
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid #bcbcbc;
+        }
+        #jb-content {
+            width: 67%;
+            height: 100%;
+            padding: 20px;
+            margin-bottom: 20px;
+            float: left;
+            border: 1px solid #bcbcbc;
+        }
+        #jb-sidebar {
+            width: 30%;
+            /*height: 100%;*/
+            padding: 20px;
+            /*margin-bottom: 20px;*/
+            float: right;
+            border: 1px solid #bcbcbc;
+        }
+
+        #jb-text {
+            width: 65%;
+            height: 100%;
+            padding: 20px;
+            /*height: 650px;*/
+            margin-bottom: 20px;
+            float: left;
+            border: 1px solid #bcbcbc;
+        }
+
+
+    </style>
+</head>
+    <div layout:fragment="content">
+        <body>
+
+
+        <div id="jb-container">
+            <div id="jb-header">
+                <h3>결재 작성</h3>
+                진행중인 결재내역을 확인하고 관리합니다.
+            </div>
+            <div id="jb-content">
+                <div id="jb-text">
+
+                </div>
+            </div>
+            <div id="jb-sidebar">
+
+            </div>
+        </div>
+        </body>
+    </div>
+
+    <th:block layout:fragment="script">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script th:src="@{ /js/payment/create.js }"></script>
+    </th:block>
+
+</html>

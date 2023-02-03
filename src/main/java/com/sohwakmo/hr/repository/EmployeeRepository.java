@@ -19,7 +19,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     List<Employee> selectByPart(@Param(value = "teamName") String teamName);
 
     @Query("select e from Employee e where e.employeeNo = :no")
-    Employee selectByNo(@Param(value = "no") Long no);
+    Employee selectByNo(@Param(value = "no") String no);
 
 
 }
