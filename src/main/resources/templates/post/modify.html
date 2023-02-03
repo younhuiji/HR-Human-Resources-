@@ -34,7 +34,8 @@
                 
                 <div>
                     <span id="contentSpan">
-                        <div id="editor" name="content" th:value="${ post.content }"></div>
+                        <div id="editor" name="content" th:text="${ post.content }"></div>
+                        <textarea id="contentArea" type="text" name="content" style="display: none;"></textarea>
                     </span>
                 </div>
 
@@ -65,7 +66,7 @@
     const editor = new Editor({
         el: document.querySelector('#editor'),
         height: '600px',
-        initialEditType: 'wysiwyg',
+        // initialEditType: 'wysiwyg',
         previewStyle: 'vertical',
         previewHighlight: false,
         plugins: colorSyntax,
@@ -79,7 +80,14 @@
     const btnUpdate= document.querySelector('#btnUpdate');
     btnUpdate.addEventListener('click', function() {
     	const title= document.querySelector('#titleInput').value;
-    	const content= editor.getMarkdown;
+    	const content= editor.getMarkdown();
+        const contentArea= document.querySelector('#contentArea');
+
+        contentArea.append(content);
+        
+        console.log(content);
+        console.log(contentArea.value);
+
     	if (title== ''|| content== '') {
     		alert('제목과 내용을 입력해 주세요.');
     		return;

@@ -34,7 +34,7 @@
                 <div>
                     <span id="contentSpan">
                         <div id="editor"></div>
-                        <textarea id="contentArea" type="text" name="content" ></textarea>
+                        <textarea id="contentArea" type="text" name="content" style="display: none;"></textarea>
                     </span>
                 </div>
 
@@ -65,27 +65,26 @@
     const editor = new Editor({
         el: document.querySelector('#editor'),
         height: '600px',
-        initialEditType: 'wysiwyg',
+        // initialEditType: 'wysiwyg',
         previewStyle: 'vertical',
         previewHighlight: false,
         plugins: colorSyntax,
         language: 'ko-KR',
         autofocus: false,
-        initialValue: '# 안녕하세요. 제목입니다.\n### 테스트 테스트\n룰룰룰룰\n\n'
     });
 
     const form = document.querySelector('#postForm');
     const btnSubmit= document.querySelector('#btnSubmit');
     btnSubmit.addEventListener('click', function() {
         const title= document.querySelector('#titleInput').value;
-    	const content= editor.getHTML();
+    	const content= editor.getMarkdown();
         const contentArea= document.querySelector('#contentArea');
 
         contentArea.append(content);
         
         console.log(content);
         console.log(contentArea.value);
-        
+
     	if (title== ''|| content== '') {
     		alert('제목과 내용을 입력해 주세요.');
     		return;

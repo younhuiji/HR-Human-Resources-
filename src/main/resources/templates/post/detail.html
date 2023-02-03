@@ -55,13 +55,11 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script layout:fragment="script" th:inline="javascript">
-
     const viewer = toastui.Editor.factory({
         el: document.querySelector('#viewer'),
         viewer: true,
-        height: '500px',
         initialValue: content
-    });
+      });
 
     let elem = document.getElementById('editor-hidden');
     viewer.setMarkdown(elem.innerText);
