@@ -51,7 +51,8 @@ public class EmployeeController {
     @GetMapping("/myPage")
     public String myPage(Model model, String employeeNo){
         Employee employee = employeeService.findEmployee(employeeNo);
-        List<Attendance> list = employee.getAttendances();
+
+        List<Attendance> list = employeeService.getCurrentMonth(employee.getAttendances());
         model.addAttribute("employee", employee);
         model.addAttribute("startTimeDays", employeeService.setStartTimeDays(list)); // 출근시간 배열
         model.addAttribute("endTimeDays",employeeService.setEndTimeDays(list)); // 퇴근 시간 배열

@@ -383,9 +383,9 @@ public class EmployeeService {
     }
 
     /**
-     *
-     * @param workState
-     * @param list
+     * 지정받은 달의 출근 현황을 리스트로 변환
+     * @param workState 반환할 값을 담을 배열
+     * @param list 지정받은 달의 출근 기록 리스트
      */
     private void setWorkStates(String[] workState, List<Attendance> list) {
         for (Attendance a : list) {
@@ -398,5 +398,16 @@ public class EmployeeService {
         for (int i = 0; i < workState.length; i++) {
             if (workState[i] == null) workState[i] = "-";
         }
+    }
+
+    /**
+     * 로그인한 멤버의 총 출근기록을 가져와서 가장 최근 달의 출근기록을 리턴
+     * @param employeeAttendanceList 지금까지의 출근기록
+     * @return 지정한 달의 출근 기록 리스트
+     */
+    public List<Attendance> getCurrentMonth(List<Attendance> employeeAttendanceList) {
+        Collections.reverse(employeeAttendanceList);
+        String currentMonth = employeeAttendanceList.get(0).getMonth();
+        return attendanceRepository.findByMonth(currentMonth);
     }
 }
