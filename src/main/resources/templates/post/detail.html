@@ -6,6 +6,8 @@
 <head>
     <title>HR | 게시판</title>
     <link rel="stylesheet" th:href="@{/css/post/postList.css}" />
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 </head>
 
 <div layout:fragment="content">
@@ -29,7 +31,7 @@
                 
                 <div>
                     <span id="contentSpan">
-                        <textarea id="editor" th:value="${ post.content }"></textarea>
+                        <div id="viewer" th:value="${ post.content }"></div>
                     </span>
                 </div>
 
@@ -53,6 +55,16 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script layout:fragment="script" th:inline="javascript">
+
+    const viewer = toastui.Editor.factory({
+        el: document.querySelector('#viewer'),
+        viewer: true,
+        height: '500px',
+        initialValue: content
+    });
+
+    let elem = document.getElementById('editor-hidden');
+    viewer.setMarkdown(elem.innerText);
 
 </script>
 

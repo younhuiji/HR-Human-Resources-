@@ -1,8 +1,8 @@
 package com.sohwakmo.hr.domain;
 
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
@@ -24,7 +24,7 @@ public class Employee {
     private Long id;
 
     @Column(nullable = false,unique = true)
-    private Integer employeeNo; // 사원 번호
+    private String employeeNo; // 사원 번호
 
     @Column(nullable = false)
     private String password;
@@ -41,13 +41,16 @@ public class Employee {
     @Embedded
     private Part part; // 부서,팀,맡은일, 직책
 
+    // 처음에는 전부 사원으로 해놓고 나중에 관리자가 직책과 레벨변경
+    private String position; // 직책
+
     @Column(nullable = false)
     private String email; // 사내 email or 쪽지 주소
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date joinedDate; // 입사일
+    private String joinedDate; // 입사일
 
     @Enumerated(EnumType.STRING)
     private EmployeePosition employeePosition; // 직책에따른 권한
+
 }

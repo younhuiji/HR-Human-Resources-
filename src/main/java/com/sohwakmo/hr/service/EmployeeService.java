@@ -47,10 +47,6 @@ public class EmployeeService {
         String companyPhone = joinDto.getPhone();
         companyPhone = joinDto.getPhone().replaceAll("-", "");
 
-
-        // 직책 기본값 설정.
-        part.setPosition("사원");
-
         Employee employee = Employee.builder()
                 .employeeNo(joinDto.getEmployeeNo())
                 .password(joinDto.getPassword())
@@ -59,7 +55,7 @@ public class EmployeeService {
                 .email(joinDto.getEmail())
                 .part(part)
                 .photo("/employeeImage/" + photoPath)
-                .joinedDate(joinDto.getJoinedDate())
+                .joinedDate(joinedDate)
                 .build();
         employee.setEmployeePosition(EmployeePosition.LEVEL_1);
         log.info("employee={}", employee.toString());
