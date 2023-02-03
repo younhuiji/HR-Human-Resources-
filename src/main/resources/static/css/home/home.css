@@ -80,13 +80,13 @@
     border: 1px solid #dadada;
     padding: 12px 12px 12px 12px;
     border-radius: 8px;
-    width: 27%;
+    /*width: 27%;*/
 }
 .state_time{
     padding: 0.5em;
 }
 .state_time p {
-    font-size: 13px;
+    font-size: 17px;
     text-align: center;
 }
 
