@@ -40,8 +40,10 @@ var timeOff = new Date().getTimezoneOffset()*60000;
 var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
 document.getElementById("reserveDate").setAttribute("min", today);
 
+
 // 초대하기
 // #invite
+const modelBtnInvite = document.querySelector('#modelBtnInvite'); // 초대 버튼
 
 
 // 테이블

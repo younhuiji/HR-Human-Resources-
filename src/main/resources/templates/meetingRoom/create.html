@@ -15,12 +15,12 @@
                 <input  type="hidden" name="employeeNo" id="employeeNo" th:value="1" />
                 <div class="p-3 border-bottom">
                     <label for="reservationName" style=" width: 150px; ">예약자</label>
-                    <input id="reservationName" type="text" name="reservationName" style="border: none; background: transparent;" readonly />
+                    <input id="reservationName" type="text" name="reservationName" rrequired autofocus />
                 </div>
                 <div class = "p-3 border-bottom">
                     <label for="title" style=" width: 150px; ">제목</label>
                     <input id="title" class="align-text-top"
-                           type="text" name="title" placeholder="제목을 입력해주세요." required autofocus />
+                           type="text" name="title" placeholder="제목을 입력해주세요."  required />
                 </div>
                 <div class = "p-3 border-bottom">
                     <label for="roomName" style=" width: 150px; ">회의실</label>
@@ -92,9 +92,8 @@
                     <label for="attendee" style=" width: 150px; ">참석자</label>
                     <input id="attendee" class="align-text-top"
                            type="number" name="attendee" required />
-                    <button class="btn btn-light" id="invite">초대</button>
-                    <div class="invite-icon"><i class="fa-solid fa-user-plus"></i></div>
-                    <input type="submit" class="btn btn-light" value="확인">
+<!--                    <div class="invite-icon"><i class="fa-solid fa-user-plus"></i></div>-->
+
 <!--                    <div class="member-serch">-->
 <!--                        <input type="text" placeholder="참석자를 명단을 입력해주세요.">-->
 <!--                        <button type="button"><i class="fa-solid fa-magnifying-glass" ></i></button>-->
@@ -105,12 +104,35 @@
 
 <!--                        </ul>-->
 <!--                    </div>-->
-                </div>
-                <div class= "p-3 border-bottom">
-                    <label for="attendeeMax" style=" width: 150px; " >인원</label>
-                    <input id="attendeeMax" class="align-text-top" size="2"
-                           type="number" name="attendeeMax" required />
-                    <span class="mt-auto m-2 pb-3 pt-xl-5">명</span>
+
+
+                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">초대</button>
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">참석자</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">이름</label>
+                                            <input type="text" class="form-control" id="recipient-name">
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light" id="modelBtnInvite">초대하기</button>
+                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
                 <div class= "p-3 mt-2 border-bottom">
                     <label for="purpose" style=" width: 150px; " >사용목적</label>
