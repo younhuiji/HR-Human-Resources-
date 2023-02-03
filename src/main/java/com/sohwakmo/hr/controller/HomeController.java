@@ -13,6 +13,5 @@ public class HomeController {
         return "home";
     }
 
-//    @GetMapping("/home")
-//    public void home() {}
+
 }

@@ -9,4 +9,7 @@ public interface MeetingRoomRepository extends JpaRepository<MeetingRoom, Intege
     List<MeetingRoom> findAll();
 
     List<MeetingRoom> findByAttendeeOrReservationNo(String attendee, String reservationNo);
+
+    List<MeetingRoom> findByOrderByMeetingRoomNoDesc();
+
 }

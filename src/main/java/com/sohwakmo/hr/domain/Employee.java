@@ -43,9 +43,8 @@ public class Employee {
     @Column(unique = true,nullable = false)
     private String email;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date joinedDate; // 입사일
+    private String joinedDate; // 입사일
 
     @Enumerated(EnumType.STRING)
     private EmployeePosition employeePosition; // 직책에따른 권한
