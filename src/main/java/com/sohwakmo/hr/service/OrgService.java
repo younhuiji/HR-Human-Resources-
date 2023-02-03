@@ -51,7 +51,7 @@ public class OrgService {
                 .toList();
     }
 
-    public List<MeetingReadDto> readMeetingList(Integer loginUser) {
+    public List<MeetingReadDto> readMeetingList(Long loginUser) {
         log.info("readAllCalList(loginUser={})", loginUser);
 
 
@@ -63,7 +63,7 @@ public class OrgService {
                 .toList();
     }
 
-    public List<BusinessTripReadDto> readBusinessTripList(Integer loginUser) {
+    public List<BusinessTripReadDto> readBusinessTripList(Long loginUser) {
         log.info("readBusinessTripList(loginUser={})", loginUser);
 
         List<BusinessTrip> businessTripSchedule = businessTripRepository.findByEmployeeNoOrCompanionNO(loginUser, loginUser);
@@ -74,7 +74,7 @@ public class OrgService {
                 .toList();
     }
 
-    public List<VacationListReadDto> readVacationList(Integer loginUser) {
+    public List<VacationListReadDto> readVacationList(Long loginUser) {
         log.info("readVacationList(loginUser={})", loginUser);
 
         List<Vacation> vacationSchedule = vacationRepository.findByEmployeeNo(loginUser);

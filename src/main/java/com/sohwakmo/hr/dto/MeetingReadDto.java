@@ -12,14 +12,14 @@ import lombok.ToString;
 @ToString
 public class MeetingReadDto {
     private Integer meetingRoomNo;
-    private Integer reservationNo;
+    private Long reservationNo;
     private String title;
     private String roomName;
     private String roomPlace;
     private String reserveDate;
     private String start;
     private String end;
-    private Integer attendee;
+    private Long attendee;
     private String purpose;
 
     public static MeetingReadDto fromEntity(MeetingRoom entity){
