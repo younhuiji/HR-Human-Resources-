@@ -1,9 +1,10 @@
 package com.sohwakmo.hr.domain;
 
-import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+
+import javax.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,14 +24,20 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private String title;
 
-    @Column
+    @Column(length = 1000000000)
     private String content;
 
     @Column(nullable = false)
     private String writer;
 
     @ColumnDefault("0")
-    private Integer views;
+    private Integer viewCnt;
+
+    @Column
+    private Boolean noticeYn;
+
+    @ColumnDefault("0")
+    private Boolean deleteYn;
 
     public Post update(String title, String content){
         this.title= title;
@@ -38,8 +45,8 @@ public class Post extends BaseTimeEntity {
         return this;
     }
 
-    public Post viewCount(Integer views){
-        this.views= views;
+    public Post viewCount(Integer viewCnt){
+        this.viewCnt= viewCnt;
         return this;
     }
 

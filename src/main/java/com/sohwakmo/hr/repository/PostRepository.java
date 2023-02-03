@@ -9,4 +9,8 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 
     List<Post> findByOrderByPostNoDesc();
 
+    Post findByPostNo(Integer postNo);
+
+    Post deleteByPostNo(Integer postNo);
+
 }

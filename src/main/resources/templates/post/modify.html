@@ -18,34 +18,34 @@
         <div id="bannerSection">
             <div id="bannerSectionWrap">
                 <h1>게시판</h1>
-                <p>게시판 &gt; 글 쓰기</p>
+                <p>게시판 &gt; 글 수정</p>
             </div>
         </div>
         <!--end.bannerSection-->
         
         <div id="formWrap">
             <form method="post" id="postForm">
+                <input id="postNo" name="postNo" th:value="${ post.postNo }" style="display: none;" />
                 <div>
                     <span id="titleSpan">
-                        <input id="titleInput" type="text" name="title" placeholder="제목을 입력해 주세요." required autofocus />
+                        <input id="titleInput" type="text" name="title" th:value="${ post.title }" required autofocus />
                     </span>
                 </div>
                 
                 <div>
                     <span id="contentSpan">
-                        <div id="editor"></div>
-                        <textarea id="contentArea" type="text" name="content" ></textarea>
+                        <div id="editor" name="content" th:value="${ post.content }"></div>
                     </span>
                 </div>
 
                 <div>
                     <span id="writerSpan">
-                        <input id="writerInput" type="text" name="writer" required/>
+                        <input id="writerInput" type="text" name="writer" th:value="${ post.writer }" readonly/>
                     </span>
                 </div>
 
                 <div>
-                    <input type="button" value="등록" id="btnSubmit">
+                    <input type="button" value="수정 완료" id="btnUpdate">
                 </div>
             </form>
         </div>
@@ -69,32 +69,27 @@
         previewStyle: 'vertical',
         previewHighlight: false,
         plugins: colorSyntax,
-        language: 'ko-KR',
-        initialValue: '# 안녕하세요. 제목입니다.\n### 테스트 테스트\n룰룰룰룰\n\n'
+        language: 'ko-KR'
     });
 
+    console.log(editor.getMarkdown());
+    console.log(editor.getHTML());
+
     const form = document.querySelector('#postForm');
-    const btnSubmit= document.querySelector('#btnSubmit');
-    btnSubmit.addEventListener('click', function() {
-        const title= document.querySelector('#titleInput').value;
-    	const content= Editor.getHTML;
-        const contentArea= document.querySelector('#contentArea');
-        const contentHtml= contentArea.value;
-        console.log(contentHtml);
-        console.log(content);
-        contentHtml= contentHtml+ content;
-        contentArea.innerHTML(contentHtml);
+    const btnUpdate= document.querySelector('#btnUpdate');
+    btnUpdate.addEventListener('click', function() {
+    	const title= document.querySelector('#titleInput').value;
+    	const content= editor.getMarkdown;
     	if (title== ''|| content== '') {
     		alert('제목과 내용을 입력해 주세요.');
     		return;
     	}
-        
-    	const result = confirm('등록할까요?');
-    	if (result){
-            form.action = '/post/create';
+    	
+    	const result = confirm('수정할까요?');
+    	if (result) {
+    		form.action = '/post/update';
     		form.method = 'post';
-            form.submit();
-
+    		form.submit();
     	}
     });
 

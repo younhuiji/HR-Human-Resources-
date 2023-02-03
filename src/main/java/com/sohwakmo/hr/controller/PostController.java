@@ -2,6 +2,7 @@ package com.sohwakmo.hr.controller;
 
 import com.sohwakmo.hr.domain.Post;
 import com.sohwakmo.hr.dto.post.PostCreateDto;
+import com.sohwakmo.hr.dto.post.PostUpdateDto;
 import com.sohwakmo.hr.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,7 @@ public class PostController {
     public String list(Model model){
         log.info("/post/list");
 
-        List<Post> list= postService.read();
+        List<Post> list= postService.readPost();
         model.addAttribute("list", list);
 
         return "/post/list";
@@ -41,9 +42,27 @@ public class PostController {
     public String create(PostCreateDto dto, RedirectAttributes attrs) {
         log.info("create(dto= {})", dto);
 
-        Post entity= postService.create(dto);
+        Post entity= postService.createPost(dto);
+        attrs.addFlashAttribute("postNo", entity.getPostNo());
 
         return "redirect:/post/list";
+    }
+
+    @GetMapping({ "/detail", "/modify" })
+    public void detail(Integer postNo, Model model) {
+        log.info("detail(postNo= {})", postNo);
+
+        Post post = postService.readPost(postNo);
+        model.addAttribute("post", post);
+    }
+
+    @PostMapping("/update")
+    public String update(PostUpdateDto dto, RedirectAttributes attrs) {
+        log.info("update(dto= {})", dto);
+
+        Integer postNo= postService.updatePost(dto);
+
+        return "redirect:/post/detail?postNo="+ postNo;
     }
 
 }

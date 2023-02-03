@@ -30,12 +30,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="tr" th:each="post: ${list}">
+                <tr class="tr" th:each="post: ${list}" th:onclick="|location.href='@{ /post/detail(postNo=${ post.postNo }) }'|">
                     <td th:text="${post.postNo}"></td>
                     <td th:text="${post.title}"></td>
                     <td th:text="${post.writer}"></td>
                     <td th:text="${#temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm') }"></td>
-                    <td th:text="${post.views}"></td>
+                    <td th:text="${post.viewCnt}"></td>
                 </tr>
             </tbody>
         </table>
