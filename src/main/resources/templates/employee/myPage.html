@@ -61,11 +61,11 @@
                         <div id="employeeNo_name" class="wrap_div row">
                             <div id="div_employeeNo" class="input_wrap_div text-left col-xxl-6">
                                 <span>사원번호</span>
-                                <input class="design-input" th:value="${employee.employeeNo}" type="text" readonly name="employeeNo"/>
+                                <input class="design-input form-control" th:value="${employee.employeeNo}" type="text" disabled name="employeeNo"/>
                             </div>
                             <div id="div_name" class="input_wrap_div text-left col-xxl-6">
                                 <span>이름</span>
-                                <input class="design-input" th:value="${employee.name}" type="text" name="name"/>
+                                <input class="design-input form-control" th:value="${employee.name}" type="text" name="name"/>
                             </div>
                         </div>
 
@@ -73,7 +73,7 @@
                         <div id="joinedDate_phone" class="wrap_div row">
                             <div id="div_joinedDate" class="input_wrap_div text-left col-6">
                                 <span>입사일</span>
-                                <input class="design-input" th:value="${employee.joinedDate}" type="date" readonly />
+                                <input class="design-input form-control" th:value="${employee.joinedDate}" type="date" readonly  disabled/>
                             </div>
                             <div id="div_phone" class="input_wrap_div text-left col-xxl-6">
                                 <span>사내 번호</span>
@@ -85,7 +85,7 @@
                         <div id="email_team" class="wrap_div row">
                             <div id="div_email" class="input_wrap_div col-xxl-6 col-md-3 text-left" style="display: inline-block">
                                 <span>사내 이메일</span>
-                                <input class="design-input" th:value="${employee.email}" type="email" readonly/>
+                                <input class="design-input form-control" th:value="${employee.email}" type="email"  disabled/>
                             </div>
                             <div id="div_team" class="col-xxl-6 text-left" style="display: inline-block">
                                 <span>부서/직책</span>
@@ -108,9 +108,9 @@
                         </div>
                     </div>
                 </div>
-            <div class="container">
+            <div id="attendance_graph">
                 <div class="table-responsive">
-                    <table class="table table-sm table-hover">
+                    <table class="table table-hover table-bordered">
                         <thead>
                         <tr>
                             <th scope="col"></th>
