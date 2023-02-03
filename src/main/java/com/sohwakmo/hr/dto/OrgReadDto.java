@@ -35,7 +35,7 @@ public class OrgReadDto {
                 .department(entity.getPart().getDepartment())
                 .team(entity.getPart().getTeam())
                 .work(entity.getPart().getWork())
-                .position(entity.getPart().getPosition())
+                .position(entity.getPosition())
                 .employeePosition(entity.getEmployeePosition())
                 .email(entity.getEmail())
                 .build();

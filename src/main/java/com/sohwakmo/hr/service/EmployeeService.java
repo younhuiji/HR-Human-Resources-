@@ -17,11 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-@Service
-@Slf4j
-@RequiredArgsConstructor
-
 import java.util.List;
 
 @Slf4j
@@ -55,10 +50,6 @@ public class EmployeeService {
         // 사내번호 문자열 처리하기
         String companyPhone = joinDto.getPhone();
         companyPhone = joinDto.getPhone().replaceAll("-", "");
-
-
-        // 직책 기본값 설정.
-        part.setPosition("사원");
 
         Employee employee = Employee.builder()
                 .employeeNo(joinDto.getEmployeeNo())

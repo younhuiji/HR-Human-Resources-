@@ -2,6 +2,8 @@ package com.sohwakmo.hr.domain;
 
 import javax.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +12,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -41,6 +45,9 @@ public class Employee {
 
     @Embedded
     private Part part; // 부서,팀,맡은일, 직책
+
+    @Column(columnDefinition = "varchar(255) default '사원'")
+    private String position; // 직책
 
     @Column(unique = true,nullable = false)
     private String email;

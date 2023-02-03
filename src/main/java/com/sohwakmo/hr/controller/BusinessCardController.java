@@ -59,8 +59,8 @@ public class BusinessCardController {
 
         String teamName = "인사팀";
         // TODO: 조직도 클릭 시 값을 받아와서 필터링해서 보여주기
-        List<Employee> list = employeeService.readPart(teamName);
-        model.addAttribute("list", list);
+//        List<Employee> list = employeeService.readPart(teamName);
+//        model.addAttribute("list", list);
 
         return "/businessCard/approver";
     }
