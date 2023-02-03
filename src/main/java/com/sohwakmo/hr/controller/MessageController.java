@@ -59,11 +59,11 @@ public class MessageController {
      * @return
      */
     @GetMapping("/receiveList")
-    public String receiveList(Integer employeeNo, Model model, String messageType, String contentType, String keyword) {
+    public String receiveList(String employeeNo, Model model, String messageType, String contentType, String keyword) {
         log.info("receiveList(messageType = {}, contentType = {}, keyword = {})", messageType, contentType, keyword);
 
         // 로그인한 사원 번호 임시 값
-        employeeNo = 2;
+        employeeNo = "2";
         log.info("employeeNo = {}", employeeNo);
 
         // 리스트로 바로 들어온 경우(검색하지 않은 경우)

@@ -8,10 +8,10 @@ import lombok.Data;
 @Builder
 @Data
 public class MessageSendDto {
-    private Integer senderNo;
+    private String senderNo;
     private String messageType;
     private String title;
-    private Integer receiveNo;
+    private String receiveNo;
     private String content;
     private Employee employee;
 

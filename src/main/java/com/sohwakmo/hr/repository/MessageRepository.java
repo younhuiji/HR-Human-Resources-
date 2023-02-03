@@ -15,7 +15,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * @param employeeNo 로그인한 사용자 번호
      * @return
      */
-    List<Message> findByReceiveNoOrderByMessageNoDesc(Integer employeeNo);
+    List<Message> findByReceiveNoOrderByMessageNoDesc(String employeeNo);
 
     /**
      * select * from message where senderNo = ? order by messageNo desc;
@@ -43,7 +43,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
                     + "lower(e.name) like lower('%' || :keyword || '%')) "
                     + "order by m.messageNo desc"
     )
-    List<MessageSearchDto> findByReceiveNoAll(@Param(value = "employeeNo") Integer employeeNo,
+    List<MessageSearchDto> findByReceiveNoAll(@Param(value = "employeeNo") String employeeNo,
                                             @Param(value = "keyword") String keyword);
     /**
      * 제목으로 검색
@@ -62,7 +62,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
                     + "lower(m.title) like lower('%' || :keyword || '%') "
                     + "order by m.messageNo desc"
     )
-    List<MessageSearchDto> findByReceiveNoAndTitle(@Param(value = "employeeNo") Integer employeeNo,
+    List<MessageSearchDto> findByReceiveNoAndTitle(@Param(value = "employeeNo") String employeeNo,
                                                    @Param(value = "keyword") String keyword);
     /**
      * 보낸사람으로 검색
@@ -80,7 +80,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
                     + " lower(e.name) like lower('%' || :keyword || '%') "
                     + "order by m.messageNo desc"
     )
-    List<MessageSearchDto> findByReceiveNoAndSenderName(@Param(value = "employeeNo") Integer employeeNo,
+    List<MessageSearchDto> findByReceiveNoAndSenderName(@Param(value = "employeeNo") String employeeNo,
                                                         @Param(value = "keyword") String keyword);
     /**
      * 메세지 타입이 있는 전체 검색
@@ -103,7 +103,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
                     + "lower(e.name) like lower('%' || :keyword || '%')) "
                     + "order by m.messageNo desc"
     )
-    List<MessageSearchDto> findByMessageTypeAndReceiveNoAll(@Param(value = "employeeNo") Integer employeeNo,
+    List<MessageSearchDto> findByMessageTypeAndReceiveNoAll(@Param(value = "employeeNo") String employeeNo,
                                                           @Param(value = "keyword") String keyword,
                                                           @Param(value = "messageType") String messageType);
     /**
@@ -125,7 +125,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
                     + "lower(m.title) like lower('%' || :keyword || '%') "
                     + "order by m.messageNo desc"
     )
-    List<MessageSearchDto> findByMessageTypeAndReceiveNoAndTitle(@Param(value = "employeeNo") Integer employeeNo,
+    List<MessageSearchDto> findByMessageTypeAndReceiveNoAndTitle(@Param(value = "employeeNo") String employeeNo,
                                                             @Param(value = "keyword") String keyword,
                                                             @Param(value = "messageType") String messageType);
     /**
@@ -147,7 +147,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
                     + "lower(e.name) like lower('%' || :keyword || '%') "
                     + "order by m.messageNo desc"
     )
-    List<MessageSearchDto> findByMessageTypeAndReceiveNoAndName(@Param(value = "employeeNo") Integer employeeNo,
+    List<MessageSearchDto> findByMessageTypeAndReceiveNoAndName(@Param(value = "employeeNo") String employeeNo,
                                                                  @Param(value = "keyword") String keyword,
                                                                  @Param(value = "messageType") String messageType);
 

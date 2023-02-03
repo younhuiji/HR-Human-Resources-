@@ -14,7 +14,7 @@ import javax.persistence.*;
 @ToString
 @Entity(name = "MESSAGE")
 @SequenceGenerator(name = "MESSAGE_SEQ_GEN", sequenceName = "MESSAGE_SEQ", allocationSize = 1)
-public class Message extends BaseTimeEntity {
+public class Message extends BaseTimeEntityMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MESSAGE_SEQ_GEN")
     private Integer messageNo;
@@ -27,14 +27,14 @@ public class Message extends BaseTimeEntity {
     private String fileName2;
     private String filePath3;
     private String fileName3;
-    private Integer receiveNo;
+    private String receiveNo;
     @ColumnDefault("0")
     private Integer receiveReadCheck;
     @ColumnDefault("0")
     private Integer receiveTrash;
     @ColumnDefault("0")
     private Integer receiveDelete;
-    private Integer senderNo;
+    private String senderNo;
     @ColumnDefault("0")
     private Integer senderTrash;
     @ColumnDefault("0")

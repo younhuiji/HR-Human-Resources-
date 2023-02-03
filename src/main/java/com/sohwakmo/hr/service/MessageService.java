@@ -35,7 +35,7 @@ public class MessageService {
     public void create(MessageSendDto dto, List<MultipartFile> files) throws IOException {
         log.info("create(dto = {}, files = {})", dto, files);
 
-        long employeeNo = dto.getSenderNo();
+        String employeeNo = dto.getSenderNo();
         log.info("employeeNo = {}", employeeNo);
         Employee employee = employeeRepository.findByEmployeeNo(employeeNo);
         log.info("employee = {}", employee);
@@ -100,7 +100,7 @@ public class MessageService {
      * 받은쪽지함 들어가면 로그인한 번호로 받은쪽지 보여주기
      * @param employeeNo
      */
-    public List<Message> read(Integer employeeNo) {
+    public List<Message> read(String employeeNo) {
         log.info("read(employeeNo = {})", employeeNo);
 
         List<Message> messageList = new ArrayList<>();
@@ -118,7 +118,7 @@ public class MessageService {
      * @param keyword
      * @return
      */
-    public List<MessageSearchDto> searchMessage(Integer employeeNo, String messageType, String contentType, String keyword) {
+    public List<MessageSearchDto> searchMessage(String employeeNo, String messageType, String contentType, String keyword) {
         log.info("searchMessage(employeeNo = {}, messageType = {}, contentType = {}, keyword = {})", employeeNo, messageType, contentType, keyword);
 
         List<MessageSearchDto> messageSearchDtoList = new ArrayList<>();

@@ -15,5 +15,5 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
      * @param employeeNo
      * @return
      */
-    Employee findByEmployeeNo(Long employeeNo);
+    Employee findByEmployeeNo(String employeeNo);
 }

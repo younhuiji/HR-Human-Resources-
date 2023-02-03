@@ -23,7 +23,7 @@ public class MessageTest {
 
     @Test
     public void test() {
-        List<MessageSearchDto> message = messageRepository.findByReceiveNoAndSenderName(2, "테");
+        List<MessageSearchDto> message = messageRepository.findByReceiveNoAndSenderName("2", "테");
         for(MessageSearchDto m : message) {
             log.info("m = {}", m);
         }
