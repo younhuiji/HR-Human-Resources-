@@ -2,7 +2,6 @@ package com.sohwakmo.hr.domain;
 
 import javax.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -13,12 +12,12 @@ import java.util.Set;
 @Builder
 @Getter
 @ToString
-@Entity(name="BUSINESSTRIP")
-@SequenceGenerator(name = "BUSINESSTRIP_SEQ_GEN", sequenceName = "BUSINESSTRIP_SEQ", allocationSize = 1)
-public class BusinessTrip  extends BaseTimeEntity{
+@Entity(name="BUSINESSCARD")
+@SequenceGenerator(name = "BUSINESSCARD_SEQ_GEN", sequenceName = "BUSINESSCARD_SEQ", allocationSize = 1)
+public class BusinessCard extends BaseTimeEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BUSINESSTRIP_SEQ_GEN")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BUSINESSCARD_SEQ_GEN")
     private Integer no;
 
     @Column(nullable = false) // 시행자 사번
@@ -44,19 +43,7 @@ public class BusinessTrip  extends BaseTimeEntity{
     @Column // 반려 사유
     private String returnReason;
 
-    @Column(nullable = false) // 시행일자
-    private String effectiveDate;
-
-    @Column(nullable = false) // 종료일자
-    private String expirationDate;
-
     @Column // 최종 결재일시
     private LocalDateTime competeDate;
-
-    @Column(nullable = false) // 출장지
-    private String place;
-
-    @Column // 동반 출장자
-    private String companionNO;
 
 }

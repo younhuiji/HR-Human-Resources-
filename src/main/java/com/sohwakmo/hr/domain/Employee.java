@@ -1,11 +1,13 @@
 package com.sohwakmo.hr.domain;
 
+import javax.persistence.*;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor

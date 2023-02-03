@@ -1,11 +1,12 @@
 package com.sohwakmo.hr.domain;
 
-
+import javax.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @ToString
 @Entity(name="VACATION")
 @SequenceGenerator(name = "VACATION_SEQ_GEN", sequenceName = "VACATION_SEQ", allocationSize = 1)
-public class Vacation {
+public class Vacation  extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VACATION_SEQ_GEN")
@@ -23,11 +24,8 @@ public class Vacation {
     @Column(nullable = false) // 시행자 사번
     private String employeeNo;
 
-    @Column(nullable = false) // 시행자 이름
-    private String employeeName;
-
     @Column(nullable = false) // 승인자1 사번
-    private Long approverNo;
+    private String approverNo;
 
     @Column(nullable = false, length = 100) // 제목
     private String title;
@@ -38,14 +36,13 @@ public class Vacation {
     @Column(nullable = false) // 결재 분류
     private String category;
 
-    @Embedded // 결재 상태
-    private PaymentState state;
+    @ElementCollection(fetch = FetchType.EAGER) // 결재 상태
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private Set<PaymentState> state = new HashSet<>();
 
     @Column // 반려 사유
     private String returnReason;
-
-    @ColumnDefault("SYSDATE") // 작성일자
-    private LocalDateTime writeDate;
 
     @Column(nullable = false) // 시행일자
     private String effectiveDate;
@@ -53,7 +50,7 @@ public class Vacation {
     @Column(nullable = false) // 종료일자
     private String expirationDate;
 
-    @Column // 결재일시
+    @Column // 최종 결재일시
     private LocalDateTime competeDate;
 
 }
