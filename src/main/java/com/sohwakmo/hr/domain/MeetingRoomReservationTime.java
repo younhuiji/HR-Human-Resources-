@@ -1,7 +1,9 @@
 package com.sohwakmo.hr.domain;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
+
+import javax.persistence.*;
 
 
 @NoArgsConstructor

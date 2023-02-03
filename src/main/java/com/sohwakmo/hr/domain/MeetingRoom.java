@@ -1,13 +1,13 @@
 package com.sohwakmo.hr.domain;
 
-import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
+
+
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import javax.persistence.*;
+import java.util.function.LongFunction;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,6 +16,7 @@ import java.util.Date;
 @Setter
 @ToString
 @Entity(name = "MEETING_ROOM")
+
 @SequenceGenerator(name= "MEETING_ROOM_SEQ_GEN", sequenceName = "MEETING_ROOM_SEQ", allocationSize =  1)
 public class MeetingRoom {
 
@@ -25,10 +26,10 @@ public class MeetingRoom {
 
 
     @Column(nullable = false)
-    private Long employeeNo;  // 예약자 사번
+    private String employeeNo;  // 예약자 사번
 
-//    @Column(nullable = false)
-//    private String reserveName;  // 예약자 이름
+    @Column(nullable = false)
+    private String reserveName;  // 예약자 이름
 
     @Column(nullable = false)
     private String title;  // 제목
@@ -52,17 +53,14 @@ public class MeetingRoom {
     private String endTime;  // 종료시간
 
     @Column(nullable = false)
-    private Integer attendee;  // 참석자
-
+    private String attendee;  // 참석자사번
     @Column(nullable = false)
     private String purpose; // 사용목적
 
     private boolean state;   // 현재 상태  -- 써야하나 말아야 하나(true : 예약 중)
 
-    public MeetingRoom update(String title, String roomName, String roomPlace, String startTime, String endTime, Integer attendee, String purpose) {
+    public MeetingRoom update( String title, String startTime, String endTime, String attendee, String purpose) {
         this.title = title;
-        this.roomName = roomName;
-        this.roomPlace = roomPlace;
         this.startTime = startTime;
         this.endTime = endTime;
         this.attendee = attendee;

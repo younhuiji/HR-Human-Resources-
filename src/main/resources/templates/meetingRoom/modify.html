@@ -11,11 +11,10 @@
       </div>
       <form id="formModify" >
         <input type="hidden" id="meetingRoomNo" name="meetingRoomNo" th:value="${meetingRoom.meetingRoomNo}" readonly />
-        <input type="hidden" id="roomPlace" name="roomPlace" th:value="${meetingRoom.roomPlace}" />
-<!--        <div class="p-3 border-bottom">-->
-<!--          <label for="reservationName" style=" width: 150px; ">예약자</label>-->
-<!--          <input id="reservationName" type="text" name="reservationName" th:value="김김김" readonly />-->
-<!--        </div>-->
+        <div class="p-3 border-bottom">
+          <label for="reserveName" style=" width: 150px; ">예약자</label>
+          <input id="reserveName" th:value="${meetingRoom.reserveName}" style="border: none; background: transparent;" readonly />
+        </div>
         <div class = "p-3 border-bottom">
           <label for="title" style=" width: 150px; ">제목</label>
           <input id="title" class="align-text-top"
@@ -23,35 +22,18 @@
         </div>
         <div class = "p-3 border-bottom">
           <label for="roomName" style=" width: 150px; ">회의실</label>
-          <select id="roomName" class="align-text-top"  name="roomName" th:value="${meetingRoom.roomName}">
-            <option>회의실을 선택해주세요</option>
-            <option th:selected="${meetingRoom.roomName}=='회의실1'" value="회의실1">회의실1</option>
-            <option th:selected="${meetingRoom.roomName}=='회의실2'" value="회의실2">회의실2</option>
-            <option th:selected="${meetingRoom.roomName}=='회의실3'" value="회의실3">회의실3</option>
-            <option th:selected="${meetingRoom.roomName}=='회의실4'" value="회의실4">회의실4</option>
-            <option th:selected="${meetingRoom.roomName}=='회의실5'" value="회의실5">회의실5</option>
-            <option th:selected="${meetingRoom.roomName}=='회의실6'" value="회의실6">회의실6</option>
-            <option th:selected="${meetingRoom.roomName}=='회의실7'" value="회의실7">회의실7</option>
-            <option th:selected="${meetingRoom.roomName}=='회의실8'" value="회의실8">회의실8</option>
-            <option th:selected="${meetingRoom.roomName}=='회의실9'" value="회의실9">회의실9</option>
-            <option th:selected="${meetingRoom.roomName}=='회의실10'" value="회의실10">회의실10</option>
-          </select>
+          <span id="roomName" class="align-text-top"
+                th:text="${meetingRoom.roomName}" readonly ></span>
         </div>
-<!--        <div class = "p-3 border-bottom">-->
-<!--          <label for="roomPlace" style=" width: 150px; " >회의실 위치</label>-->
-<!--          <select id="roomPlace" class="align-text-top"  name="roomPlace" readonly>-->
-<!--            <option >     </option>-->
-
-<!--          </select>-->
-<!--          &lt;!&ndash;                    <input id="roomPlace" class="align-text-top"&ndash;&gt;-->
-<!--          &lt;!&ndash;                            type="text" name="roomPlace" readonly required/>&ndash;&gt;-->
-<!--        </div>-->
+        <div class = "p-3 border-bottom">
+          <label for="roomPlace" style=" width: 150px; " >회의실 위치</label>
+          <span id="roomPlace" class="align-text-top"
+                th:text="${meetingRoom.roomPlace}" readonly ></span>
+        </div>
         <div class = "p-3 border-bottom">
           <label for="startTime" style=" width: 150px; ">예약날짜</label>
-<!--          <span id="reserveDate" class="align-text-top"-->
-<!--                th:text="${meetingRoom.reserveDate}" name="reserveDate" readonly></span>-->
-<!--          <input id="reserveDate" class="align-text-top"-->
-<!--                 th:text="""${meetingRoom.reserveDate}" name="reserveDate" readonly/>-->
+          <span id="reserveDate" class="align-text-top"
+                th:text="${meetingRoom.reserveDate}" readonly ></span>
           <select id="startTime" class="align-text-top"  name="startTime" th:value="${meetingRoom.startTime}">
             <option>시간을 선택해주세요</option>
             <option th:selected="${meetingRoom.startTime}=='08:00'" value="08:00">08:00</option>

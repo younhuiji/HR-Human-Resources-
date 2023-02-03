@@ -11,16 +11,16 @@
             <div class="section-header">
                 <h1 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >회의실 예약신청</h1>
             </div>
-            <form method = "post" action = "/meetingRoom/create" name="formCreate">
+            <form method = "post" action = "/meetingRoom/create" id="createForm">
                 <input  type="hidden" name="employeeNo" id="employeeNo" th:value="1" />
                 <div class="p-3 border-bottom">
-                    <label for="reservationName" style=" width: 150px; ">예약자</label>
-                    <input id="reservationName" type="text" name="reservationName" rrequired autofocus />
+                    <label for="reserveName" style=" width: 150px; ">예약자</label>
+                    <input id="reserveName" type="text" name="reserveName" th:value="김김김" style="border: none; background: transparent;" readonly />
                 </div>
                 <div class = "p-3 border-bottom">
                     <label for="title" style=" width: 150px; ">제목</label>
                     <input id="title" class="align-text-top"
-                           type="text" name="title" placeholder="제목을 입력해주세요."  required />
+                           type="text" name="title" placeholder="제목을 입력해주세요." required />
                 </div>
                 <div class = "p-3 border-bottom">
                     <label for="roomName" style=" width: 150px; ">회의실</label>
@@ -42,12 +42,11 @@
                     <label for="roomPlace" style=" width: 150px; " >회의실 위치</label>
                     <select id="roomPlace" class="align-text-top"  name="roomPlace" readonly>
                         <option >회의실을 선택해주세요.</option>
-
                     </select>
 <!--                    <input id="roomPlace" class="align-text-top"-->
 <!--                            type="text" name="roomPlace" readonly required/>-->
                 </div>
-<!--                <input type="hidden" name="roomPlace" th:value="1" />-->
+
                 <div class = "p-3 border-bottom">
                     <label for="reserveDate" style=" width: 150px; ">예약날짜</label>
                     <input id="reserveDate" class="align-text-top"
@@ -91,7 +90,7 @@
                 <div class= "p-3 border-bottom">
                     <label for="attendee" style=" width: 150px; ">참석자</label>
                     <input id="attendee" class="align-text-top"
-                           type="number" name="attendee" required />
+                           type="text" name="attendee" required />
 <!--                    <div class="invite-icon"><i class="fa-solid fa-user-plus"></i></div>-->
 
 <!--                    <div class="member-serch">-->
@@ -106,31 +105,31 @@
 <!--                    </div>-->
 
 
-                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">초대</button>
+<!--                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">초대</button>-->
 
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">참석자</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="mb-3">
-                                            <label for="recipient-name" class="col-form-label">이름</label>
-                                            <input type="text" class="form-control" id="recipient-name">
-                                        </div>
+<!--                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--                        <div class="modal-dialog">-->
+<!--                            <div class="modal-content">-->
+<!--                                <div class="modal-header">-->
+<!--                                    <h1 class="modal-title fs-5" id="exampleModalLabel">참석자</h1>-->
+<!--                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                </div>-->
+<!--                                <div class="modal-body">-->
+<!--                                    <form>-->
+<!--                                        <div class="mb-3">-->
+<!--                                            <label for="recipient-name" class="col-form-label">이름</label>-->
+<!--                                            <input type="text" class="form-control" id="recipient-name">-->
+<!--                                        </div>-->
 
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light" id="modelBtnInvite">초대하기</button>
-                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">닫기</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!--                                    </form>-->
+<!--                                </div>-->
+<!--                                <div class="modal-footer">-->
+<!--                                    <button type="button" class="btn btn-light" id="modelBtnInvite">초대하기</button>-->
+<!--                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">닫기</button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
 
                 </div>
@@ -141,7 +140,7 @@
                 </div>
 
                 <div class="pb-3 d-md-flex justify-content-md-end">
-                    <button type="submit" class="btn btn-light me-md-1" id="createBtn">저장</button>
+                    <button type="submit" class="btn btn-light me-md-1" id="createBtn" name="createForm">저장</button>
                     <a class="btn btn-light" href="/meetingRoom/list" >목록</a>
                 </div>
             </form>

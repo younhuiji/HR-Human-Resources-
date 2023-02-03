@@ -10,32 +10,28 @@
         <h1 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >회의실 상세보기</h1>
       </div>
       <form id="formDetail">
-          <input type="hidden" name="employeeNo" th:value="1" />
           <input type="hidden" name="meetingRoomNo" th:value="${meetingRoom.meetingRoomNo}" />
         <div class="p-3 border-bottom">
-            <label for="reservationName" style=" width: 150px; ">예약자</label>
-            <input id="reservationName" name="reservationName" style="border: none; background: transparent;" readonly />
+            <label for="reserveName" style=" width: 150px; ">예약자</label>
+            <span id="reserveName" class="align-text-top"
+                  th:text="${meetingRoom.reserveName}" readonly ></span>
         </div>
         <div class = "p-3 border-bottom">
             <label for="title" style=" width: 150px; ">제목</label>
-            <input id="title" class="align-text-top" name="title"
-                   th:value="${meetingRoom.title}" readonly />
+            <span id="title" class="align-text-top"
+                  th:text="${meetingRoom.title}" readonly ></span>
         </div>
         <div class = "p-3 border-bottom">
             <label for="roomName" style=" width: 150px; ">회의실</label>
             <span id="roomName" class="align-text-top"
                   th:text="${meetingRoom.roomName}" readonly ></span>
         </div>
-        <!--                <div class = "p-3 border-bottom">-->
-        <!--                    <label for="roomPlace" style=" width: 150px; " >회의실 위치</label>-->
-        <!--                    <select id="roomPlace" class="align-text-top"  name="roomPlace" readonly>-->
-        <!--                        <option >     </option>-->
+          <div class = "p-3 border-bottom">
+              <label for="roomPlace" style=" width: 150px; " >회의실 위치</label>
+              <span id="roomPlace" class="align-text-top"
+                    th:text="${meetingRoom.roomPlace}" readonly ></span>
+          </div>
 
-        <!--                    </select>-->
-        <!--                    <input id="roomPlace" class="align-text-top"-->
-        <!--                            type="text" name="roomPlace" readonly required/>-->
-        <!--                </div>-->
-        <input type="hidden" name="roomPlace" th:value="${meetingRoom.roomPlace}"/>
         <div class = "p-3 border-bottom">
             <label for="reserveDate" style=" width: 150px; ">예약날짜</label>
             <span id="reserveDate" class="align-text-top"

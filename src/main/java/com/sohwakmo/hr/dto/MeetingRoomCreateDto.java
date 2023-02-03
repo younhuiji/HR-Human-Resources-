@@ -1,34 +1,33 @@
 package com.sohwakmo.hr.dto;
 
-import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.MeetingRoom;
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.Date;
 
 @Builder
 @Data
 public class MeetingRoomCreateDto {
 
     private Integer meetingRoomNo;
-    private String title;
 
-    private String roomName;
+    private String reserveName;  // 예약자 이름
+    private String title;  // 제목
 
-    private String roomPlace;
+    private String roomName;  // 회의실 이름
 
-    private String reserveDate;
+    private String roomPlace;  // 회의실 위치
 
-    private String startTime;
+    private String reserveDate; // 예약 날짜
 
-    private String endTime;
+    private String startTime;  // 예약 시작시간
 
-    private Integer attendee;
+    private String endTime;  //  예약 종료시간
 
-    private String purpose;
+    private String attendee;  // 참석자 사번
 
-    private Long employeeNo;
+    private String purpose;  // 내용
+
+    private String employeeNo;  // 예약자 사번
 
     public MeetingRoom toEntity() {
         return MeetingRoom.builder()
@@ -42,6 +41,7 @@ public class MeetingRoomCreateDto {
                 .attendee(attendee)
                 .purpose(purpose)
                 .employeeNo(employeeNo)
+                .reserveName(reserveName)
                 .build();
     }
 

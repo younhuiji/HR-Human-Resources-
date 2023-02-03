@@ -43,7 +43,6 @@ document.getElementById("reserveDate").setAttribute("min", today);
 
 // 초대하기
 // #invite
-const modelBtnInvite = document.querySelector('#modelBtnInvite'); // 초대 버튼
 
 
 // 테이블
