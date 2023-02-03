@@ -124,9 +124,7 @@
                         </tr>
                         <tr>
                             <th scope="row">퇴근 시간</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
+                            <td th:each="d : ${endTimeDays}" th:text="${d}"></td>
                         </tr>
                         <tr>
                             <th scope="row">출근 여부</th>

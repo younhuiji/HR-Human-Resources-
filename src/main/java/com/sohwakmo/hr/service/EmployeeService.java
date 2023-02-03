@@ -297,4 +297,73 @@ public class EmployeeService {
 
         return resultHour + "시간 " + resultMinutes +"분";
     }
+
+    public String[] setStartTimeDays(List<Attendance> list) {
+        Attendance attendance = list.get(list.size()-1);
+        int month = Integer.parseInt(attendance.getMonth());
+        // 2월인경우
+        if (month==2) {
+            String[] startTimeDays = new String[28];
+            setStartTimes(startTimeDays, list);
+            return startTimeDays;
+        } else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) { // 31일까지 있는 달
+            String[] startTimeDays = new String[31];
+            setStartTimes(startTimeDays, list);
+            return startTimeDays;
+        }else{ // 그외 30일 까지 있는달
+            String[] startTimeDays = new String[30];
+            setStartTimes(startTimeDays, list);
+            return startTimeDays;
+        }
+    }
+
+    /**
+     * 배열을 넘길때 비어있는 부분은 채우고 들어가야할 부붐은 채우는 메서드
+     * @param startTimeDays 채워서 보낼 배열
+     * @param list 그달에 있는 출결 리스트
+     */
+    private void setStartTimes(String[]startTimeDays, List<Attendance> list) {
+        for (Attendance a : list) {
+            int day = Integer.parseInt(a.getDay());
+            startTimeDays[day-1] = a.getStartTime();
+        }
+        // 빈칸에 "-" 로 채우기
+        for (int i = 0; i < startTimeDays.length; i++) {
+            if (startTimeDays[i] == null) startTimeDays[i] = "-";
+        }
+    }
+
+    public String[] setEndTimeDays(List<Attendance> list) {
+        Attendance attendance = list.get(list.size()-1);
+        int month = Integer.parseInt(attendance.getMonth());
+        // 2월인경우
+        if (month==2) {
+            String[] endTimeDays = new String[28];
+            setEndTimes(endTimeDays, list);
+            return endTimeDays;
+        } else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) { // 31일까지 있는 달
+            String[] endTimeDays = new String[31];
+            setEndTimes(endTimeDays, list);
+            return endTimeDays;
+        }else{ // 그외 30일 까지 있는달
+            String[] endTimeDays = new String[30];
+            setEndTimes(endTimeDays, list);
+            return endTimeDays;
+        }
+    }
+
+    private void setEndTimes(String[] endTimeDays, List<Attendance> list) {
+        for (Attendance a : list) {
+            int day = Integer.parseInt(a.getDay());
+            endTimeDays[day-1] = a.getEndTime();
+        }
+        // 빈칸에 "-" 로 채우기
+        for (int i = 0; i < endTimeDays.length; i++) {
+            if (endTimeDays[i] == null) endTimeDays[i] = "-";
+        }
+    }
+
+    public String[] setWorkState(List<Attendance> list) {
+        return null;
+    }
 }

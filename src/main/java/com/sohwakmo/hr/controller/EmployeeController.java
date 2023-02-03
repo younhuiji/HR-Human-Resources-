@@ -52,44 +52,11 @@ public class EmployeeController {
     public String myPage(Model model, String employeeNo){
         Employee employee = employeeService.findEmployee(employeeNo);
         List<Attendance> list = employee.getAttendances();
-        Attendance attendance = list.get(list.size()-1);
-        int month = Integer.parseInt(attendance.getMonth());
-        // 2월인경우
-        if (month==2) {
-            String[] startTimeDays = new String[28];
-            setTimes(startTimeDays, list);
-            System.out.println(Arrays.toString(startTimeDays));
-            model.addAttribute("startTimeDays", startTimeDays);
-        } else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) { // 31일까지 있는 달
-            String[] startTimeDays = new String[31];
-            setTimes(startTimeDays, list);
-            System.out.println(Arrays.toString(startTimeDays));
-            model.addAttribute("startTimeDays", startTimeDays);
-        }else{ // 그외 30일 까지 있는달
-            String[] startTimeDays = new String[30];
-            setTimes(startTimeDays, list);
-            System.out.println(Arrays.toString(startTimeDays));
-            model.addAttribute("startTimeDays", startTimeDays);
-        }
-        model.addAttribute("list", list);
         model.addAttribute("employee", employee);
+        model.addAttribute("startTimeDays", employeeService.setStartTimeDays(list)); // 출근시간 배열
+        model.addAttribute("endTimeDays",employeeService.setEndTimeDays(list)); // 퇴근 시간 배열
+        model.addAttribute("workState",employeeService.setWorkState(list));
         return "/employee/myPage";
-    }
-
-    /**
-     * 배열을 넘길때 비어있는 부분은 채우고 들어가야할 부붐은 채우는 메서드
-     * @param startTimeDays 채워서 보낼 배열
-     * @param list 그달에 있는 출결 리스트
-     */
-    private void setTimes(String[]startTimeDays, List<Attendance> list) {
-        for (Attendance a : list) {
-            int day = Integer.parseInt(a.getDay());
-            startTimeDays[day-1] = a.getStartTime();
-        }
-        // 빈칸에 "-" 로 채우기
-        for (int i = 0; i < startTimeDays.length; i++) {
-            if (startTimeDays[i] == null) startTimeDays[i] = "-";
-        }
     }
 
     @PostMapping("/myPage/update")
