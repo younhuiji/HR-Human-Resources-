@@ -13,7 +13,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const formBody  = document.querySelector("#formBody");
     const btnSend   = document.querySelector("#btnSend");
-    const btnCancel = document.querySelector("#btnCancel");
 
     btnSend.addEventListener("click", function(e) {
         e.preventDefault();
@@ -23,10 +22,6 @@ window.addEventListener('DOMContentLoaded', () => {
             formBody.method = 'post';
             formBody.submit();
         }
-    });
-
-    btnCancel.addEventListener("click", function(e) {
-
     });
 
 });

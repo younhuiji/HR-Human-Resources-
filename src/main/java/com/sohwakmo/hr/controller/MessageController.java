@@ -75,6 +75,8 @@ public class MessageController {
             log.info("messageCount = {}", messageList.size());
             model.addAttribute("messageList", messageList);
             model.addAttribute("messageCount", messageList.size());
+            model.addAttribute("messageType", messageType);
+            model.addAttribute("contentType", contentType);
 
         } else {
             log.info("검색한 경우");
@@ -84,6 +86,8 @@ public class MessageController {
             log.info("messageCount = {}", messageList.size());
             model.addAttribute("messageList", messageList);
             model.addAttribute("messageCount", messageList.size());
+            model.addAttribute("messageType", messageType);
+            model.addAttribute("contentType", contentType);
         }
 
         return "/message/receiveList";
