@@ -410,4 +410,13 @@ public class EmployeeService {
         String currentMonth = employeeAttendanceList.get(0).getMonth();
         return attendanceRepository.findByMonth(currentMonth);
     }
+
+    /**
+     * 로그인한 멤버의 총 출근기록을 가져와서 검색한 달의 출근 기록의 달을 반환한다.
+     * @param month 마이페이지에서 전달받은 검색하고 싶은 달
+     * @return 검색한 달의 달만 리턴
+     */
+    public List<Attendance> getSearchMonth(String month) {
+        return attendanceRepository.findByMonth(month);
+    }
 }

@@ -31,6 +31,16 @@ window.addEventListener('DOMContentLoaded',function (){
         }
     })
 
+    // 검색 버튼
+    const btnSearch = document.querySelector('#btnSearch');
+    const search_form = document.querySelector('#search_form');
+    btnSearch.addEventListener('click',function (){
+        search_form.preventDefault();
+        search_form.action = "/myPage/search";
+        search_form.method = "get";
+        search_form.submit();
+    })
+
 
     // 수정버튼
     const buttonUpdate = document.querySelector('#buttonUpdate');
