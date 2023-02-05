@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{ layout/layout.html }">
+<head>
+    <meta charset="UTF-8">
+    <title>Leave</title>
+    <style>
+        * {
+            font: 16px "나눔고딕", "Nanum Gothic", "sans-serif";
+            color: #333;
+        }
+
+        #jb-container {
+            margin: 5px auto;
+            padding: 20px;
+            /*border: 1px solid #bcbcbc;*/
+            height: 100%;
+        }
+        #jb-header {
+            padding: 10px;
+            height: 10%;
+            width: 100%;
+            margin-bottom: 10px;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        #jb-content {
+            width: 67%;
+            height: 100%;
+            padding: 20px;
+            margin-bottom: 20px;
+            float: left;
+            border: 1px solid #bcbcbc;
+        }
+        #jb-sidebar {
+            width: 30%;
+            padding: 20px;
+            float: right;
+            border: 1px solid #bcbcbc;
+        }
+
+        #jb-text {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            height: 100%;
+            margin-bottom: 20px;
+            float: left;
+            /*border: 1px solid #bcbcbc;*/
+        }
+
+
+    </style>
+</head>
+<div layout:fragment="content">
+    <body>
+
+
+    <div id="jb-container">
+        <div id="jb-header">
+            <h3>기안 문서</h3>
+            진행중인 결재내역을 확인하고 관리합니다.
+        </div>
+        <div id="jb-content">
+            <div id="jb-text">
+<!--                <legend class="title">기안 문서</legend>-->
+                <br>
+                <form>
+                    <div class="row" style="padding: 10px">
+                        <div class="col-3">
+                            <select name="payment"  class="form-control" >
+                                <option value="휴가/연차/반차">휴가/연차/반차</option>
+                                <option value="출장">출장</option>
+                                <option value="명함신청">명함신청</option>
+                                <option value="퇴사신청">퇴사신청</option>
+                            </select>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" class="form-control"
+                                   name="keyword" placeholder="검색어를 입력하세요" required autofocus />
+                        </div>
+                        <div class="col-2">
+                            <input type="submit" class="btn btn-light" value="찾기" />
+                        </div>
+                    </div>
+                </form>
+                <form  >
+                    <fieldset class="border-0">
+
+                        <table class="table" style="border-collapse: collapse">
+                            <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>제목</th>
+                                <th>작성 시간</th>
+                                <th>결재 상태</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                 <tr th:each="v : ${vacation}" th:onclick="|location.href='@{/vacation/detail(no=${l.no})}'|">
+                                     <td th:text="${v.no}"></td>
+                                     <td th:text="${v.title}"></td>
+                                     <td th:text="${ #temporals.format(v.createdTime, 'yyyy년 MM월 dd일') }"></td>
+                                     <td th:text="${v.state}"></td>
+                                  </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="jb-sidebar">
+            <div >
+                <div class="card mb-8">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar"></i>
+                        상세정보
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div >
+                                <h6>프로필 이미지</h6>
+                                <div style= "text-align: center; padding: 5px;">
+                                    <img height="200px" width="200px" />
+                                </div>
+                            </div>
+                            <div >
+                                <div >
+                                    <label class="form-control font-weight-bold" style="border:none;">남은 휴가일</label>
+                                    <input id="name" class="form-control" value="*" readonly/>
+                                </div>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;">사용한 휴가일</label>
+                                    <input id="phone" class="form-control" value="*" readonly/>
+                                </div>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;">출장 횟수</label>
+                                    <input id="department" class="form-control" value="*" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" class="btn btn-light" value="문서 작성"  th:onclick="|location.href='@{/payment/create}'|"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</div>
+
+<th:block layout:fragment="script">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script th:src="@{ /js/payment/list.js }"></script>
+</th:block>
+
+</html>

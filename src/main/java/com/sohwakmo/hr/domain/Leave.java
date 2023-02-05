@@ -40,7 +40,7 @@ public class Leave extends BaseTimeEntity {
     @Column(nullable = false) // 결재 분류
     private String category;
 
-    @Column // 세미 결재 분류
+    @Column // 세미 결재 상태
     private boolean semiState;
 
     @ElementCollection(fetch = FetchType.EAGER) // 결재 상태
@@ -72,7 +72,6 @@ public class Leave extends BaseTimeEntity {
         this.competeDate = competeDate;
         return this;
     }
-
 
     public Leave returnReason(String returnReason){
         this.returnReason = returnReason;
