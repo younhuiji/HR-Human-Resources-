@@ -2,6 +2,8 @@ package com.sohwakmo.hr.repository;
 
 import com.sohwakmo.hr.domain.Message;
 import com.sohwakmo.hr.dto.MessageSearchDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,7 +17,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * @param employeeNo 로그인한 사용자 번호
      * @return
      */
-    List<Message> findByReceiveNoOrderByMessageNoDesc(String employeeNo);
+    Page<Message> findByReceiveNoOrderByMessageNoDesc(String employeeNo, Pageable pageable);
 
     /**
      * select * from message where senderNo = ? order by messageNo desc;

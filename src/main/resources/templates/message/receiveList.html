@@ -19,7 +19,7 @@
                 <form method="get" th:action="@{ /message/receiveList }">
                     <div class="row">
                         <div class="col-2">
-                            전체 <span style="color:red;" th:text=" ${ messageCount }"></span>
+<!--                            전체 <span style="color:red;" th:text=" ${ messageCount }"></span>-->
                         </div>
                         <div class="col-3 p-2" style="margin-right:10px; text-align: right;" >
                             <span style="color:red;">긴급 </span>
@@ -98,5 +98,6 @@
 <th:block layout:fragment="script">
     <script th:src="@{/js/message/messageTypeCheckBoxCheck.js}"></script>
 </th:block>
+
 
 </html>

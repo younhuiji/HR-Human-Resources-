@@ -8,12 +8,14 @@ import com.sohwakmo.hr.repository.EmployeeRepository;
 import com.sohwakmo.hr.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -100,11 +102,11 @@ public class MessageService {
      * 받은쪽지함 들어가면 로그인한 번호로 받은쪽지 보여주기
      * @param employeeNo
      */
-    public List<Message> read(String employeeNo) {
+    public Page<Message> read(String employeeNo, Pageable pageable) {
         log.info("read(employeeNo = {})", employeeNo);
 
-        List<Message> messageList = new ArrayList<>();
-        messageList = messageRepository.findByReceiveNoOrderByMessageNoDesc(employeeNo);
+        Page<Message> messageList;
+        messageList = messageRepository.findByReceiveNoOrderByMessageNoDesc(employeeNo, pageable);
         log.info("messageList = {}", messageList);
 
         return messageList;
