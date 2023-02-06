@@ -29,4 +29,8 @@ public class BusinessTripService {
         return businessTripRepository.findByEmployeeNo(employeeNo);
     }
 
+    public List<BusinessTrip> selectByEmployeeNoAndState(String no, PaymentState state){
+        return businessTripRepository.findByEmployeeNoAndState(no, state);
+    }
+
 }

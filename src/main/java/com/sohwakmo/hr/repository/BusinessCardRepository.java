@@ -3,6 +3,7 @@ package com.sohwakmo.hr.repository;
 import com.sohwakmo.hr.domain.BusinessCard;
 import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.Leave;
+import com.sohwakmo.hr.domain.PaymentState;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,6 +16,7 @@ public interface BusinessCardRepository extends JpaRepository<BusinessCard, Inte
     List<BusinessCard> selectByCard(@Param(value = "card") String card);
 
     @Query("select b from BUSINESSCARD b where b.employeeNo = :no ")
-    List<BusinessCard> selectByEmployeeNo(@Param(value = "no")String no);
+    List<BusinessCard> selectByEmployeeNo(@Param(value = "no") String no);
 
+    public List<BusinessCard> findByEmployeeNoAndState(String no, PaymentState state);
 }

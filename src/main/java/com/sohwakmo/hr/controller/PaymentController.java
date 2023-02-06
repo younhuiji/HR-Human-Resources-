@@ -1,9 +1,6 @@
 package com.sohwakmo.hr.controller;
 
-import com.sohwakmo.hr.domain.BusinessCard;
-import com.sohwakmo.hr.domain.BusinessTrip;
-import com.sohwakmo.hr.domain.Leave;
-import com.sohwakmo.hr.domain.Vacation;
+import com.sohwakmo.hr.domain.*;
 import com.sohwakmo.hr.dto.VacationCreateDto;
 import com.sohwakmo.hr.service.BusinessCardService;
 import com.sohwakmo.hr.service.BusinessTripService;
@@ -33,8 +30,7 @@ public class PaymentController {
 
     // 기안 문서 list
     @GetMapping("/list")
-    public void list(Model model, @RequestParam(defaultValue = "vacation")String payment,
-                     @RequestParam(required = false,defaultValue = "")String keyword) {
+    public void list(Model model, @RequestParam(defaultValue = "vacation")String payment) {
 
 
         // TODO: 임원 테이블 연결 시에 수정하기
@@ -62,6 +58,56 @@ public class PaymentController {
     // 기안 문서 create
     @GetMapping("/create")
     public void create() {
+    }
+
+    // 결재 대기 list
+    @GetMapping("/process")
+    public void process(Model model, @RequestParam(defaultValue = "vacation")String payment) {
+
+        String no = "1";
+        PaymentState state = PaymentState.진행중;
+
+        if(payment.equals("vacation")){
+            List<Vacation> list = vacationService.selectByEmployeeNoAndState(no, state);
+            log.info(list.toString());
+            model.addAttribute("list", list);
+        } else if(payment.equals("trip")) {
+            List<BusinessTrip> list = businessTripService.selectByEmployeeNoAndState(no, state);
+            log.info(list.toString());
+            model.addAttribute("list", list);
+        } else if(payment.equals("leave")) {
+            List<Leave> list = leaveService.selectByEmployeeNoAndState(no, state);
+            model.addAttribute("list", list);
+        } else {
+            List<BusinessCard> list = businessCardService.selectByEmployeeNoAndState(no, state);
+            model.addAttribute("list", list);
+        }
+
+    }
+
+    // 결재 완료 list
+    @GetMapping("/complete")
+    public void complete(Model model, @RequestParam(defaultValue = "vacation")String payment) {
+
+        String no = "1";
+        PaymentState state = PaymentState.승인;
+
+        if(payment.equals("vacation")){
+            List<Vacation> list = vacationService.selectByEmployeeNoAndState(no, state);
+            log.info(list.toString());
+            model.addAttribute("list", list);
+        } else if(payment.equals("trip")) {
+            List<BusinessTrip> list = businessTripService.selectByEmployeeNoAndState(no, state);
+            log.info(list.toString());
+            model.addAttribute("list", list);
+        } else if(payment.equals("leave")) {
+            List<Leave> list = leaveService.selectByEmployeeNoAndState(no, state);
+            model.addAttribute("list", list);
+        } else {
+            List<BusinessCard> list = businessCardService.selectByEmployeeNoAndState(no, state);
+            model.addAttribute("list", list);
+        }
+
     }
 
 

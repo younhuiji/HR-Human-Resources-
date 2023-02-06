@@ -29,4 +29,8 @@ public class VacationService {
         return vacationRepository.save(vacation);
     }
 
+    public List<Vacation> selectByEmployeeNoAndState(String no, PaymentState state){
+        return vacationRepository.findByEmployeeNoAndState(no, state);
+    }
+
 }
