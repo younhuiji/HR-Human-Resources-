@@ -13,8 +13,8 @@ import java.time.format.DateTimeFormatter;
 public class BusinessCardCreateDto {
 
     private Integer no;
-    private Long employeeNo;
-    private Long approverNo;
+    private String employeeNo;
+    private String approverNo;
     private String title;
     private String reason;
     private String category;
@@ -28,18 +28,6 @@ public class BusinessCardCreateDto {
         return formatDate;
     }
 
-//    public BusinessCard toEntity() {
-//        return BusinessCard.builder()
-//                .no(no)
-//                .employeeNo(employeeNo)
-//                .approverNo(approverNo)
-//                .title(title)
-//                .reason(reason)
-//                .category(category)
-//                .returnReason(returnReason)
-//                .createdTime(formatDate(entity.getCreatedTime()))
-//                .build();
-//    }
 
 
 }

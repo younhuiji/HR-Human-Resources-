@@ -1,6 +1,7 @@
 package com.sohwakmo.hr.service;
 
 import com.sohwakmo.hr.domain.BusinessCard;
+import com.sohwakmo.hr.domain.PaymentState;
 import com.sohwakmo.hr.repository.BusinessCardRepository;
 import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class BusinessCardService {
 
     // 명함(Bs card) create
     public BusinessCard create(BusinessCard businessCard){
+        businessCard.addRole(PaymentState.진행중);
         return businessCardRepository.save(businessCard);
     }
 

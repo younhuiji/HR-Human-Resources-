@@ -12,44 +12,31 @@
             color: #333;
         }
 
-        #jb-container {
-            width: 1665px;
-            margin: 5px auto;
-            padding: 20px;
-            border: 1px solid #bcbcbc;
-            height: 1000px;
-        }
         #jb-header {
             padding: 10px;
-            width: 1100px;
+            height: 5%;
+            width: 100%;
             margin-bottom: 10px;
             /*border: 1px solid #bcbcbc;*/
         }
-        #jb-content {
-            width: 1100px;
-            padding: 20px;
-            height: 760px;
-            margin-bottom: 20px;
-            float: left;
+
+        #jb-container {
+            margin: 5px auto;
+            /*padding: 20px;*/
+            width: 100%;
             border: 1px solid #bcbcbc;
-        }
-        #jb-sidebar {
-            width: 500px;
-            padding: 20px;
-            height: 760px;
-            margin-bottom: 20px;
-            float: right;
-            border: 1px solid #bcbcbc;
+            height: 100%;
         }
 
         #jb-text {
-            width: 1000px;
+            width: 55%;
             padding: 20px;
-            height: 650px;
-            margin-bottom: 20px;
-            float: left;
-            /*border: 1px solid #bcbcbc;*/
+            height: 100%;
+            /*text-align: center;*/
+            margin-left: 22%;
+            border: 1px solid #bcbcbc;
         }
+
 
 
     </style>
@@ -70,7 +57,7 @@
                 <div id="jb-content">
                     <div id="jb-text">
                         <form id="form" method="post" action="/businessTrip/create" >
-                            <table style="width: 820px; border-collapse: collapse !important; color: black; background: white; border: 0px solid #bcbcbc; font-size: 12px; font-family: malgun gothic,dotum,arial,tahoma;">
+                            <table style="width: 100%; border-collapse: collapse !important; color: black; background: white; border: 0px solid #bcbcbc; font-size: 12px; font-family: malgun gothic,dotum,arial,tahoma;">
                                 <tbody>
                                 <tr>
                                     <td style="width:15%; padding: 3px !important; border: 0px solid black; height: 90px; !important; font-size: 30px; font-weight: bold; text-align: center; vertical-align: middle;" colspan="2" >
@@ -118,7 +105,7 @@
                                     </td>
 
                                     <td >
-                                        <table style="height: 120px; width: 20%; background: white; margin: 0px; margin-left: 450px; border: 1px solid #bcbcbc;  color: black; font-size: 12px; ">
+                                        <table style="height: 120px; width: 20%; background: white; float: right; margin: 0px;  border: 1px solid #bcbcbc;  color: black; font-size: 12px; ">
                                             <tbody>
                                             <tr>
                                                 <td rowspan="3"  style="width: 10%; height: 30px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: center; font-weight: bold; background: rgb(221, 221, 221); padding: 3px !important;">
@@ -148,7 +135,7 @@
                             </table>
                             <br>
 
-                            <table id="timelineApprovalForm"  style="width: 830px; margin-top : 0px; margin-bottom:20px; border-collapse: collapse !important; color: black; background: white; font-size: 12px; font-family: malgun gothic,dotum,arial,tahoma;">
+                            <table id="timelineApprovalForm"  style="width: 100%; margin-top : 0px; margin-bottom:20px; border-collapse: collapse !important; color: black; background: white; font-size: 12px; ">
                                 <tbody>
                                 <tr>
                                     <td colspan="4" style="width:800px; background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
@@ -246,7 +233,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4" style="width:800px; padding: 20px !important; height: 22px; vertical-align: middle;border: 1px solid #bcbcbc; text-align: left; background: rgb(255, 255, 255);">
+                                    <td colspan="4" style="width:100%; padding: 20px !important; height: 22px; vertical-align: middle;border: 1px solid #bcbcbc; text-align: left; background: rgb(255, 255, 255);">
                                         <br>
                                         <br>
                                         <div style="text-align: center">
@@ -261,15 +248,21 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            </span>
-                            <div style="float: right;  width: 150px; display: inline-block;" >
+                            <div style="float: right;  width: 150px; display: inline-block; padding-bottom: 20px;" >
                                 <input type="submit" class="btn btn-secondary" id="insertButton" value="요청" />
                                 <input type="submit" class="btn btn-dark"   id="btnCancel" value="취소" />
                             </div>
+                            </span>
+
                         </form>
                     </div>
                 </div>
             </div>
         </body>
     </div>
+
+    <th:block layout:fragment="script">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script th:src="@{ /js/payment/create.js }"></script>
+    </th:block>
 </html>

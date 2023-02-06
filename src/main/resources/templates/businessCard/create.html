@@ -12,205 +12,243 @@
             color: #333;
         }
 
-        #jb-container {
-            width: 1665px;
-            margin: 5px auto;
-            padding: 20px;
-            border: 1px solid #bcbcbc;
-            height: 1000px;
-        }
+
         #jb-header {
             padding: 10px;
-            width: 1100px;
+            height: 5%;
+            width: 100%;
             margin-bottom: 10px;
             /*border: 1px solid #bcbcbc;*/
         }
-        #jb-content {
-            width: 1100px;
-            padding: 20px;
-            height: 760px;
-            margin-bottom: 20px;
-            float: left;
+
+        #jb-container {
+            margin: 5px auto;
+            /*padding: 20px;*/
+            width: 100%;
             border: 1px solid #bcbcbc;
-        }
-        #jb-sidebar {
-            width: 500px;
-            padding: 20px;
-            height: 760px;
-            margin-bottom: 20px;
-            float: right;
-            border: 1px solid #bcbcbc;
+            height: 100%;
         }
 
         #jb-text {
-            width: 1000px;
+            width: 55%;
             padding: 20px;
-            height: 650px;
-            margin-bottom: 20px;
-            float: left;
-            /*border: 1px solid #bcbcbc;*/
+            height: 100%;
+            /*text-align: center;*/
+            margin-left: 22%;
+            border: 1px solid #bcbcbc;
         }
 
 
     </style>
 </head>
     <div layout:fragment="content">
-                <body>
-                    <div id="jb-container">
-                        <div id="jb-header">
-                            <h3>결재 작성</h3>
-                            진행중인 결재내역을 확인하고 관리합니다.
-                        </div>
-                        <div id="jb-content">
-                            <div id="jb-text">
-                                <form id="form" method="post" action="/businessCard/create">
-                                    <fieldset class="border-0">
-                                        <legend class="title">필수 입력 정보</legend>
-                                            <table class="table" style="border-collapse: collapse">
-                                                <tr>
-                                                    <th class="first"><label for="title">제목</label></th>
-                                                    <td><input type="text" class="textFrom" id="title" name="title" required autofocus></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>보고서 분류</th>
-                                                    <td>
-                                                        <select id="category" name="category">
-                                                            <option value="명함">명함</option>
-                                                            <option value="휴가/연차/반차">휴가/연차/반차</option>
-                                                            <option value="출장">출장</option>
-                                                            <option value="퇴사">퇴사</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="first"><label for="employeeName">신청자</label></th>
-                                                    <td><input type="text" class="textFrom" id="employeeName" name="employeeName" required ></td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="first"><label for="department">부서</label></th>
-                                                    <td><input type="text" class="textFrom" id="department" required ></td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="first"><label for="position">직급</label></th>
-                                                    <td><input type="text" class="textFrom" id="position"  required ></td>
-                                                </tr>
-                                                <tr >
-                                                    <th class="first"><label for="email">이메일</label></th>
-                                                    <td><input type="email"  id="email" name="email" required ></td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="first"><label for="phone">전화번호</label></th>
-                                                    <td><input type="tel" class="textFrom" id="phone" name="phone" required ></td>
-                                                </tr>
-                                                <tr>
-                                                    <th><label for="approverName">결재자 지정</label></th>
-                                                    <td><input type="text" class="textFrom" id="approverNo" name="approverNo"  readonly  >
-                                                    <td><input type="text" class="textFrom" id="approverName" name="approverName" required readonly  > <input type="button" class="btn btn-light" value="찾기" onclick="window.open('http://localhost:8889/businessCard/approver', 'approver', 'width=1100 height=800 top=100 left=400');" /></td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="first"><label for="reason">사유</label></th>
-                                                    <td><textarea class="textFrom w-100" id="reason" name="reason" required ></textarea></td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="first"><label for="writeDate">신청일자</label></th>
-                                                    <td><input type="date" class="textFrom" id="writeDate" name="writeDate" required ></td>
-                                                </tr>
-                                            </table>
-                                            <div class="text-end">
-                                                <button type="submit" class="btn btn-light" id="insertButton">요청</button>
+        <body>
+            <div id="jb-container">
+                <div id="jb-header">
+                    <lable>신청서 선택 </lable>
+                    <select style="width: 200px;" id="selectBox" name="selectBox"  >
+                        <option selected>선택</option>
+                        <option value="vacation">휴가</option>
+                        <option value="trip">출장</option>
+                        <option value="card">명함</option>
+                        <option value="leave">퇴사</option>
+                    </select>
+                </div>
+                <div id="jb-content">
+                    <div id="jb-text">
+                        <form id="form" method="post" action="/businessCard/create" >
+                            <table style="width: 100%; border-collapse: collapse !important; color: black; background: white; border: 0px solid #bcbcbc; font-size: 12px; font-family: malgun gothic,dotum,arial,tahoma;">
+                                <tbody>
+                                <tr>
+                                    <td style="width:15%; padding: 3px !important; border: 0px solid black; height: 90px; !important; font-size: 30px; font-weight: bold; text-align: center; vertical-align: middle;" colspan="2" >
+                                        명함 신청서
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:30%; border: 0; padding: 0 !important" >
+                                        <table style="background: white; margin: 0px; border: 0px solid #bcbcbc; border-image: none; color: black; font-size: 12px; border-collapse: collapse !important;">
+                                            <tbody>
+                                            <tr>
+                                                <td style="width: 40%; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: center; font-weight: bold; background: rgb(221, 221, 221); padding: 3px !important;">
+                                                    기안자
+                                                </td>
+                                                <td style="width: 80%; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left; padding: 3px !important;">
+                                                    <input style="width: 100%" readonly />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 40%; padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: center; font-weight: bold; background: #ddd;">
+                                                    기안부서
+                                                </td>
+                                                <td style="width: 60%; padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
+                                                    <input style="width: 100%" readonly />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 40%; padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: center; font-weight: bold; background: #ddd;">
+                                                    기안일
+                                                </td>
+                                                <td style="width: 60%;padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
+                                                    <input style="width: 100%" readonly/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 40%; padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: center; font-weight: bold; background: #ddd;">
+                                                    문서번호
+                                                </td>
+                                                <td style="width: 60%;padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
+                                                    <input style="width: 100%" readonly/>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
 
-                                                <button type="submit" class="btn btn-light">취소</button>
-                                            </div>
-                                    </fieldset>
-                                </form>
-                            </div>
-                        </div>
-                        <div id="jb-sidebar">
-                            <legend class="title">명함 신청 리스트</legend>
+                                    <td >
+                                        <table style="height: 120px; width: 20%; background: white; float: right; margin: 0px;  border: 1px solid #bcbcbc;  color: black; font-size: 12px; ">
+                                            <tbody>
+                                            <tr>
+                                                <td rowspan="3"  style="width: 10%; height: 30px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: center; font-weight: bold; background: rgb(221, 221, 221); padding: 3px !important;">
+                                                    결 재
+                                                </td>
+                                                <td colspan="1" style="width: 60%;  height: 10%; vertical-align: middle; border: 1px solid #bcbcbc;  text-align: center; font-weight: bold; background: rgb(221, 221, 221); padding: 3px !important;">
+                                                    결재자1
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style=" height: 80%; padding: 3px;  vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
+                                                    <div  style="text-align: center;">
+                                                        <!--                                                    <img src="/images/dojang.png" style="height: 65px; ">-->
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="1" style="border: 1px solid #bcbcbc; text-align: center; height: 20px">
+                                                    <span ></span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                             <br>
-                            <form>
-                                <div class="row" style="padding: 10px">
-                                    <div class="col-10">
-                                        <input type="text" class="form-control"
-                                               name="keyword" placeholder="검색어를 입력하세요" required autofocus />
-                                    </div>
-                                    <div class="col-2">
-                                        <input type="submit" class="btn btn-light" value="찾기" />
-                                    </div>
-                                </div>
-                            </form>
-                            <form  >
-                                <fieldset class="border-0">
 
-                                    <table class="table table-hover" style="border-collapse: collapse">
-                                        <thead>
-                                        <tr>
-                                            <th>번호</th>
-                                            <th>제목</th>
-                                            <th>작성 시간</th>
-                                            <th>결재 상태</th>
-                                        </tr>
-                                        </thead>
-<!--                                        <tbody>-->
-<!--                                        <tr th:each="c : ${card}" th:onclick="|location.href='@{/businessCard/detail(no=${c.no})}'|">-->
-<!--                                            <td th:text="${c.no}"></td>-->
-<!--                                            <td th:text="${c.title}"></td>-->
-<!--                                            <td th:text="${c.writeDate}"></td>-->
-<!--                                            <td th:text="${c.state}"></td>-->
-<!--                                        </tr>-->
-<!--                                        </tbody>-->
-                                    </table>
-                                </fieldset>
-                            </form>
+                            <table id="timelineApprovalForm"  style="width: 100%; margin-top : 0px; margin-bottom:20px; border-collapse: collapse !important; color: black; background: white; font-size: 12px; ">
+                                <tbody>
+                                <tr>
+                                    <td colspan="4" style="width:800px; background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                        신청&nbsp;현황
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                        <b style="color: rgb(255, 0, 0);">*</b>제목
+                                    </td>
+                                    <td colspan="3" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                        <input style="width: 100%"  type="text" class="textFrom" id="title" name="title"  placeholder="[000 명함 신청]" required autofocus>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" style="width:100px; background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                        <b style="color: rgb(255, 0, 0);">*</b>부서
+                                    </td>
+                                    <td id="name" colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                        <input style="width: 100%" type="text" class="textFrom" id="department" name="department" required >
+                                    </td>
+                                    <td colspan="1" style="width:200px; background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                        <b style="color: rgb(255, 0, 0);">*</b>직위
+                                    </td>
+                                    <td id="positionName" colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                        <input style="width: 100%" type="text" class="textFrom" id="position" name="position" required >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                        <b style="color: rgb(255, 0, 0);">*</b>이름
+                                    </td>
+                                    <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                        <input style="width: 100%" type="text" class="textFrom" id="employeeName" name="employeeName" required >
+                                    </td>
+                                    <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc;height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                        <b style="color: rgb(255, 0, 0);">*</b>결재자 지정
+                                    </td>
+                                    <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                        <input style="width: 75%" type="text" class="textFrom" id="approverNo" name="approverNo" required >
+                                        <input style="width: 75%" type="hidden" class="textFrom" id="approverName" name="approverName" required >
+                                        <input type="button" value="찾기"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc;height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                        <b style="color: rgb(255, 0, 0);">*</b>이메일
+                                    </td>
+                                    <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                        <input style="width: 100%" type="email" class="textFrom" id="email" name="email" required >
+                                    </td>
+                                    <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc;height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                        <b style="color: rgb(255, 0, 0);">*</b>전화번호
+                                    </td>
+                                    <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                        <input style="width: 100%" type="phone" class="textFrom" id="phone" name="phone" required >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                        <b style="color: rgb(255, 0, 0);">*</b>보고서 분류
+                                    </td>
+                                    <td colspan="3" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                        <select id="category" name="category">
+                                            <option value="명함">명함</option>
+                                            <option value="출장">출장</option>
+                                            <option value="퇴사">퇴사</option>
+                                            <option value="휴가/연차/반차">휴가/연차/반차</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:200px;background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 80px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                        <b style="color: rgb(255, 0, 0);">*</b>신청&nbsp;사유
+                                    </td>
+                                    <td colspan="3" style="padding: 3px; border: 1px solid black; width: 450px; height: 100px; text-align: left; color: rgb(0, 0, 0); font-size: 12px;  vertical-align: top; background: rgb(255, 255, 255);">
+                                            <span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="8" data-dsl="{{textarea:description}}" >
+                                               <textarea style="width: 100%; height: 100%; " id="reason" name="reason" required></textarea>
+                                            </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="width:100%; padding: 20px !important; height: 22px; vertical-align: middle;border: 1px solid #bcbcbc; text-align: left; background: rgb(255, 255, 255);">
+                                        <br>
+                                        <br>
+                                        <div style="text-align: center">
+                                            <p th:text="'상기 본인은 위와 같은 사정으로 인하여 '  "></p><p>명함 신청하고자 하오니 결재하여 주시기 바랍니다. </p>
+                                            <br>
+                                            <br>
+                                            <p  style="text-align: center"></p>
+                                            <br>
+                                            <p th:text="'신청인 : '">  </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div style="float: right;  width: 150px; display: inline-block; padding-bottom: 20px;" >
+                                <input type="submit" class="btn btn-secondary" id="insertButton" value="요청" />
+                                <input type="submit" class="btn btn-dark"   id="btnCancel" value="취소" />
+                            </div>
+                            </span>
 
-
-<!--                            <form th:action="@{/businessCard/search}" method="get">-->
-<!--                                <h4>기안 정보 등록</h4>-->
-<!--                                <form>-->
-<!--                                    <div class="row">-->
-<!--                                        <div class="col-10">-->
-<!--                                            <input type="text" class="form-control"-->
-<!--                                                   name="keyword" placeholder="결재자를 검색하세요" required autofocus />-->
-<!--                                        </div>-->
-<!--                                        <div class="col-2">-->
-<!--                                            <input type="button" class="btn btn-light" value="찾기" onclick="window.open('http://localhost:8889/businessCard/approver', 'approver', 'width=1100 height=800 top=100 left=400');" />-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </form>-->
-<!--                                <table class="table table-hover">-->
-<!--                                    <thead>-->
-<!--                                        <tr>-->
-<!--                                            <th class="col-2">번호</th>-->
-<!--                                            <th class="col-4">결재자 지정</th>-->
-<!--                                            <th class="col-6"></th>-->
-<!--                                        </tr>-->
-<!--                                    </thead>-->
-<!--                                    <tbody>-->
-<!--                                            <tr th:each=" e : ${list}" >-->
-<!--                                                &lt;!&ndash; TODO: 임원 사진 추가 하기 &ndash;&gt;-->
-<!--                                                <td></td>-->
-<!--                                                <td th:text="${e.name}"></td>-->
-<!--                                                <td th:text="${e.part.getPosition()}" ></td>-->
-<!--                                                <td style="text-align: right">-->
-<!--                                                    <input type="submit" class="btn btn-light" value="추가">-->
-<!--                                                </td>-->
-<!--                                            </tr>-->
-<!--                                    </tbody>-->
-<!--                                </table>-->
-<!--                            </form>-->
-                        </div>
+                        </form>
                     </div>
-                </body>
+                </div>
             </div>
+        </body>
+    </div>
 
-
-<td th:switch="${#strings.toString(item.stats)}" >
-    <span th:case="대기"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
-    <span th:case="할당"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
-    <span th:case="진행"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
-    <span th:case="완료"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
-    <span th:case="취소"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
-</td>
-
+<th:block layout:fragment="script">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script th:src="@{ /js/payment/create.js }"></script>
+</th:block>
 
 </html>
