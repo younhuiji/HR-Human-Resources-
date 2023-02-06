@@ -19,7 +19,8 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -166,7 +167,7 @@ public class EmployeeService {
         Employee employee = employeeRepository.findByEmployeeNo(dto.getEmployeeNo());
 
         Attendance attendance = Attendance.builder()
-                .employee(employee).startTime(hours + ":" + minutes).expectEndTime(getExpectEndTime(dto.getHours(),dto.getMinutes())).month(month).day(day).state(0).build();
+                .employee(employee).startTime(hours + ":" + minutes).expectEndTime(getExpectEndTime(dto.getHours(),dto.getMinutes())).month(month).day(day).state(1).build();
 
         log.info(attendance.toString());
         attendanceRepository.save(attendance);
@@ -227,7 +228,45 @@ public class EmployeeService {
             endMinutes = String.valueOf(minutes);
         }
         attendance.setEndTime(endHours + ":" + endMinutes);
+        attendance.setState(checkEndTime(endHours,endMinutes,attendance));
         attendanceRepository.save(attendance);
+    }
+
+    /**
+     * 예상 시간보다 늦게 즉 알맞은 시간에 업무 종료 버튼을 눌렀는지 확인하고 눌렀으면 상태를 0로변경, 아니면 1로 변경
+     *
+     * @param endHours   업무종료를 누른 시
+     * @param endMinutes 업무종료를 누른 분
+     * @param attendance 예상종료 업무시간을 가져오기위한 객체
+     * @return 알맞은 시간에 퇴근해씅면 0, 아니면 1
+     */
+    private Integer checkEndTime(String endHours, String endMinutes, Attendance attendance) {
+        int check = 0;
+        // 예상퇴근 시간 가져오기
+        String expectEndTime = attendance.getExpectEndTime();
+        String expectEndHours = expectEndTime.substring(0,2);
+        String expectEndMinutes = expectEndTime.substring(3);
+        // 업무종료를 누른시간과예상 퇴근시간 비교하기
+        if (Integer.parseInt(endHours) < Integer.parseInt(expectEndHours)) {
+            check = 1;
+        } else if (Integer.parseInt(endHours) == Integer.parseInt(expectEndHours)) {
+            if(Integer.parseInt(endMinutes) < Integer.parseInt(expectEndMinutes)){
+                check = 1;
+            }
+        }
+        return check;
+    }
+
+
+    /**
+     * 퇴근 시간과 비교하기위한
+     * @return
+     */
+    private String getNowTime() {
+        LocalTime now = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return now.format(formatter);
+
     }
 
     /**
