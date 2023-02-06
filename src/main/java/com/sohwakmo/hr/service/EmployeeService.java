@@ -19,8 +19,6 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -255,18 +253,6 @@ public class EmployeeService {
             }
         }
         return check;
-    }
-
-
-    /**
-     * 퇴근 시간과 비교하기위한
-     * @return
-     */
-    private String getNowTime() {
-        LocalTime now = LocalTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        return now.format(formatter);
-
     }
 
     /**
