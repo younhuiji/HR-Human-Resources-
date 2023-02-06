@@ -102,11 +102,10 @@ public class MessageService {
      * 받은쪽지함 들어가면 로그인한 번호로 받은쪽지 보여주기
      * @param employeeNo
      */
-    public Page<Message> read(String employeeNo, Pageable pageable) {
+    public Page<MessageSearchDto> read(String employeeNo, Pageable pageable) {
         log.info("read(employeeNo = {})", employeeNo);
 
-        Page<Message> messageList;
-        messageList = messageRepository.findByReceiveNoOrderByMessageNoDesc(employeeNo, pageable);
+        Page<MessageSearchDto> messageList = messageRepository.findByReceiveNoOrderByMessageNoDesc(employeeNo, pageable);
         log.info("messageList = {}", messageList);
 
         return messageList;
@@ -120,35 +119,41 @@ public class MessageService {
      * @param keyword
      * @return
      */
-    public List<MessageSearchDto> searchMessage(String employeeNo, String messageType, String contentType, String keyword) {
+    public Page<MessageSearchDto> searchMessage(String employeeNo, String messageType, String contentType, String keyword, Pageable pageable) {
         log.info("searchMessage(employeeNo = {}, messageType = {}, contentType = {}, keyword = {})", employeeNo, messageType, contentType, keyword);
 
-        List<MessageSearchDto> messageSearchDtoList = new ArrayList<>();
+        Page<MessageSearchDto> messageSearchDtoList = null;
 
         if (messageType == null) { // 메세지 타입이 null인 경우
             log.info("null");
             switch(contentType) {
                 case "all" :
-                    messageSearchDtoList = messageRepository.findByReceiveNoAll(employeeNo, keyword);
+                    log.info("findByReceiveNoAll");
+                    messageSearchDtoList = messageRepository.findByReceiveNoAll(employeeNo, keyword, pageable);
                     break;
                 case "title" :
-                    messageSearchDtoList = messageRepository.findByReceiveNoAndTitle(employeeNo, keyword);
+                    log.info("findByReceiveNoAndTitle");
+                    messageSearchDtoList = messageRepository.findByReceiveNoAndTitle(employeeNo, keyword, pageable);
                     break;
                 case "sender" :
-                    messageSearchDtoList = messageRepository.findByReceiveNoAndSenderName(employeeNo, keyword);
+                    log.info("findByReceiveNoAndSenderName");
+                    messageSearchDtoList = messageRepository.findByReceiveNoAndSenderName(employeeNo, keyword, pageable);
                     break;
             }
         } else { // 메세지 타입이 있는 경우
             log.info("not null");
             switch(contentType) {
                 case "all" :
-                    messageSearchDtoList = messageRepository.findByMessageTypeAndReceiveNoAll(employeeNo, keyword, messageType);
+                    log.info("findByMessageTypeAndReceiveNoAll");
+                    messageSearchDtoList = messageRepository.findByMessageTypeAndReceiveNoAll(employeeNo, keyword, messageType, pageable);
                     break;
                 case "title" :
-                    messageSearchDtoList = messageRepository.findByMessageTypeAndReceiveNoAndTitle(employeeNo, keyword, messageType);
+                    log.info("findByMessageTypeAndReceiveNoAndTitle");
+                    messageSearchDtoList = messageRepository.findByMessageTypeAndReceiveNoAndTitle(employeeNo, keyword, messageType, pageable);
                     break;
                 case "sender" :
-                    messageSearchDtoList = messageRepository.findByMessageTypeAndReceiveNoAndName(employeeNo, keyword, messageType);
+                    log.info("findByMessageTypeAndReceiveNoAndName");
+                    messageSearchDtoList = messageRepository.findByMessageTypeAndReceiveNoAndName(employeeNo, keyword, messageType, pageable);
                     break;
             }
         }

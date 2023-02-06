@@ -58,6 +58,37 @@ public class MessageController {
     }
 
     /**
+     * 페이징 처리
+     * @param messageList
+     * @param model
+     */
+    private void paging(Page<MessageSearchDto> messageList, Model model) {
+        int startPage = (messageList.getPageable().getPageNumber() / 5) * 5 + 1;
+        int endPage = Math.min(messageList.getTotalPages(), (messageList.getPageable().getPageNumber() / 5) * 5 + 5);
+
+        if(endPage <= 0) {
+            startPage = 1;
+            endPage = 1;
+        } else  {
+            if(messageList.getTotalPages() < 6) {
+                startPage = 1;
+                endPage = messageList.getTotalPages();
+            } else {
+                if (messageList.getPageable().getPageNumber() < 5) {
+                    startPage = 1;
+                    endPage = 5;
+                } else {
+                    startPage = (messageList.getPageable().getPageNumber() / 5) * 5 + 1;
+                    endPage = Math.min(messageList.getTotalPages(), (messageList.getPageable().getPageNumber() / 5) * 5 + 5);
+                }
+            }
+        }
+
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+    }
+
+    /**
      * 받은쪽지함으로 이동시키기
      * @param employeeNo
      * @param model
@@ -65,36 +96,42 @@ public class MessageController {
      */
     @GetMapping("/receiveList")
     public String receiveList(String employeeNo, Model model, String messageType, String contentType, String keyword,
-                              @PageableDefault(page = 0, size = 2, sort = "messageNo", direction = Sort.Direction.DESC) Pageable pageable) {
+                              @PageableDefault(page = 0, size = 3, sort = "messageNo", direction = Sort.Direction.DESC) Pageable pageable) {
         log.info("receiveList(messageType = {}, contentType = {}, keyword = {})", messageType, contentType, keyword);
 
         // 로그인한 사원 번호 임시 값
         employeeNo = "2";
         log.info("employeeNo = {}", employeeNo);
 
+        Page<MessageSearchDto> messageList;
+        if(messageType == "") {
+            messageType = null;
+        }
+        if(keyword == "") {
+            keyword = null;
+        }
+        if(contentType == "") {
+            contentType = null;
+        }
+
         // 리스트로 바로 들어온 경우(검색하지 않은 경우)
         if(messageType == null && contentType == null && keyword == null) {
             log.info("검색하지 않은 경우");
-            Page<Message> messageList = messageService.read(employeeNo, pageable);
-
-            log.info("messageList = {}", messageList);
-//            log.info("messageCount = {}", messageList.size());
-            model.addAttribute("messageList", messageList);
-//            model.addAttribute("messageCount", messageList.size());
-            model.addAttribute("messageType", messageType);
-            model.addAttribute("contentType", contentType);
-
+            messageList = messageService.read(employeeNo, pageable);
         } else {
             log.info("검색한 경우");
-            List<MessageSearchDto> messageList = messageService.searchMessage(employeeNo, messageType, contentType, keyword);
-
-            log.info("messageList = {}", messageList);
-            log.info("messageCount = {}", messageList.size());
-            model.addAttribute("messageList", messageList);
-            model.addAttribute("messageCount", messageList.size());
-            model.addAttribute("messageType", messageType);
-            model.addAttribute("contentType", contentType);
+            messageList = messageService.searchMessage(employeeNo, messageType, contentType, keyword, pageable);
         }
+
+        log.info("messageList = {}", messageList);
+        log.info("messageCount = {}", messageList.getContent().size());
+
+        paging(messageList, model);
+
+        model.addAttribute("messageList", messageList);
+        model.addAttribute("messageCount", messageList.getContent().size());
+        model.addAttribute("messageType", messageType);
+        model.addAttribute("contentType", contentType);
 
         return "/message/receiveList";
     }
