@@ -165,7 +165,7 @@ public class EmployeeService {
         Employee employee = employeeRepository.findByEmployeeNo(dto.getEmployeeNo());
 
         Attendance attendance = Attendance.builder()
-                .employee(employee).startTime(hours + ":" + minutes).expectEndTime(getExpectEndTime(dto.getHours(),dto.getMinutes())).month(month).day(day).state(1).build();
+                .employee(employee).startTime(hours + ":" + minutes).expectEndTime(getExpectEndTime(dto.getHours(),dto.getMinutes())).month(month).day(day).state(0).build();
 
         log.info(attendance.toString());
         attendanceRepository.save(attendance);
