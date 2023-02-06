@@ -12,38 +12,16 @@ import java.time.LocalDateTime;
 @Data
 public class VacationCreateDto {
 
-    private Integer no;
-    private Long employeeNo;
-    private String employeeName;
-    private Long approverNo;
-    private String title;
-    private String reason;
-    private String category;
-    private PaymentState state;
-    private String returnReason;
-    private LocalDateTime writeDate;
-    private String effectiveDate;
-    private String expirationDate;
-    private LocalDateTime competeDate;
-
-//    public Vacation toEntity() {
-//        return Vacation.builder()
-//                .no(no)
-//                .employeeNo(employeeNo)
-//                .employeeName(employeeName)
-//                .approverNo(approverNo)
-//                .title(title)
-//                .reason(reason)
-//                .category(category)
-//                .state(state)
-//                .returnReason(returnReason)
-//                .writeDate(writeDate)
-//                .writeDate(writeDate)
-//                .effectiveDate(effectiveDate)
-//                .expirationDate(expirationDate)
-//                .competeDate(competeDate)
-//                .build();
-//    }
+    private Integer no; // PK
+    private String employeeNo; // 시행자 사번
+    private String approverNo; // 승인자 사번
+    private String title; // 제목
+    private String reason; // 사유
+    private String category; // 결재 분류
+    private PaymentState state; // 결재 상태
+    private String effectiveDate; // 시행 일자
+    private String expirationDate; // 종료 일자
+    private String createdTime; // 작성 일시
 
 
 }

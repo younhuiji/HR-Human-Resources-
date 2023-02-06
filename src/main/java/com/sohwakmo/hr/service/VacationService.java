@@ -1,6 +1,7 @@
 package com.sohwakmo.hr.service;
 
 import com.sohwakmo.hr.domain.BusinessTrip;
+import com.sohwakmo.hr.domain.PaymentState;
 import com.sohwakmo.hr.domain.Vacation;
 import com.sohwakmo.hr.repository.BusinessTripRepository;
 import com.sohwakmo.hr.repository.VacationRepository;
@@ -24,6 +25,7 @@ public class VacationService {
 
     // 휴가(vacation) create
     public Vacation create(Vacation vacation){
+        vacation.addRole(PaymentState.진행중);
         return vacationRepository.save(vacation);
     }
 

@@ -12,6 +12,14 @@
             color: #333;
         }
 
+        #jb-header {
+            padding: 10px;
+            height: 5%;
+            width: 100%;
+            margin-bottom: 10px;
+            /*border: 1px solid #bcbcbc;*/
+        }
+
         #jb-container {
             margin: 5px auto;
             padding: 20px;
@@ -20,11 +28,11 @@
         }
 
         #jb-text {
-            width: 78%;
+            width: 55%;
             padding: 20px;
             height: 100%;
             text-align: center;
-            margin-left: 100px;
+            margin-left: 300px;
             border: 1px solid #bcbcbc;
         }
 
@@ -34,6 +42,16 @@
 <div layout:fragment="content">
     <body>
         <div id="jb-container">
+            <div id="jb-header">
+                <lable>신청서 선택 </lable>
+                <select style="width: 200px;" id="selectBox" name="selectBox"  >
+                    <option selected>선택</option>
+                    <option value="vacation">휴가</option>
+                    <option value="trip">출장</option>
+                    <option value="card">명함</option>
+                    <option value="leave">퇴사</option>
+                </select>
+            </div>
             <div id="jb-content">
                 <div id="jb-text">
                     <form id="form" method="post" action="/vacation/create" >
@@ -53,7 +71,7 @@
                                                         기안자
                                                     </td>
                                                     <td style="width: 80%; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left; padding: 3px !important;">
-                                                        <input style="width: 100%" />
+                                                        <input style="width: 100%" readonly />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -61,7 +79,7 @@
                                                         기안부서
                                                     </td>
                                                     <td style="width: 60%; padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
-                                                        <input style="width: 100%" />
+                                                        <input style="width: 100%" readonly />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -69,7 +87,7 @@
                                                         기안일
                                                     </td>
                                                     <td style="width: 60%;padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
-                                                        <input style="width: 100%" />
+                                                        <input style="width: 100%" readonly/>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -77,7 +95,7 @@
                                                         문서번호
                                                     </td>
                                                     <td style="width: 60%;padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
-                                                        <input style="width: 100%" />
+                                                        <input style="width: 100%" readonly/>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -115,7 +133,6 @@
                         </table>
                         <br>
 
-                        <span id="timelineApprovalFormSection" style="width: 50%; height: 50%">
                             <table id="timelineApprovalForm"  style="width: 830px; margin-top : 0px; margin-bottom:20px; border-collapse: collapse !important; color: black; background: white; font-size: 12px; font-family: malgun gothic,dotum,arial,tahoma;">
                                    <tbody>
                                          <tr>
@@ -128,7 +145,7 @@
                                                    <b style="color: rgb(255, 0, 0);">*</b>제목
                                              </td>
                                              <td colspan="3" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                 <input style="width: 100%"  type="text" class="textFrom" id="title" name="title" required autofocus>
+                                                 <input style="width: 100%"  type="text" class="textFrom" id="title" name="title"  placeholder="[000 휴가 신청]" required autofocus>
                                              </td>
                                          </tr>
                                          <tr>
@@ -156,7 +173,8 @@
                                                   <b style="color: rgb(255, 0, 0);">*</b>결재자 지정
                                              </td>
                                              <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                 <input style="width: 75%" type="text" class="textFrom" id="approverName" name="approverName" required >
+                                                 <input style="width: 75%" type="text" class="textFrom" id="approverNo" name="approverNo" required >
+                                                 <input style="width: 75%" type="hidden" class="textFrom" id="approverName" name="approverName" required >
                                                  <input type="button" value="찾기"/>
                                              </td>
                                          </tr>
@@ -190,7 +208,7 @@
                                               </td>
                                               <td colspan="3" style="padding: 3px; border: 1px solid black; width: 450px; height: 100px; text-align: left; color: rgb(0, 0, 0); font-size: 12px;  vertical-align: top; background: rgb(255, 255, 255);">
                                                     <span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="8" data-dsl="{{textarea:description}}" >
-                                                           <textarea style="width: 100%; height: 100%; "></textarea>
+                                                           <textarea style="width: 100%; height: 100%; " id="reason" name="reason" required></textarea>
                                                    </span>
                                               </td>
                                          </tr>
@@ -211,22 +229,23 @@
                                 </tbody>
                             </table>
                         </span>
+                        <div style="float: right;  width: 150px; display: inline-block;" >
+                            <input type="submit" class="btn btn-secondary" id="insertButton" value="요청" />
+                            <input type="submit" class="btn btn-dark"   id="btnCancel" value="취소" />
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </body>
-    <div style="float: right;width: 150px; display: inline-block;" >
-        <input type="submit" class="btn btn-secondary" id="insertButton" value="요청" />
-        <input type="submit" class="btn btn-dark"   id="btnCancel" value="취소" />
-    </div>
+
 </div>
 
 
 
 <th:block layout:fragment="script">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script th:src="@{ /js/payment/list.js }"></script>
+    <script th:src="@{ /js/payment/create.js }"></script>
 </th:block>
 
 </html>

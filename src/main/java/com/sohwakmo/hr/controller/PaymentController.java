@@ -29,7 +29,7 @@ public class PaymentController {
         // TODO: 임원 테이블 연결 시에 수정하기
         String no = "1";
         List<Vacation> list = vacationService.selectByEmployeeNo(no);
-//        model.addAttribute("vacation", list);
+        model.addAttribute("vacation", list);
         log.info("휴가 리스트 ={}", list);
 
     }
@@ -38,19 +38,6 @@ public class PaymentController {
     @GetMapping("/create")
     public void create() {
     }
-
-    @PostMapping("/create")
-    public void create(VacationCreateDto dto){
-
-        String no = "1";
-
-//        Vacation vacation = Vacation.builder()
-//                .title(dto.getTitle()).state(dto.getState()).employeeName(dto.getEmployeeName()).employeeNo(1L).category(dto.getCategory())
-//                .returnReason(dto.getReturnReason()).writeDate(dto.getWriteDate()).effectiveDate(dto.getEffectiveDate())
-//                .expirationDate(dto.getExpirationDate()).approverNo(0L).reason(dto.getReason()).competeDate(dto.getCompeteDate()).build();
-
-    }
-
 
 
 }

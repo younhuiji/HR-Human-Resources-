@@ -98,7 +98,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                                 <tr th:each="v : ${vacation}" th:onclick="|location.href='@{/vacation/detail(no=${l.no})}'|">
+                                 <tr th:each="v : ${vacation}" >
+<!--                                     th:onclick="|location.href='@{/vacation/detail(no=${l.no})}'|"-->
                                      <td th:text="${v.no}"></td>
                                      <td th:text="${v.title}"></td>
                                      <td th:text="${ #temporals.format(v.createdTime, 'yyyy년 MM월 dd일') }"></td>
