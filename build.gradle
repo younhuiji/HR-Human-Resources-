@@ -46,6 +46,9 @@ dependencies {
 	//view
 	implementation 'org.springframework.boot:spring-boot-starter-freemarker'
 	implementation 'org.webjars.bower:bootstrap:4.3.1'
+	// Slf4j 테스트코드 작성시 필요
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {

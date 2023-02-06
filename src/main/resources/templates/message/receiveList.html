@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{ layout/layout.html }">
+
+<head>
+    <meta charset="UTF-8">
+    <title>받은쪽지함</title>
+</head>
+
+<div layout:fragment="content">
+    <h1>받은쪽지함</h1>
+    <hr>
+
+    <div class="card my-2">
+        <div class="card-body">
+            <div class="my-2">
+                <form method="get" th:action="@{ /message/receiveList }">
+                    <div class="row">
+                        <div class="col-2">
+                            전체 <span style="color:red;" th:text=" ${ messageCount }"></span>
+                        </div>
+                        <div class="col-3 p-2" style="margin-right:10px; text-align: right;" >
+                            <span style="color:red;">긴급 </span>
+                            <input type="checkbox" name="messageType" value="긴급" th:checked="${messageType == '긴급'}"  onclick="messageTypeCheckBoxCheck(this)"/>
+                            &nbsp 중요 <input type="checkbox" name="messageType" value="중요" th:checked="${messageType == '중요'}"  onclick="messageTypeCheckBoxCheck(this)"/>
+                            &nbsp 일반 <input type="checkbox" name="messageType" value="일반" th:checked="${messageType == '일반'}"  onclick="messageTypeCheckBoxCheck(this)"/>
+                        </div>
+                        <div class="col-2" style="padding: 1px; width:100px;">
+                            <select name="contentType" class="form-control" >
+                                <option value="all" th:selected="${contentType} == 'all'">전체</option>
+                                <option value="title" th:selected="${contentType} == 'title'">제목</option>
+                                <option value="sender" th:selected="${contentType} == 'sender'">보낸사람</option>
+                            </select>
+                        </div>
+                        <div class="col-3" style="padding: 1px;">
+                            <input type="text" class="form-control" name="keyword" placeholder="검색어" autofocus />
+                        </div>
+                        <div class="col-2" style="padding: 1px;">
+                            <input type="submit" class="btn btn-outline-info" value="검색" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox"/></th>
+                        <th style="color:red;">!</th>
+                        <th>분류</th>
+                        <th>제목</th>
+                        <th>보낸사람</th>
+                        <th>일시</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="message : ${messageList}">
+                        <!-- 안읽은 쪽지이면-->
+                        <th:block th:if="${ message.getReceiveReadCheck() == null}">
+                            <td><input type="checkbox"/></td>
+                            <th:block>
+                                <td th:if="${message.getMessageType() == '긴급'}" style="color: red">!</td>
+                                <td th:if="${message.getMessageType() != '긴급'}">!</td>
+                            </th:block>
+                            <td th:text="${ message.getMessageType()}"></td>
+                            <td th:text="${ message.getTitle()}"></td>
+                            <td th:text="${ message.getEmployee().getName()}"></td>
+                            <td th:text="${ #temporals.format(message.getSendTime(), 'yyyy-MM-dd HH:mm') }"></td>
+                        </th:block>
+                        <!-- 읽은 쪽이이면 -->
+                        <th:block th:if="${ message.getReceiveReadCheck() == 1}">
+                            <td style="background: #f2f2f2;"><input type="checkbox"/></td>
+                            <th:block>
+                                <td style="background: #f2f2f2; color: red" th:if="${message.getMessageType() == '긴급'}">!</td>
+                                <td style="background: #f2f2f2;" th:if="${message.getMessageType() != '긴급'}">!</td>
+                            </th:block>
+                            <td style="background: #f2f2f2;" th:text="${ message.getMessageType()}"></td>
+                            <td style="background: #f2f2f2;" th:text="${ message.getTitle()}"></td>
+                            <td style="background: #f2f2f2;" th:text="${ message.getEmployee().getName()}"></td>
+                            <td style="background: #f2f2f2;" th:text="${ #temporals.format(message.getSendTime(), 'yyyy-MM-dd HH:mm') }"></td>
+                        </th:block>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="my-2">
+                ddd
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <a href="writeMessage">쪽지 쓰기</a>
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/message/messageTypeCheckBoxCheck.js}"></script>
+</th:block>
+
+</html>

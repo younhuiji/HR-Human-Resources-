@@ -35,7 +35,7 @@ public class Employee {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String phone; // 사내 전화번호
 
 

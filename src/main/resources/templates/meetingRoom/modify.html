@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{ layout/layout.html}">
+
+<div layout:fragment="content">
+  <div class="col" style="background-size: 5px">
+    <div class ="container">
+      <div class="section-header">
+        <h1 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >회의실 예약수정</h1>
+      </div>
+      <form id="formModify" >
+        <input type="hidden" id="meetingRoomNo" name="meetingRoomNo" th:value="${meetingRoom.meetingRoomNo}" readonly />
+        <div class="p-3 border-bottom">
+          <label for="reserveName" style=" width: 150px; ">예약자</label>
+          <input id="reserveName" th:value="${meetingRoom.reserveName}" style="border: none; background: transparent;" readonly />
+        </div>
+        <div class = "p-3 border-bottom">
+          <label for="title" style=" width: 150px; ">제목</label>
+          <input id="title" class="align-text-top"
+                 th:value="${meetingRoom.title}" name="title" placeholder="제목을 입력해주세요." required autofocus />
+        </div>
+        <div class = "p-3 border-bottom">
+          <label for="roomName" style=" width: 150px; ">회의실</label>
+          <span id="roomName" class="align-text-top"
+                th:text="${meetingRoom.roomName}" readonly ></span>
+        </div>
+        <div class = "p-3 border-bottom">
+          <label for="roomPlace" style=" width: 150px; " >회의실 위치</label>
+          <span id="roomPlace" class="align-text-top"
+                th:text="${meetingRoom.roomPlace}" readonly ></span>
+        </div>
+        <div class = "p-3 border-bottom">
+          <label for="startTime" style=" width: 150px; ">예약날짜</label>
+          <span id="reserveDate" class="align-text-top"
+                th:text="${meetingRoom.reserveDate}" readonly ></span>
+          <select id="startTime" class="align-text-top"  name="startTime" th:value="${meetingRoom.startTime}">
+            <option>시간을 선택해주세요</option>
+            <option th:selected="${meetingRoom.startTime}=='08:00'" value="08:00">08:00</option>
+            <option th:selected="${meetingRoom.startTime}=='09:00'" value="09:00">09:00</option>
+            <option th:selected="${meetingRoom.startTime}=='10:00'" value="10:00">10:00</option>
+            <option th:selected="${meetingRoom.startTime}=='11:00'" value="11:00">11:00</option>
+            <option th:selected="${meetingRoom.startTime}=='12:00'" value="12:00">12:00</option>
+            <option th:selected="${meetingRoom.startTime}=='13:00'" value="13:00">13:00</option>
+            <option th:selected="${meetingRoom.startTime}=='14:00'" value="14:00">14:00</option>
+            <option th:selected="${meetingRoom.startTime}=='15:00'" value="15:00">15:00</option>
+            <option th:selected="${meetingRoom.startTime}=='16:00'" value="16:00">16:00</option>
+            <option th:selected="${meetingRoom.startTime}=='17:00'" value="17:00">17:00</option>
+            <option th:selected="${meetingRoom.startTime}=='18:00'" value="18:00">18:00</option>
+            <option th:selected="${meetingRoom.startTime}=='19:00'" value="19:00">19:00</option>
+            <option th:selected="${meetingRoom.startTime}=='20:00'" value="20:00">20:00</option>
+          </select>
+          <span class="mt-auto m-2 pb-3 pt-xl-5">~</span>
+          <select id="endTime" class="align-text-top" name="endTime" th:value="${meetingRoom.endTime}">
+            <option>시간을 선택해주세요</option>
+            <option th:selected="${meetingRoom.endTime}=='08:00'" value="08:00">08:00</option>
+            <option th:selected="${meetingRoom.endTime}=='09:00'" value="09:00">09:00</option>
+            <option th:selected="${meetingRoom.endTime}=='10:00'" value="10:00">10:00</option>
+            <option th:selected="${meetingRoom.endTime}=='11:00'" value="11:00">11:00</option>
+            <option th:selected="${meetingRoom.endTime}=='12:00'" value="12:00">12:00</option>
+            <option th:selected="${meetingRoom.endTime}=='13:00'" value="13:00">13:00</option>
+            <option th:selected="${meetingRoom.endTime}=='14:00'" value="14:00">14:00</option>
+            <option th:selected="${meetingRoom.endTime}=='15:00'" value="15:00">15:00</option>
+            <option th:selected="${meetingRoom.endTime}=='16:00'" value="16:00">16:00</option>
+            <option th:selected="${meetingRoom.endTime}=='17:00'" value="17:00">17:00</option>
+            <option th:selected="${meetingRoom.endTime}=='18:00'" value="18:00">18:00</option>
+            <option th:selected="${meetingRoom.endTime}=='19:00'" value="19:00">19:00</option>
+            <option th:selected="${meetingRoom.endTime}=='20:00'" value="20:00">20:00</option>
+          </select>
+        </div>
+        <div class= "p-3 border-bottom">
+          <label for="attendee" style=" width: 150px; ">참석자</label>
+          <input id="attendee" class="align-text-top"
+                 th:value="${meetingRoom.attendee}" name="attendee" />
+          <button id="invite">참석자</button>
+        </div>
+        <div class= "p-3 mt-2 border-bottom">
+          <label for="purpose" style=" width: 150px; " >사용목적</label>
+          <textarea rows="5" cols="80" id="purpose" class="align-text-top"
+                    th:text="${meetingRoom.purpose}" name="purpose" ></textarea>
+        </div>
+
+        <div class="pb-3 d-md-flex justify-content-md-end">
+          <button type="button" class="btn btn-outline-info me-md-1" id="modifyBtn">저장</button>
+          <a class="btn btn-outline-info" href="/meetingRoom/list" id="cancelModify">취소</a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<th:block layout:fragment="script">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script th:src="@{ /js/meetingRoomModify.js}"></script>
+
+</th:block>
+</html>

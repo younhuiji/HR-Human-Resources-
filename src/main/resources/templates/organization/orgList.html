@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{ layout/layout }">
+
+<head>
+    <title>HR | 조직도</title>
+    <link rel="stylesheet" th:href="@{/css/post/postList.css}" />
+    <link th:href="@{/css/layout/styles.css}" rel="stylesheet" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css" /> -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <!-- <script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.js"></script> -->
+</head>
+<div layout:fragment="content">
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Organization</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">** IT company</li>
+        </ol>
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area me-1"></i>
+                        조직도
+                    </div>
+                    <div class="card-body">
+                        <div class="container">
+                            <ul class="tree" id="orgTree">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar me-1"></i>
+                        상세정보
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div style= "float:left;margin-right: 15px;">
+                                    <h6>프로필 이미지</h6>
+                                    <img height="200px" width="200px"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <h6>사용자 정보</h6>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;"> 이름</label>
+                                    <input id="name" class="form-control" value="*" readonly/>
+
+                                </div>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;"> 전화번호 </label>
+                                    <input id="phone" class="form-control" value="*" readonly/>
+                                </div>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;"> 소속부서 </label>
+                                    <input id="department" class="form-control" value="*" readonly/>
+                                </div>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;"> 소속팀 </label>
+                                    <input id="team" class="form-control" value="*" readonly/>
+                                </div>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;"> 직급 </label>
+                                    <input id="level" class="form-control" value="*" readonly/>
+                                </div>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;"> 담당업무 </label>
+                                    <input id="work" class="form-control" value="*" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<!-- axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/layout/scripts.js"></script>
+
+<!-- script -->
+<th:block layout:fragment="script">
+    <script th:src="@{/js/organization.js}"></script>
+</th:block>
+</html>

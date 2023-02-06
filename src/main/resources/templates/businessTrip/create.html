@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{ layout/layout.html }">
+<head>
+    <meta charset="UTF-8">
+    <title>BusinessTrip</title>
+    <style>
+        * {
+            font: 16px "나눔고딕", "Nanum Gothic", "sans-serif";
+            color: #333;
+        }
+
+        #jb-container {
+            width: 1665px;
+            margin: 5px auto;
+            padding: 20px;
+            border: 1px solid #bcbcbc;
+            height: 1000px;
+        }
+        #jb-header {
+            padding: 10px;
+            width: 1100px;
+            margin-bottom: 10px;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        #jb-content {
+            width: 1100px;
+            padding: 20px;
+            height: 760px;
+            margin-bottom: 20px;
+            float: left;
+            border: 1px solid #bcbcbc;
+        }
+        #jb-sidebar {
+            width: 500px;
+            padding: 20px;
+            height: 760px;
+            margin-bottom: 20px;
+            float: right;
+            border: 1px solid #bcbcbc;
+        }
+
+        #jb-text {
+            width: 1000px;
+            padding: 20px;
+            height: 650px;
+            margin-bottom: 20px;
+            float: left;
+            /*border: 1px solid #bcbcbc;*/
+        }
+
+
+    </style>
+</head>
+    <div layout:fragment="content">
+        <body>
+            <div id="jb-container">
+                <div id="jb-header">
+                    <h3>결재 작성</h3>
+                    진행중인 결재내역을 확인하고 관리합니다.
+                </div>
+                <div id="jb-content">
+                    <div id="jb-text">
+                        <form id="form" method="post" action="/businessTrip/create">
+                            <fieldset class="border-0">
+                                <legend class="title">필수 입력 정보</legend>
+                                    <table class="table" style="border-collapse: collapse">
+                                        <tr>
+                                            <th class="first"><label for="title">제목</label></th>
+                                            <td><input type="text" class="textFrom" id="title" name="title" required ></td>
+                                        </tr>
+                                        <tr>
+                                            <th>보고서 분류</th>
+                                            <td>
+                                                <select id="category" name="category">
+                                                    <option value="출장">출장</option>
+                                                    <option value="휴가/연차/반차">휴가/연차/반차</option>
+                                                    <option value="명함">명함</option>
+                                                    <option value="퇴사">퇴사</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="first"><label for="employeeName">신청자</label></th>
+                                            <td><input type="text" class="textFrom" id="employeeName" name="employeeName" required autofocus></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="first"><label for="department">부서</label></th>
+                                            <td><input type="text" class="textFrom" id="department" name="department" required ></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="first"><label for="position">직급</label></th>
+                                            <td><input type="text" class="textFrom" id="position" name="position" required ></td>
+                                        </tr>
+                                        <tr >
+                                            <th class="first"><label for="place">출장지</label></th>
+                                            <td><input type="text" class="textFrom" id="place" name="place" required ></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="first"><label for="companionName">동반 출장</label></th>
+                                            <td><input type="text" class="textFrom" id="companionName" name="companionName" required ></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="approverName">결재자 지정</label></th>
+                                            <td><input type="text" class="textFrom" id="approverName" name="aporoverName" required ></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="first"><label for="effectiveDate">시행 일자</label></th>
+                                            <td><input type="date" class="textFrom" id="effectiveDate" name="effectiveDate" required ></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="first"><label for="expirationDate">종료 일자</label></th>
+                                            <td><input type="date" class="textFrom" id="expirationDate" name="expirationDate" required ></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="first"><label for="reason">사유</label></th>
+                                            <td><textarea class="textFrom w-100" id="reason" name="reason" required ></textarea></td>
+                                        </tr>
+
+                                    </table>
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-light" id="insertButton">요청</button>
+
+                                    <button type="submit" class="btn btn-light">취소</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                    <div id="jb-sidebar">
+                        <legend class="title">출장 신청 리스트</legend>
+                        <br>
+                        <form>
+                            <div class="row" style="padding: 10px">
+                                <div class="col-10">
+                                    <input type="text" class="form-control"
+                                           name="keyword" placeholder="검색어를 입력하세요" required autofocus />
+                                </div>
+                                <div class="col-2">
+                                    <input type="submit" class="btn btn-light" value="찾기" />
+                                </div>
+                            </div>
+                        </form>
+                        <form  >
+                            <fieldset class="border-0">
+
+                                <table class="table" style="border-collapse: collapse">
+                                    <thead>
+                                    <tr>
+                                        <th>번호</th>
+                                        <th>제목</th>
+                                        <th>작성 시간</th>
+                                        <th>결재 상태</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+<!--                                    <tr th:each="t : ${trip}">-->
+<!--                                        <td th:text="${t.no}"></td>-->
+<!--                                        <td th:text="${t.title}"></td>-->
+<!--                                        <td th:text="${t.writeDate}"></td>-->
+<!--                                        <td th:text="${t.state}"></td>-->
+<!--                                    </tr>-->
+                                    </tbody>
+                                </table>
+                            </fieldset>
+                        </form>
+                </div>
+            </div>
+        </body>
+    </div>
+</html>

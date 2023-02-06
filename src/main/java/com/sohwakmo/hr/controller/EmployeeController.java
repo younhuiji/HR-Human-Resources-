@@ -41,7 +41,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/join")
-    public String join(EmployeeJoinDto joinDto, Part part, MultipartFile photo, @DateTimeFormat(pattern= "yyyy-MM-dd")Date joinedDate) throws Exception {
+    public String join(EmployeeJoinDto joinDto, Part part, MultipartFile photo) throws Exception {
         log.info("joinDto = {}", joinDto);
         log.info("part={}",part.toString());
         log.info("photo={}",photo.getSize());

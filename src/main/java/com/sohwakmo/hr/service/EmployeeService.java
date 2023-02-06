@@ -6,6 +6,9 @@ import com.sohwakmo.hr.domain.EmployeePosition;
 import com.sohwakmo.hr.domain.Part;
 import com.sohwakmo.hr.dto.AttendanceDto;
 import com.sohwakmo.hr.dto.EmployeeJoinDto;
+import com.sohwakmo.hr.domain.BusinessCard;
+import com.sohwakmo.hr.domain.Employee;
+import com.sohwakmo.hr.repository.BusinessCardRepository;
 import com.sohwakmo.hr.dto.EmployeeUpdateDto;
 import com.sohwakmo.hr.repository.AttendanceRepository;
 import com.sohwakmo.hr.repository.EmployeeRepository;
@@ -23,9 +26,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-@Service
 @Slf4j
 @RequiredArgsConstructor
+@Service
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
@@ -444,4 +447,14 @@ public class EmployeeService {
     public List<Attendance> getSearchMonth(String month) {
         return attendanceRepository.findByMonth(month);
     }
+    // 결재자 지정할 때에 임시방편으로 모든 리스트 불러옴
+    public List<Employee> readPart(String teamName) {
+        return employeeRepository.selectByPart(teamName);
+    }
+
+    // 퇴사(leave) detail의 회원 정보 보냄
+    public Employee selectByNo(String no) {
+        return employeeRepository.selectByNo(no);
+    }
+
 }
