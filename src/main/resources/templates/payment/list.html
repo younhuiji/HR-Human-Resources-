@@ -64,16 +64,16 @@
         </div>
         <div id="jb-content">
             <div id="jb-text">
-<!--                <legend class="title">기안 문서</legend>-->
                 <br>
-                <form>
+                <form id="form">
                     <div class="row" style="padding: 10px">
                         <div class="col-3">
-                            <select name="payment"  class="form-control" >
-                                <option value="휴가/연차/반차">휴가/연차/반차</option>
-                                <option value="출장">출장</option>
-                                <option value="명함신청">명함신청</option>
-                                <option value="퇴사신청">퇴사신청</option>
+                            <select th:attrappend=""  id="payment" name="payment"  class="form-control" >
+                                <option selected>선택</option>
+                                <option value="vacation">휴가/연차/반차</option>
+                                <option value="trip">출장</option>
+                                <option value="card">명함신청</option>
+                                <option value="leave">퇴사신청</option>
                             </select>
                         </div>
                         <div class="col-7">
@@ -86,8 +86,7 @@
                     </div>
                 </form>
                 <form  >
-                    <fieldset class="border-0">
-
+                    <fieldset class="border-0" id="jb-table">
                         <table class="table" style="border-collapse: collapse">
                             <thead>
                             <tr>
@@ -98,12 +97,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                                 <tr th:each="v : ${vacation}" >
-<!--                                     th:onclick="|location.href='@{/vacation/detail(no=${l.no})}'|"-->
-                                     <td th:text="${v.no}"></td>
-                                     <td th:text="${v.title}"></td>
-                                     <td th:text="${ #temporals.format(v.createdTime, 'yyyy년 MM월 dd일') }"></td>
-                                     <td th:text="${v.state}"></td>
+                                 <tr th:each="l : ${list}">
+<!--                                     th:onclick="|location.href='@{vacation/detail(no=${l.no})}'|">-->
+                                     <td th:text="${l.no}"></td>
+                                     <td th:text="${l.title}"></td>
+                                     <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
+                                     <td th:text="${l.state}"></td>
                                   </tr>
                             </tbody>
                         </table>
