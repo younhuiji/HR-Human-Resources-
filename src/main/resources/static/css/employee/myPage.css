@@ -1,8 +1,9 @@
 /*-----사원 대략 header 정보-----*/
 #header_info{
-    margin: 8em 4em ;
+    margin: 5em 4em ;
     background: rgb(65,76,95);
     border-radius: 6px;
+    padding: 20px 160px 20px 20px;
 }
 
 /*공통 크기 사이즈*/
@@ -38,7 +39,8 @@
 }
 /*----header 첫번째줄 info----*/
 #header_info_wrap{
-    display: inline-block;
+    float: right;
+    height: 100%;
 }
 
 .info_1_title{
@@ -50,7 +52,7 @@
 }
 #header_info_1 div{
     display: inline-block;
-    margin-top: 15px;
+    margin-top: 6px;
     /*padding-right: 191px;*/
 }
 #header_info_2{
@@ -144,10 +146,14 @@
     height: 150px;
     border-radius: 70%;
     overflow: hidden;
-    display: inline-block;
 }
 #image img{
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+/*----출근기롤 표----*/
+#attendance_graph{
+    margin: 4em 4em ;
 }

@@ -61,11 +61,11 @@
                         <div id="employeeNo_name" class="wrap_div row">
                             <div id="div_employeeNo" class="input_wrap_div text-left col-xxl-6">
                                 <span>사원번호</span>
-                                <input class="design-input" th:value="${employee.employeeNo}" type="text" readonly name="employeeNo"/>
+                                <input class="design-input form-control" th:value="${employee.employeeNo}" type="text" disabled name="employeeNo"/>
                             </div>
                             <div id="div_name" class="input_wrap_div text-left col-xxl-6">
                                 <span>이름</span>
-                                <input class="design-input" th:value="${employee.name}" type="text" name="name"/>
+                                <input class="design-input form-control" th:value="${employee.name}" type="text" name="name"/>
                             </div>
                         </div>
 
@@ -73,7 +73,7 @@
                         <div id="joinedDate_phone" class="wrap_div row">
                             <div id="div_joinedDate" class="input_wrap_div text-left col-6">
                                 <span>입사일</span>
-                                <input class="design-input" th:value="${employee.joinedDate}" type="date" readonly />
+                                <input class="design-input form-control" th:value="${employee.joinedDate}" type="date" readonly  disabled/>
                             </div>
                             <div id="div_phone" class="input_wrap_div text-left col-xxl-6">
                                 <span>사내 번호</span>
@@ -85,7 +85,7 @@
                         <div id="email_team" class="wrap_div row">
                             <div id="div_email" class="input_wrap_div col-xxl-6 col-md-3 text-left" style="display: inline-block">
                                 <span>사내 이메일</span>
-                                <input class="design-input" th:value="${employee.email}" type="email" readonly/>
+                                <input class="design-input form-control" th:value="${employee.email}" type="email"  disabled/>
                             </div>
                             <div id="div_team" class="col-xxl-6 text-left" style="display: inline-block">
                                 <span>부서/직책</span>
@@ -108,31 +108,70 @@
                         </div>
                     </div>
                 </div>
-            <div class="container">
-                <div class="table-responsive">
-                    <table class="table table-sm table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col" th:each="m : ${#numbers.sequence(1,startTimeDays.length)}" th:text="${m}"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">출근 시간</th>
-                            <td th:each="d : ${startTimeDays}" th:text="${d}"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">퇴근 시간</th>
-                            <td th:each="d : ${endTimeDays}" th:text="${d}"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">출근 여부</th>
-                            <td th:each="d : ${workState}" th:text="${d}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
+            <div id="attendance_graph">
+                <div id="div_search">
+                    <form id="search_form">
+                        <select id="search" th:name="month">
+                            <option value="01">1월</option>
+                            <option value="02">2월</option>
+                            <option value="03">3월</option>
+                            <option value="04">4월</option>
+                            <option value="05">5월</option>
+                            <option value="06">6월</option>
+                            <option value="08">8월</option>
+                            <option value="09">9월</option>
+                            <option value="10">10월</option>
+                            <option value="11">11월</option>
+                            <option value="12">12월</option>
+                        </select>
+                        <input id="btnSearch" type="submit" value="검색" class="btn btn-primary">
+                        <input type="hidden" th:value="${employee.employeeNo}" th:name="employeeNo"/>
+                    </form>
                 </div>
+                <th:block th:if="${searchResult}!=0">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col" th:each="m : ${#numbers.sequence(1,startTimeDays.length)}" th:text="${m}"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">출근 시간</th>
+                                <td th:each="d : ${startTimeDays}" th:text="${d}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">퇴근 시간</th>
+                                <td th:each="d : ${endTimeDays}" th:text="${d}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">출근 여부</th>
+                                <td th:each="d : ${workState}" th:text="${d}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </th:block>
+                <th:block th:if="${searchResult}==0">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" th:each="d : ${#numbers.sequence(1,monthLength)}" th:text="${d}"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td th:colspan="${monthLength}">
+                                        <p style="text-align: center">검색 결과가 없습니다.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </th:block>
             </div>
 
             <!--수정 버튼-->
