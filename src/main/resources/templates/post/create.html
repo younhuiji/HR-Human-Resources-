@@ -9,7 +9,7 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css" /> -->
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-                <!-- <script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.js"></script> -->
+    <!-- <script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.js"></script> -->
 </head>
 
 <div layout:fragment="content">
@@ -65,7 +65,7 @@
     const editor = new Editor({
         el: document.querySelector('#editor'),
         height: '600px',
-        // initialEditType: 'wysiwyg',
+        initialEditType: 'wysiwyg',
         previewStyle: 'vertical',
         previewHighlight: false,
         plugins: colorSyntax,
@@ -75,6 +75,7 @@
 
     const form = document.querySelector('#postForm');
     const btnSubmit= document.querySelector('#btnSubmit');
+
     btnSubmit.addEventListener('click', function() {
         const title= document.querySelector('#titleInput').value;
     	const content= editor.getMarkdown();
@@ -95,7 +96,6 @@
             form.action = '/post/create';
     		form.method = 'post';
             form.submit();
-
     	}
     });
 

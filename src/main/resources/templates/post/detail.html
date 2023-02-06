@@ -7,7 +7,7 @@
     <title>HR | 게시판</title>
     <link rel="stylesheet" th:href="@{/css/post/postList.css}" />
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <!-- <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script> -->
 </head>
 
 <div layout:fragment="content">
@@ -31,7 +31,9 @@
                 
                 <div>
                     <span id="contentSpan">
-                        <div id="viewer" th:text="${ post.content }"></div>
+                        <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+                        <div id="viewer"></div>
+                        <textarea id="contentArea" type="text" name="content" th:text="${ post.content }" style="display: none;"></textarea>
                     </span>
                 </div>
 
@@ -55,14 +57,16 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script layout:fragment="script" th:inline="javascript">
+
+    const content= document.querySelector('#contentArea').value;
     const viewer = toastui.Editor.factory({
         el: document.querySelector('#viewer'),
         viewer: true,
         initialValue: content
-      });
+    });
 
-    let elem = document.getElementById('editor-hidden');
-    viewer.setMarkdown(elem.innerText);
+    // let elem = document.getElementById('editor-hidden');
+    // viewer.setMarkdown(elem.innerText);
 
 </script>
 
