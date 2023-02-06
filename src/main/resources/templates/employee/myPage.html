@@ -12,44 +12,46 @@
 <div layout:fragment="content">
     <div id="wrap">
         <div id="header_info">
-            <div id="image">
-                <img src="/images/employeeImage/cha.jpg" alt="사원사진"/>
-            </div>
-            <div id="header_info_wrap" class="container">
-                <div id="header_info_1" class="row">
-                    <div class="col-xxl-3">
-                        <p class="info_1_title header_title_color">* 사번</p>
-                        <p class="header_content_color" th:text="${employee.employeeNo}"></p>
-                    </div>
-                    <div class="col-xxl-3">
-                        <p class="info_1_title header_title_color">* 소속</p>
-                        <p class="header_content_color" th:text="${employee.part.department}"></p>
-                    </div>
-                    <div class="col-xxl-3">
-                        <p class="info_1_title header_title_color">* 팀</p>
-                        <p class="header_content_color" th:text="${employee.part.team}"></p>
-                    </div>
-                    <div class="col-xxl-3">
-                        <p class="info_1_title header_title_color">* 직책</p>
-                        <p class="header_content_color" th:text="${employee.part.work}"></p>
-                    </div>
+            <div id="image" class="row">
+                <div class="col-3">
+                    <img src="/images/employeeImage/cha.jpg" alt="사원사진"/>
                 </div>
-                <div id="header_info_2" class="row">
-                    <div class="col-xxl-3">
-                        <p class="info_1_title header_title_color">* 성명</p>
-                        <p class="header_content_color" th:text="${employee.name}"></p>
+                <div id="header_info_wrap" class="col-9">
+                    <div id="header_info_1" class="row">
+                        <div class="col-xxl-3 info">
+                            <p class="info_1_title header_title_color">* 사번</p>
+                            <p class="header_content_color" th:text="${employee.employeeNo}"></p>
+                        </div>
+                        <div class="col-xxl-3 info">
+                            <p class="info_1_title header_title_color">* 소속</p>
+                            <p class="header_content_color" th:text="${employee.part.department}"></p>
+                        </div>
+                        <div class="col-xxl-3 info">
+                            <p class="info_1_title header_title_color">* 팀</p>
+                            <p class="header_content_color" th:text="${employee.part.team}"></p>
+                        </div>
+                        <div class="col-xxl-3 info">
+                            <p class="info_1_title header_title_color">* 직책</p>
+                            <p class="header_content_color" th:text="${employee.part.work}"></p>
+                        </div>
                     </div>
-                    <div class="col-xxl-3">
-                        <p class="info_1_title header_title_color">* 입사일</p>
-                        <p class="header_content_color" th:text="${employee.joinedDate}"></p>
-                    </div>
-                    <div class="col-xxl-3">
-                        <p class="info_1_title header_title_color">* 사내 이메일</p>
-                        <p class="header_content_color" th:text="${employee.email}"></p>
-                    </div>
-                    <div class="col-xxl-3">
-                        <p class="info_1_title header_title_color">* 사내 번호</p>
-                        <p class="header_content_color" th:text="${employee.phone}"></p>
+                    <div id="header_info_2" class="row">
+                        <div class="col-xxl-3 info">
+                            <p class="info_1_title header_title_color">* 성명</p>
+                            <p class="header_content_color" th:text="${employee.name}"></p>
+                        </div>
+                        <div class="col-xxl-3 info">
+                            <p class="info_1_title header_title_color">* 입사일</p>
+                            <p class="header_content_color" th:text="${employee.joinedDate}"></p>
+                        </div>
+                        <div class="col-xxl-3 info">
+                            <p class="info_1_title header_title_color">* 사내 이메일</p>
+                            <p class="header_content_color" th:text="${employee.email}"></p>
+                        </div>
+                        <div class="col-xxl-3 info">
+                            <p class="info_1_title header_title_color">* 사내 번호</p>
+                            <p class="header_content_color" th:text="${employee.phone}"></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -77,7 +79,7 @@
                             </div>
                             <div id="div_phone" class="input_wrap_div text-left col-xxl-6">
                                 <span>사내 번호</span>
-                                <input class="design-input" th:value="${employee.phone}" type="text" name="phone"/>
+                                <input class="design-input form-control" th:value="${employee.phone}" type="text" name="phone"/>
                             </div>
                         </div>
 
@@ -88,46 +90,51 @@
                                 <input class="design-input form-control" th:value="${employee.email}" type="email"  disabled/>
                             </div>
                             <div id="div_team" class="col-xxl-6 text-left" style="display: inline-block">
-                                <span>부서/직책</span>
-                                <select id="department" class="select_part" th:name="department">
-                                    <option th:value="인사부 " value="인사부" th:selected="${employee.part.department} == '인사부'">인사부👨‍💼</option>
-                                    <option th:value="개발부" th:selected="${employee.part.department} == '개발부'">개발부💻</option>
-                                    <option value="기획부">기획부✏️</option>
-                                    <option value="마케팅부">마케팅부📑</option>
-                                </select>
-                                <select id="team" class="select_part team" th:name="team">
-                                    <option value="개발1팀" class="develop" th:selected="${employee.part.team} == '개발1팀'">개발1팀</option>
-                                    <option value="개발2팀" class="develop" th:selected="${employee.part.team} == '개발2팀'">개발2팀</option>
-                                    <option value="인사1팀" class="human" th:selected="${employee.part.team} == '인사1팀'">인사1팀</option>
-                                </select>
-                                <select id="work" class="select_part work" th:name="work">
-                                    <option value="프론트" class="develop">프론트엔드</option>
-                                    <option value="백엔드" class="develop">백엔드</option>
-                                </select>
+                                <div class="row">
+                                    <span style="margin-right: 10px">부서/직책</span>
+                                    <select id="department" class="select_part form-select" th:name="department">
+                                        <option th:value="인사부 " value="인사부" th:selected="${employee.part.department} == '인사부'">인사부👨‍💼</option>
+                                        <option th:value="개발부" th:selected="${employee.part.department} == '개발부'">개발부💻</option>
+                                        <option value="기획부">기획부✏️</option>
+                                        <option value="마케팅부">마케팅부📑</option>
+                                    </select>
+                                    <select id="team" class="select_part team form-select" th:name="team">
+                                        <option value="개발1팀" class="develop" th:selected="${employee.part.team} == '개발1팀'">개발1팀</option>
+                                        <option value="개발2팀" class="develop" th:selected="${employee.part.team} == '개발2팀'">개발2팀</option>
+                                        <option value="인사1팀" class="human" th:selected="${employee.part.team} == '인사1팀'">인사1팀</option>
+                                    </select>
+                                    <select id="work" class="select_part work form-select" th:name="work">
+                                        <option value="프론트" class="develop">프론트엔드</option>
+                                        <option value="백엔드" class="develop">백엔드</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             <div id="attendance_graph">
-                <div id="div_search">
-                    <form id="search_form">
-                        <select id="search" th:name="month">
-                            <option value="01">1월</option>
-                            <option value="02">2월</option>
-                            <option value="03">3월</option>
-                            <option value="04">4월</option>
-                            <option value="05">5월</option>
-                            <option value="06">6월</option>
-                            <option value="08">8월</option>
-                            <option value="09">9월</option>
-                            <option value="10">10월</option>
-                            <option value="11">11월</option>
-                            <option value="12">12월</option>
-                        </select>
-                        <input id="btnSearch" type="submit" value="검색" class="btn btn-primary">
-                        <input type="hidden" th:value="${employee.employeeNo}" th:name="employeeNo"/>
-                    </form>
-                </div>
+                <form id="search_form" class="float-end">
+                    <div id="div_search" class="row">
+                        <div class="col-10"></div>
+                        <div id="btnSearch_div" class="col-2">
+                            <select id="search" class="selectMonth float-right" th:name="month">
+                                <option value="01">1월</option>
+                                <option value="02">2월</option>
+                                <option value="03">3월</option>
+                                <option value="04">4월</option>
+                                <option value="05">5월</option>
+                                <option value="06">6월</option>
+                                <option value="08">8월</option>
+                                <option value="09">9월</option>
+                                <option value="10">10월</option>
+                                <option value="11">11월</option>
+                                <option value="12">12월</option>
+                            </select>
+                            <input id="btnSearch" type="submit" value="검색" class="btn btn-primary float-end">
+                            <input type="hidden" th:value="${employee.employeeNo}" th:name="employeeNo"/>
+                        </div>
+                    </div>
+                </form>
                 <th:block th:if="${searchResult}!=0">
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered">
