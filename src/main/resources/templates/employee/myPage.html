@@ -14,7 +14,7 @@
         <div id="header_info">
             <div id="image" class="row">
                 <div class="col-3">
-                    <img src="/images/employeeImage/cha.jpg" alt="사원사진"/>
+                    <img th:src="@{${employee.getPhoto()}}" alt="사원사진"/>
                 </div>
                 <div id="header_info_wrap" class="col-9">
                     <div id="header_info_1" class="row">

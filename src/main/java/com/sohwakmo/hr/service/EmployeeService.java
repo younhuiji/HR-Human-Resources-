@@ -326,6 +326,11 @@ public class EmployeeService {
         return resultHour + "시간 " + resultMinutes +"분";
     }
 
+    /**
+     * 리스트로 받은 출석기록을 달마다 일수가 다르므로 일수에 맞게 배열로 변환후 리턴
+     * @param list 입력받은 달의 출석 리스트
+     * @return 28일, 30일, 31일 에 따라 배열 길이를 다르게해서 변환.
+     */
     public String[] setStartTimeDays(List<Attendance> list) {
         Attendance attendance = list.get(list.size()-1);
         int month = Integer.parseInt(attendance.getMonth());
@@ -346,7 +351,7 @@ public class EmployeeService {
     }
 
     /**
-     * 배열을 넘길때 비어있는 부분은 채우고 들어가야할 부붐은 채우는 메서드
+     * 배열을 넘길때 비어있는 부분은 채우고 들어가야할 부분을 채우는 메서드
      * @param startTimeDays 채워서 보낼 배열
      * @param list 그달에 있는 출결 리스트
      */
@@ -361,6 +366,11 @@ public class EmployeeService {
         }
     }
 
+    /**
+     * 리스트로 받은 출석기록을 달마다 일수가 다르므로 일수에 맞게 배열로 변환후 리턴
+     * @param list 입력받은 달의 출석 리스트
+     * @return 28일, 30일, 31일 에 따라 배열 길이를 다르게해서 변환.
+     */
     public String[] setEndTimeDays(List<Attendance> list) {
         Attendance attendance = list.get(list.size()-1);
         int month = Integer.parseInt(attendance.getMonth());
@@ -380,6 +390,11 @@ public class EmployeeService {
         }
     }
 
+    /**
+     * 리스트에서 퇴근 시간이 정해져있으면 배열에 저장 아니면 ' - ' 를 저장
+     * @param endTimeDays 저장해야할 배열
+     * @param list 지정받은 달의 출석기록의 객체를 담은 리스트
+     */
     private void setEndTimes(String[] endTimeDays, List<Attendance> list) {
         for (Attendance a : list) {
             int day = Integer.parseInt(a.getDay());
@@ -391,6 +406,11 @@ public class EmployeeService {
         }
     }
 
+    /**
+     * 검색한 달의 출석현황을 담은 배열을 리턴 출근시 0 조퇴, 외출, 반차시 1, 결근시 2를 저장해서 리턴
+     * @param list 입력받은 달의 출석기록 객체를 담은 리시트
+     * @return 출석현황을 배열에 담아서 리턴
+     */
     public String[] setWorkState(List<Attendance> list) {
         Attendance attendance = list.get(list.size()-1);
         int month = Integer.parseInt(attendance.getMonth());
