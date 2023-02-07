@@ -20,6 +20,7 @@ form input{
     border: 1px solid #dadada;
     border-radius: 6px 6px 6px 6px;
 }
+form input:focus{outline: none}
 .ok_icon{
     padding-right: 55px;
     background: url("checkImages/check.png") no-repeat;

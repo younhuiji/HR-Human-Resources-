@@ -73,6 +73,12 @@ window.addEventListener('DOMContentLoaded', function (){
     const password_check_text = document.querySelector('#password_check_text');
     // 비밀번호가 일치하는지 확인
     check_password.addEventListener('change',function (){
+        if(password.classList.contains('border_danger')){
+            check_password.classList.add('border_danger','error_icon')
+            check_password.classList.remove('border_success','ok_icon');
+            return;
+        }
+
         let check_password_value = check_password.value
         let pass_word_value = password.value
         if (check_password_value === pass_word_value) {

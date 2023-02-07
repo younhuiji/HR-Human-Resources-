@@ -10,7 +10,7 @@
 <body>
     <div id="wrap">
         <div class="content">
-            <form id="form">
+            <form id="pw_form">
                 <div class="row">
                     <input id="employeeNo_input" th:value="${employeeNo}" name="employeeNo" type="hidden">
                 </div>
@@ -27,10 +27,13 @@
                     <label for="check_password" class="form_label">비밀번호 재설정</label>
                 </div>
                 <div class="row">
-                    <input id="check_password"  type="password" maxlength="15" required>
+                    <input id="check_password" type="password" maxlength="15" required>
+                </div>
+                <div id="password_check_text" class="d-none">
+                    <p class="text-danger">비밀번호가 일치하지 않습니다.</p>
                 </div>
                 <div class="row" style="margin-top: 13px">
-                    <input type="submit" class="btn btn-primary" value="설정" id="btn_setPw"/>
+                    <button class="btn btn-primary" id="btn_setPw">설정</button>
                 </div>
             </form>
         </div>
