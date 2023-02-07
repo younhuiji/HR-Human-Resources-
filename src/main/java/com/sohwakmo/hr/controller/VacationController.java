@@ -4,8 +4,8 @@ import com.sohwakmo.hr.domain.BusinessTrip;
 import com.sohwakmo.hr.domain.Vacation;
 import com.sohwakmo.hr.dto.VacationCreateDto;
 import com.sohwakmo.hr.service.VacationService;
-import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,8 +37,9 @@ public class VacationController {
                 .build();
 
         Vacation vacations = vacationService.create(vacation);
+        log.info("vacation={}", vacations);
 
-        return "/vacation/create";
+        return "/payment/create";
     }
 
 }

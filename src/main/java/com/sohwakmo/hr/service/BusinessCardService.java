@@ -39,4 +39,8 @@ public class BusinessCardService {
         return businessCardRepository.selectByEmployeeNo(employeeNo);
     }
 
+    public List<BusinessCard> selectByEmployeeNoAndState(String no, PaymentState state){
+        return businessCardRepository.findByEmployeeNoAndState(no, state);
+    }
+
 }

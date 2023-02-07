@@ -71,4 +71,8 @@ public class LeaveService {
         return no;
     }
 
+    public List<Leave> selectByEmployeeNoAndState(String no, PaymentState state){
+        return leaveRepository.findByEmployeeNoAndState(no, state);
+    }
+
 }

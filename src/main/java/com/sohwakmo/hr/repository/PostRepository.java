@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Integer> {
 
-    List<Post> findByOrderByPostNoDesc();
+    List<Post> findByOrderByNoticeYnAscPostNoDesc();
 
     Post findByPostNo(Integer postNo);
 

@@ -33,8 +33,8 @@ public class Post extends BaseTimeEntity {
     @ColumnDefault("0")
     private Integer viewCnt;
 
-    @Column
-    private Boolean noticeYn;
+    @ColumnDefault("4")
+    private Integer noticeYn;
 
     @ColumnDefault("0")
     private Boolean deleteYn;

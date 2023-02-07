@@ -1,5 +1,7 @@
 package com.sohwakmo.hr.repository;
 
+import com.sohwakmo.hr.domain.BusinessCard;
+import com.sohwakmo.hr.domain.BusinessTrip;
 import com.sohwakmo.hr.domain.Leave;
 import com.sohwakmo.hr.domain.PaymentState;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,5 +23,5 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer> {
     @Query("update LEAVE l SET l.state = :state where l.no = :no")
     int updateState(@Param(value = "no")Integer no, @Param(value = "state")PaymentState state);
 
-
+    public List<Leave> findByEmployeeNoAndState(String no, PaymentState state);
 }
