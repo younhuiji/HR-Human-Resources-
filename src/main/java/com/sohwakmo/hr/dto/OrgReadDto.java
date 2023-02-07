@@ -22,7 +22,6 @@ public class OrgReadDto {
     private String team;
     private String work;
     private String position;
-    private EmployeePosition employeePosition;
     private String email;
 
 
@@ -36,7 +35,6 @@ public class OrgReadDto {
                 .team(entity.getPart().getTeam())
                 .work(entity.getPart().getWork())
                 .position(entity.getPosition())
-                .employeePosition(entity.getEmployeePosition())
                 .email(entity.getEmail())
                 .build();
     }

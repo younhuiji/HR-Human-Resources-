@@ -16,6 +16,7 @@ window.addEventListener('DOMContentLoaded', event =>{
     const team = document.querySelector('#team')
     const level = document.querySelector('#level');
     const work = document.querySelector('#work');
+    const userImage = document.querySelector('#userImage');
 
     function updateDetailInfo(member) {
         console.log(member);
@@ -25,8 +26,7 @@ window.addEventListener('DOMContentLoaded', event =>{
         team.value = member[0].team;
         level.value = member[0].position;
         work.value = member[0].work;
-
-        
+        userImage.src = member[0].photo;
     }
 
     function findByMemeber(orgMember) {
