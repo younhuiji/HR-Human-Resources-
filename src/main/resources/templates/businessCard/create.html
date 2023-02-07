@@ -175,9 +175,9 @@
                                         <b style="color: rgb(255, 0, 0);">*</b>결재자 지정
                                     </td>
                                     <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                        <input style="width: 75%" type="text" class="textFrom" id="approverNo" name="approverNo" required >
-                                        <input style="width: 75%" type="hidden" class="textFrom" id="approverName" name="approverName" required >
-                                        <input type="button" value="찾기"/>
+                                        <input style="width: 75%" type="hidden" class="textFrom" id="approverNo" name="approverNo" required >
+                                        <input style="width: 75%" type="text" class="textFrom" id="approverName" name="approverName" required >
+                                        <input type="button" id="search" value="찾기"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -249,6 +249,17 @@
 <th:block layout:fragment="script">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script th:src="@{ /js/payment/create.js }"></script>
+    <script>
+        const search = document.querySelector('#search');
+        search.addEventListener('click', function(){
+            let _left = Math.ceil(( window.screen.width - 900 )/2);
+            let _top = Math.ceil(( window.screen.height - 600 )/2)
+            window.open(
+                "/payment/approver" ,
+                "PopupNew",
+                "width=900,height=600,left="+_left+",top="+_top);
+        })
+    </script>
 </th:block>
 
 </html>

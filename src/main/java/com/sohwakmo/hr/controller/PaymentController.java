@@ -110,5 +110,10 @@ public class PaymentController {
 
     }
 
+    @GetMapping("/approver")
+    public void approver() {
+
+    }
+
 
 }
