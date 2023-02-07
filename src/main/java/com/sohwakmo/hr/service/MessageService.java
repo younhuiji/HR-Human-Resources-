@@ -103,8 +103,8 @@ public class MessageService {
      * 받은쪽지함 들어가면 로그인한 번호로 받은쪽지 보여주기
      * @param employeeNo
      */
-    public Page<MessageSearchDto> read(String employeeNo, Pageable pageable) {
-        log.info("read(employeeNo = {})", employeeNo);
+    public Page<MessageSearchDto> receiveListRead(String employeeNo, Pageable pageable) {
+        log.info("receiveListRead(employeeNo = {})", employeeNo);
 
         Page<MessageSearchDto> messageList = messageRepository.findByReceiveNoOrderByMessageNoDesc(employeeNo, pageable);
         log.info("messageList = {}", messageList);
@@ -120,8 +120,8 @@ public class MessageService {
      * @param keyword
      * @return
      */
-    public Page<MessageSearchDto> searchMessage(String employeeNo, String messageType, String contentType, String keyword, Pageable pageable) {
-        log.info("searchMessage(employeeNo = {}, messageType = {}, contentType = {}, keyword = {})", employeeNo, messageType, contentType, keyword);
+    public Page<MessageSearchDto> receiveListSearchMessage(String employeeNo, String messageType, String contentType, String keyword, Pageable pageable) {
+        log.info("receiveListSearchMessage(employeeNo = {}, messageType = {}, contentType = {}, keyword = {})", employeeNo, messageType, contentType, keyword);
 
         Page<MessageSearchDto> messageSearchDtoList = null;
 
