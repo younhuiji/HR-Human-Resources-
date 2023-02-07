@@ -11,8 +11,12 @@
 
 var dragging = false;
 var dragSelectIds = [];
+// var tempSelected =[];
 var $td = $('td');
 var startCell = null;
+const result11 = document.getElementById('result')
+const button =document.querySelector('#button');
+const myid1 = document.getElementById("myid1");
 
 function end(e) {
     dragSelectIds = [];
@@ -22,6 +26,7 @@ function end(e) {
     $(cellsBetween(startCell, e.target)).each(function() {
         $(this).addClass('selected-item');
         dragSelectIds.push($(this).attr('id'));
+        console.log('this'+ $(this).children());
     });
 }
 
@@ -72,10 +77,16 @@ function getBoundsForElements(elements) {
     }, undefined);
     var y1 = elements.reduce(function(currMinY, element) {
         var elementTop = $(element).offset().top;
+        // console.log('element top: '+ elementTop );
+        // console.log('currMinY: '+currMinY);
         return currMinY && currMinY < elementTop ? currMinY : elementTop;
+        // return elementTop;
+
     }, undefined);
     var y2 = elements.reduce(function(currMaxY, element) {
         var elementBottom = $(element).offset().top + $(element).outerHeight();
+        // console.log('element bottom: '+ elementBottom );
+        // console.log('currMaxY: '+currMaxY);
         return currMaxY && currMaxY > elementBottom ? currMaxY : elementBottom;
     }, undefined);
     return {
@@ -100,14 +111,18 @@ $td.on('mouseenter', function(e) {
 $td.on('mouseup', function(e) {
     dragging = false;
     console.log(dragSelectIds);
-    document.getElementById('result').innerHTML = dragSelectIds;
+
+    result11.innerHTML = dragSelectIds;
+    result11.value = dragSelectIds;
+    button.value = dragSelectIds;
+    // document.getElementById('result').innerHTML = dragSelectIds;
 });
 
 
 // td로 th값 가져오기
 
 // 버튼 클릭시 Row 값 가져오기
-$(".checkBtn").click(function(){
+$(".checkBtn").click(function(e){
 
     var str = ""
     var tdArr = new Array();	// 배열 선언
@@ -116,23 +131,26 @@ $(".checkBtn").click(function(){
     // checkBtn.parent() : checkBtn의 부모는 <td>이다.
     // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
     var tr = checkBtn.parent().parent();
+    // var tr = $(this);
     var td = tr.children();
 
-    console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+    console.log('클릭한 데이터 가져오기'+ button.value);
+    console.log('날짜 가져오기'+myid1.value)
 
-    var no = td.eq(0).text();
-    var userid = td.eq(1).text();
-    var name = td.eq(2).text();
-    var email = td.eq(3).text();
+
+    // var no = td.eq(0).text();
+    // var userid = td.eq(1).text();
+    // var name = td.eq(2).text();
+    // var email = td.eq(3).text();
 
 
     // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
-    td.each(function(i){
-        tdArr.push(td.eq(i).text());
-    });
+    // td.each(function(i){
+    //     tdArr.push(td.eq(i).text());
+    // });
 
 
-    $("#ex2_Result1").html(" * 클릭한 Row의 모든 데이터 = " + tr.text());
+    // $("#ex2_Result1").html(" * 클릭한 Row의 모든 데이터222222 = " + tr.text());
 
 });
 
@@ -176,5 +194,6 @@ function input() {
     const dday = document.querySelector('#reserveDate').value;
     console.log(dday)
 
-    document.getElementById("myid1").innerHTML += dday;
+    myid1.value = dday;
+    myid1.innerHTML = dday;
 }
