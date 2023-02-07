@@ -4,5 +4,20 @@ body{
 .content{
     margin-top: 10%;
     margin-right: 39%;
-    margin-left: 39%;
+    margin-left: 35%;
+}
+
+#employeeNo_box{
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#employeeNo_input{
+    padding: 3%;
+    width: 100%;
+    border: 1px solid #dadada;
+    border-radius: 6px 6px 6px 6px;
+}
+label{
+    font-size: 15px;
 }
