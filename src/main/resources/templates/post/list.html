@@ -31,7 +31,12 @@
             </thead>
             <tbody>
                 <tr class="tr" th:each="post: ${list}" th:onclick="|location.href='@{ /post/detail(postNo=${ post.postNo }) }'|">
-                    <td th:text="${post.postNo}"></td>
+                    <td th:switch="${ post.noticeYn }">
+                        <span th:case="4" th:text="${ post.postNo }"></span>
+                        <span th:case="3">팀 공지</span>
+                        <span th:case="2">부서 공지</span>
+                        <span th:case="1">전체 공지</span>
+                    </td>
                     <td th:text="${post.title}"></td>
                     <td th:text="${post.writer}"></td>
                     <td th:text="${#temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm') }"></td>
