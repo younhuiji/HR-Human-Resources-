@@ -1,19 +1,19 @@
 package com.sohwakmo.hr.controller;
 
 import com.sohwakmo.hr.domain.MeetingRoom;
-import com.sohwakmo.hr.domain.MeetingRoomReservationTime;
 import com.sohwakmo.hr.dto.MeetingRoomCreateDto;
 import com.sohwakmo.hr.dto.MeetingRoomReservationTimeDto;
 import com.sohwakmo.hr.dto.MeetingRoomUpdateDto;
 import com.sohwakmo.hr.service.MeetingRoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.List;
 
 @Slf4j
@@ -46,13 +46,14 @@ public class MeetingRoomController {
     public String create() {
         log.info("create()");
 
+
         return "/meetingRoom/create";
     }
 
     @PostMapping("/create")
     public String create(MeetingRoomCreateDto dto, RedirectAttributes attrs)  {
         log.info("create(dto={})", dto);
-
+        String no = "1";
         MeetingRoom entity = meetingRoomService.create(dto);
 
         attrs.addFlashAttribute("createdNo", entity.getMeetingRoomNo());

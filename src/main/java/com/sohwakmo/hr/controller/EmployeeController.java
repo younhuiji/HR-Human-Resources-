@@ -24,6 +24,7 @@ public class EmployeeController {
 
     @GetMapping("/join")
     public String join(){
+
         return "/employee/join";
     }
 

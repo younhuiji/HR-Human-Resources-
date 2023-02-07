@@ -2,16 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{ layout/layout.html}">
+<head>
+  <link th:href="@{/css/layout/styles.css}" rel="stylesheet"/>
+  <link th:href="@{/css/meetingRoom/meetingRoomCreate.css}" rel="stylesheet"/>
 
+</head>
 <div layout:fragment="content">
-  <div class="col" style="background-size: 5px">
     <div class ="container">
-      <div class="section-header">
-        <h1 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >회의실 예약수정</h1>
+      <div>
+          <h1>회의실 예약수정</h1>
       </div>
       <form id="formModify" >
-        <input type="hidden" id="meetingRoomNo" name="meetingRoomNo" th:value="${meetingRoom.meetingRoomNo}" readonly />
-        <div class="p-3 border-bottom">
+          <input type="hidden" id="meetingRoomNo" name="meetingRoomNo" th:value="${meetingRoom.meetingRoomNo}" readonly />
+          <div class="p-3 border-bottom">
           <label for="reserveName" style=" width: 150px; ">예약자</label>
           <input id="reserveName" th:value="${meetingRoom.reserveName}" style="border: none; background: transparent;" readonly />
         </div>
@@ -76,7 +79,7 @@
         </div>
         <div class= "p-3 mt-2 border-bottom">
           <label for="purpose" style=" width: 150px; " >사용목적</label>
-          <textarea rows="5" cols="80" id="purpose" class="align-text-top"
+          <textarea id="purpose" class="align-text-top" style="width: 100%;"
                     th:text="${meetingRoom.purpose}" name="purpose" ></textarea>
         </div>
 
@@ -85,9 +88,7 @@
           <a class="btn btn-outline-info" href="/meetingRoom/list" id="cancelModify">취소</a>
         </div>
       </form>
-
     </div>
-  </div>
 </div>
 
 <th:block layout:fragment="script">

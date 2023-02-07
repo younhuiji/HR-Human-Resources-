@@ -4,15 +4,17 @@
       layout:decorate="~{ layout/layout.html}">
 <head>
     <link th:href="@{/css/layout/styles.css}" rel="stylesheet"/>
+    <link th:href="@{/css/meetingRoom/meetingRoomCreate.css}" rel="stylesheet"/>
+
 </head>
 <div layout:fragment="content">
-    <div class="col" style="background-size: 5px">
         <div class ="container">
-            <div class="section-header">
-                <h1 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >회의실 예약신청</h1>
+            <div>
+                <h1>회의실 예약신청</h1>
             </div>
+
             <form method = "post" action = "/meetingRoom/create" id="createForm">
-                <input  type="hidden" name="employeeNo" id="employeeNo" th:value="1" />
+                <input  type="hidden" name="employeeNo" id="employeeNo" th:value="111" />
                 <div class="p-3 border-bottom">
                     <label for="reserveName" style=" width: 150px; ">예약자</label>
                     <input id="reserveName" type="text" name="reserveName" th:value="김김김" style="border: none; background: transparent;" readonly />
@@ -93,10 +95,6 @@
                            type="text" name="attendee" required />
 <!--                    <div class="invite-icon"><i class="fa-solid fa-user-plus"></i></div>-->
 
-<!--                    <div class="member-serch">-->
-<!--                        <input type="text" placeholder="참석자를 명단을 입력해주세요.">-->
-<!--                        <button type="button"><i class="fa-solid fa-magnifying-glass" ></i></button>-->
-<!--                    </div>-->
 
 <!--                    <div class="container">-->
 <!--                        <ul class="tree" id="orgTree">-->
@@ -105,37 +103,33 @@
 <!--                    </div>-->
 
 
-<!--                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">초대</button>-->
+                    <input type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" value="초대" />
 
-<!--                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-<!--                        <div class="modal-dialog">-->
-<!--                            <div class="modal-content">-->
-<!--                                <div class="modal-header">-->
-<!--                                    <h1 class="modal-title fs-5" id="exampleModalLabel">참석자</h1>-->
-<!--                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--                                </div>-->
-<!--                                <div class="modal-body">-->
-<!--                                    <form>-->
-<!--                                        <div class="mb-3">-->
-<!--                                            <label for="recipient-name" class="col-form-label">이름</label>-->
-<!--                                            <input type="text" class="form-control" id="recipient-name">-->
-<!--                                        </div>-->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">참석자</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="container">
+                                    <ul class="tree" id="orgTree">
 
-<!--                                    </form>-->
-<!--                                </div>-->
-<!--                                <div class="modal-footer">-->
-<!--                                    <button type="button" class="btn btn-light" id="modelBtnInvite">초대하기</button>-->
-<!--                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">닫기</button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light" id="modelBtnInvite">초대하기</button>
+                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
                 </div>
                 <div class= "p-3 mt-2 border-bottom">
                     <label for="purpose" style=" width: 150px; " >사용목적</label>
-                    <textarea rows="5" cols="80" id="purpose" class="align-text-top"
+                    <textarea id="purpose" class="align-text-top" style="width: 100%;"
                               name="purpose" placeholder="사용목적을 입력해주세요." required></textarea>
                 </div>
 
@@ -145,14 +139,20 @@
                 </div>
             </form>
 
-        </div>
+
     </div>
 </div>
 
 <th:block layout:fragment="script">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        // const employeeNo = 111; // 로그인
+    </script>
+
     <script th:src="@{ /js/meetingRoomCreate.js}"></script>
-<!--    <script th:src="@{/js/organizationRefer.js}"></script>-->
+    <script th:src="@{/js/organizationRefer.js}"></script>
+<!--    <script th:src="@{/js/organization.js}"></script>-->
 
 </th:block>
 </html>
