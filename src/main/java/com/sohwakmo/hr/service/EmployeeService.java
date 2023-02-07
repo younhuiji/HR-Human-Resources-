@@ -6,9 +6,6 @@ import com.sohwakmo.hr.domain.EmployeePosition;
 import com.sohwakmo.hr.domain.Part;
 import com.sohwakmo.hr.dto.AttendanceDto;
 import com.sohwakmo.hr.dto.EmployeeJoinDto;
-import com.sohwakmo.hr.domain.BusinessCard;
-import com.sohwakmo.hr.domain.Employee;
-import com.sohwakmo.hr.repository.BusinessCardRepository;
 import com.sohwakmo.hr.dto.EmployeeUpdateDto;
 import com.sohwakmo.hr.repository.AttendanceRepository;
 import com.sohwakmo.hr.repository.EmployeeRepository;
@@ -477,4 +474,27 @@ public class EmployeeService {
         return employeeRepository.selectByNo(no);
     }
 
+    /**
+     * employeeNo가 존재하는지 안하는지 체크하고 존재하면 yes 존재 하지않으면 no를 한다.
+     * @param employeeNo 비밀번호 찾기에서 입력받은 사원번호
+     * @return 존재하면 yes 없으면 no
+     */
+    public String checkEmployeeNo(String employeeNo) {
+        String result;
+        if (employeeRepository.existsByEmployeeNo(employeeNo)) result = "yes";
+        else result = "no";
+        return result;
+    }
+
+    /**
+     * 비밀번호 재설정 페이지에서 받은 비밀번호를 재설정
+     *
+     * @param password   비밀번호 재설정 페이지에서 받은 비밀번호
+     * @param employeeNo
+     */
+    @Transactional
+    public void resetPassword(String password, String employeeNo) {
+        Employee employee = employeeRepository.findByEmployeeNo(employeeNo);
+        employee.setPassword(passwordEncoder.encode(password));
+    }
 }

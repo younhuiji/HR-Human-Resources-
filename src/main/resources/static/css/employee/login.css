@@ -54,11 +54,17 @@ body{
 
 /*--------------로그인 버튼--------------*/
 #find a{
-    text-align: center;
     font-size: 16px;
     text-decoration: none;
     color: #888;
 }
 #find #find_password_msg #join{
     margin-left: 5%;
+}
+
+#link_findPw{
+    text-align: right;
+}
+#link_join{
+    text-align: left;
 }

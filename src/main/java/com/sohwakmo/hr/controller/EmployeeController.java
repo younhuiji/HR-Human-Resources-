@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +48,29 @@ public class EmployeeController {
         employeeService.join(joinDto,part,photo,joinedDate);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/findPw")
+    public String findPw(){
+        return "/employee/findPw";
+    }
+
+    @PostMapping("/getPw")
+    public String getEmployeeNo(String employeeNo, Model model,RedirectAttributes attrs){
+        String result = employeeService.checkEmployeeNo(employeeNo);
+        if (result.equals("yes")) {
+            model.addAttribute("employeeNo", employeeNo);
+            return "/employee/setPw";
+        }else{
+            model.addAttribute("result", result);
+            return "/employee/findPw";
+        }
+    }
+
+    @PostMapping("/setPw")
+    public String setPw(String password,String employeeNo) {
+        employeeService.resetPassword(password,employeeNo);
+        return "redirect:/login";
     }
 
     @GetMapping("/myPage")
