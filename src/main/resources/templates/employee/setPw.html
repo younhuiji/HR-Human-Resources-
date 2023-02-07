@@ -9,15 +9,29 @@
 </head>
 <body>
     <div id="wrap">
-        <div class="container">
+        <div class="content">
             <form id="form">
-                <label for="employeeNo_input">사원번호</label>
-                <input id="employeeNo_input" readonly class="form-control" th:value="${employeeNo}" name="employeeNo">
-                <label for="password_input">비밀번호 설정</label>
-                <input id="password_input" type="password" maxlength="15" name="password" required>
-                <label for="check_password">비밀번호 재설정</label>
-                <input id="check_password" type="password" maxlength="15" required>
-                <input type="submit" class="btn btn-primary" value="설정" id="btn_setPw"/>
+                <div class="row">
+                    <input id="employeeNo_input" th:value="${employeeNo}" name="employeeNo" type="hidden">
+                </div>
+                <div class="row">
+                    <label for="password_input" class="form_label">비밀번호 설정</label>
+                </div>
+                <div class="row">
+                    <input id="password_input" type="password" maxlength="15" name="password" required>
+                </div>
+                <div id="passwordNotOkMsg" class="d-none">
+                    <p class="text-danger">비밀번호는 8자이상 15자이하여야 합니다.</p>
+                </div>
+                <div class="row">
+                    <label for="check_password" class="form_label">비밀번호 재설정</label>
+                </div>
+                <div class="row">
+                    <input id="check_password"  type="password" maxlength="15" required>
+                </div>
+                <div class="row" style="margin-top: 13px">
+                    <input type="submit" class="btn btn-primary" value="설정" id="btn_setPw"/>
+                </div>
             </form>
         </div>
     </div>
