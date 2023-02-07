@@ -1,30 +1,36 @@
 package com.sohwakmo.hr.controller;
 
-import com.sohwakmo.hr.domain.Attendance;
-import com.sohwakmo.hr.service.EmployeeService;
-import com.sohwakmo.hr.service.MeetingRoomService;
+import com.sohwakmo.hr.domain.*;
+import com.sohwakmo.hr.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
     private final EmployeeService employeeService;
-    private final MeetingRoomService meetingRoomService;
+    private final PostService postService;
+    private final VacationService vacationService;
+    private final BusinessTripService businessTripService;
+    private final BusinessCardService businessCardService;
+    private final LeaveService leaveService;
 
     @GetMapping("/")
     @PreAuthorize("isAuthenticated()")
-    public String index(Model model, Principal principal){
+    public String index(Model model, Principal principal,@RequestParam(defaultValue = "vacation")String payment){
         String employeeNo = principal.getName();
         // 오늘 날짜를 구하는 메서드
         String formatedNow = getToday();
@@ -36,14 +42,45 @@ public class HomeController {
         if (attendanceNo != -1L) {
             Attendance attendance = employeeService.getAttendance(attendanceNo);
             String workingTime = employeeService.countWorkingTime(attendance.getStartTime(),formatedTime);
-
             model.addAttribute("attendance", attendance);
             model.addAttribute("workingTime", workingTime);
+            model.addAttribute("postList", getPostList());
+            setModelDoc(payment, employeeNo,model);
+
         }else{
             model.addAttribute("attendance","notAttendance");
+            model.addAttribute("postList", getPostList());
+            setModelDoc(payment, employeeNo,model);
         }
         return "/home";
     }
+
+    private void setModelDoc(String payment, String employeeNo,Model model) {
+        switch (payment) {
+            case "vacation" -> {
+                List<Vacation> list = vacationService.selectByEmployeeNo(employeeNo);
+                model.addAttribute("docList", list);
+            }
+            case "trip" -> {
+                List<BusinessTrip> list = businessTripService.selectByEmployeeNo(employeeNo);
+                model.addAttribute("docList", list);
+            }
+            case "leave" -> {
+                List<Leave> list = leaveService.selectByEmployeeNO(employeeNo);
+                model.addAttribute("docList", list);
+            }
+            default -> {
+                List<BusinessCard> list = businessCardService.selectByEmployeeNo(employeeNo);
+                model.addAttribute("docList", list);
+            }
+        }
+    }
+
+    /**
+     * 게시판 리스트를 가져오는 메서드
+     * @return 모든 게시핀을 가져와서 리턴.
+     */
+    private List<Post> getPostList() {return postService.readPost();}
 
     private String getNowTime() {
         // 현재 시간

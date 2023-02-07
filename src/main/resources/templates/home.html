@@ -136,20 +136,31 @@
                 <div class="col-7">
                     <div id="todo">
                         <div>
+                            <form id="form">
+                                <div class="row" style="padding: 10px">
+                                    <div class="col-3">
+                                        <select  id="payment" name="payment"  class="form-control" >
+                                            <option selected>선택</option>
+                                            <option value="vacation">휴가/연차/반차</option>
+                                            <option value="trip">출장</option>
+                                            <option value="card">명함신청</option>
+                                            <option value="leave">퇴사신청</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
                             <fieldset class="border-0" id="jb-table">
                                 <table class="table" style="border-collapse: collapse">
                                     <thead>
                                     <tr>
-                                        <th>번호</th>
                                         <th>제목</th>
                                         <th>작성 시간</th>
                                         <th>결재 상태</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="l : ${list}">
+                                    <tr th:each="l : ${docList}">
                                         <!--                                     th:onclick="|location.href='@{vacation/detail(no=${l.no})}'|">-->
-                                        <td th:text="${l.no}"></td>
                                         <td th:text="${l.title}"></td>
                                         <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
                                         <td th:text="${l.state}"></td>
@@ -165,14 +176,35 @@
             <!--은수 민영-->
             <div>
                 <div class="row">
-                    <!--은수-->
-                    <div class="col-7">
-
-
-                    </div>
                     <!--민영-->
                     <div class="col-4">
 
+                    </div>
+                    <!--은수-->
+                    <div class="col-7">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr class="tr">
+                                <th></th>
+                                <th scope="col">제목</th>
+                                <th scope="col">작성자</th>
+                                <th scope="col">작성일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="tr" th:each="post: ${postList}" th:onclick="|location.href='@{ /post/detail(postNo=${ post.postNo }) }'|">
+                                <td th:switch="${ post.noticeYn }">
+                                    <span th:case="4" th:text="${ post.postNo }"></span>
+                                    <span th:case="3">팀 공지</span>
+                                    <span th:case="2">부서 공지</span>
+                                    <span th:case="1">전체 공지</span>
+                                </td>
+                                <td th:text="${post.title}"></td>
+                                <td th:text="${post.writer}"></td>
+                                <td th:text="${#temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm') }"></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -185,6 +217,7 @@
 
 <th:block layout:fragment="script">
     <script th:src="@{/js/home/home.js}"></script>
+    <script th:src="@{ /js/payment/list.js }"></script>
     <!--axios사용-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </th:block>

@@ -29,7 +29,7 @@ public class VacationController {
     @PostMapping("/create")
     public String create(VacationCreateDto dto){
 
-        String no = "1";
+        String no = "11111111";
 
         Vacation vacation = Vacation.builder()
                 .employeeNo(no).approverNo(no).title(dto.getTitle()).reason(dto.getReason())

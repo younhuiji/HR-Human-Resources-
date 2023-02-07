@@ -56,7 +56,6 @@ public class Employee {
     @Builder.Default
     private List<Attendance> attendances = new ArrayList<Attendance>(); // 사원번호로 출격 관리 리스트 불러오기
 
-
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @Builder.Default
