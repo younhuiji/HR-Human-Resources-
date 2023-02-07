@@ -27,20 +27,32 @@
             <form method="post" id="postForm">
                 <div>
                     <span id="titleSpan">
-                        <input id="titleInput" type="text" name="title" placeholder="제목을 입력해 주세요." required autofocus />
+                        <select name="noticeYn" class="form-select mb-3" aria-label="Default select example">
+                            <option value="4"selected>일반 게시글</option>
+                            <option value="3">팀 공지</option>
+                            <option value="2">부서 공지</option>
+                            <option value="1">전체 공지</option>
+                        </select>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">제목</span>
+                            <input id="titleInput" name="title" type="text" class="form-control" placeholder="제목을 입력해 주세요." aria-describedby="basic-addon1" required autofocus />
+                        </div>
                     </span>
                 </div>
                 
                 <div>
                     <span id="contentSpan">
-                        <div id="editor"></div>
+                        <div id="editor" class="mb-3"></div>
                         <textarea id="contentArea" type="text" name="content" style="display: none;"></textarea>
                     </span>
                 </div>
 
                 <div>
                     <span id="writerSpan">
-                        <input id="writerInput" type="text" name="writer" required/>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">작성자</span>
+                            <input id="writerInput" name="writer" type="text" class="form-control" aria-describedby="basic-addon1" required />
+                        </div>
                     </span>
                 </div>
 
