@@ -2,6 +2,7 @@ package com.sohwakmo.hr.controller;
 
 import com.sohwakmo.hr.domain.Attendance;
 import com.sohwakmo.hr.service.EmployeeService;
+import com.sohwakmo.hr.service.MeetingRoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 @RequiredArgsConstructor
 public class HomeController {
     private final EmployeeService employeeService;
+    private final MeetingRoomService meetingRoomService;
 
     @GetMapping("/")
     @PreAuthorize("isAuthenticated()")
@@ -34,6 +36,7 @@ public class HomeController {
         if (attendanceNo != -1L) {
             Attendance attendance = employeeService.getAttendance(attendanceNo);
             String workingTime = employeeService.countWorkingTime(attendance.getStartTime(),formatedTime);
+
             model.addAttribute("attendance", attendance);
             model.addAttribute("workingTime", workingTime);
         }else{

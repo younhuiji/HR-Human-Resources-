@@ -57,11 +57,7 @@
 }
 /*-------------------myWork------------------------*/
 
-#todo{
-    display: inline-block;
-    border: 1px solid black;
-    padding: 1%;
-}
+
 /*-------------------문서결제------------------------*/
 #attendance_wrap {
     margin: 0 1%;

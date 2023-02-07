@@ -132,12 +132,47 @@
                         </div>
                     </div>
                 </div>
-                <!-- 문서결제-->
+                <!-- 문서결제 희지부분-->
                 <div class="col-7">
                     <div id="todo">
                         <div>
-                            <h3>공백</h3>
+                            <fieldset class="border-0" id="jb-table">
+                                <table class="table" style="border-collapse: collapse">
+                                    <thead>
+                                    <tr>
+                                        <th>번호</th>
+                                        <th>제목</th>
+                                        <th>작성 시간</th>
+                                        <th>결재 상태</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="l : ${list}">
+                                        <!--                                     th:onclick="|location.href='@{vacation/detail(no=${l.no})}'|">-->
+                                        <td th:text="${l.no}"></td>
+                                        <td th:text="${l.title}"></td>
+                                        <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
+                                        <td th:text="${l.state}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </fieldset>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--은수 민영-->
+            <div>
+                <div class="row">
+                    <!--은수-->
+                    <div class="col-7">
+
+
+                    </div>
+                    <!--민영-->
+                    <div class="col-4">
+
                     </div>
                 </div>
             </div>
