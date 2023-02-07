@@ -56,32 +56,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="message : ${messageList}">
-                        <!-- 안읽은 쪽지이면-->
-                        <th:block th:if="${ message.getReceiveReadCheck() == 0}">
-                            <td><input type="checkbox" name="messageCheckBox" th:value="${message.getMessageNo()}"/></td>
-                            <th:block>
-                                <td th:if="${message.getMessageType() == '긴급'}" style="color: red">!</td>
-                                <td th:if="${message.getMessageType() != '긴급'}">!</td>
+                    <form action="/message/receiveSendTrash" id="sendTrash">
+                        <tr th:each="message : ${messageList}">
+                            <!-- 안읽은 쪽지이면-->
+                            <th:block th:if="${ message.getReceiveReadCheck() == 0}">
+                                <td><input type="checkbox" name="messageCheckBox" th:value="${message.getMessageNo()}"/></td>
+                                <th:block>
+                                    <td th:if="${message.getMessageType() == '긴급'}" style="color: red">!</td>
+                                    <td th:if="${message.getMessageType() != '긴급'}">!</td>
+                                </th:block>
+                                <td th:text="${ message.getMessageType()}"></td>
+                                <td th:text="${ message.getTitle()}"></td>
+                                <td th:text="${ message.getEmployee().getName()}"></td>
+                                <td th:text="${ #temporals.format(message.getSendTime(), 'yyyy-MM-dd HH:mm') }"></td>
                             </th:block>
-                            <td th:text="${ message.getMessageType()}"></td>
-                            <td th:text="${ message.getTitle()}"></td>
-                            <td th:text="${ message.getEmployee().getName()}"></td>
-                            <td th:text="${ #temporals.format(message.getSendTime(), 'yyyy-MM-dd HH:mm') }"></td>
-                        </th:block>
-                        <!-- 읽은 쪽이이면 -->
-                        <th:block th:if="${ message.getReceiveReadCheck() == 1}">
-                            <td style="background: #f2f2f2;"><input type="checkbox" name="messageCheckBox"/></td>
-                            <th:block>
-                                <td style="background: #f2f2f2; color: red" th:if="${message.getMessageType() == '긴급'}">!</td>
-                                <td style="background: #f2f2f2;" th:if="${message.getMessageType() != '긴급'}">!</td>
+                            <!-- 읽은 쪽이이면 -->
+                            <th:block th:if="${ message.getReceiveReadCheck() == 1}">
+                                <td style="background: #f2f2f2;"><input type="checkbox" name="messageCheckBox"/></td>
+                                <th:block>
+                                    <td style="background: #f2f2f2; color: red" th:if="${message.getMessageType() == '긴급'}">!</td>
+                                    <td style="background: #f2f2f2;" th:if="${message.getMessageType() != '긴급'}">!</td>
+                                </th:block>
+                                <td style="background: #f2f2f2;" th:text="${ message.getMessageType()}"></td>
+                                <td style="background: #f2f2f2;" th:text="${ message.getTitle()}"></td>
+                                <td style="background: #f2f2f2;" th:text="${ message.getEmployee().getName()}"></td>
+                                <td style="background: #f2f2f2;" th:text="${ #temporals.format(message.getSendTime(), 'yyyy-MM-dd HH:mm') }"></td>
                             </th:block>
-                            <td style="background: #f2f2f2;" th:text="${ message.getMessageType()}"></td>
-                            <td style="background: #f2f2f2;" th:text="${ message.getTitle()}"></td>
-                            <td style="background: #f2f2f2;" th:text="${ message.getEmployee().getName()}"></td>
-                            <td style="background: #f2f2f2;" th:text="${ #temporals.format(message.getSendTime(), 'yyyy-MM-dd HH:mm') }"></td>
-                        </th:block>
-                    </tr>
+                        </tr>
+                    </form>
                 </tbody>
             </table>
 
@@ -106,7 +108,7 @@
 
             <div>
                 <a href="writeMessage" class="btn btn-outline-secondary">쪽지쓰기</a>
-                <a href="deleteMessage" class="btn btn-outline-secondary">삭제하기</a>
+                <button type="button" href="#" class="btn btn-outline-secondary" form="sendTrash" onclick="messageSendTrash(this)">삭제하기</button>
             </div>
         </div>
     </div>
@@ -117,6 +119,7 @@
 <th:block layout:fragment="script">
     <script th:src="@{/js/message/messageTypeCheckBoxCheck.js}"></script>
     <script th:src="@{/js/message/messageCheckBoxCheckAll.js}"></script>
+    <script th:src="@{/js/message/messageSendTrash.js}"></script>
 </th:block>
 
 

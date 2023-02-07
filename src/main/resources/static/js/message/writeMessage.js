@@ -1,8 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
-    console.log('연결됨');
 
     const file  = document.querySelector("#file");
-
+    // file 개수 체크
     file.addEventListener("change", function() {
         let files = document.getElementById("file");
         if(files.files.length > 3) {
@@ -13,7 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const formBody  = document.querySelector("#formBody");
     const btnSend   = document.querySelector("#btnSend");
-
+    // 쪽지쓰기 버튼
     btnSend.addEventListener("click", function(e) {
         e.preventDefault();
         const result = confirm("보내시겠습니까?")

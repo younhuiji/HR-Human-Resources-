@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -161,6 +162,27 @@ public class MessageService {
         log.info("messageSearchDtoList = {}", messageSearchDtoList);
 
         return messageSearchDtoList;
+    }
+
+    /**
+     * 받은쪽지함 삭제 버튼
+     * @param employee
+     * @param messageCheckBox
+     */
+    @Transactional
+    public void receiveSendTrash(String employee, String[] messageCheckBox) {
+        log.info("receiveSendTrash(employee = {}, messageCheckBox = {})", employee, messageCheckBox);
+
+        for(String m : messageCheckBox){
+            log.info("m = {}", m);
+            Integer messageNo = Integer.parseInt(m);
+
+            Message message = messageRepository.findById(messageNo).get();
+
+            message.setReceiveTrash(1);
+            log.info("message = {}", message);
+        }
+
     }
 
 

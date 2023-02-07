@@ -14,14 +14,15 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 
     /**
      * 받은쪽지함
-     * select * from message where receiveNo = ? order by messageNo desc;
+     * select * from message where receiveNo = ? and receiveTrash = 0 order by messageNo desc;
      * @param employeeNo 로그인한 사용자 번호
      * @return
      */
     @Query(
             value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.employee) "
                     + "from MESSAGE m "
-                    + "where m.receiveNo = :employeeNo "
+                    + "where m.receiveNo = :employeeNo AND "
+                    + "m.receiveTrash = 0 "
                     + "order by m.messageNo desc"
     )
     Page<MessageSearchDto> findByReceiveNoOrderByMessageNoDesc(@Param(value = "employeeNo") String employeeNo, Pageable pageable);
@@ -40,6 +41,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "where m.receiveNo = :employeeNo AND "
+                    + "m.receiveTrash = 0 AND"
                     + "(lower(m.title) like lower('%' || :keyword || '%') OR "
                     + "lower(e.name) like lower('%' || :keyword || '%')) "
                     + "order by m.messageNo desc"
@@ -61,6 +63,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "where m.receiveNo = :employeeNo AND "
+                    + "m.receiveTrash = 0 AND "
                     + "lower(m.title) like lower('%' || :keyword || '%') "
                     + "order by m.messageNo desc"
     )
@@ -76,12 +79,13 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      *     order by m.messageNo desc
      */
     @Query(
-           value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e)"
-                    + " from MESSAGE m "
-                    + " inner join Employee e on m.senderNo = e.employeeNo "
-                    + " where m.receiveNo = :employeeNo AND"
-                    + " lower(e.name) like lower('%' || :keyword || '%') "
-                    + "order by m.messageNo desc"
+           value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e) "
+                   + "from MESSAGE m "
+                   + "inner join Employee e on m.senderNo = e.employeeNo "
+                   + "where m.receiveNo = :employeeNo AND "
+                   + "m.receiveTrash = 0 AND "
+                   + "lower(e.name) like lower('%' || :keyword || '%') "
+                   + "order by m.messageNo desc"
     )
     Page<MessageSearchDto> findByReceiveNoAndSenderName(@Param(value = "employeeNo") String employeeNo,
                                                         @Param(value = "keyword") String keyword,
@@ -103,6 +107,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "where m.receiveNo = :employeeNo AND "
                     + "m.messageType = :messageType AND "
+                    + "m.receiveTrash = 0 AND "
                     + "(lower(m.title) like lower('%' || :keyword || '%') OR "
                     + "lower(e.name) like lower('%' || :keyword || '%')) "
                     + "order by m.messageNo desc"
@@ -127,6 +132,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "where m.receiveNo = :employeeNo AND "
                     + "m.messageType = :messageType AND "
+                    + "m.receiveTrash = 0 AND "
                     + "lower(m.title) like lower('%' || :keyword || '%') "
                     + "order by m.messageNo desc"
     )
@@ -150,6 +156,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "where m.receiveNo = :employeeNo AND "
                     + "m.messageType = :messageType AND "
+                    + "m.receiveTrash = 0 AND "
                     + "lower(e.name) like lower('%' || :keyword || '%') "
                     + "order by m.messageNo desc"
     )

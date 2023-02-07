@@ -124,16 +124,26 @@ public class MessageController {
         }
 
         log.info("messageList = {}", messageList);
-        log.info("messageCount = {}", messageList.getContent().size());
+        log.info("messageCount = {}", messageList.getTotalElements());
 
         paging(messageList, model);
 
         model.addAttribute("messageList", messageList);
-        model.addAttribute("messageCount", messageList.getContent().size());
+        model.addAttribute("messageCount", messageList.getTotalElements());
         model.addAttribute("messageType", messageType);
         model.addAttribute("contentType", contentType);
 
         return "/message/receiveList";
+    }
+
+    @GetMapping("/receiveSendTrash")
+    public String sendTrash(String employee, String[] messageCheckBox) {
+        log.info("receiveSendTrash(employee = {}, messageCheckBox = {})", employee, messageCheckBox);
+
+        employee = "2";
+        messageService.receiveSendTrash(employee, messageCheckBox);
+
+        return "redirect:/message/receiveList";
     }
 
 
