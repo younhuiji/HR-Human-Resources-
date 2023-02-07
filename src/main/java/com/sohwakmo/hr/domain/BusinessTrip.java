@@ -59,4 +59,19 @@ public class BusinessTrip  extends BaseTimeEntity{
     @Column // 동반 출장자
     private String companionNO;
 
+    public BusinessTrip addRole(PaymentState status) {
+        state.add(status);
+        return this;
+    }
+
+    public BusinessTrip add(LocalDateTime competeDate){
+        this.competeDate = competeDate;
+        return this;
+    }
+
+    public BusinessTrip returnReason(String returnReason){
+        this.returnReason = returnReason;
+        return this;
+    }
+
 }

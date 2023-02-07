@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface BusinessTripRepository extends JpaRepository<BusinessTrip, Integer> {
     public List<BusinessTrip> findByEmployeeNoOrCompanionNO(String employeeNo, String companionNo);
+    public List<BusinessTrip> findByEmployeeNo(String employeeNo);
+
 }
 

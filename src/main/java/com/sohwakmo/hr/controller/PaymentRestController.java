@@ -1,7 +1,9 @@
 package com.sohwakmo.hr.controller;
 
+import com.sohwakmo.hr.domain.BusinessCard;
 import com.sohwakmo.hr.domain.Leave;
 import com.sohwakmo.hr.dto.LeaveUpdateDto;
+import com.sohwakmo.hr.service.BusinessCardService;
 import com.sohwakmo.hr.service.LeaveService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +19,7 @@ import java.util.List;
 public class PaymentRestController {
 
     private final LeaveService leaveService;
+    private final BusinessCardService businessCardService;
 
     @GetMapping("/readAll/{employeeNo}")
     public ResponseEntity<List<Leave>> readAll(@PathVariable String employeeNo) {
@@ -51,6 +54,14 @@ public class PaymentRestController {
         Integer result = leaveService.updateReturn(leaveNo, dto.getReturnReason());
         return ResponseEntity.ok(result);
 
+    }
+
+    // bs card list 출력
+    @GetMapping("/cardList/{employeeNo}")
+    public ResponseEntity<List<BusinessCard>> cardList (@PathVariable String employeeNo){
+        List<BusinessCard> list = businessCardService.selectByEmployeeNo(employeeNo);
+        log.info("명함 컨트롤 ={}", list);
+        return ResponseEntity.ok(list);
     }
 
 

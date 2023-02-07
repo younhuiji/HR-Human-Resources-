@@ -29,12 +29,14 @@ public class VacationController {
     @PostMapping("/create")
     public String create(VacationCreateDto dto){
 
-//        Vacation vacation = Vacation.builder()
-//                .title(dto.getTitle()).state(dto.getState()).employeeName(dto.getEmployeeName()).employeeNo(1L).category(dto.getCategory())
-//                .returnReason(dto.getReturnReason()).writeDate(dto.getWriteDate()).effectiveDate(dto.getEffectiveDate())
-//                .expirationDate(dto.getExpirationDate()).approverNo(0L).reason(dto.getReason()).competeDate(dto.getCompeteDate()).build();
-//
-//        Vacation vacations = vacationService.create(vacation);
+        String no = "1";
+
+        Vacation vacation = Vacation.builder()
+                .employeeNo(no).approverNo(no).title(dto.getTitle()).reason(dto.getReason())
+                .category(dto.getCategory()).effectiveDate(dto.getEffectiveDate()).expirationDate(dto.getExpirationDate())
+                .build();
+
+        Vacation vacations = vacationService.create(vacation);
 
         return "/vacation/create";
     }

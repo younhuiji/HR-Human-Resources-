@@ -27,12 +27,16 @@ public class BusinessTripController {
     // 출장(Bs trip) create
     @PostMapping("/create")
     public String create(BusinessTripCreateDto dto){
-//        BusinessTrip businessTrip = BusinessTrip.builder()
-//                .title(dto.getTitle()).state(dto.getState()).employeeName(dto.getEmployeeName()).employeeNo(1L).category(dto.getCategory())
-//                .returnReason(dto.getReturnReason()).writeDate(dto.getWriteDate()).effectiveDate(dto.getEffectiveDate())
-//                .expirationDate(dto.getExpirationDate()).place(dto.getPlace()).approverNo(0L).reason(dto.getReason()).build();
-//
-//        BusinessTrip businessTrips = businessTripService.create(businessTrip);
+
+        String no = "1";
+
+        BusinessTrip businessTrip = BusinessTrip.builder()
+                .employeeNo(no).approverNo(no).title(dto.getTitle()).reason(dto.getReason())
+                .category(dto.getCategory()).effectiveDate(dto.getEffectiveDate()).expirationDate(dto.getExpirationDate())
+                .place(dto.getPlace()).companionNO(no).build();
+
+
+        BusinessTrip businessTrips = businessTripService.create(businessTrip);
 
         return "/businessTrip/create";
     }

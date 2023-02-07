@@ -34,8 +34,9 @@
                 
                 <div>
                     <span id="contentSpan">
-                        <div id="editor" name="content" th:text="${ post.content }"></div>
-                        <textarea id="contentArea" type="text" name="content" style="display: none;"></textarea>
+                        <textarea id="contentArea" type="text" th:text="${ post.content }" style="display: none;"></textarea>
+                        <div id="editor"></div>
+                        <textarea id="modifiedContentArea" type="text" name="content" style="display: none;"></textarea>
                     </span>
                 </div>
 
@@ -62,31 +63,34 @@
 
     const Editor = toastui.Editor;
     const colorSyntax= Editor.plugin;
+    
+    const preContent= document.querySelector('#contentArea').value;
 
     const editor = new Editor({
         el: document.querySelector('#editor'),
         height: '600px',
-        // initialEditType: 'wysiwyg',
+        initialEditType: 'wysiwyg',
+        initialValue: preContent,
         previewStyle: 'vertical',
         previewHighlight: false,
         plugins: colorSyntax,
-        language: 'ko-KR'
+        language: 'ko-KR',
     });
 
-    console.log(editor.getMarkdown());
-    console.log(editor.getHTML());
-
+    var content= editor.getMarkdown();
+    // const replaceContent= content.replace(/\\/g,'');
     const form = document.querySelector('#postForm');
     const btnUpdate= document.querySelector('#btnUpdate');
+
     btnUpdate.addEventListener('click', function() {
     	const title= document.querySelector('#titleInput').value;
-    	const content= editor.getMarkdown();
-        const contentArea= document.querySelector('#contentArea');
-
-        contentArea.append(content);
+        const modifiedContentArea= document.querySelector('#modifiedContentArea');
         
+        content= editor.getMarkdown();
+        modifiedContentArea.append(content);
+
         console.log(content);
-        console.log(contentArea.value);
+        console.log(modifiedContentArea.value);
 
     	if (title== ''|| content== '') {
     		alert('제목과 내용을 입력해 주세요.');

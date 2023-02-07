@@ -54,6 +54,7 @@ public class PostController {
 
         Post post = postService.readPost(postNo);
         log.info(post.toString());
+
         model.addAttribute("post", post);
     }
 

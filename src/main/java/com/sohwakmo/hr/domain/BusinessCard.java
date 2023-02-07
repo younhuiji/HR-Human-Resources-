@@ -4,6 +4,7 @@ import javax.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,5 +46,22 @@ public class BusinessCard extends BaseTimeEntity{
 
     @Column // 최종 결재일시
     private LocalDateTime competeDate;
+
+    public BusinessCard addRole(PaymentState status) {
+        state.add(status);
+        return this;
+    }
+
+    public BusinessCard add(LocalDateTime competeDate){
+        this.competeDate = competeDate;
+        return this;
+    }
+
+    public BusinessCard returnReason(String returnReason){
+        this.returnReason = returnReason;
+        return this;
+    }
+
+
 
 }

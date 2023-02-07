@@ -36,7 +36,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public Post readPost(Integer postNo) {
         log.info("readPost(postNo= {})", postNo);
-
+        log.info("modify={}", postRepository.findByPostNo(postNo).toString());
         return postRepository.findByPostNo(postNo);
     }
 
