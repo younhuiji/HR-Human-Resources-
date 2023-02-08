@@ -83,4 +83,9 @@ public class MeetingRoomService {
 
 
     }
+
+    public List<MeetingRoom> getTodayReservation(String employeeNo, String formatedNow) {
+        formatedNow = formatedNow.substring(0, 2) + "-" + formatedNow.substring(3);
+        return meetingRoomRepository.findByEmployeeNoAndReserveDateContaining(employeeNo,formatedNow);
+    }
 }

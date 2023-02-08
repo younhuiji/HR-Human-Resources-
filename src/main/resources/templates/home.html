@@ -190,9 +190,9 @@
                                                 <span style="text-align: center">출장</span>
                                             </div>
                                             <div class="col-10">
-                                                <ul th:each="b:${businessTripList}">
-                                                    <li th:text="${b.title}"></li>
-                                                </ul>
+                                                <div th:each="b:${businessTripList}">
+                                                    <p th:text="'- ' + ${b.title}"></p>
+                                                </div>
                                             </div>
                                         </div>
                                         <!--반차/연차/휴가-->
@@ -201,12 +201,24 @@
                                                 <span style="text-align: center">휴가</span>
                                             </div>
                                             <div class="col-10">
-                                                <ul th:each="v:${vacationList}">
-                                                    <li th:text="${v.category} + ' : ' +${v.title}"></li>
-                                                </ul>
+                                                <div th:each="v:${vacationList}">
+                                                    <p th:text="'- ' + ${v.category} + ' : ' +${v.title}"></p>
+                                                </div>
                                             </div>
                                         </div>
                                         <!--회의 예약-->
+                                        <div class="row" th:if="${reservationList.size()!=0}">
+                                            <div class="col-2">
+                                                <span style="text-align: center">회의</span>
+                                            </div>
+                                            <div class="col-10">
+                                                <div th:each="r:${reservationList}">
+                                                    <p th:text="'- 회의시간 : '+${r.startTime} + ' ~ ' +${r.endTime}"></p>
+                                                    <p th:text="'- 회의실 위치 : ' + ${r.roomPlace} + ' ' + ${r.roomName}"></p>
+                                                    <p th:text="'- 회의 목적 : ' + ${r.purpose}"></p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

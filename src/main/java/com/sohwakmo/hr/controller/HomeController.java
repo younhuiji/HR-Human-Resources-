@@ -27,6 +27,7 @@ public class HomeController {
     private final BusinessTripService businessTripService;
     private final BusinessCardService businessCardService;
     private final LeaveService leaveService;
+    private final MeetingRoomService meetingRoomService;
 
     @GetMapping("/")
     @PreAuthorize("isAuthenticated()")
@@ -61,6 +62,7 @@ public class HomeController {
     private void setSchedule(String employeeNo, String formatedNow, Model model) {
         model.addAttribute("businessTripList", businessTripService.getTodayBusinessTripList(employeeNo,formatedNow));
         model.addAttribute("vacationList", vacationService.getTodayVacationList(employeeNo, formatedNow));
+        model.addAttribute("reservationList", meetingRoomService.getTodayReservation(employeeNo, formatedNow));
     }
 
     /**

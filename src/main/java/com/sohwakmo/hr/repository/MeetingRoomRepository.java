@@ -12,4 +12,5 @@ public interface MeetingRoomRepository extends JpaRepository<MeetingRoom, Intege
 
     List<MeetingRoom> findByOrderByMeetingRoomNoDesc();
 
+    List<MeetingRoom> findByEmployeeNoAndReserveDateContaining(String employeeNo, String formatedNow);
 }
