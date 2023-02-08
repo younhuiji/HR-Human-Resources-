@@ -9,10 +9,45 @@
 //     });
 // });
 
-var dragging = false;
+// time table!
+
+let tbl = "<table>";
+
+for (let i = 1; i <= 10; i++) {
+    tbl += "<tr>";
+    for (let j = 8; j <= 20; j++) {
+        if (i == 1) {
+            if (j == 8) {
+                tbl += `<th></th>`;
+            } else {
+                tbl += `<th>${j}:00</th>`;
+            }
+        }else {
+            if (j == 8) {
+                tbl += `<th>회의실${i}`;
+            } else {
+                tbl += `<td id="${j}:00">`;
+            }
+        }
+
+    }
+    tbl += "</tr>";
+}
+tbl += "</table>";
+document.getElementById("listTable").innerHTML = tbl;
+
+////////
+
+
+    var dragging = false;
 var dragSelectIds = [];
 var $td = $('td');
 var startCell = null;
+const result11 = document.getElementById('result')
+const button =document.querySelector('#button');
+const myid1 = document.getElementById("myid1");
+
+
 
 function end(e) {
     dragSelectIds = [];
@@ -22,6 +57,7 @@ function end(e) {
     $(cellsBetween(startCell, e.target)).each(function() {
         $(this).addClass('selected-item');
         dragSelectIds.push($(this).attr('id'));
+        console.log('this'+ $(this).children());
     });
 }
 
@@ -100,7 +136,12 @@ $td.on('mouseenter', function(e) {
 $td.on('mouseup', function(e) {
     dragging = false;
     console.log(dragSelectIds);
-    document.getElementById('result').innerHTML = dragSelectIds;
+
+    result11.innerHTML = dragSelectIds;
+    result11.value = dragSelectIds;
+    button.value = dragSelectIds;
+    // document.getElementById('result').innerHTML = dragSelectIds;
+
 });
 
 
@@ -118,12 +159,15 @@ $(".checkBtn").click(function(){
     var tr = checkBtn.parent().parent();
     var td = tr.children();
 
-    console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+    // console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+    console.log('클릭한 데이터 가져오기'+ button.value);
+    console.log('날짜 가져오기'+myid1.value);
+    // console.log('회의실 가져오기'+ );
 
-    var no = td.eq(0).text();
-    var userid = td.eq(1).text();
-    var name = td.eq(2).text();
-    var email = td.eq(3).text();
+    // var no = td.eq(0).text();
+    // var userid = td.eq(1).text();
+    // var name = td.eq(2).text();
+    // var email = td.eq(3).text();
 
 
     // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
@@ -176,5 +220,8 @@ function input() {
     const dday = document.querySelector('#reserveDate').value;
     console.log(dday)
 
-    document.getElementById("myid1").innerHTML = dday;
+    // document.getElementById("myid1").innerHTML = dday;
+
+    myid1.value = dday;
+    myid1.innerHTML = dday;
 }

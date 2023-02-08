@@ -56,8 +56,6 @@ window.addEventListener('DOMContentLoaded', event =>{
     const divModal = document.querySelector('#inviteModal');
     const inviteModal = new bootstrap.Modal(divModal);
 
-    const modalInviteBtn = document.querySelector('#modelInviteBtn');
-
 
     //사용자 상세정보
     const name = document.querySelector('#name');
@@ -70,25 +68,16 @@ window.addEventListener('DOMContentLoaded', event =>{
         }
 
     const modelInviteBtn = document.querySelector('#modelInviteBtn');
-    modelInviteBtn.addEventListener('click', attendeeNew);
+    // modelInviteBtn.addEventListener('click', attendeeNew);
 
-    function attendeeNew() {
-        // 포스트 글 번호 찾음.
-        const attendee = document.querySelector('#attendee').value;
+    const attendee = document.querySelector('#attendee');
 
-        const data = {
-            attendee: attendee
-        };
+    function attendeeNew(member) {
 
-        // Axios 라이브러리를 사용해서 Ajax POST 요청을 보냄.
-        axios.post('/api/meetingRoom', data) // Ajax Post 요청 보냄.
-            .then(response => { // 성공 응답(response)이 도착했을 때 실행할 콜백
-                updateDetailInfo(response.data)
-            })
-            .catch(error => { // 실패 응답(error)이 도착했을 때 실행할 콜백
-                console.log(error);
-            });
-
+        // attendee.value = member[0].name;
+        document.querySelector("#attendee").value = member[0].name;
+        // $('#modelInviteBtn').trigger('click');
+        // document.querySelector('#attendee').value = '';
     }
 
 
@@ -99,6 +88,7 @@ window.addEventListener('DOMContentLoaded', event =>{
                     axios.get('/api/org/memberInfo/' + memberNo)
                         .then(response => {
                             updateDetailInfo(response.data)
+                            attendeeNew(response.data)
                         })
                         .catch(err => {
                             console.log(err)
@@ -174,6 +164,3 @@ window.addEventListener('DOMContentLoaded', event =>{
 
 });
 
-
-
-// 테이블

@@ -24,30 +24,7 @@
                     <input id="title" class="align-text-top"
                            type="text" name="title" placeholder="제목을 입력해주세요." required />
                 </div>
-                <div class = "p-3 border-bottom">
-                    <label for="roomName" style=" width: 150px; ">회의실</label>
-                    <select id="roomName" class="align-text-top"  name="roomName" onchange="roomNamePlace(this)">
-                        <option>회의실을 선택해주세요</option>
-                        <option value="회의실1">회의실1</option>
-                        <option value="회의실2">회의실2</option>
-                        <option value="회의실3">회의실3</option>
-                        <option value="회의실4">회의실4</option>
-                        <option value="회의실5">회의실5</option>
-                        <option value="회의실6">회의실6</option>
-                        <option value="회의실7">회의실7</option>
-                        <option value="회의실8">회의실8</option>
-                        <option value="회의실9">회의실9</option>
-                        <option value="회의실10">회의실10</option>
-                    </select>
-                </div>
-                <div class = "p-3 border-bottom">
-                    <label for="roomPlace" style=" width: 150px; " >회의실 위치</label>
-                    <select id="roomPlace" class="align-text-top"  name="roomPlace" readonly>
-                        <option >회의실을 선택해주세요.</option>
-                    </select>
-<!--                    <input id="roomPlace" class="align-text-top"-->
-<!--                            type="text" name="roomPlace" readonly required/>-->
-                </div>
+
 
                 <div class = "p-3 border-bottom">
                     <label for="reserveDate" style=" width: 150px; ">예약날짜</label>
@@ -89,6 +66,32 @@
                         <option value="20:00">20:00</option>
                     </select>
                 </div>
+
+                <div class = "p-3 border-bottom">
+                    <label for="roomName" style=" width: 150px; ">회의실</label>
+                    <select id="roomName" class="align-text-top"  name="roomName" onchange="roomNamePlace(this)">
+                        <option>회의실을 선택해주세요</option>
+                        <option value="회의실1">회의실1</option>
+                        <option value="회의실2">회의실2</option>
+                        <option value="회의실3">회의실3</option>
+                        <option value="회의실4">회의실4</option>
+                        <option value="회의실5">회의실5</option>
+                        <option value="회의실6">회의실6</option>
+                        <option value="회의실7">회의실7</option>
+                        <option value="회의실8">회의실8</option>
+                        <option value="회의실9">회의실9</option>
+                        <option value="회의실10">회의실10</option>
+                    </select>
+                </div>
+                <div class = "p-3 border-bottom">
+                    <label for="roomPlace" style=" width: 150px; " >회의실 위치</label>
+                    <select id="roomPlace" class="align-text-top"  name="roomPlace" readonly>
+                        <option >회의실을 선택해주세요.</option>
+                    </select>
+                    <!--                    <input id="roomPlace" class="align-text-top"-->
+                    <!--                            type="text" name="roomPlace" readonly required/>-->
+                </div>
+
                 <div class= "p-3 border-bottom">
                     <label for="attendee" style=" width: 150px; ">참석자</label>
                     <input id="attendee" class="align-text-top"
@@ -106,18 +109,18 @@
                                     <h1 class="modal-title fs-5">참석자</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="container">
+                                <div class="container" style=" width: 300px; height: 400px;">
                                     <ul class="tree" id="orgTree">
 
                                     </ul>
                                 </div>
                                 <div>
-                                    <input id="name" type="text" style="border: none; background: lightgray; width: 70px; " class="text-center" readonly/>
+                                    <input id="name" type="text" style="border: none; background: lightgray; width: 70px;" class="text-center" readonly/>
                                 </div>
                                 <div class="modal-footer">
 
-                                    <button type="button" class="btn btn-light" id="modelInviteBtn">초대하기</button>
-                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">닫기</button>
+<!--                                    <button type="button" class="btn btn-light" id="modelInviteBtn">초대하기</button>-->
+                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">초대하기</button>
                                 </div>
                             </div>
                         </div>

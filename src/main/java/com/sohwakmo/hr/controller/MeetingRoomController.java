@@ -107,15 +107,5 @@ public class MeetingRoomController {
     }
 
 
-    // 회의실 예약 날짜 시간 저장.
-    @GetMapping("/addReserve")
-    @ResponseBody
-    public void addReserveTime(MeetingRoomReservationTimeDto dto) {
-        log.info("addReservationTime", dto);
-
-        meetingRoomService.addReserveTime(dto);
-
-    }
-
 }
 
