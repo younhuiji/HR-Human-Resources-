@@ -311,15 +311,26 @@ public class EmployeeService {
      * @return 현재시간 - DB에 저장된 시간을 계산하여 총 업무시간을 리턴.
      */
     public String countWorkingTime(String startTime,String nowTime) {
+        // 시
         Integer startWorkHour = Integer.parseInt(startTime.substring(0,2));
         Integer nowTimeHour = Integer.parseInt(nowTime.substring(0,2));
-        String resultHour = String.valueOf(startWorkHour - nowTimeHour);
 
         // 분
-        Integer startTimeMinutes = Integer.parseInt(startTime.substring(3));
-        Integer nowTimeMinutes = Integer.parseInt(nowTime.substring(3));
-        String resultMinutes = String.valueOf(nowTimeMinutes - startTimeMinutes);
+        int startTimeMinutes = Integer.parseInt(startTime.substring(3));
+        int nowTimeMinutes = Integer.parseInt(nowTime.substring(3));
 
+        // 현재 분이 시작 분보다 작은 경우와 그렇지 않은경우를 나눠서 업무시간 계산
+        String resultHour;
+        String resultMinutes;
+        if (startTimeMinutes > nowTimeMinutes) {
+            resultMinutes = String.valueOf(60 - startTimeMinutes + nowTimeMinutes);
+            if(nowTimeHour==startWorkHour) resultHour="0";
+            else if (nowTimeHour-startWorkHour==1) resultHour = "0";
+            else resultHour = String.valueOf(nowTimeHour - startWorkHour - 1);
+        }else{
+            resultHour = String.valueOf(nowTimeHour - startWorkHour);
+            resultMinutes = String.valueOf(nowTimeMinutes - startTimeMinutes);
+        }
         return resultHour + "시간 " + resultMinutes +"분";
     }
 

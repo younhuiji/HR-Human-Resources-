@@ -93,6 +93,15 @@ window.addEventListener('DOMContentLoaded',function (){
             }
         });
     }
+
+    // 문서결제 카테고리 change시 리스트 목록변경
+    const payment = document.querySelector('#payment');
+    const formPayment = document.querySelector('#form');
+    payment.addEventListener('change', function (){
+        formPayment.action = "/";
+        formPayment.method = "get";
+        formPayment.submit();
+    })
 })
 
 

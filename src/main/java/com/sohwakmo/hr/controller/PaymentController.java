@@ -54,7 +54,6 @@ public class PaymentController {
 
     }
 
-
     // 기안 문서 create
     @GetMapping("/create")
     public void create() {
