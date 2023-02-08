@@ -1,14 +1,3 @@
-// time table 클릭이벤트
-
-// $(function() {
-//     $("#listTable #tbodyId").on("mousedown","td",function(){
-//         alert( $(this).find("td:eq(0)").text() );
-//         alert( $(this).find("td:eq(1)").text() );
-//
-//
-//     });
-// });
-
 // time table!
 
 let tbl = "<table>";
@@ -36,16 +25,20 @@ for (let i = 1; i <= 10; i++) {
 tbl += "</table>";
 document.getElementById("listTable").innerHTML = tbl;
 
-////////
 
 
-    var dragging = false;
+
+
+var dragging = false;
 var dragSelectIds = [];
 var $td = $('td');
 var startCell = null;
 const result11 = document.getElementById('result')
-const button =document.querySelector('#button');
+const button =document.querySelector('#clickButton');
 const myid1 = document.getElementById("myid1");
+
+
+// creat 보낼때
 
 
 
@@ -72,7 +65,7 @@ function cellsBetween(start, end) {
         } else {
             elementsInside = elementsInsideAfterExpansion;
         }
-    } while (true);//
+    } while (true);
 }
 
 function isPointBetween(point, x1, x2) {
@@ -148,7 +141,7 @@ $td.on('mouseup', function(e) {
 // td로 th값 가져오기
 
 // 버튼 클릭시 Row 값 가져오기
-$(".checkBtn").click(function(){
+$(".checkBtn").click(function(e){
 
     var str = ""
     var tdArr = new Array();	// 배열 선언
@@ -164,23 +157,18 @@ $(".checkBtn").click(function(){
     console.log('날짜 가져오기'+myid1.value);
     // console.log('회의실 가져오기'+ );
 
-    // var no = td.eq(0).text();
-    // var userid = td.eq(1).text();
-    // var name = td.eq(2).text();
-    // var email = td.eq(3).text();
-
 
     // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
-    td.each(function(i){
-        tdArr.push(td.eq(i).text());
-    });
+    // td.each(function(i){
+    //     tdArr.push(td.eq(i).text());
+    // });
 
 
-    $("#ex2_Result1").html(" * 클릭한 Row의 모든 데이터 = " + tr.text());
+    // $("#ex2_Result1").html(" * 클릭한 Row의 모든 데이터 = " + tr.text());
 
 });
 
-
+localStorage.setItem('키','값');
 
 
 // 오늘 이후로 시간 예약하지 못하게
@@ -200,19 +188,6 @@ window.onload = function() {
     bir.value = today;
 }
 
-$('.saveBtn').on('click', function() {
-
-    //현재 row의 정보 가져오기
-    var thisRow = $(this).closest('tr');
-
-    //주소 input 값 가져오기
-    var addr = thisRow.find('td:eq(0)').find('input').val();
-    //섦졍 input 값 가져오기
-    var txt = thisRow.find('td:eq(1)').find('input').val();
-
-    alert(addr + ", " + txt + "을(를) 클릭하였습니다.");
-
-})
 
 
 // input date 값 받아오기.
@@ -225,3 +200,15 @@ function input() {
     myid1.value = dday;
     myid1.innerHTML = dday;
 }
+
+// window.addEventListener("DOMContentLoaded", (event) => {
+    const form = document.querySelector("#listBtnCreate");
+    // const button = document.querySelector('#button');
+    button.addEventListener('click', function () {
+        form.action = '/meetingRoom/create';
+        form.method = 'get';
+        form.submit();
+    // });
+});
+
+

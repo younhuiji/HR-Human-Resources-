@@ -35,10 +35,10 @@ function roomNamePlace(e) {
 
 
 // 지난 날짜 사용 안하기
-var now_utc = Date.now()
-var timeOff = new Date().getTimezoneOffset()*60000;
-var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
-document.getElementById("reserveDate").setAttribute("min", today);
+// var now_utc = Date.now()
+// var timeOff = new Date().getTimezoneOffset()*60000;
+// var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+// document.getElementById("reserveDate").setAttribute("min", today);
 
 
 // 초대하기
@@ -163,4 +163,3 @@ window.addEventListener('DOMContentLoaded', event =>{
         }
 
 });
-
