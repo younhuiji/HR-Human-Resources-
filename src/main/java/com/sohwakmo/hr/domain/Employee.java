@@ -1,9 +1,13 @@
 package com.sohwakmo.hr.domain;
 
-import javax.persistence.*;
+
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
+import javax.persistence.*;
+import java.util.*;
+
 
 @Entity
 @DynamicInsert
@@ -11,9 +15,8 @@ import org.hibernate.annotations.DynamicUpdate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
-@ToString
+@Data
+@ToString(exclude = {"attendances"})
 @Table(uniqueConstraints = {@UniqueConstraint(name = "PHONE_EMAIL_UNIQUE", columnNames = {"PHONE","EMAIL"})})
 @SequenceGenerator(name = "EMPLOYEES_SEQ_GEN",sequenceName = "EMPLOYEE_SEQ", allocationSize = 1)
 public class Employee {
@@ -38,17 +41,35 @@ public class Employee {
     private String photo;
 
     @Embedded
-    private Part part; // 부서,팀,맡은일, 직책
+    private Part part; // 부서,팀,맡은일
 
     @Column(columnDefinition = "varchar(255) default '사원'")
     private String position; // 직책
 
-    @Column(unique = true,nullable = false)
-    private String email;
+    @Column(nullable = false)
+    private String email; // 사내 email or 쪽지 주소
 
     @Column(nullable = false)
     private String joinedDate; // 입사일
 
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Attendance> attendances = new ArrayList<Attendance>(); // 사원번호로 출격 관리 리스트 불러오기
+
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    private EmployeePosition employeePosition; // 직책에따른 권한
+    @Builder.Default
+    private Set<EmployeePosition> employeePosition = new HashSet<>(); // 직책에따른 권한
+
+    public Employee addRole(EmployeePosition position) {
+        employeePosition.add(position);
+        return this;
+    }
+
+    public Employee update(String name, String phone, Part part) {
+        this.name = name;
+        this.phone = phone;
+        this.part = part;
+        return this;
+    }
 }

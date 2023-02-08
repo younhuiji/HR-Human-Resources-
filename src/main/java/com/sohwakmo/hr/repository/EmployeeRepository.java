@@ -15,11 +15,6 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
     boolean existsByPhone(String phoneValue);
 
-    /**
-     * employeeNo로 select
-     * @param employeeNo
-     * @return
-     */
     Employee findByEmployeeNo(String employeeNo);
 
 
@@ -33,6 +28,4 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
     @Query("select e from Employee e where e.employeeNo = :no")
     Employee selectByNo(@Param(value = "no") String no);
-
-
 }

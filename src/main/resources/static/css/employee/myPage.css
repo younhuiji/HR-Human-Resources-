@@ -1,0 +1,110 @@
+/*-----사원 대략 header 정보-----*/
+#header_info{
+    /*margin: 5em 4em ;*/
+    background: rgb(65,76,95);
+    border-radius: 6px;
+    padding: 20px 160px 20px 20px;
+}
+
+/*공통 크기 사이즈*/
+.header_title_color{
+    color: #dadada;
+    font-size: 20px;
+}
+.header_content_color{
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 14px;
+}
+
+.info{
+    margin-top: 3%;
+}
+
+/*!*-----사진 이름 소속팀-----*!*/
+#image img {
+    margin-left: 25%;
+}
+
+
+/*------공통 인풋 디자인------*/
+.design-input{
+    border: 1px solid #dadada;
+    border-radius: 6px 6px 6px 6px;
+    padding: 0.7em;
+    font-weight: bold;
+    font-size: 18px;
+    width: 64%;
+    margin: 10px 0;
+}
+
+.input_wrap_div{
+    display: inline-block;
+    height: 100%;
+}
+
+.wrap_div{
+    /*border: 2px solid black;*/
+    margin: 30px 0 30px 50px;
+    height: 80px;
+}
+.wrap_div span{
+    font-size: 20px;
+    float: left;
+    width: 150px;
+    line-height: 80px;
+}
+
+/*----인정사항 수정 폼----*/
+
+.select_part {
+    width: 176px;
+    height: 50px;
+    margin: 14px 0.8%;
+    border: solid 1px #dadada;
+
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.select_part option{
+    text-align: center;
+}
+.select_part::-ms-expand {
+    display: none;
+}
+#btnSearch_div{
+    margin-bottom: 0.5%;
+}
+
+
+/*----달 select 박스 검색 버튼----*/
+.selectMonth{
+    margin-left: 20%;
+    height: 40px;
+    border: solid 1px #dadada;
+    border-radius: 6px;
+    width: 45%;
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.selectMonth option{
+    text-align: center;
+}
+.selectMonth::-ms-expand {
+    display: none;
+}
+
+/*----수정버튼----*/
+#div_updateButton{
+    float: right;
+}
+
+/*----출근기롤 표----*/
+table{
+    text-align: center;
+}

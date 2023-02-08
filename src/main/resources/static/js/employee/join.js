@@ -73,6 +73,12 @@ window.addEventListener('DOMContentLoaded', function (){
     const password_check_text = document.querySelector('#password_check_text');
     // 비밀번호가 일치하는지 확인
     check_password.addEventListener('change',function (){
+        if(password.classList.contains('border_danger')){
+            check_password.classList.add('border_danger','error_icon')
+            check_password.classList.remove('border_success','ok_icon');
+            return;
+        }
+
         let check_password_value = check_password.value
         let pass_word_value = password.value
         if (check_password_value === pass_word_value) {
@@ -204,28 +210,47 @@ window.addEventListener('DOMContentLoaded', function (){
     const team = document.querySelector('#team');
     const team_develop = document.querySelectorAll('.develop');
     const team_human = document.querySelectorAll('.human');
+    const team_marketing = document.querySelectorAll('.marketing');
     // 맡은일
     const work = document.querySelector('#work');
+
     department.addEventListener('change',function (){
         let department_value = department.value;
         console.log(department_value);
-        if (department_value == 1) {
+        if (department_value == '인사관리부') {
             // 인사부일경우
             for(let i=0; i<team_develop.length; i++){
                 team_develop[i].setAttribute('hidden','hidden');
+            }
+            for (let i = 0; i < team_marketing.length; i++) {
+                team_marketing[i].setAttribute('hidden','hidden');
             }
             for (let i = 0; i < team_human.length; i++) {
                 team_human[i].removeAttribute('hidden');
             }
 
-
-        }else if(department_value==2){
+        }else if(department_value=='개발부'){
             // 개발부일경우
             for(let i=0; i<team_human.length; i++){
                 team_human[i].setAttribute('hidden','hidden');
             }
+            for (let i = 0; i < team_marketing.length; i++) {
+                team_marketing[i].setAttribute('hidden','hidden');
+            }
             for (let i = 0; i < team_develop.length; i++) {
                 team_develop[i].removeAttribute('hidden');
+            }
+        }
+        else{
+            // 기획부일경우
+            for(let i=0; i<team_human.length; i++){
+                team_human[i].setAttribute('hidden','hidden');
+            }
+            for(let i=0; i<team_develop.length; i++){
+                team_develop[i].setAttribute('hidden','hidden');
+            }
+            for (let i = 0; i < team_marketing.length; i++) {
+                team_marketing[i].removeAttribute('hidden');
             }
         }
     })

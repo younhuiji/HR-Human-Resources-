@@ -1,9 +1,9 @@
-window.addEventListener('DOMContentLoaded', event => {
-
+  window.addEventListener('DOMContentLoaded', event => {
     // list 카테고리 별로 변환하기
     const payment = document.querySelector('#payment');
 
     const formPayment = document.querySelector('#form');
+
     payment.addEventListener('change', function (){
         formPayment.action = "/payment/list";
         formPayment.method = "get";

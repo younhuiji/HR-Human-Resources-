@@ -1,3 +1,4 @@
+[![CI](https://github.com/ByeonJuHwan/hr/actions/workflows/gradle.yml/badge.svg)](https://github.com/ByeonJuHwan/hr/actions/workflows/gradle.yml)
 # hr
 
 

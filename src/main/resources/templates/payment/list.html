@@ -85,7 +85,7 @@
                         </div>
                     </div>
                 </form>
-                <form  >
+                <form>
                     <fieldset class="border-0" id="jb-table">
                         <table class="table" style="border-collapse: collapse">
                             <thead>
@@ -97,7 +97,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                 <tr th:each="l : ${list}">
+                                 <tr th:each="l : ${docList}">
 <!--                                     th:onclick="|location.href='@{vacation/detail(no=${l.no})}'|">-->
                                      <td th:text="${l.no}"></td>
                                      <td th:text="${l.title}"></td>

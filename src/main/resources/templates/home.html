@@ -9,11 +9,224 @@
     <link rel="stylesheet" th:href="@{/css/home/home.css}">
 </head>
 <div layout:fragment="content">
+<div id="body">
+    <div id="wrap">
+        <div id="headerMsg">
+            <h3>Hi! <span th:text="${#authentication.principal.name}"></span>님</h3>
+            <span>~님의 업무 환영 문구~</span>
+        </div>
 
+        <!-- 사원번호 가져오기 위한 hidden -->
+        <input id="get_employeeNo" type="hidden" th:value="${#authentication.principal.employeeNo}"/>
+
+        <div>
+            <div id="myWork" class="row">
+                <div class="col-4">
+                    <div id="work_info_div">
+                        <h3>Hi! <span th:text="${#authentication.principal.name}"></span>님,</h3>
+                        <div id="notWorking_msg" th:if="${attendance=='notAttendance'}">
+                            <h3>아직 출근 전입니다 :)</h3>
+                        </div>
+                        <div th:if="${attendance!='notAttendance'}">
+                            <div id="working_msg" th:if="${attendance.endTime == '00:00'}">
+                                <h3>조금만 힘내요!!</h3>
+                            </div>
+                            <div id="endWork_msg" th:if="${attendance.endTime != '00:00'}">
+                                <h3>오늘도 수고하셨습니다!</h3>
+                            </div>
+                        </div>
+                        <div th:if="${attendance=='notAttendance'}">
+                            <div>
+                                <button id="startButton" type="button" class="btn btn-primary allButton">업무 시작</button>
+                            </div>
+                        </div>
+                        <!-- 출근후 버튼 -->
+                        <div th:if="${attendance != 'notAttendance'}" class="row">
+                            <!-- 자리비움 버튼 -->
+                            <div th:if="${attendance.endTime == '00:00'}" class="col-6">
+                                <div th:if="${attendance.state != 1}">
+                                    <button type="button" id="absenceButton" class="btn btn-secondary halfButton">자리 비움</button>
+                                </div>
+                                <div th:if="${attendance.state == 1}">
+                                    <button type="button" id="absenceReleaseButton" class="btn btn-secondary halfButton">자리 비움 해제</button>
+                                </div>
+                            </div>
+                            <!--아직 업무중일때 버튼 -->
+                            <div th:if="${attendance.endTime == '00:00'}" class="col-6">
+                                <button type="button" id="endButton" class="btn btn-danger halfButton">업무 종료</button>
+                            </div>
+                            <!-- 업무가 다끝났을때 버튼 -->
+                            <div th:if="${attendance.endTime != '00:00'}">
+                                <button type="button" class="btn btn-secondary allButton" disabled>퇴근 완료</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 출결 관리 -->
+                    <div id="attendance_wrap">
+                        <div id="time_info">
+                            <!------------------ 출근xxxxxxxxxxxxx ---------->
+                            <div th:if="${attendance=='notAttendance'}">
+                                <div class="row">
+                                    <div id="state_time2" class="state_time">
+                                        <p>업무중이 아닙니다.</p>
+                                    </div>
+                                </div>
+                                <div id="div_time2" class="row">
+                                    <div id="startTime2" class="startTime col-6">
+                                        <p>출근 시간</p>
+                                        <p>00:00</p>
+                                    </div>
+                                    <div id="endTme2" class="endTme col-6">
+                                        <p>예상 퇴근 시간</p>
+                                        <p>00:00</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------------ 출근oooooooooooo ---------->
+                            <div th:if="${attendance != 'notAttendance' }">
+                                <!--예상 퇴근시간 -->
+                                <div th:if="${attendance.endTime == '00:00'}">
+                                    <!-- 자리비움이 아닐때 -->
+                                    <div th:if="${attendance.state!=1}">
+                                        <div class="state_time row">
+                                            <p><span class="light">🟢</span> 업무중 : <span th:text="${workingTime}"></span></p>
+                                        </div>
+                                    </div>
+                                    <!-- 자리비움 상태일때 -->
+                                    <div>
+                                        <div th:if="${attendance.state==1}">
+                                            <div class="state_time row">
+                                                <p><span class="light">🟡</span>자리비움 상태 입니다.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="startTime col-6">
+                                            <p>출근 시간</p>
+                                            <p th:text="${attendance.startTime}"></p>
+                                        </div>
+                                        <div class="endTme col-6">
+                                            <p>예상 퇴근 시간</p>
+                                            <p th:text="${attendance.expectEndTime}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 진짜 퇴근시간-->
+                                <div th:if="${attendance.endTime != '00:00'}">
+                                    <div class="state_time row">
+                                        <p>내일도 화이팅!!</p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="startTime col-6">
+                                            <p>출근 시간</p>
+                                            <p th:text="${attendance.startTime}"></p>
+                                        </div>
+                                        <div class="endTme col-6">
+                                            <p>퇴근 시간</p>
+                                            <p th:text="${attendance.endTime}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-8">
+                    <div id="todo">
+                        <div>
+                            <form id="form">
+                                <div class="row" style="padding: 10px">
+                                    <div id="select_div" class="col-2">
+                                        <select  id="payment" name="payment"  class="form-control" >
+                                            <option selected>선택</option>
+                                            <option value="vacation">휴가/연차/반차</option>
+                                            <option value="trip">출장</option>
+                                            <option value="card">명함신청</option>
+                                            <option value="leave">퇴사신청</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                            <fieldset class="border-0" id="jb-table">
+                                <table class="table" style="border-collapse: collapse">
+                                    <thead>
+                                    <tr>
+                                        <th>제목</th>
+                                        <th>작성 시간</th>
+                                        <th>결재 상태</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="l : ${docList}">
+                                        <!--                                     th:onclick="|location.href='@{vacation/detail(no=${l.no})}'|">-->
+                                        <td th:text="${l.title}"></td>
+                                        <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
+                                        <td th:text="${l.state}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="line2">
+                <div class="row">
+                    <!--주환-->
+                    <div class="col-4">
+                        <div>
+                            <div id="schedule">
+                                <h4>몇일/요일</h4>
+                            </div>
+                            <!--오늘 일정-->
+                            <div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-8">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr class="tr">
+                                <th></th>
+                                <th scope="col">제목</th>
+                                <th scope="col">작성자</th>
+                                <th scope="col">작성일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="tr" th:each="post: ${postList}" th:onclick="|location.href='@{ /post/detail(postNo=${ post.postNo }) }'|">
+                                <td th:switch="${ post.noticeYn }">
+                                    <span th:case="4" th:text="${ post.postNo }"></span>
+                                    <span th:case="3">팀 공지</span>
+                                    <span th:case="2">부서 공지</span>
+                                    <span th:case="1">전체 공지</span>
+                                </td>
+                                <td th:text="${post.title}"></td>
+                                <td th:text="${post.writer}"></td>
+                                <td th:text="${#temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm') }"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 </div>
 
 <th:block layout:fragment="script">
-  <script th:src="@{/js/home/home.js}"></script>
+    <script th:src="@{/js/home/home.js}"></script>
+<!--    <script th:src="@{ /js/payment/list.js }"></script>-->
+    <!--axios사용-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </th:block>
 </html>
