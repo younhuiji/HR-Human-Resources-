@@ -180,21 +180,29 @@
               <div>
                 <select id="department" class="select_part" th:name="department">
                   <option selected disabled>부서</option>
-                  <option th:value="1">인사부👨‍💼</option>
-                  <option value="2">개발부💻</option>
-                  <option value="3">기획부✏️</option>
-                  <option value="4">마케팅부📑</option>
+                  <option value="인사관리부">인사관리부👨‍💼</option>
+                  <option value="개발부">개발부💻</option>
+                  <option value="기획부">기획부✏️</option>
                 </select>
                 <select id="team" class="select_part team" th:name="team">
                   <option selected disabled>팀</option>
-                  <option th:value="a" class="develop">개발1팀</option>
-                  <option th:value="r" class="develop">개발2팀</option>
-                  <option value="b" class="human">인사1팀</option>
+                  <option value="인사팀" class="human">인사팀</option>
+                  <option value="회계팀" class="human">회계팀</option>
+                  <option value="개발1팀" class="develop">개발1팀</option>
+                  <option value="개발2팀" class="develop">개발2팀</option>
+                  <option value="사업개발팀" class="develop">사업개발팀</option>
+                  <option value="경영기획팀" class="marketing">경영기획팀</option>
+                  <option value="사업기획팀" class="marketing">사업기획팀</option>
                 </select>
                 <select id="work" class="select_part work" th:name="work">
                   <option selected disabled>담당</option>
-                  <option th:value="c" class="develop">프론트엔드</option>
-                  <option th:value="p" class="develop">백엔드</option>
+                  <option value="인사발령" class="human">인사발령</option>
+                  <option value="징계" class="human">징계</option>
+                  <option value="수익관리" class="human">수익관리</option>
+                  <option value="프론트엔드" class="develop">프론트엔드</option>
+                  <option value="백엔드" class="develop">백엔드</option>
+                  <option value="광고기획" class="marketing">광고기획</option>
+                  <option value="광고디자인" class="marketing">광고디자인</option>
                 </select>
               </div>
             </div>

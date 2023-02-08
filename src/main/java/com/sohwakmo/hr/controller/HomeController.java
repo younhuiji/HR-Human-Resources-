@@ -55,6 +55,12 @@ public class HomeController {
         return "/home";
     }
 
+    /**
+     * 카테고리 별 문서결제 서류 리스트 불러오기
+     * @param payment 카테고리 설정
+     * @param employeeNo 사원번호
+     * @param model
+     */
     private void setModelDoc(String payment, String employeeNo,Model model) {
         switch (payment) {
             case "vacation" -> {
