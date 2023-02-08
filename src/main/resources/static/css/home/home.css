@@ -102,8 +102,10 @@
 /*}*/
 #schedule{
     margin: 0 1%;
-    text-align: center;
     border: 1px solid #dadada;
     padding: 24px;
     border-radius: 8px;
+}
+#schedule h4{
+    text-align: center;
 }

@@ -34,10 +34,11 @@ public class HomeController {
         String employeeNo = principal.getName();
         // 오늘 날짜를 구하는 메서드
         String formatedNow = getToday();
-        // DB에 저장되어 있는 최근 출근기록을 체크후 id값 출력
-        Long attendanceNo = employeeService.checkAttendance(employeeNo,formatedNow);
         // 현재 시간을 구하는 메서드
         String formatedTime = getNowTime();
+        // DB에 저장되어 있는 최근 출근기록을 체크후 id값 출력
+        Long attendanceNo = employeeService.checkAttendance(employeeNo,formatedNow);
+
 
         if (attendanceNo != -1L) {
             Attendance attendance = employeeService.getAttendance(attendanceNo);
@@ -46,13 +47,20 @@ public class HomeController {
             model.addAttribute("workingTime", workingTime);
             model.addAttribute("postList", getPostList());
             setModelDoc(payment, employeeNo,model);
+            setSchedule(employeeNo, formatedNow,model);
 
         }else{
             model.addAttribute("attendance","notAttendance");
             model.addAttribute("postList", getPostList());
             setModelDoc(payment, employeeNo,model);
+            setSchedule(employeeNo, formatedNow,model);
         }
         return "/home";
+    }
+
+    private void setSchedule(String employeeNo, String formatedNow, Model model) {
+        model.addAttribute("businessTripList", businessTripService.getTodayBusinessTripList(employeeNo,formatedNow));
+        model.addAttribute("vacationList", vacationService.getTodayVacationList(employeeNo, formatedNow));
     }
 
     /**

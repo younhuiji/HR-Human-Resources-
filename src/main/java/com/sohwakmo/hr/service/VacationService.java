@@ -33,4 +33,8 @@ public class VacationService {
         return vacationRepository.findByEmployeeNoAndState(no, state);
     }
 
+    public List<Vacation>  getTodayVacationList(String employeeNo, String formatedNow) {
+        formatedNow = formatedNow.substring(0, 2) + "-" + formatedNow.substring(3);
+        return vacationRepository.findByEmployeeNoAndEffectiveDateContaining(employeeNo,formatedNow);
+    }
 }

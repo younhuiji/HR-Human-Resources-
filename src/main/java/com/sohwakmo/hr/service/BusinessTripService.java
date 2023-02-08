@@ -10,6 +10,7 @@ import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -18,6 +19,11 @@ import java.util.List;
 public class BusinessTripService {
 
     private final BusinessTripRepository businessTripRepository;
+
+    public List<BusinessTrip> getTodayBusinessTripList(String employeeNo, String formatedNow) {
+        formatedNow = formatedNow.substring(0, 2) + "-" + formatedNow.substring(3);
+        return businessTripRepository.findByEmployeeNoAndEffectiveDateContaining(employeeNo,formatedNow);
+    }
 
     // 출장(Bs trip) create
     public BusinessTrip create(BusinessTrip businessTrip){

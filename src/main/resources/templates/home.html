@@ -180,11 +180,35 @@
                     <div class="col-4">
                         <div>
                             <div id="schedule">
-                                <h4>몇일/요일</h4>
-                            </div>
-                            <!--오늘 일정-->
-                            <div>
-
+                                <div>
+                                    <h4>몇일/요일</h4>
+                                    <!--오늘 일정-->
+                                    <div>
+                                        <!--출장-->
+                                        <div class="row" th:if="${businessTripList.size()!=0}">
+                                            <div class="col-2">
+                                                <span style="text-align: center">출장</span>
+                                            </div>
+                                            <div class="col-10">
+                                                <ul th:each="b:${businessTripList}">
+                                                    <li th:text="${b.title}"></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!--반차/연차/휴가-->
+                                        <div class="row" th:if="${vacationList.size()!=0}">
+                                            <div class="col-2">
+                                                <span style="text-align: center">휴가</span>
+                                            </div>
+                                            <div class="col-10">
+                                                <ul th:each="v:${vacationList}">
+                                                    <li th:text="${v.category} + ' : ' +${v.title}"></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!--회의 예약-->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -11,4 +11,6 @@ public interface VacationRepository extends JpaRepository<Vacation, Integer> {
 
     // 진행중 and EmployeeNo List
     List<Vacation> findByEmployeeNoAndState(String no, PaymentState state);
+
+    List<Vacation> findByEmployeeNoAndEffectiveDateContaining(String employeeNo, String formatedNow);
 }
