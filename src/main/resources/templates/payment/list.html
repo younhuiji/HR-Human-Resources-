@@ -97,13 +97,57 @@
                             </tr>
                             </thead>
                             <tbody>
-                                 <tr th:each="l : ${list}"
-                                     th:onclick="|location.href='@{detail(no=${l.no})}'|">
-                                     <td th:text="${l.no}"></td>
-                                     <td th:text="${l.title}"></td>
-                                     <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
-                                     <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
-                                  </tr>
+                            <th:block th:each="l : ${list}">
+                                <th:block th:if="${l.category} == '명함' ">
+                                    <tr th:onclick="|location.href='@{businessCard/detail(no=${l.no})}'|">
+                                        <td th:text="${l.no}"></td>
+                                        <td th:text="${l.title}"></td>
+                                        <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
+                                        <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
+                                    </tr>
+                                </th:block>
+                                <th:block th:if="${l.category} == '연차' ">
+                                    연차
+                                </th:block>
+                                <th:block th:if="${l.category} == '출장' ">
+                                    출장
+                                </th:block>
+                                <th:block th:if="${l.category} == '퇴사' ">
+                                    퇴사
+                                </th:block>
+                            </th:block>
+
+
+<!--                                 <tr th:each="l : ${list}" th:if="${l.category} == '연차' "-->
+<!--                                     th:onclick="|location.href='@{vacation/detail(no=${l.no})}'|">-->
+<!--                                     <td th:text="${l.no}"></td>-->
+<!--                                     <td th:text="${l.title}"></td>-->
+<!--                                     <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>-->
+<!--                                     <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>-->
+<!--                                  </tr>-->
+<!--                                 <div th:if="${list.category} == '명함' ">-->
+<!--                                     <tr th:each="l : ${list}"-->
+<!--                                         th:onclick="|location.href='@{businessCard/detail(no=${l.no})}'|">-->
+<!--                                         <td th:text="${l.no}"></td>-->
+<!--                                         <td th:text="${l.title}"></td>-->
+<!--                                         <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>-->
+<!--                                         <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>-->
+<!--                                     </tr>-->
+<!--                                 </div>-->
+<!--                                 <tr th:each="l : ${list}" th:if="${l.category} == '출장' "-->
+<!--                                     th:onclick="|location.href='@{businessTrip/detail(no=${l.no})}'|">-->
+<!--                                     <td th:text="${l.no}"></td>-->
+<!--                                     <td th:text="${l.title}"></td>-->
+<!--                                     <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>-->
+<!--                                     <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>-->
+<!--                                 </tr>-->
+<!--                                 <tr th:each="l : ${list}" th:if="${l.category} == '퇴사' "-->
+<!--                                     th:onclick="|location.href='@{leave/detail(no=${l.no})}'|">-->
+<!--                                     <td th:text="${l.no}"></td>-->
+<!--                                     <td th:text="${l.title}"></td>-->
+<!--                                     <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>-->
+<!--                                     <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>-->
+<!--                                 </tr>-->
                             </tbody>
                         </table>
                     </fieldset>
@@ -149,7 +193,7 @@
                 <br>
                 <br>
                 <div class="card mb-8">
-                    <input type="submit" class="btn btn-primary" value="문서 작성"  th:onclick="|location.href='@{/payment/create}'|"/>
+                    <input type="submit" class="btn btn-primary" value="문서 작성"  th:onclick="|location.href='@{/payment/vacation/create}'|"/>
                 </div>
             </div>
         </div>

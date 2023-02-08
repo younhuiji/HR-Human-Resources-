@@ -99,7 +99,7 @@
                                             문서번호
                                         </td>
                                         <td style="width: 60%;padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
-                                            <input style="width: 100%" th:value="${card.no}" id="cardNo" readonly/>
+                                            <input style="width: 100%" th:value="${card.no}" readonly/>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -233,7 +233,7 @@
                         </tr>
                         </tbody>
                     </table>
-                 </span>
+                    </span>
                 </form>
             </div>
         </div>
@@ -251,8 +251,6 @@
                                 <br>
                                 <div style= "text-align: center; padding: 5px;">
                                     <img height="250px" width="250px" />
-                                    <!-- TODO: 회원 테이블 생성시에 바꾸기-->
-<!--                                    <img height="80%" width="80%" style="border: 1px solid #bcbcbc;" />-->
                                     <br>
                                     <br>
                                 </div>
@@ -260,20 +258,10 @@
                             </div>
 
                             <div >
-                                <div th:if="${card.competeDate} == null">
-                                    <p style="color: #0a53be">승인 처리까지 : 50%</p>
-                                    <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 50%"></div>
-                                    </div>
+                                <p style="color: #0a53be">승인 처리까지 : 50%</p>
+                                <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 50%"></div>
                                 </div>
-
-                                <div  th:if="${card.competeDate} != null">
-                                    <p style="color: #0a53be">승인 처리 : 100%</p>
-                                    <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
-                                    </div>
-                                </div>
-
                                 <div >
                                     <label class="form-control font-weight-bold" style="border:none;">남은 휴가일</label>
                                     <input  class="form-control" value="*" readonly/>
@@ -293,77 +281,28 @@
                 <br>
                 <br>
 
-                    <div th:if="${employee.part.department == '사원'}">
-                        <div class="card mb-8">
-                            <input type="submit" class="btn btn-secondary" value="삭제" />
-                        </div>
+                <div th:if="${employee.part.department == '사원'}">
+                    <div class="card mb-8">
+                        <input type="submit" class="btn btn-secondary" value="삭제" />
                     </div>
+                </div>
+                <br>
+                <!--                    <div th:if="${employee.part.department == '팀장'}">-->
+                <div class="card mb-8">
+                    <input type="submit" class="btn btn-primary" id="buttonCompeteCard" value="승인" />
                     <br>
-<!--                    <div th:if="${employee.part.department == '팀장'}">-->
-                        <div class="card mb-8">
-                                <input type="submit" class="btn btn-primary" id="buttonCompeteCard" value="승인" />
-                            <br>
-                                <input type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-rid="${card.no}" id="btnReturn2" value="반려" />
-                        </div>
-    <!--                    </div>-->
-                        </div>
-            </div>
-        </div>
-    </body>
-</div>
-
-
-<!-- Modal -->
-<div
-        class="modal fade"
-        id="modal"
-        tabindex="-1"
-        aria-labelledby="ReplyModalLabel"
-        aria-hidden="true"
->
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="ReplyModalLabel">반려 사유</h1>
-                <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                ></button>
-            </div>
-            <div class="modal-body">
-                <!-- card.returnReason 삽입 위치 -->
-                <textarea class="form-control" id="modalReturnReason"></textarea>
-            </div>
-            <div class="modal-footer">
-
-                <button
-                        type="button"
-                        class="btn btn-outline-secondary"
-                        data-bs-dismiss="modal"
-                >
-                    취소
-                </button>
-
-                <button
-                        type="button"
-                        class="btn btn-outline-success"
-                        id="modalBtnUpdate"
-                >
-                    확인
-                </button>
-
+                    <input type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-rid="${card.no}" id="btnReturn2" value="반려" />
+                </div>
+                <!--                    </div>-->
             </div>
         </div>
     </div>
 </div>
-<!-- end Modal -->
+</body>
 
 <th:block layout:fragment="script">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script th:src="@{ /js/payment/list.js }"></script>
-    <script th:src="@{ /js/payment/detail.js }"></script>
 </th:block>
 
 </html>

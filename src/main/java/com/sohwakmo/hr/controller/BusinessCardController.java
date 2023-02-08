@@ -1,6 +1,7 @@
 package com.sohwakmo.hr.controller;
 
 import com.sohwakmo.hr.domain.BusinessCard;
+import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.dto.BusinessCardCreateDto;
 import com.sohwakmo.hr.service.BusinessCardService;
 import com.sohwakmo.hr.service.EmployeeService;
@@ -65,12 +66,19 @@ public class BusinessCardController {
 
     // 명함(bs card) detail
     @GetMapping("/detail")
-    public String detail(Model model, @RequestParam Integer no) {
+    public void detail(Model model, @RequestParam Integer no) {
 
         BusinessCard card = businessCardService.selectByNo(no);
         model.addAttribute("card", card);
+        log.info("card={}", card);
 
-        return "test";
+        Employee employee = employeeService.selectByNo(card.getEmployeeNo());
+        model.addAttribute("employee", employee);
+        log.info("employee={}", employee);
+
+        Employee approver = employeeService.selectByNo(card.getApproverNo());
+        model.addAttribute("approver", approver);
+
     }
 
     // 명함(bs card) 반려
