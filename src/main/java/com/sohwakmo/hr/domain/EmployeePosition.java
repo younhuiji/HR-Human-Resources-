@@ -1,6 +1,8 @@
 package com.sohwakmo.hr.domain;
 
-public enum EmployeePosition {
+import java.io.Serializable;
+
+public enum EmployeePosition implements Serializable {
     LEVEL_1("LEVEL_1"), // 일반 사원
     LEVEL_2("LEVEL_2"), // 대리, 차장, 과장
     LEVEL_3("LEVEL_3"), // 팀장 이상

@@ -63,6 +63,8 @@ public class HomeController {
         model.addAttribute("businessTripList", businessTripService.getTodayBusinessTripList(employeeNo,formatedNow));
         model.addAttribute("vacationList", vacationService.getTodayVacationList(employeeNo, formatedNow));
         model.addAttribute("reservationList", meetingRoomService.getTodayReservation(employeeNo, formatedNow));
+        model.addAttribute("todayMonth", formatedNow.substring(0, 2));
+        model.addAttribute("todayDate", formatedNow.substring(3));
     }
 
     /**

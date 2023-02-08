@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 
 
@@ -19,7 +20,7 @@ import java.util.*;
 @ToString(exclude = {"attendances"})
 @Table(uniqueConstraints = {@UniqueConstraint(name = "PHONE_EMAIL_UNIQUE", columnNames = {"PHONE","EMAIL"})})
 @SequenceGenerator(name = "EMPLOYEES_SEQ_GEN",sequenceName = "EMPLOYEE_SEQ", allocationSize = 1)
-public class Employee {
+public class Employee implements Serializable {
     @Id
     @Column(name="NO")
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "EMPLOYEES_SEQ_GEN")

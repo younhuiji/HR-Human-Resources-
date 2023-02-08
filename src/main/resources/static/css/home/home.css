@@ -55,12 +55,10 @@
     text-align: center;
     padding: 12px 24px;
 }
-/*-------------------myWork------------------------*/
-
 
 /*-------------------문서결제------------------------*/
 #attendance_wrap {
-    margin: 0 1%;
+    margin: 7% 1%;
     border: 1px solid #dadada;
     padding: 24px;
     border-radius: 8px;
@@ -96,16 +94,21 @@
 /*----일정, 게시판줄 div----*/
 #line2{
     margin-top: 1em;
+    height: 50%;
 }
-/*#schedule_wrap{*/
-/*    !*padding: 2px;4*!*/
-/*}*/
+
 #schedule{
     margin: 0 1%;
     border: 1px solid #dadada;
     padding: 24px;
     border-radius: 8px;
+    height: 100%;
 }
 #schedule h4{
+    text-align: center;
+    margin-bottom: 10px;
+}
+.scheduleTitle{
+    font-weight: bold;
     text-align: center;
 }

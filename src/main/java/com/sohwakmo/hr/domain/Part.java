@@ -9,10 +9,11 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Embeddable
 @Data
-public class Part {
+public class Part implements Serializable {
 
     @Column(name = "DEPARTMENT_NAME",nullable = false)
     private String department; // 부서명
