@@ -8,6 +8,9 @@ import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -41,6 +44,16 @@ public class BusinessCardService {
 
     public List<BusinessCard> selectByEmployeeNoAndState(String no, PaymentState state){
         return businessCardRepository.findByEmployeeNoAndState(no, state);
+    }
+
+    @Transactional
+    public Integer update(Integer no){
+
+        BusinessCard entity = businessCardRepository.selectByNo(no);
+        entity.setState(Collections.singleton(PaymentState.승인));
+        entity.add(LocalDateTime.now());
+
+        return no;
     }
 
 }

@@ -1,8 +1,6 @@
 package com.sohwakmo.hr.controller;
 
 import com.sohwakmo.hr.domain.BusinessCard;
-import com.sohwakmo.hr.domain.Employee;
-import com.sohwakmo.hr.domain.PaymentState;
 import com.sohwakmo.hr.dto.BusinessCardCreateDto;
 import com.sohwakmo.hr.service.BusinessCardService;
 import com.sohwakmo.hr.service.EmployeeService;
@@ -72,7 +70,7 @@ public class BusinessCardController {
         BusinessCard card = businessCardService.selectByNo(no);
         model.addAttribute("card", card);
 
-        return "/businessCard/detail";
+        return "test";
     }
 
     // 명함(bs card) 반려

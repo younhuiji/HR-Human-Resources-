@@ -64,6 +64,10 @@ public class PaymentRestController {
         return ResponseEntity.ok(list);
     }
 
-
+    @GetMapping("/card/compete/{cardNo}")
+    public ResponseEntity<Integer> competeCard(@PathVariable Integer cardNo){
+        Integer result = businessCardService.update(cardNo);
+        return ResponseEntity.ok(result);
+    }
 
 }

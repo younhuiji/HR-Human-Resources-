@@ -105,4 +105,28 @@ window.addEventListener('DOMContentLoaded', event => {
 
     }
 
+    // 명함 (card) 승인 ================================================
+    const buttonCompeteCard = document.querySelectorAll('#buttonCompeteCard');
+
+    buttonCompeteCard.forEach(btn => {
+        btn.addEventListener('click', getCompeteCard);
+    });
+
+    function getCompeteCard() {
+        const cardNo = document.querySelector('#cardNo').value;
+        const result = confirm('승인 하시겠습니까?');
+
+        if(result) {
+            axios
+                .get('/api/payment/card/compete/' + cardNo)
+                .then(response => {
+                    alert('승인 처리가 완료되었습니다.');
+                    open('http://localhost:8889/')
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+
+    }
 }) // window end

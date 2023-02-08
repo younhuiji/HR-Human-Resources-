@@ -12,6 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Getter
+@Setter
 @ToString
 @Entity(name="BUSINESSCARD")
 @SequenceGenerator(name = "BUSINESSCARD_SEQ_GEN", sequenceName = "BUSINESSCARD_SEQ", allocationSize = 1)

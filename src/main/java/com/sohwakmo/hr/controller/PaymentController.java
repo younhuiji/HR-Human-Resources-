@@ -2,10 +2,7 @@ package com.sohwakmo.hr.controller;
 
 import com.sohwakmo.hr.domain.*;
 import com.sohwakmo.hr.dto.VacationCreateDto;
-import com.sohwakmo.hr.service.BusinessCardService;
-import com.sohwakmo.hr.service.BusinessTripService;
-import com.sohwakmo.hr.service.LeaveService;
-import com.sohwakmo.hr.service.VacationService;
+import com.sohwakmo.hr.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -27,6 +24,7 @@ public class PaymentController {
     private final BusinessTripService businessTripService;
     private final BusinessCardService businessCardService;
     private final LeaveService leaveService;
+    private final EmployeeService employeeService;
 
     // 기안 문서 list
     @GetMapping("/list")
@@ -112,6 +110,23 @@ public class PaymentController {
 
     @GetMapping("/approver")
     public void approver() {
+
+    }
+
+    @GetMapping("/detail")
+    public void detail(Model model,  @RequestParam Integer no) {
+
+        BusinessCard card = businessCardService.selectByNo(no);
+        model.addAttribute("card", card);
+        log.info("card={}", card);
+
+        Employee employee = employeeService.selectByNo(card.getEmployeeNo());
+        model.addAttribute("employee", employee);
+        log.info("employee={}", employee);
+
+        Employee approver = employeeService.selectByNo(card.getApproverNo());
+        model.addAttribute("approver", approver);
+
 
     }
 

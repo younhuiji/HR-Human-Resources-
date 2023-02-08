@@ -52,7 +52,6 @@ public class LeaveService {
     public Integer update2(Integer no){
 
         Leave entity = leaveRepository.selectByNo(no);
-        boolean true1 = true;
         entity.setState(Collections.singleton(PaymentState.승인)); // 2차 승인자
         entity.add(LocalDateTime.now()); // 2차 승인 시간
 

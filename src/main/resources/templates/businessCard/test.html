@@ -5,7 +5,7 @@
       layout:decorate="~{ layout/layout.html }">
 <head>
     <meta charset="UTF-8">
-    <title>Leave</title>
+    <title>BusinessCard</title>
     <style>
         * {
             font: 16px "나눔고딕", "Nanum Gothic", "sans-serif";
@@ -97,13 +97,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                                 <tr th:each="l : ${list}"
-                                     th:onclick="|location.href='@{detail(no=${l.no})}'|">
-                                     <td th:text="${l.no}"></td>
-                                     <td th:text="${l.title}"></td>
-                                     <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
-                                     <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
-                                  </tr>
+                            <tr th:each="l : ${list}"
+                                th:onclick="|location.href='@{detail(no=${l.no})}'|">
+                                <td th:text="${l.no}"></td>
+                                <td th:text="${l.title}"></td>
+                                <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
+                                <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
+                            </tr>
                             </tbody>
                         </table>
                     </fieldset>
@@ -121,13 +121,9 @@
                         <div class="row">
                             <div >
                                 <h6>프로필 이미지</h6>
-                                <br>
                                 <div style= "text-align: center; padding: 5px;">
                                     <img height="200px" width="200px" />
-                                    <br>
-                                    <br>
                                 </div>
-                                <br>
                             </div>
                             <div >
                                 <div >
@@ -149,7 +145,7 @@
                 <br>
                 <br>
                 <div class="card mb-8">
-                    <input type="submit" class="btn btn-secondary" value="문서 작성"  th:onclick="|location.href='@{/payment/create}'|"/>
+                     <input type="submit" class="btn btn-secondary" value="문서 작성"  th:onclick="|location.href='@{/payment/create}'|"/>
                 </div>
             </div>
         </div>

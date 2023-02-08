@@ -44,14 +44,7 @@
     <body>
     <div id="jb-container">
         <div id="jb-header">
-            <lable>신청서 선택 </lable>
-            <select style="width: 200px;" id="selectBox" name="selectBox"  >
-                <option selected>선택</option>
-                <option value="vacation">휴가</option>
-                <option value="trip">출장</option>
-                <option value="card">명함</option>
-                <option value="leave">퇴사</option>
-            </select>
+
         </div>
         <div id="jb-content">
             <div id="jb-text">
@@ -295,7 +288,13 @@
 <!-- end Modal -->
 
 
-
+<td th:switch="${#strings.toString(item.stats)}" >
+    <span th:case="대기"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
+    <span th:case="할당"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
+    <span th:case="진행"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
+    <span th:case="완료"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
+    <span th:case="취소"  th:text="${item.rdStatus}" class="badge badge-outline-primary"  />
+</td>
 
 <th:block layout:fragment="script">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
