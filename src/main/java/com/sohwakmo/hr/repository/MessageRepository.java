@@ -19,7 +19,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * @return
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.employee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee.name) "
                     + "from MESSAGE m "
                     + "where m.receiveNo = :employeeNo AND "
                     + "m.receiveTrash = 0 "
@@ -37,7 +37,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      *     order by m.messageNo desc
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e.name) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "where m.receiveNo = :employeeNo AND "
@@ -59,7 +59,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      *     order by m.messageNo desc
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e.name) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "where m.receiveNo = :employeeNo AND "
@@ -79,7 +79,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      *     order by m.messageNo desc
      */
     @Query(
-           value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e) "
+           value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e.name) "
                    + "from MESSAGE m "
                    + "inner join Employee e on m.senderNo = e.employeeNo "
                    + "where m.receiveNo = :employeeNo AND "
@@ -102,7 +102,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      *     order by m.messageNo desc
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e.name) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "where m.receiveNo = :employeeNo AND "
@@ -127,7 +127,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      *     order by m.messageNo desc
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e.name) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "where m.receiveNo = :employeeNo AND "
@@ -151,7 +151,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      *     order by m.messageNo desc
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e.name) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "where m.receiveNo = :employeeNo AND "
@@ -165,4 +165,5 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
                                                                 @Param(value = "messageType") String messageType,
                                                                 Pageable pageable);
 
+    Message findByMessageNo(Integer no);
 }

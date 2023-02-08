@@ -38,14 +38,16 @@ public class MessageService {
     public void create(MessageSendDto dto, List<MultipartFile> files) throws IOException {
         log.info("create(dto = {}, files = {})", dto, files);
 
-        String employeeNo = dto.getSenderNo();
-        log.info("employeeNo = {}", employeeNo);
-        Employee employee = employeeRepository.findByEmployeeNo(employeeNo);
-        log.info("employee = {}", employee);
+        Employee senderEmployee = employeeRepository.findByEmployeeNo(dto.getSenderNo());
+        log.info("sendEmployee = {}", senderEmployee);
+
+        Employee receiveEmployee = employeeRepository.findByEmployeeNo(dto.getReceiveNo());
+        log.info("receiveEmployee = {}", receiveEmployee);
 
         Message message = MessageSendDto.builder()
                 .senderNo(dto.getSenderNo()).messageType(dto.getMessageType()).title(dto.getTitle()).receiveNo(dto.getReceiveNo()).content(dto.getContent())
-                .employee(employee)
+                .senderEmployee(senderEmployee)
+                .receiveEmployee(receiveEmployee)
                 .build().toEntity();
         log.info("message = {}", message);
 
@@ -105,9 +107,10 @@ public class MessageService {
      */
     public Page<MessageSearchDto> receiveListRead(String employeeNo, Pageable pageable) {
         log.info("receiveListRead(employeeNo = {})", employeeNo);
-
+        employeeNo = "2";
         Page<MessageSearchDto> messageList = messageRepository.findByReceiveNoOrderByMessageNoDesc(employeeNo, pageable);
         log.info("messageList = {}", messageList);
+        log.info("messageList = {}", messageList.getContent());
 
         return messageList;
     }
@@ -178,11 +181,26 @@ public class MessageService {
             Integer messageNo = Integer.parseInt(m);
 
             Message message = messageRepository.findById(messageNo).get();
+            log.info("message = {}", message);
 
             message.setReceiveTrash(1);
             log.info("message = {}", message);
         }
 
+    }
+
+    /**
+     * 보낸쪽지함 들어가면 로그인한 번호로 보낸쪽지 보여주기
+     * @param employeeNo
+     */
+    public Page<MessageSearchDto> sendListRead(String employeeNo, Pageable pageable) {
+        log.info("receiveListRead(employeeNo = {})", employeeNo);
+        employeeNo = "2";
+        Page<MessageSearchDto> messageList = messageRepository.findByReceiveNoOrderByMessageNoDesc(employeeNo, pageable);
+        log.info("messageList = {}", messageList);
+        log.info("messageList = {}", messageList.getContent());
+
+        return messageList;
     }
 
 

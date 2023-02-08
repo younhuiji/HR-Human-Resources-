@@ -4,9 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Embeddable
 @Data
-public class Part {
+public class Part implements Serializable {
     @Column(name = "DEPARTMENT_NAME",nullable = false)
     private String department; // 부서명
 

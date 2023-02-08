@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 
@@ -44,10 +45,12 @@ public class Message extends BaseTimeEntityMessage {
     @ColumnDefault("0")
     private Integer senderDelete;
 
-    @ManyToOne
-    @JoinColumn(name = "employeeNo")
-    private Employee employee;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "employeeNo")
+    private Employee senderEmployee;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "employeeNo")
+    private Employee receiveEmployee;
 
 }

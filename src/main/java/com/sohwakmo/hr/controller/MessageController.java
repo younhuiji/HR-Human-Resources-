@@ -136,8 +136,14 @@ public class MessageController {
         return "/message/receiveList";
     }
 
+    /**
+     * 받은쪽지함 쪽지 삭제하기
+     * @param employee
+     * @param messageCheckBox
+     * @return
+     */
     @GetMapping("/receiveSendTrash")
-    public String sendTrash(String employee, String[] messageCheckBox) {
+    public String receiveSendTrash(String employee, String[] messageCheckBox) {
         log.info("receiveSendTrash(employee = {}, messageCheckBox = {})", employee, messageCheckBox);
 
         employee = "2";
@@ -146,5 +152,46 @@ public class MessageController {
         return "redirect:/message/receiveList";
     }
 
+    @GetMapping("/sendList")
+    public String sendList(String employeeNo, Model model, String messageType, String contentType, String keyword,
+                           @PageableDefault(page = 0, size = 5, sort = "messageNo", direction = Sort.Direction.DESC) Pageable pageable) {
+        log.info("receiveList(messageType = {}, contentType = {}, keyword = {})", messageType, contentType, keyword);
+
+//        // 로그인한 사원 번호 임시 값
+//        employeeNo = "2";
+//        log.info("employeeNo = {}", employeeNo);
+//
+//        Page<MessageSearchDto> messageList;
+//        if(messageType == "") {
+//            messageType = null;
+//        }
+//        if(keyword == "") {
+//            keyword = null;
+//        }
+//        if(contentType == "") {
+//            contentType = null;
+//        }
+//
+//        // 리스트로 바로 들어온 경우(검색하지 않은 경우)
+//        if(messageType == null && contentType == null && keyword == null) {
+//            log.info("검색하지 않은 경우");
+//            messageList = messageService.receiveListRead(employeeNo, pageable);
+//        } else {
+//            log.info("검색한 경우");
+//            messageList = messageService.receiveListSearchMessage(employeeNo, messageType, contentType, keyword, pageable);
+//        }
+//
+//        log.info("messageList = {}", messageList);
+//        log.info("messageCount = {}", messageList.getTotalElements());
+//
+//        paging(messageList, model);
+//
+//        model.addAttribute("messageList", messageList);
+//        model.addAttribute("messageCount", messageList.getTotalElements());
+//        model.addAttribute("messageType", messageType);
+//        model.addAttribute("contentType", contentType);
+
+        return "/message/sendList";
+    }
 
 }
