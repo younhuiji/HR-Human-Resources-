@@ -16,7 +16,7 @@
     <div class="card my-2">
         <div class="card-body">
             <div class="my-2">
-                <form method="get" th:action="@{ /message/receiveList }">
+                <form method="get" th:action="@{ /message/sendList }">
                     <div class="row">
                         <div class="col-2">
                             전체 <span style="color:red;" th:text=" ${ messageCount }"></span>
@@ -56,7 +56,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <form action="/message/receiveSendTrash" id="sendTrash">
+                    <form action="/message/senderSendTrash" id="sendTrash">
                         <tr th:each="message : ${messageList}">
                             <td><input type="checkbox" name="messageCheckBox" th:value="${message.getMessageNo()}"/></td>
                             <th:block>
@@ -65,7 +65,7 @@
                             </th:block>
                             <td th:text="${ message.getMessageType()}"></td>
                             <td th:text="${ message.getTitle()}"></td>
-                            <td th:text="${ message.getEmployee().getName()}"></td>
+                            <td th:text="${ message.getEmpName()}"></td>
                             <td th:text="${ #temporals.format(message.getSendTime(), 'yyyy-MM-dd HH:mm') }"></td>
                         </tr>
                     </form>
@@ -75,16 +75,16 @@
             <nav aria-label="Page navigation example" class="my-3 mb-3">
                 <ul class="pagination justify-content-center">
                     <li class="page-item" th:classappend="${messageList.pageable.pageNumber == 0 } ? 'disabled'">
-                        <a class="page-link" th:href="@{/message/receiveList(page=${messageList.pageable.pageNumber -1}, contentType=${param.contentType}, keyword=${param.keyword}, messageType=${param.messageType} )}" tabindex="-1" aria-label="Previous">
+                        <a class="page-link" th:href="@{/message/sendList(page=${messageList.pageable.pageNumber -1}, contentType=${param.contentType}, keyword=${param.keyword}, messageType=${param.messageType} )}" tabindex="-1" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li class="page-item " th:classappend="${num == messageList.pageable.pageNumber+1} ? 'disabled'" th:each="num : ${#numbers.sequence(startPage, endPage)}">
-                        <a class="page-link"  th:href="@{/message/receiveList(page=${num -1}, contentType=${param.contentType}, keyword=${param.keyword}, messageType=${param.messageType} )}", th:text="${num}">1</a>
+                        <a class="page-link"  th:href="@{/message/sendList(page=${num -1}, contentType=${param.contentType}, keyword=${param.keyword}, messageType=${param.messageType} )}", th:text="${num}">1</a>
                     </li>
 
                     <li class="page-item" th:classappend="${messageList.totalPages <= messageList.pageable.pageNumber + 1} ? 'disabled'">
-                        <a class="page-link " th:href="@{/message/receiveList(page=${messageList.pageable.pageNumber + 1}, contentType=${param.contentType}, keyword=${param.keyword}, messageType=${param.messageType} )}" aria-label="Next">
+                        <a class="page-link " th:href="@{/message/sendList(page=${messageList.pageable.pageNumber + 1}, contentType=${param.contentType}, keyword=${param.keyword}, messageType=${param.messageType} )}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>

@@ -165,5 +165,158 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
                                                                 @Param(value = "messageType") String messageType,
                                                                 Pageable pageable);
 
-    Message findByMessageNo(Integer no);
+    //---------------------------------------------------------------------------받은쪽지
+    
+    /**
+     * 보낸쪽지함
+     * select * from message where senderNo = ? and senderTrash = 0 order by messageNo desc;
+     * @param employeeNo 로그인한 사용자 번호
+     * @return
+     */
+    @Query(
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.receiveEmployee.name) "
+                    + "from MESSAGE m "
+                    + "where m.senderNo = :employeeNo AND "
+                    + "m.senderTrash = 0 "
+                    + "order by m.messageNo desc"
+    )
+    Page<MessageSearchDto> findBySenderNoOrderByMessageNoDesc(@Param(value = "employeeNo") String employeeNo, Pageable pageable);
+    /**
+     * 보낸쪽지함 전체 검색
+     * select 컬럼명
+     *     from message m
+     *     inner join employee e on m.receive_no = e.employee_no
+     *     where m.sender_no = ?
+     *     (lower(m.title) like lower('% :keyword %') OR
+     *     lower(e.name) like lower('% :keyword %')
+     *     order by m.messageNo desc
+     */
+    @Query(
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e.name) "
+                    + "from MESSAGE m "
+                    + "inner join Employee e on m.receiveNo = e.employeeNo "
+                    + "where m.senderNo = :employeeNo AND "
+                    + "m.senderTrash = 0 AND"
+                    + "(lower(m.title) like lower('%' || :keyword || '%') OR "
+                    + "lower(e.name) like lower('%' || :keyword || '%')) "
+                    + "order by m.messageNo desc"
+    )
+    Page<MessageSearchDto> findBySenderNoAll(@Param(value = "employeeNo") String employeeNo,
+                                             @Param(value = "keyword") String keyword,
+                                             Pageable pageable);
+    /**
+     * 보낸쪽지함 제목으로 검색
+     * select 컬럼명
+     *     from message m
+     *     inner join employee e on m.receive_no = e.employee_no
+     *     where m.sender_no = ?
+     *     lower(m.title) like lower('% :keyword %')
+     *     order by m.messageNo desc
+     */
+    @Query(
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e.name) "
+                    + "from MESSAGE m "
+                    + "inner join Employee e on m.receiveNo = e.employeeNo "
+                    + "where m.senderNo = :employeeNo AND "
+                    + "m.senderTrash = 0 AND "
+                    + "lower(m.title) like lower('%' || :keyword || '%') "
+                    + "order by m.messageNo desc"
+    )
+    Page<MessageSearchDto> findBySenderNoAndTitle(@Param(value = "employeeNo") String employeeNo,
+                                                   @Param(value = "keyword") String keyword,
+                                                   Pageable pageable);
+    /**
+     * 보낸쪽지함 받은사람으로 검색
+     * select * from message m
+     *     inner join employee e on m.receive_no = e.employee_no
+     *     where m.sender_no = ?
+     *     lower(e.name) like lower('% :keyword %')
+     *     order by m.messageNo desc
+     */
+    @Query(
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e.name) "
+                    + "from MESSAGE m "
+                    + "inner join Employee e on m.receiveNo = e.employeeNo "
+                    + "where m.senderNo = :employeeNo AND "
+                    + "m.senderTrash = 0 AND "
+                    + "lower(e.name) like lower('%' || :keyword || '%') "
+                    + "order by m.messageNo desc"
+    )
+    Page<MessageSearchDto> findBySenderNoAndReceiveName(@Param(value = "employeeNo") String employeeNo,
+                                                        @Param(value = "keyword") String keyword,
+                                                        Pageable pageable);
+    /**
+     * 보낸쪽지함 메세지 타입이 있는 전체 검색
+     * select 컬럼명
+     *     from message m
+     *     inner join employee e on m.receive_no = e.employee_no
+     *     where m.sender_no = ? AND
+     *     m.message_Type = '긴급' AND
+     *     (lower(m.title) like lower('% :keyword %') OR
+     *     lower(e.name) like lower('% :keyword %'))
+     *     order by m.messageNo desc
+     */
+    @Query(
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e.name) "
+                    + "from MESSAGE m "
+                    + "inner join Employee e on m.receiveNo = e.employeeNo "
+                    + "where m.senderNo = :employeeNo AND "
+                    + "m.messageType = :messageType AND "
+                    + "m.senderTrash = 0 AND "
+                    + "(lower(m.title) like lower('%' || :keyword || '%') OR "
+                    + "lower(e.name) like lower('%' || :keyword || '%')) "
+                    + "order by m.messageNo desc"
+    )
+    Page<MessageSearchDto> findByMessageTypeAndSenderNoAll(@Param(value = "employeeNo") String employeeNo,
+                                                            @Param(value = "keyword") String keyword,
+                                                            @Param(value = "messageType") String messageType,
+                                                            Pageable pageable);
+    /**
+     * 보낸쪽지함 메세지 타입이 있는 제목 검색
+     * select 컬럼명
+     *     from message m
+     *     inner join employee e on m.receive_no = e.employee_no
+     *     where m.sender_no = ? AND
+     *     m.message_Type = '긴급' AND
+     *     lower(m.title) like lower('% :keyword %')
+     *     order by m.messageNo desc
+     */
+    @Query(
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e.name) "
+                    + "from MESSAGE m "
+                    + "inner join Employee e on m.receiveNo = e.employeeNo "
+                    + "where m.senderNo = :employeeNo AND "
+                    + "m.messageType = :messageType AND "
+                    + "m.senderTrash = 0 AND "
+                    + "lower(m.title) like lower('%' || :keyword || '%') "
+                    + "order by m.messageNo desc"
+    )
+    Page<MessageSearchDto> findByMessageTypeAndSenderNoAndTitle(@Param(value = "employeeNo") String employeeNo,
+                                                                 @Param(value = "keyword") String keyword,
+                                                                 @Param(value = "messageType") String messageType,
+                                                                 Pageable pageable);
+    /**
+     * 보낸쪽지함 메세지 타입이 있는 빋는사람 검색
+     * select 컬럼명
+     *     from message m
+     *     inner join employee e on m.receive_no = e.employee_no
+     *     where m.sender_no = ? AND
+     *     m.message_Type = '긴급' AND
+     *     lower(e.name) like lower('% :keyword %')
+     *     order by m.messageNo desc
+     */
+    @Query(
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, e.name) "
+                    + "from MESSAGE m "
+                    + "inner join Employee e on m.receiveNo = e.employeeNo "
+                    + "where m.senderNo = :employeeNo AND "
+                    + "m.messageType = :messageType AND "
+                    + "m.senderTrash = 0 AND "
+                    + "lower(e.name) like lower('%' || :keyword || '%') "
+                    + "order by m.messageNo desc"
+    )
+    Page<MessageSearchDto> findByMessageTypeAndSenderNoAndName(@Param(value = "employeeNo") String employeeNo,
+                                                                @Param(value = "keyword") String keyword,
+                                                                @Param(value = "messageType") String messageType,
+                                                                Pageable pageable);
 }

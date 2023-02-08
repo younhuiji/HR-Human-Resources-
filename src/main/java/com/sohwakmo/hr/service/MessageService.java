@@ -107,10 +107,9 @@ public class MessageService {
      */
     public Page<MessageSearchDto> receiveListRead(String employeeNo, Pageable pageable) {
         log.info("receiveListRead(employeeNo = {})", employeeNo);
-        employeeNo = "2";
+
         Page<MessageSearchDto> messageList = messageRepository.findByReceiveNoOrderByMessageNoDesc(employeeNo, pageable);
         log.info("messageList = {}", messageList);
-        log.info("messageList = {}", messageList.getContent());
 
         return messageList;
     }
@@ -194,14 +193,87 @@ public class MessageService {
      * @param employeeNo
      */
     public Page<MessageSearchDto> sendListRead(String employeeNo, Pageable pageable) {
-        log.info("receiveListRead(employeeNo = {})", employeeNo);
-        employeeNo = "2";
-        Page<MessageSearchDto> messageList = messageRepository.findByReceiveNoOrderByMessageNoDesc(employeeNo, pageable);
+        log.info("sendListRead(employeeNo = {})", employeeNo);
+
+        Page<MessageSearchDto> messageList = messageRepository.findBySenderNoOrderByMessageNoDesc(employeeNo, pageable);
         log.info("messageList = {}", messageList);
-        log.info("messageList = {}", messageList.getContent());
+        log.info("messageContent = {}", messageList.getContent());
 
         return messageList;
     }
 
+    /**
+     * 보낸쪽지함 검색
+     * @param employeeNo
+     * @param messageType
+     * @param contentType
+     * @param keyword
+     * @return
+     */
+    public Page<MessageSearchDto> sendListSearchMessage(String employeeNo, String messageType, String contentType, String keyword, Pageable pageable) {
+        log.info("receiveListSearchMessage(employeeNo = {}, messageType = {}, contentType = {}, keyword = {})", employeeNo, messageType, contentType, keyword);
+
+        Page<MessageSearchDto> messageSearchDtoList = null;
+
+        if (messageType == null) { // 메세지 타입이 null인 경우
+            log.info("null");
+            switch(contentType) {
+                case "all" :
+                    log.info("findByReceiveNoAll");
+                    messageSearchDtoList = messageRepository.findBySenderNoAll(employeeNo, keyword, pageable);
+                    break;
+                case "title" :
+                    log.info("findByReceiveNoAndTitle");
+                    messageSearchDtoList = messageRepository.findBySenderNoAndTitle(employeeNo, keyword, pageable);
+                    break;
+                case "sender" :
+                    log.info("findByReceiveNoAndSenderName");
+                    messageSearchDtoList = messageRepository.findBySenderNoAndReceiveName(employeeNo, keyword, pageable);
+                    break;
+            }
+        } else { // 메세지 타입이 있는 경우
+            log.info("not null");
+            switch(contentType) {
+                case "all" :
+                    log.info("findByMessageTypeAndReceiveNoAll");
+                    messageSearchDtoList = messageRepository.findByMessageTypeAndSenderNoAll(employeeNo, keyword, messageType, pageable);
+                    break;
+                case "title" :
+                    log.info("findByMessageTypeAndReceiveNoAndTitle");
+                    messageSearchDtoList = messageRepository.findByMessageTypeAndSenderNoAndTitle(employeeNo, keyword, messageType, pageable);
+                    break;
+                case "sender" :
+                    log.info("findByMessageTypeAndReceiveNoAndName");
+                    messageSearchDtoList = messageRepository.findByMessageTypeAndSenderNoAndName(employeeNo, keyword, messageType, pageable);
+                    break;
+            }
+        }
+
+        log.info("messageSearchDtoList = {}", messageSearchDtoList);
+
+        return messageSearchDtoList;
+    }
+
+    /**
+     * 보낸쪽지함 삭제 버튼
+     * @param employee
+     * @param messageCheckBox
+     */
+    @Transactional
+    public void senderSendTrash(String employee, String[] messageCheckBox) {
+        log.info("senderSendTrash(employee = {}, messageCheckBox = {})", employee, messageCheckBox);
+
+        for(String m : messageCheckBox){
+            log.info("m = {}", m);
+            Integer messageNo = Integer.parseInt(m);
+
+            Message message = messageRepository.findById(messageNo).get();
+            log.info("message = {}", message);
+
+            message.setSenderTrash(1);
+            log.info("message = {}", message);
+        }
+
+    }
 
 }
