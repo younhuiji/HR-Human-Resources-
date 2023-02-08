@@ -36,7 +36,7 @@ function cellsBetween(start, end) {
         } else {
             elementsInside = elementsInsideAfterExpansion;
         }
-    } while (true);
+    } while (true);//
 }
 
 function isPointBetween(point, x1, x2) {
@@ -176,5 +176,5 @@ function input() {
     const dday = document.querySelector('#reserveDate').value;
     console.log(dday)
 
-    document.getElementById("myid1").innerHTML += dday;
+    document.getElementById("myid1").innerHTML = dday;
 }

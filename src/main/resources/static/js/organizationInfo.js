@@ -9,58 +9,13 @@ window.addEventListener('DOMContentLoaded', event =>{
     readAllOrgList();
     let orgMember;
 
-    // meetingRoom
-    const divModal = document.querySelector('#inviteModal');
-    const inviteModal = new bootstrap.Modal(divModal);
-    const attendee = document.querySelector('#attendee')
-
-    const modalInviteBtn = document.querySelector('#modelInviteBtn');
-
-    modalInviteBtn.addEventListener('click', inviteName);
-
-    function inviteName(event) {
-        const attendees = attendee.value;
-
-        const result = confirm('초대하시겠습니까?')
-        if(result) {
-            const data = {attendees : attendees};
-            axios
-                .put('/api/meetingRoom/create/' + data)
-                .then(response => {
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        }
-    }
-
-    //사용자 상세정보
-    const name = document.querySelector('#name');
-    const phone = document.querySelector('#phone');
-    const department = document.querySelector('#department');
-    const team = document.querySelector('#team')
-    const level = document.querySelector('#level');
-    const work = document.querySelector('#work');
-
-    function updateDetailInfo(member) {
-        console.log(member);
-        name.value = member[0].name;
-        phone.value = member[0].phone;
-        department.value = member[0].department;
-        team.value = member[0].team;
-        level.value = member[0].position;
-        work.value = member[0].work;
-
-        
-    }
-
     function findByMemeber(orgMember) {
         for(let i = 0; i<orgMember.length; i++){
             orgMember[i].addEventListener('click', (e) => {
                 let memberNo = orgMember[i].getAttribute('data-id');
                 axios.get('/api/org/memberInfo/'+ memberNo)
                     .then(response =>{
-                        updateDetailInfo(response.data)
+                        console.log('여기에 클릭한 사용자의 정보가 찍힘!!'+response.data)
                     })
                     .catch(err => {
                         console.log(err)
@@ -138,5 +93,3 @@ window.addEventListener('DOMContentLoaded', event =>{
 
 
 });
-
-

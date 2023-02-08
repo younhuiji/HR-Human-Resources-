@@ -14,7 +14,7 @@
             </div>
 
             <form method = "post" action = "/meetingRoom/create" id="createForm">
-                <input  type="hidden" name="employeeNo" id="employeeNo" th:value="111" />
+                <input  type="hidden" name="employeeNo" id="employeeNo" th:value="5" />
                 <div class="p-3 border-bottom">
                     <label for="reserveName" style=" width: 150px; ">예약자</label>
                     <input id="reserveName" type="text" name="reserveName" th:value="김김김" style="border: none; background: transparent;" readonly />
@@ -92,24 +92,18 @@
                 <div class= "p-3 border-bottom">
                     <label for="attendee" style=" width: 150px; ">참석자</label>
                     <input id="attendee" class="align-text-top"
-                           type="text" name="attendee" required />
+                           type="text" name="attendee" readonly />
+
 <!--                    <div class="invite-icon"><i class="fa-solid fa-user-plus"></i></div>-->
 
 
-<!--                    <div class="container">-->
-<!--                        <ul class="tree" id="orgTree">-->
+                    <input type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#inviteModal" data-bs-whatever="@mdo" value="초대" />
 
-<!--                        </ul>-->
-<!--                    </div>-->
-
-
-                    <input type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" value="초대" />
-
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="inviteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">참석자</h1>
+                                    <h1 class="modal-title fs-5">참석자</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="container">
@@ -117,8 +111,12 @@
 
                                     </ul>
                                 </div>
+                                <div>
+                                    <input id="name" type="text" style="border: none; background: lightgray; width: 70px; " class="text-center" readonly/>
+                                </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-light" id="modelBtnInvite">초대하기</button>
+
+                                    <button type="button" class="btn btn-light" id="modelInviteBtn">초대하기</button>
                                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal">닫기</button>
                                 </div>
                             </div>
@@ -145,14 +143,14 @@
 
 <th:block layout:fragment="script">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 
     <script>
         // const employeeNo = 111; // 로그인
     </script>
 
-    <script th:src="@{ /js/meetingRoomCreate.js}"></script>
-    <script th:src="@{/js/organizationRefer.js}"></script>
-<!--    <script th:src="@{/js/organization.js}"></script>-->
+    <script th:src="@{ /js/meetingRoom/meetingRoomCreate.js}"></script>
+<!--    <script th:src="@{/js/organizationInfo.js}"></script>-->
 
 </th:block>
 </html>
