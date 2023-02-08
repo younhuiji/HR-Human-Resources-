@@ -5,28 +5,47 @@ window.addEventListener('DOMContentLoaded',function (){
     const team = document.querySelector('#team');
     const team_develop = document.querySelectorAll('.develop');
     const team_human = document.querySelectorAll('.human');
+    const team_marketing = document.querySelectorAll('.marketing');
     // 맡은일
     const work = document.querySelector('#work');
+
     department.addEventListener('change',function (){
         let department_value = department.value;
         console.log(department_value);
-        if (department_value == 1) {
+        if (department_value == '인사관리부') {
             // 인사부일경우
             for(let i=0; i<team_develop.length; i++){
                 team_develop[i].setAttribute('hidden','hidden');
+            }
+            for (let i = 0; i < team_marketing.length; i++) {
+                team_marketing[i].setAttribute('hidden','hidden');
             }
             for (let i = 0; i < team_human.length; i++) {
                 team_human[i].removeAttribute('hidden');
             }
 
-
-        }else if(department_value==2){
+        }else if(department_value=='개발부'){
             // 개발부일경우
             for(let i=0; i<team_human.length; i++){
                 team_human[i].setAttribute('hidden','hidden');
             }
+            for (let i = 0; i < team_marketing.length; i++) {
+                team_marketing[i].setAttribute('hidden','hidden');
+            }
             for (let i = 0; i < team_develop.length; i++) {
                 team_develop[i].removeAttribute('hidden');
+            }
+        }
+        else{
+            // 기획부일경우
+            for(let i=0; i<team_human.length; i++){
+                team_human[i].setAttribute('hidden','hidden');
+            }
+            for(let i=0; i<team_develop.length; i++){
+                team_develop[i].setAttribute('hidden','hidden');
+            }
+            for (let i = 0; i < team_marketing.length; i++) {
+                team_marketing[i].removeAttribute('hidden');
             }
         }
     })

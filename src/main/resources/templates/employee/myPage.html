@@ -92,20 +92,31 @@
                             <div id="div_team" class="col-xxl-6 text-left" style="display: inline-block">
                                 <div class="row">
                                     <span style="margin-right: 10px">부서/직책</span>
-                                    <select id="department" class="select_part form-select" th:name="department">
-                                        <option th:value="인사부 " value="인사부" th:selected="${employee.part.department} == '인사부'">인사부👨‍💼</option>
-                                        <option th:value="개발부" th:selected="${employee.part.department} == '개발부'">개발부💻</option>
+                                    <select id="department" class="select_part" th:name="department">
+                                        <option selected disabled>부서</option>
+                                        <option value="인사관리부">인사관리부👨‍💼</option>
+                                        <option value="개발부">개발부💻</option>
                                         <option value="기획부">기획부✏️</option>
-                                        <option value="마케팅부">마케팅부📑</option>
                                     </select>
-                                    <select id="team" class="select_part team form-select" th:name="team">
-                                        <option value="개발1팀" class="develop" th:selected="${employee.part.team} == '개발1팀'">개발1팀</option>
-                                        <option value="개발2팀" class="develop" th:selected="${employee.part.team} == '개발2팀'">개발2팀</option>
-                                        <option value="인사1팀" class="human" th:selected="${employee.part.team} == '인사1팀'">인사1팀</option>
+                                    <select id="team" class="select_part team" th:name="team">
+                                        <option selected disabled>팀</option>
+                                        <option value="인사팀" class="human">인사팀</option>
+                                        <option value="회계팀" class="human">회계팀</option>
+                                        <option value="개발1팀" class="develop">개발1팀</option>
+                                        <option value="개발2팀" class="develop">개발2팀</option>
+                                        <option value="사업개발팀" class="develop">사업개발팀</option>
+                                        <option value="경영기획팀" class="marketing">경영기획팀</option>
+                                        <option value="사업기획팀" class="marketing">사업기획팀</option>
                                     </select>
-                                    <select id="work" class="select_part work form-select" th:name="work">
-                                        <option value="프론트" class="develop">프론트엔드</option>
+                                    <select id="work" class="select_part work" th:name="work">
+                                        <option selected disabled>담당</option>
+                                        <option value="인사발령" class="human">인사발령</option>
+                                        <option value="징계" class="human">징계</option>
+                                        <option value="수익관리" class="human">수익관리</option>
+                                        <option value="프론트엔드" class="develop">프론트엔드</option>
                                         <option value="백엔드" class="develop">백엔드</option>
+                                        <option value="광고기획" class="marketing">광고기획</option>
+                                        <option value="광고디자인" class="marketing">광고디자인</option>
                                     </select>
                                 </div>
                             </div>
