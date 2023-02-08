@@ -1,9 +1,7 @@
 package com.sohwakmo.hr.controller;
 
-import com.sohwakmo.hr.domain.BaseTimeEntity;
 import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.Leave;
-import com.sohwakmo.hr.domain.PaymentState;
 import com.sohwakmo.hr.dto.LeaveCreateDto;
 import com.sohwakmo.hr.service.EmployeeService;
 import com.sohwakmo.hr.service.LeaveService;

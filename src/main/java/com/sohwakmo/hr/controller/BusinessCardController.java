@@ -42,13 +42,13 @@ public class BusinessCardController {
     public String create(BusinessCardCreateDto dto){
 
         // TODO: employee에서 시행자 이름, 사번, 결재자 사번, 직급, 직책 가져오기
-        // Employee employee = employeeService.findEmployeeByNo(no);;
+        String no = "1";
 
-//        BusinessCard businessCard = BusinessCard.builder()
-//                .title(dto.getTitle()).employeeName(dto.getEmployeeName()).employeeNo(1L).category(dto.getCategory())
-//                .email(dto.getEmail()).phone(dto.getPhone()).approverNo(0L).reason(dto.getReason()).writeDate(dto.getWriteDate()).build();
+        BusinessCard businessCard = BusinessCard.builder()
+                .employeeNo(no).approverNo(no).title(dto.getTitle()).reason(dto.getReason())
+                .category(dto.getCategory()).build();
 
-//        BusinessCard businessCards = businessCardService.create(businessCard);
+        BusinessCard businessCards = businessCardService.create(businessCard);
 
         return "/businessCard/create";
     }

@@ -15,4 +15,5 @@ public interface MeetingRoomRepository extends JpaRepository<MeetingRoom, Intege
     // 회의실 시간 select
 //    List<MeetingRoom> findByRoomNameOrderByReserveDateDesc();
 
+    List<MeetingRoom> findByReserveDateOrderByRoomNameAscStartTimeAsc(String date);
 }

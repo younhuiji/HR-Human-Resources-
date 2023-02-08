@@ -53,4 +53,21 @@ public class Vacation  extends BaseTimeEntity {
     @Column // 최종 결재일시
     private LocalDateTime competeDate;
 
+    public Vacation addRole(PaymentState status) {
+        state.add(status);
+        return this;
+    }
+
+    public Vacation add(LocalDateTime competeDate){
+        this.competeDate = competeDate;
+        return this;
+    }
+
+    public Vacation returnReason(String returnReason){
+         this.returnReason = returnReason;
+         return this;
+    }
+
+
+
 }

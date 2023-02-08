@@ -29,10 +29,58 @@ document.getElementById("listTable").innerHTML = tbl;
 
 
 
+let listTable = document.querySelector('#listTable');
+createTable();
+
+function createTable(){
+    let tbl= "<table id='meetingTable'>";
+
+    for (let i = 1; i <= 10; i++) {
+        tbl+= "<tr>";
+        for (let j = 8; j <= 20; j++) {
+            if (i == 1) {
+                tbl+= `<th>${j}시</th>`;
+            } else {
+                if(j==8) {
+                    tbl+= `<th>회의실${i}`;
+                } else {
+                    tbl+= `<td id="${j}:00">`;
+                }
+
+            }
+        }
+        tbl+= "</tr>";
+    }
+    tbl+= "</table>";
+    listTable.innerHTML =tbl;
+}
+
 var dragging = false;
 var dragSelectIds = [];
+// var tempSelected =[];
 var $td = $('td');
 var startCell = null;
+//const result11 = document.getElementById('result')
+const button =document.querySelector('#button');
+const myid1 = document.querySelector('#myid1');
+const inputDate = document.querySelector('#input_submit');
+let mapTemp = new Map([
+    ["9:00", 1],
+    ["10:00", 2],
+    ["11:00", 3],
+    ["12:00", 4],
+    ["13:00", 5],
+    ["14:00", 6],
+    ["15:00", 7],
+    ["16:00", 8],
+    ["17:00", 9],
+    ["18:00", 10],
+    ["19:00", 11],
+    ["20:00", 12]
+]);
+
+
+
 const result11 = document.getElementById('result')
 const button =document.querySelector('#clickButton');
 const myid1 = document.getElementById("myid1");
@@ -102,6 +150,7 @@ function getBoundsForElements(elements) {
     var y1 = elements.reduce(function(currMinY, element) {
         var elementTop = $(element).offset().top;
         return currMinY && currMinY < elementTop ? currMinY : elementTop;
+
     }, undefined);
     var y2 = elements.reduce(function(currMaxY, element) {
         var elementBottom = $(element).offset().top + $(element).outerHeight();
@@ -130,6 +179,9 @@ $td.on('mouseup', function(e) {
     dragging = false;
     console.log(dragSelectIds);
 
+    button.value = dragSelectIds;
+
+
     result11.innerHTML = dragSelectIds;
     result11.value = dragSelectIds;
     button.value = dragSelectIds;
@@ -150,26 +202,13 @@ $(".checkBtn").click(function(e){
     // checkBtn.parent() : checkBtn의 부모는 <td>이다.
     // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
     var tr = checkBtn.parent().parent();
+    // var tr = $(this);
     var td = tr.children();
 
-    // console.log("클릭한 Row의 모든 데이터 : "+tr.text());
     console.log('클릭한 데이터 가져오기'+ button.value);
-    console.log('날짜 가져오기'+myid1.value);
-    // console.log('회의실 가져오기'+ );
-
-
-    // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
-    // td.each(function(i){
-    //     tdArr.push(td.eq(i).text());
-    // });
-
-
-    // $("#ex2_Result1").html(" * 클릭한 Row의 모든 데이터 = " + tr.text());
+    console.log('날짜 가져오기'+myid1.value)
 
 });
-
-localStorage.setItem('키','값');
-
 
 // 오늘 이후로 시간 예약하지 못하게
 var now_utc = Date.now()
@@ -181,11 +220,10 @@ document.getElementById("reserveDate").setAttribute("min", today);
 // list 첫 화면 오늘 날짜로 맞추기.
 window.onload = function() {
     today = new Date();
-    console.log("today.toISOString() >>>" + today.toISOString());
     today = today.toISOString().slice(0, 10);
-    console.log("today >>>> " + today);
     bir = document.getElementById("reserveDate");
     bir.value = today;
+    myid1.innerHTML = today;
 }
 
 
@@ -195,11 +233,61 @@ function input() {
     const dday = document.querySelector('#reserveDate').value;
     console.log(dday)
 
-    // document.getElementById("myid1").innerHTML = dday;
-
     myid1.value = dday;
     myid1.innerHTML = dday;
+
+    // 데이터를 불러옴
+    let allMeetingList = [];
+    axios.get('/api/org/meetingList/byDate/'+ dday)
+        .then(response => {
+            console.log(response.data)
+            allMeetingList = response.data;
+            updateTable(allMeetingList);
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
 }
+
+function updateTable(list){
+
+    //초기화
+    for(let i = 0; i < listTable.rows.length; i++){
+        for(let n = 0; n<13; n++){
+            listTable.rows[i].cells[n].style.background='';
+        }
+    }
+
+    let j = 0;
+    for(let i = 0; i < listTable.rows.length; i++){
+
+        if(j >= list.length){
+            break;
+        }
+
+        while(listTable.rows[i].cells[0].innerText == list[j].roomName){
+            let start = mapTemp.get(list[j].start);
+            let end = mapTemp.get(list[j].end);
+            checkBackground(start, end);
+            j++;
+
+            if(j >= list.length){
+                break;
+            }
+        }
+
+        function checkBackground (start, end){
+            for(let n = start; n< end; n++){
+                listTable.rows[i].cells[n].style.background="green";
+            }
+        }
+
+    }
+}
+
+
+
 
 // window.addEventListener("DOMContentLoaded", (event) => {
     const form = document.querySelector("#listBtnCreate");

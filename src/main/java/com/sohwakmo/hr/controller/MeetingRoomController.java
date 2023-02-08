@@ -35,6 +35,13 @@ public class MeetingRoomController {
         return "/meetingRoom/list";
     }
 
+    @GetMapping("/readByDate")
+    public void list(Model model, String dateValue){
+        log.info("readByDate(date={})",dateValue);
+
+
+    }
+
 //    @GetMapping("myReserve")
 //    public String myReserve() {
 //        log.info("myReserve()");
