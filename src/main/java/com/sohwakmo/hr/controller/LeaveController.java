@@ -63,7 +63,7 @@ public class LeaveController  {
         model.addAttribute("leave",leave);
         model.addAttribute("employee", employee);
 
-        return "/leave/detail";
+        return "smaple";
     }
 
     @GetMapping("/sample")

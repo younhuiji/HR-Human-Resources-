@@ -1,15 +1,20 @@
 package com.sohwakmo.hr.controller;
 
+import com.sohwakmo.hr.domain.BusinessCard;
 import com.sohwakmo.hr.domain.BusinessTrip;
+import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.Vacation;
 import com.sohwakmo.hr.dto.VacationCreateDto;
+import com.sohwakmo.hr.service.EmployeeService;
 import com.sohwakmo.hr.service.VacationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class VacationController {
 
     private final VacationService vacationService;
+    private final EmployeeService employeeService;
 
     // 휴가(vacation) create list
     @GetMapping("/create")
@@ -40,6 +46,23 @@ public class VacationController {
         log.info("vacation={}", vacations);
 
         return "/payment/create";
+    }
+
+    @GetMapping("/detail")
+    public void detail(Model model, @RequestParam Integer no) {
+
+        Vacation vacation = vacationService.selectByNo(no);
+        model.addAttribute("vacation", vacation);
+        log.info("vacation={}", vacation);
+
+        Employee employee = employeeService.selectByNo(vacation.getEmployeeNo());
+        model.addAttribute("employee", employee);
+        log.info("employee={}", employee);
+
+        Employee approver = employeeService.selectByNo(vacation.getApproverNo());
+        model.addAttribute("approver", approver);
+
+
     }
 
 }

@@ -33,4 +33,8 @@ public class VacationService {
         return vacationRepository.findByEmployeeNoAndState(no, state);
     }
 
+    public Vacation selectByNo(Integer no) {
+        return vacationRepository.findById(no).orElse(null);
+    }
+
 }
