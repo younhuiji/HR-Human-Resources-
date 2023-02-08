@@ -52,17 +52,17 @@ public class OrgRestController {
         return ResponseEntity.ok(list);
     }
 
-//    @GetMapping("/meetingList/byDate/{date}")
-//    public ResponseEntity<List<MeetingReadDto>> readMeetingListByDate(@PathVariable String date, Model model){
-//        log.info("readAllMeetingList(date={})", date);
-//
-//        List<MeetingReadDto> listByDate = orgService.readMeetingListByDate(date);
-//        log.info("# of listByDate ={}",listByDate.size());
-//
-//        model.addAttribute("listByDate", listByDate);
-//
-//        return ResponseEntity.ok(listByDate);
-//    }
+    @GetMapping("/meetingList/byDate/{date}")
+    public ResponseEntity<List<MeetingReadDto>> readMeetingListByDate(@PathVariable String date, Model model){
+        log.info("readAllMeetingList(date={})", date);
+
+        List<MeetingReadDto> listByDate = orgService.readMeetingListByDate(date);
+        log.info("# of listByDate ={}",listByDate.size());
+
+        model.addAttribute("listByDate", listByDate);
+
+        return ResponseEntity.ok(listByDate);
+    }
 
     @GetMapping("/businessTripList/{loginUser}")
     public ResponseEntity<List<BusinessTripReadDto>> readBusinessTripList(@PathVariable String loginUser){

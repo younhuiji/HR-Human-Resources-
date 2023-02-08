@@ -9,6 +9,32 @@
 //     });
 // });
 
+let listTable = document.querySelector('#listTable');
+createTable();
+
+function createTable(){
+    let tbl= "<table id='meetingTable'>";
+
+    for (let i = 1; i <= 10; i++) {
+        tbl+= "<tr>";
+        for (let j = 8; j <= 20; j++) {
+            if (i == 1) {
+                tbl+= `<th>${j}시</th>`;
+            } else {
+                if(j==8) {
+                    tbl+= `<th>회의실${i}`;
+                } else {
+                    tbl+= `<td id="${j}:00">`;
+                }
+
+            }
+        }
+        tbl+= "</tr>";
+    }
+    tbl+= "</table>";
+    listTable.innerHTML =tbl;
+}
+
 var dragging = false;
 var dragSelectIds = [];
 // var tempSelected =[];
@@ -18,6 +44,23 @@ var startCell = null;
 const button =document.querySelector('#button');
 const myid1 = document.querySelector('#myid1');
 const inputDate = document.querySelector('#input_submit');
+let mapTemp = new Map([
+    ["9:00", 1],
+    ["10:00", 2],
+    ["11:00", 3],
+    ["12:00", 4],
+    ["13:00", 5],
+    ["14:00", 6],
+    ["15:00", 7],
+    ["16:00", 8],
+    ["17:00", 9],
+    ["18:00", 10],
+    ["19:00", 11],
+    ["20:00", 12]
+]);
+
+
+
 
 function end(e) {
     dragSelectIds = [];
@@ -172,17 +215,55 @@ function input() {
     myid1.value = dday;
     myid1.innerHTML = dday;
 
-    //데이터를 불러옴
-    // let allMeetingList = [];
-    // axios.get('/api/org/meetingList/byDate/'+ dday)
-    //     .then(response => {
-    //         console.log(response.data)
-    //         allMeetingList = response.data;
-    //     })
-    //     .catch(err => {
-    //         console.log(err)
-    //     })
+    // 데이터를 불러옴
+    let allMeetingList = [];
+    axios.get('/api/org/meetingList/byDate/'+ dday)
+        .then(response => {
+            console.log(response.data)
+            allMeetingList = response.data;
+            updateTable(allMeetingList);
+        })
+        .catch(err => {
+            console.log(err)
+        })
 
 }
+
+function updateTable(list){
+
+    //초기화
+    for(let i = 0; i < listTable.rows.length; i++){
+        for(let n = 0; n<13; n++){
+            listTable.rows[i].cells[n].style.background='';
+        }
+    }
+
+    let j = 0;
+    for(let i = 0; i < listTable.rows.length; i++){
+
+        if(j >= list.length){
+            break;
+        }
+
+        while(listTable.rows[i].cells[0].innerText == list[j].roomName){
+            let start = mapTemp.get(list[j].start);
+            let end = mapTemp.get(list[j].end);
+            checkBackground(start, end);
+            j++;
+
+            if(j >= list.length){
+                break;
+            }
+        }
+
+        function checkBackground (start, end){
+            for(let n = start; n< end; n++){
+                listTable.rows[i].cells[n].style.background="green";
+            }
+        }
+
+    }
+}
+
 
 
