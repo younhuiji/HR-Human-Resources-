@@ -14,9 +14,10 @@ var dragSelectIds = [];
 // var tempSelected =[];
 var $td = $('td');
 var startCell = null;
-const result11 = document.getElementById('result')
+//const result11 = document.getElementById('result')
 const button =document.querySelector('#button');
-const myid1 = document.getElementById("myid1");
+const myid1 = document.querySelector('#myid1');
+const inputDate = document.querySelector('#input_submit');
 
 function end(e) {
     dragSelectIds = [];
@@ -77,16 +78,11 @@ function getBoundsForElements(elements) {
     }, undefined);
     var y1 = elements.reduce(function(currMinY, element) {
         var elementTop = $(element).offset().top;
-        // console.log('element top: '+ elementTop );
-        // console.log('currMinY: '+currMinY);
         return currMinY && currMinY < elementTop ? currMinY : elementTop;
-        // return elementTop;
 
     }, undefined);
     var y2 = elements.reduce(function(currMaxY, element) {
         var elementBottom = $(element).offset().top + $(element).outerHeight();
-        // console.log('element bottom: '+ elementBottom );
-        // console.log('currMaxY: '+currMaxY);
         return currMaxY && currMaxY > elementBottom ? currMaxY : elementBottom;
     }, undefined);
     return {
@@ -112,10 +108,8 @@ $td.on('mouseup', function(e) {
     dragging = false;
     console.log(dragSelectIds);
 
-    result11.innerHTML = dragSelectIds;
-    result11.value = dragSelectIds;
     button.value = dragSelectIds;
-    // document.getElementById('result').innerHTML = dragSelectIds;
+
 });
 
 
@@ -137,25 +131,7 @@ $(".checkBtn").click(function(e){
     console.log('클릭한 데이터 가져오기'+ button.value);
     console.log('날짜 가져오기'+myid1.value)
 
-
-    // var no = td.eq(0).text();
-    // var userid = td.eq(1).text();
-    // var name = td.eq(2).text();
-    // var email = td.eq(3).text();
-
-
-    // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
-    // td.each(function(i){
-    //     tdArr.push(td.eq(i).text());
-    // });
-
-
-    // $("#ex2_Result1").html(" * 클릭한 Row의 모든 데이터222222 = " + tr.text());
-
 });
-
-
-
 
 // 오늘 이후로 시간 예약하지 못하게
 var now_utc = Date.now()
@@ -167,11 +143,10 @@ document.getElementById("reserveDate").setAttribute("min", today);
 // list 첫 화면 오늘 날짜로 맞추기.
 window.onload = function() {
     today = new Date();
-    console.log("today.toISOString() >>>" + today.toISOString());
     today = today.toISOString().slice(0, 10);
-    console.log("today >>>> " + today);
     bir = document.getElementById("reserveDate");
     bir.value = today;
+    myid1.innerHTML = today;
 }
 
 $('.saveBtn').on('click', function() {
@@ -196,4 +171,18 @@ function input() {
 
     myid1.value = dday;
     myid1.innerHTML = dday;
+
+    //데이터를 불러옴
+    // let allMeetingList = [];
+    // axios.get('/api/org/meetingList/byDate/'+ dday)
+    //     .then(response => {
+    //         console.log(response.data)
+    //         allMeetingList = response.data;
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //     })
+
 }
+
+

@@ -13,10 +13,9 @@
 
             <div class="section-header">
                 <h1 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >회의실 예약</h1>
-                <form action="/meetingRoom/list" method="get">
-                    <input type="date" name="dateValue" value="xxx" min="yyy" max="zzz" id="reserveDate" />
-                    <input id="input_submit" type="submit" onclick="input()" value="확인" />
-                </form>
+                <input type="date" value="xxx" min="yyy" max="zzz" id="reserveDate" />
+                <input id="input_submit" type="submit" onclick="input()" value="확인" />
+
             </div>
             <div class="col-3">
                 <a th:href="@{/meetingRoom/create}" class="btn btn-outline-info">예약</a>
@@ -104,7 +103,7 @@
                 <div>
                     <h2 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >내 예약 현황</h2>
                 </div>
-                <form th:action="@{/meetingRoom/list}" method="get">
+                <form th:action="@{ /meetingRoom/ list}" method="get">
                     <table class="table table-hover" >
                         <thead>
                             <tr>
