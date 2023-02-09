@@ -76,20 +76,16 @@ public class HomeController {
     private void setModelDoc(String payment, String employeeNo,Model model) {
         switch (payment) {
             case "vacation" -> {
-                List<Vacation> list = vacationService.selectByEmployeeNo(employeeNo);
-                model.addAttribute("docList", list);
+                model.addAttribute("docList", vacationService.getVacationListSeven(employeeNo));
             }
             case "trip" -> {
-                List<BusinessTrip> list = businessTripService.selectByEmployeeNo(employeeNo);
-                model.addAttribute("docList", list);
+                model.addAttribute("docList", businessTripService.getBusinessTripSeven(employeeNo));
             }
             case "leave" -> {
-                List<Leave> list = leaveService.selectByEmployeeNO(employeeNo);
-                model.addAttribute("docList", list);
+                model.addAttribute("docList", leaveService.selectByEmployeeNO(employeeNo));
             }
             default -> {
-                List<BusinessCard> list = businessCardService.selectByEmployeeNo(employeeNo);
-                model.addAttribute("docList", list);
+                model.addAttribute("docList",  businessCardService.getBusinessCardSeven(employeeNo));
             }
         }
     }
@@ -98,7 +94,7 @@ public class HomeController {
      * 게시판 리스트를 가져오는 메서드
      * @return 모든 게시핀을 가져와서 리턴.
      */
-    private List<Post> getPostList() {return postService.readPost();}
+    private List<Post> getPostList() {return postService.readPostSeven();}
 
     private String getNowTime() {
         // 현재 시간

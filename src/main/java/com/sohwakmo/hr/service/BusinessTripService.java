@@ -39,4 +39,16 @@ public class BusinessTripService {
         return businessTripRepository.findByEmployeeNoAndState(no, state);
     }
 
+    public List<BusinessTrip> getBusinessTripSeven(String employeeNo) {
+        List<BusinessTrip> allList = businessTripRepository.findByEmployeeNoOrderByNoDesc(employeeNo);
+        if (allList.size() == 0) {
+            return allList;
+        }else {
+            List<BusinessTrip> list = new ArrayList<>();
+            for (int i = 0; i < 7; i++) {
+                list.add(allList.get(i));
+            }
+            return list;
+        }
+    }
 }

@@ -12,5 +12,7 @@ public interface BusinessTripRepository extends JpaRepository<BusinessTrip, Inte
     public List<BusinessTrip> findByEmployeeNoAndState(String no, PaymentState state);
 
     public List<BusinessTrip> findByEmployeeNoAndEffectiveDateContaining(String emplyeeNo, String formatedNow);
+
+    List<BusinessTrip> findByEmployeeNoOrderByNoDesc(String employeeNo);
 }
 

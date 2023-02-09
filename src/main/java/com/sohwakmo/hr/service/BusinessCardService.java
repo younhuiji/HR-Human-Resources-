@@ -3,11 +3,13 @@ package com.sohwakmo.hr.service;
 import com.sohwakmo.hr.domain.BusinessCard;
 import com.sohwakmo.hr.domain.Leave;
 import com.sohwakmo.hr.domain.PaymentState;
+import com.sohwakmo.hr.domain.Vacation;
 import com.sohwakmo.hr.repository.BusinessCardRepository;
 import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -43,4 +45,16 @@ public class BusinessCardService {
         return businessCardRepository.findByEmployeeNoAndState(no, state);
     }
 
+    public List<BusinessCard> getBusinessCardSeven(String employeeNo) {
+        List<BusinessCard> allList = businessCardRepository.findByEmployeeNoOrderByNoDesc(employeeNo);
+        if (allList.size() == 0) {
+            return allList;
+        }else{
+            List<BusinessCard> list = new ArrayList<>();
+            for (int i = 0; i < 7; i++) {
+                list.add(allList.get(i));
+            }
+            return list;
+        }
+    }
 }

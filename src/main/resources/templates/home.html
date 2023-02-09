@@ -11,8 +11,8 @@
 <div layout:fragment="content">
 <div id="body" style="height: 100%; width: 100%;">
         <div id="headerMsg" style="height: 7%; width: 100%; margin-bottom: 1%;">
-            <h3>Hi! <span th:text="${#authentication.principal.name}"></span>님</h3>
-            <span>~님의 업무 환영 문구~</span>
+            <h3><span th:text="${#authentication.principal.name}"></span>님!!</h3>
+            <span id="welcome">소확모와 함께 빛나는 미래를 위해 달려요~~</span>
         </div>
 
         <!-- 사원번호 가져오기 위한 hidden -->
@@ -251,7 +251,7 @@
 
                     <div class="col-8" style="height: 100%; margin: 0;">
                         <div style="padding-left: 8px; height: 100%">
-                            <div class="border" style="border-radius: 8px; padding: 16px; height: 100%;">
+                            <div id="post_table" class="border">
                                 <table class="table table-hover">
                                     <thead>
                                     <tr class="tr">

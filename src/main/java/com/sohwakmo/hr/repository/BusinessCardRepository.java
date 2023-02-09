@@ -19,4 +19,6 @@ public interface BusinessCardRepository extends JpaRepository<BusinessCard, Inte
     List<BusinessCard> selectByEmployeeNo(@Param(value = "no") String no);
 
     public List<BusinessCard> findByEmployeeNoAndState(String no, PaymentState state);
+
+    List<BusinessCard> findByEmployeeNoOrderByNoDesc(String employeeNo);
 }
