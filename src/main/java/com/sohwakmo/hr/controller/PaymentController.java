@@ -177,6 +177,26 @@ public class PaymentController {
 
     }
 
+    // 출장(trip) detail
+    @GetMapping("/businessTrip/detail")
+    public void detailTrip(Model model, @RequestParam Integer no) {
+
+        BusinessTrip trip = businessTripService.selectByNo(no);
+        model.addAttribute("trip", trip);
+        log.info("trip={}", trip);
+
+        Employee employee = employeeService.selectByNo(trip.getEmployeeNo());
+        model.addAttribute("employee", employee);
+        log.info("employee={}", employee);
+
+        Employee approver = employeeService.selectByNo(trip.getApproverNo());
+        model.addAttribute("approver", approver);
+
+        Employee companion = employeeService.selectByNo(trip.getCompanionNO());
+        model.addAttribute("companion", companion);
+
+    }
+
     // ----------- card -------------
     // 명함(bs card) create list
     @GetMapping("/businessCard/create")
@@ -250,16 +270,19 @@ public class PaymentController {
     @GetMapping("/leave/detail")
     public void detailLeave(@RequestParam Integer no, Model model) {
 
-        Leave leave = leaveService.selectByNo(no);
-        Employee employee = employeeService.selectByNo(leave.getEmployeeNo());
+            Leave leave = leaveService.selectByNo(no);
+            model.addAttribute("leave", leave);
+            log.info("leave={}", leave);
 
-        model.addAttribute("leave",leave);
-        model.addAttribute("employee", employee);
+            Employee employee = employeeService.selectByNo(leave.getEmployeeNo());
+            model.addAttribute("employee", employee);
+            log.info("employee={}", employee);
 
-    }
+            Employee approver = employeeService.selectByNo(leave.getApproverNo());
+            model.addAttribute("approver", approver);
 
-    @GetMapping("/leave/sample")
-    public void sample(){
+            Employee secondApprover = employeeService.selectByNo(leave.getSecondApproverNO());
+            model.addAttribute("secondApprover", secondApprover);
     }
 
 

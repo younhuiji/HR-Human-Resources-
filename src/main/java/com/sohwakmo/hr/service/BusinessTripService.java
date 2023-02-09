@@ -10,6 +10,7 @@ import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -31,6 +32,10 @@ public class BusinessTripService {
 
     public List<BusinessTrip> selectByEmployeeNoAndState(String no, PaymentState state){
         return businessTripRepository.findByEmployeeNoAndState(no, state);
+    }
+
+    public BusinessTrip selectByNo(Integer no){
+        return businessTripRepository.findById(no).orElse(null);
     }
 
 }
