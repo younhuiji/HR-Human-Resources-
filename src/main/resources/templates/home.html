@@ -133,7 +133,7 @@
                 </div>
 
                 <div class="col-8" style=" margin: 0; padding: 0 0 0 16px;">
-                    <div id="todo" class="border" style="border-radius: 8px; height: 100%;">
+                    <div id="todo" class="border">
                         <div>
                             <form id="form">
                                 <div class="row" style="padding: 10px">
@@ -176,7 +176,7 @@
             <div id="line2" style="height:49%; padding-top: 1%;">
                 <div class="row" style="height: 100%; ">
                     <!--주환-->
-                    <div class="col-4" style="height: 100%; margin: 0; padding: 0 16px 0 0;">
+                    <div class="col-4" style="height: 100%; margin: 0;">
                         <div style="height: 100%; padding: 0;">
                             <div id="schedule" style="height: 100%">
                                 <div>
@@ -249,31 +249,33 @@
                         </div>
                     </div>
 
-                    <div class="col-8" style="height: 100%; margin: 0; padding: 0 0 0 16px;">
-                        <div class="border" style="border-radius: 8px; padding: 16px; height: 100%;">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr class="tr">
-                                    <th></th>
-                                    <th scope="col">제목</th>
-                                    <th scope="col">작성자</th>
-                                    <th scope="col">작성일</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="tr" th:each="post: ${postList}" th:onclick="|location.href='@{ /post/detail(postNo=${ post.postNo }) }'|">
-                                    <td th:switch="${ post.noticeYn }">
-                                        <span th:case="4" th:text="${ post.postNo }"></span>
-                                        <span th:case="3">팀 공지</span>
-                                        <span th:case="2">부서 공지</span>
-                                        <span th:case="1">전체 공지</span>
-                                    </td>
-                                    <td th:text="${post.title}"></td>
-                                    <td th:text="${post.writer}"></td>
-                                    <td th:text="${#temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm') }"></td>
-                                </tr>
-                                </tbody>
-                            </table>
+                    <div class="col-8" style="height: 100%; margin: 0;">
+                        <div style="padding-left: 8px; height: 100%">
+                            <div class="border" style="border-radius: 8px; padding: 16px; height: 100%;">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr class="tr">
+                                        <th></th>
+                                        <th scope="col">제목</th>
+                                        <th scope="col">작성자</th>
+                                        <th scope="col">작성일</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="tr" th:each="post: ${postList}" th:onclick="|location.href='@{ /post/detail(postNo=${ post.postNo }) }'|">
+                                        <td th:switch="${ post.noticeYn }">
+                                            <span th:case="4" th:text="${ post.postNo }"></span>
+                                            <span th:case="3">팀 공지</span>
+                                            <span th:case="2">부서 공지</span>
+                                            <span th:case="1">전체 공지</span>
+                                        </td>
+                                        <td th:text="${post.title}"></td>
+                                        <td th:text="${post.writer}"></td>
+                                        <td th:text="${#temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm') }"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
