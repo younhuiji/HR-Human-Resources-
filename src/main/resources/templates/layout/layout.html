@@ -105,7 +105,7 @@
                         </nav>
                     </div>
 
-                    <a class="nav-link" href="/organization/calendar">
+                    <a class="nav-link" th:href="@{/organization/calendar?loginUser={userNo} (userNo =${#authentication.principal.employeeNo})}">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                         일정
                     </a>
