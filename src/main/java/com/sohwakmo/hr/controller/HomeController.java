@@ -27,6 +27,7 @@ public class HomeController {
     private final BusinessTripService businessTripService;
     private final BusinessCardService businessCardService;
     private final LeaveService leaveService;
+    private final MeetingRoomService meetingRoomService;
 
     @GetMapping("/")
     @PreAuthorize("isAuthenticated()")
@@ -34,10 +35,11 @@ public class HomeController {
         String employeeNo = principal.getName();
         // 오늘 날짜를 구하는 메서드
         String formatedNow = getToday();
-        // DB에 저장되어 있는 최근 출근기록을 체크후 id값 출력
-        Long attendanceNo = employeeService.checkAttendance(employeeNo,formatedNow);
         // 현재 시간을 구하는 메서드
         String formatedTime = getNowTime();
+        // DB에 저장되어 있는 최근 출근기록을 체크후 id값 출력
+        Long attendanceNo = employeeService.checkAttendance(employeeNo,formatedNow);
+
 
         if (attendanceNo != -1L) {
             Attendance attendance = employeeService.getAttendance(attendanceNo);
@@ -46,13 +48,23 @@ public class HomeController {
             model.addAttribute("workingTime", workingTime);
             model.addAttribute("postList", getPostList());
             setModelDoc(payment, employeeNo,model);
+            setSchedule(employeeNo, formatedNow,model);
 
         }else{
             model.addAttribute("attendance","notAttendance");
             model.addAttribute("postList", getPostList());
             setModelDoc(payment, employeeNo,model);
+            setSchedule(employeeNo, formatedNow,model);
         }
         return "/home";
+    }
+
+    private void setSchedule(String employeeNo, String formatedNow, Model model) {
+        model.addAttribute("businessTripList", businessTripService.getTodayBusinessTripList(employeeNo,formatedNow));
+        model.addAttribute("vacationList", vacationService.getTodayVacationList(employeeNo, formatedNow));
+        model.addAttribute("reservationList", meetingRoomService.getTodayReservation(employeeNo, formatedNow));
+        model.addAttribute("todayMonth", formatedNow.substring(0, 2));
+        model.addAttribute("todayDate", formatedNow.substring(3));
     }
 
     /**
@@ -64,20 +76,16 @@ public class HomeController {
     private void setModelDoc(String payment, String employeeNo,Model model) {
         switch (payment) {
             case "vacation" -> {
-                List<Vacation> list = vacationService.selectByEmployeeNo(employeeNo);
-                model.addAttribute("docList", list);
+                model.addAttribute("docList", vacationService.getVacationListSeven(employeeNo));
             }
             case "trip" -> {
-                List<BusinessTrip> list = businessTripService.selectByEmployeeNo(employeeNo);
-                model.addAttribute("docList", list);
+                model.addAttribute("docList", businessTripService.getBusinessTripSeven(employeeNo));
             }
             case "leave" -> {
-                List<Leave> list = leaveService.selectByEmployeeNO(employeeNo);
-                model.addAttribute("docList", list);
+                model.addAttribute("docList", leaveService.selectByEmployeeNO(employeeNo));
             }
             default -> {
-                List<BusinessCard> list = businessCardService.selectByEmployeeNo(employeeNo);
-                model.addAttribute("docList", list);
+                model.addAttribute("docList",  businessCardService.getBusinessCardSeven(employeeNo));
             }
         }
     }
@@ -86,7 +94,7 @@ public class HomeController {
      * 게시판 리스트를 가져오는 메서드
      * @return 모든 게시핀을 가져와서 리턴.
      */
-    private List<Post> getPostList() {return postService.readPost();}
+    private List<Post> getPostList() {return postService.readPostSeven();}
 
     private String getNowTime() {
         // 현재 시간

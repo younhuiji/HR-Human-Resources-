@@ -1,9 +1,7 @@
 #body{
     background: #f5f5f5;
 }
-#wrap{
-    margin: 2% 3%;
-}
+
 #headerMsg{
     border: solid 1px #dadada;
     border-radius: 8px;
@@ -14,6 +12,11 @@
     margin-bottom: 0;
     padding: 20px 20px 20px 30px;
     display: inline-block;
+}
+
+#headerMsg #welcome{
+    font-weight: bold;
+    font-size: 18px;
 }
 
 /*-------------------header------------------------*/
@@ -29,10 +32,11 @@
 /*----출결 버튼 msg----*/
 
 #work_info_div{
-    margin: 2% 1% 1% 1%;
-    padding: 4%;
+    padding: 43px 4%;
     background: rgb(65,76,95);
+    box-shadow : 2px 3px 5px 0 rgba(0,0,0,0.2) ;
     border-radius: 8px;
+    width: 100%;
 }
 #work_info_div h3{
     color: white;
@@ -55,16 +59,29 @@
     text-align: center;
     padding: 12px 24px;
 }
-/*-------------------myWork------------------------*/
-
 
 /*-------------------문서결제------------------------*/
+#doc{
+    border-radius: 8px;
+    height: 100%;
+    padding: 28px 16px 16px 16px;
+    box-shadow : 2px 3px 5px 0 rgba(0,0,0,0.2) ;
+}
+
+
 #attendance_wrap {
-    margin: 0 1%;
+    margin-top: 5.8%;
     border: 1px solid #dadada;
     padding: 24px;
     border-radius: 8px;
-    /*background-color: #f0f7ff;*/
+    box-shadow : 2px 3px 5px 0 rgba(0,0,0,0.2) ;
+}
+#time_info{
+    height: 100%;
+}
+
+#select_div{
+    padding: 0;
 }
 
 .state_time{
@@ -96,14 +113,35 @@
 /*----일정, 게시판줄 div----*/
 #line2{
     margin-top: 1em;
+    height: 50%;
 }
-/*#schedule_wrap{*/
-/*    !*padding: 2px;4*!*/
-/*}*/
+
 #schedule{
-    margin: 0 1%;
-    text-align: center;
     border: 1px solid #dadada;
+    box-shadow : 2px 3px 5px 0 rgba(0,0,0,0.2) ;
     padding: 24px;
     border-radius: 8px;
+    height: 100%;
+    background-color: #fffadf;
+}
+#schedule h4{
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+#schedule .row{
+    padding: 9px;
+}
+
+.scheduleTitle{
+    font-weight: bold;
+    text-align: center;
+}
+
+/*----게시판----*/
+#post_table{
+    border-radius: 8px;
+    padding: 33px 16px 16px 16px;
+    height: 100%;
+    box-shadow : 2px 3px 5px 0 rgba(0,0,0,0.2) ;
 }

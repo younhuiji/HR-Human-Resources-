@@ -447,7 +447,7 @@ public class EmployeeService {
         for (Attendance a : list) {
             int day = Integer.parseInt(a.getDay());
             if(a.getState()==0) workState[day-1] = "O";
-            else if (a.getState()==1) workState[day - 1] = "*";
+            else if (a.getState()==1) workState[day - 1] = "△";
             else workState[day - 1] = "X";
         }
         // 빈칸에 "-" 로 채우기

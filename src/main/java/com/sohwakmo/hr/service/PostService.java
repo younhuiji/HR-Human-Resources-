@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -76,4 +77,12 @@ public class PostService {
 //
 //        return list;
 //    }
+    public List<Post> readPostSeven() {
+        List<Post> allList = postRepository.findByOrderByNoticeYnAscPostNoDesc();
+        List<Post> list = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            list.add(allList.get(i));
+        }
+        return list;
+    }
 }
