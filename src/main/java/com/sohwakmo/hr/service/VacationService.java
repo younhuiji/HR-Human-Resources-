@@ -42,7 +42,7 @@ public class VacationService {
 
     public List<Vacation> getVacationListSeven(String employeeNo) {
         List<Vacation> allList = vacationRepository.findByEmployeeNoOrderByNoDesc(employeeNo);
-        if (allList.size() == 0) {
+        if (allList.size() <= 7) {
             return allList;
         }else {
             List<Vacation> list = new ArrayList<>();

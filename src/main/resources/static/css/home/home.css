@@ -32,11 +32,11 @@
 /*----출결 버튼 msg----*/
 
 #work_info_div{
-    margin: 2% 1% 1% 1%;
     padding: 43px 4%;
     background: rgb(65,76,95);
     box-shadow : 2px 3px 5px 0 rgba(0,0,0,0.2) ;
     border-radius: 8px;
+    width: 100%;
 }
 #work_info_div h3{
     color: white;
@@ -61,15 +61,16 @@
 }
 
 /*-------------------문서결제------------------------*/
-#todo{
+#doc{
     border-radius: 8px;
     height: 100%;
     padding: 28px 16px 16px 16px;
     box-shadow : 2px 3px 5px 0 rgba(0,0,0,0.2) ;
 }
 
+
 #attendance_wrap {
-    margin: 7% 0;
+    margin-top: 5.8%;
     border: 1px solid #dadada;
     padding: 24px;
     border-radius: 8px;
@@ -121,11 +122,17 @@
     padding: 24px;
     border-radius: 8px;
     height: 100%;
+    background-color: #fffadf;
 }
 #schedule h4{
     text-align: center;
     margin-bottom: 5%;
 }
+
+#schedule .row{
+    padding: 9px;
+}
+
 .scheduleTitle{
     font-weight: bold;
     text-align: center;

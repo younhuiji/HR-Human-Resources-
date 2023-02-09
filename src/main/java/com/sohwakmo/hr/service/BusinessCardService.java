@@ -47,7 +47,7 @@ public class BusinessCardService {
 
     public List<BusinessCard> getBusinessCardSeven(String employeeNo) {
         List<BusinessCard> allList = businessCardRepository.findByEmployeeNoOrderByNoDesc(employeeNo);
-        if (allList.size() == 0) {
+        if (allList.size() <=7) {
             return allList;
         }else{
             List<BusinessCard> list = new ArrayList<>();

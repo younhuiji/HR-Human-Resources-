@@ -41,7 +41,7 @@ public class BusinessTripService {
 
     public List<BusinessTrip> getBusinessTripSeven(String employeeNo) {
         List<BusinessTrip> allList = businessTripRepository.findByEmployeeNoOrderByNoDesc(employeeNo);
-        if (allList.size() == 0) {
+        if (allList.size() <=7) {
             return allList;
         }else {
             List<BusinessTrip> list = new ArrayList<>();
