@@ -104,15 +104,9 @@ public class MessageController {
         log.info("employeeNo = {}", employeeNo);
 
         Page<MessageSearchDto> messageList;
-        if(messageType == "") {
-            messageType = null;
-        }
-        if(keyword == "") {
-            keyword = null;
-        }
-        if(contentType == "") {
-            contentType = null;
-        }
+        if(messageType == "") { messageType = null; }
+        if(keyword == "") { keyword = null;}
+        if(contentType == "") {contentType = null; }
 
         // 리스트로 바로 들어온 경우(검색하지 않은 경우)
         if(messageType == null && contentType == null && keyword == null) {
@@ -138,16 +132,16 @@ public class MessageController {
 
     /**
      * 받은쪽지함 쪽지 삭제하기
-     * @param employee
+     * @param employeeNo
      * @param messageCheckBox
      * @return
      */
     @GetMapping("/receiveSendTrash")
-    public String receiveSendTrash(String employee, String[] messageCheckBox) {
-        log.info("receiveSendTrash(employee = {}, messageCheckBox = {})", employee, messageCheckBox);
+    public String receiveSendTrash(String employeeNo, String[] messageCheckBox) {
+        log.info("receiveSendTrash(employeeNo = {}, messageCheckBox = {})", employeeNo, messageCheckBox);
 
-        employee = "2";
-        messageService.receiveSendTrash(employee, messageCheckBox);
+        employeeNo = "2";
+        messageService.receiveSendTrash(employeeNo, messageCheckBox);
 
         return "redirect:/message/receiveList";
     }
@@ -172,21 +166,15 @@ public class MessageController {
         log.info("employeeNo = {}", employeeNo);
 
         Page<MessageSearchDto> messageList;
-        if(messageType == "") {
-            messageType = null;
-        }
-        if(keyword == "") {
-            keyword = null;
-        }
-        if(contentType == "") {
-            contentType = null;
-        }
+        if(messageType == "") { messageType = null;}
+        if(keyword == "") { keyword = null; }
+        if(contentType == "") { contentType = null;}
 
         // 리스트로 바로 들어온 경우(검색하지 않은 경우)
         if(messageType == null && contentType == null && keyword == null) {
             log.info("검색하지 않은 경우");
             messageList = messageService.sendListRead(employeeNo, pageable);
-            
+
         } else {
             log.info("검색한 경우");
             messageList = messageService.sendListSearchMessage(employeeNo, messageType, contentType, keyword, pageable);
@@ -207,18 +195,74 @@ public class MessageController {
 
     /**
      * 보낸쪽지함 쪽지 삭제하기
-     * @param employee
+     * @param employeeNo
      * @param messageCheckBox
      * @return
      */
     @GetMapping("/senderSendTrash")
-    public String senderSendTrash(String employee, String[] messageCheckBox) {
-        log.info("senderSendTrash(employee = {}, messageCheckBox = {})", employee, messageCheckBox);
+    public String senderSendTrash(String employeeNo, String[] messageCheckBox) {
+        log.info("senderSendTrash(employeeNo = {}, messageCheckBox = {})", employeeNo, messageCheckBox);
 
-        employee = "2";
-        messageService.senderSendTrash(employee, messageCheckBox);
+        employeeNo = "2";
+        messageService.senderSendTrash(employeeNo, messageCheckBox);
 
         return "redirect:/message/sendList";
+    }
+
+    /**
+     * 휴지통 리스트
+     * @param employeeNo
+     * @return
+     */
+    @GetMapping("/trashList")
+    public String trashList(String employeeNo, Model model, String messageType, String contentType, String keyword,
+                            @PageableDefault(page = 0, size = 5, sort = "messageNo", direction = Sort.Direction.DESC) Pageable pageable) {
+        log.info("trashList(employeeNo = {}, messageType = {}, contentType = {}, keyword = {})", employeeNo, messageType, contentType, keyword);
+
+        employeeNo = "2";
+        log.info("employeeNo = {}", employeeNo);
+
+        Page<MessageSearchDto> messageList;
+        if(messageType == "") { messageType = null; }
+        if(keyword == "") { keyword = null; }
+        if(contentType == "") { contentType = null; }
+
+        // 리스트로 바로 들어온 경우(검색하지 않은 경우)
+        if(messageType == null && contentType == null && keyword == null) {
+            log.info("검색하지 않은 경우");
+            messageList = messageService.trashListRead(employeeNo, pageable);
+        } else {
+            log.info("검색한 경우");
+            messageList = messageService.trashListSearchMessage(employeeNo, messageType, contentType, keyword, pageable);
+        }
+
+        log.info("messageList = {}", messageList);
+        log.info("messageCount = {}", messageList.getTotalElements());
+
+        paging(messageList, model);
+
+        model.addAttribute("messageList", messageList);
+        model.addAttribute("messageCount", messageList.getTotalElements());
+        model.addAttribute("messageType", messageType);
+        model.addAttribute("contentType", contentType);
+
+        return "/message/trashList";
+    }
+
+    /**
+     * 휴지통 쪽지 삭제하기
+     * @param employeeNo
+     * @param messageCheckBox
+     * @return
+     */
+    @GetMapping("/trashSendDelete")
+    public String trashSendDelete(String employeeNo, String[] messageCheckBox) {
+        log.info("trashSendDelete(employeeNo = {}, messageCheckBox = {})", employeeNo, messageCheckBox);
+
+        employeeNo = "2";
+        messageService.trashSendDelete(employeeNo, messageCheckBox);
+
+        return "redirect:/message/trashList";
     }
 
 }

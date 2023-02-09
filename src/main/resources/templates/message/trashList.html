@@ -6,17 +6,17 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>보낸쪽지함</title>
+    <title>휴지통</title>
 </head>
 
 <div layout:fragment="content">
-    <h1>보낸쪽지함</h1>
+    <h1>휴지통</h1>
     <hr>
 
     <div class="card my-2">
         <div class="card-body">
             <div class="my-2">
-                <form method="get" th:action="@{ /message/sendList }">
+                <form method="get" th:action="@{ /message/trashList }">
                     <div class="row">
                         <div class="col-2">
                             전체 <span style="color:red;" th:text=" ${ messageCount }"></span>
@@ -31,7 +31,7 @@
                             <select name="contentType" class="form-control" >
                                 <option value="all" th:selected="${contentType} == 'all'">전체</option>
                                 <option value="title" th:selected="${contentType} == 'title'">제목</option>
-                                <option value="sender" th:selected="${contentType} == 'sender'">받은사람</option>
+                                <option value="sender" th:selected="${contentType} == 'sender'">사람</option>
                             </select>
                         </div>
                         <div class="col-3" style="padding: 1px;">
@@ -51,12 +51,12 @@
                         <th style="color:red;">!</th>
                         <th>분류</th>
                         <th>제목</th>
-                        <th>받은사람</th>
+                        <th>보낸사람/받은사람</th>
                         <th>일시</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <form action="/message/senderSendTrash" id="sendTrash">
+                    <form action="/message/trashSendDelete" id="sendTrash">
                         <tr th:each="message : ${messageList}">
                             <td><input type="checkbox" name="messageCheckBox" th:value="${message.getMessageNo()}"/></td>
                             <th:block>
@@ -65,7 +65,7 @@
                             </th:block>
                             <td th:text="${ message.getMessageType()}"></td>
                             <td th:text="${ message.getTitle()}"></td>
-                            <td th:text="${ message.getReceiveEmployeeNo().getName()}"></td>
+                            <td th:text="${ message.getSenderEmployeeNo().getName()} + '/' + ${ message.getReceiveEmployeeNo().getName()}"></td>
                             <td th:text="${ #temporals.format(message.getSendTime(), 'yyyy-MM-dd HH:mm') }"></td>
                         </tr>
                     </form>
@@ -75,16 +75,15 @@
             <nav aria-label="Page navigation example" class="my-3 mb-3">
                 <ul class="pagination justify-content-center">
                     <li class="page-item" th:classappend="${messageList.pageable.pageNumber == 0 } ? 'disabled'">
-                        <a class="page-link" th:href="@{/message/sendList(page=${messageList.pageable.pageNumber -1}, contentType=${param.contentType}, keyword=${param.keyword}, messageType=${param.messageType} )}" tabindex="-1" aria-label="Previous">
+                        <a class="page-link" th:href="@{/message/trashList(page=${messageList.pageable.pageNumber -1}, contentType=${param.contentType}, keyword=${param.keyword}, messageType=${param.messageType} )}" tabindex="-1" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li class="page-item " th:classappend="${num == messageList.pageable.pageNumber+1} ? 'disabled'" th:each="num : ${#numbers.sequence(startPage, endPage)}">
-                        <a class="page-link"  th:href="@{/message/sendList(page=${num -1}, contentType=${param.contentType}, keyword=${param.keyword}, messageType=${param.messageType} )}", th:text="${num}">1</a>
+                        <a class="page-link"  th:href="@{/message/trashList(page=${num -1}, contentType=${param.contentType}, keyword=${param.keyword}, messageType=${param.messageType} )}", th:text="${num}">1</a>
                     </li>
-
                     <li class="page-item" th:classappend="${messageList.totalPages <= messageList.pageable.pageNumber + 1} ? 'disabled'">
-                        <a class="page-link " th:href="@{/message/sendList(page=${messageList.pageable.pageNumber + 1}, contentType=${param.contentType}, keyword=${param.keyword}, messageType=${param.messageType} )}" aria-label="Next">
+                        <a class="page-link " th:href="@{/message/trashList(page=${messageList.pageable.pageNumber + 1}, contentType=${param.contentType}, keyword=${param.keyword}, messageType=${param.messageType} )}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
@@ -92,7 +91,6 @@
             </nav>
 
             <div>
-                <a href="writeMessage" class="btn btn-outline-secondary">쪽지쓰기</a>
                 <button type="button" href="#" class="btn btn-outline-secondary" form="sendTrash" onclick="messageSendTrash(this)">삭제하기</button>
             </div>
         </div>

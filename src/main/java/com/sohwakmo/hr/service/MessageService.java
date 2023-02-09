@@ -110,6 +110,7 @@ public class MessageService {
 
         Page<MessageSearchDto> messageList = messageRepository.findByReceiveNoOrderByMessageNoDesc(employeeNo, pageable);
         log.info("messageList = {}", messageList);
+        log.info("messageContent = {}", messageList.getContent());
 
         return messageList;
     }
@@ -162,6 +163,7 @@ public class MessageService {
         }
 
         log.info("messageSearchDtoList = {}", messageSearchDtoList);
+        log.info("messageSearchDtoListContent = {}", messageSearchDtoList.getContent());
 
         return messageSearchDtoList;
     }
@@ -250,6 +252,7 @@ public class MessageService {
         }
 
         log.info("messageSearchDtoList = {}", messageSearchDtoList);
+        log.info("messageSearchDtoListContent = {}", messageSearchDtoList.getContent());
 
         return messageSearchDtoList;
     }
@@ -273,7 +276,103 @@ public class MessageService {
             message.setSenderTrash(1);
             log.info("message = {}", message);
         }
-
     }
+
+    /**
+     * 휴지통 들어가면
+     * @param employeeNo
+     */
+    public Page<MessageSearchDto> trashListRead(String employeeNo, Pageable pageable) {
+        log.info("trashListRead(employeeNo = {})", employeeNo);
+
+        Page<MessageSearchDto> messageList = messageRepository.findByEmployeeNoOrderByMessageNoDesc(employeeNo, pageable);
+        log.info("messageList = {}", messageList);
+        log.info("messageContent = {}", messageList.getContent());
+
+        return messageList;
+    }
+
+    /**
+     * 휴지통 검색
+     * @param employeeNo
+     * @param messageType
+     * @param contentType
+     * @param keyword
+     * @return
+     */
+    public Page<MessageSearchDto> trashListSearchMessage(String employeeNo, String messageType, String contentType, String keyword, Pageable pageable) {
+        log.info("trashListSearchMessage(employeeNo = {}, messageType = {}, contentType = {}, keyword = {})", employeeNo, messageType, contentType, keyword);
+
+        Page<MessageSearchDto> messageSearchDtoList = null;
+
+        if (messageType == null) { // 메세지 타입이 null인 경우
+            log.info("null");
+            switch(contentType) {
+                case "all" :
+                    log.info("findByReceiveNoAll");
+                    messageSearchDtoList = messageRepository.findByEmployeeNoAll(employeeNo, keyword, pageable);
+                    break;
+                case "title" :
+                    log.info("findByReceiveNoAndTitle");
+                    messageSearchDtoList = messageRepository.findByEmployeeNoAndTitle(employeeNo, keyword, pageable);
+                    break;
+                case "sender" :
+                    log.info("findByReceiveNoAndSenderName");
+                    messageSearchDtoList = messageRepository.findByEmployeeNoAndReceiveName(employeeNo, keyword, pageable);
+                    break;
+            }
+        } else { // 메세지 타입이 있는 경우
+            log.info("not null");
+            switch(contentType) {
+                case "all" :
+                    log.info("findByMessageTypeAndReceiveNoAll");
+                    messageSearchDtoList = messageRepository.findByMessageTypeAndEmployeeNoAll(employeeNo, keyword, messageType, pageable);
+                    break;
+                case "title" :
+                    log.info("findByMessageTypeAndReceiveNoAndTitle");
+                    messageSearchDtoList = messageRepository.findByMessageTypeAndEmployeeNoAndTitle(employeeNo, keyword, messageType, pageable);
+                    break;
+                case "sender" :
+                    log.info("findByMessageTypeAndReceiveNoAndName");
+                    messageSearchDtoList = messageRepository.findByMessageTypeAndEmployeeNoAndName(employeeNo, keyword, messageType, pageable);
+                    break;
+            }
+        }
+
+        log.info("messageSearchDtoList = {}", messageSearchDtoList);
+        log.info("messageSearchDtoListContent = {}", messageSearchDtoList.getContent());
+
+        return messageSearchDtoList;
+    }
+
+    /**
+     * 휴지통 삭제 버튼
+     * @param employee
+     * @param messageCheckBox
+     */
+    @Transactional
+    public void trashSendDelete(String employee, String[] messageCheckBox) {
+        log.info("trashSendDelete(employee = {}, messageCheckBox = {})", employee, messageCheckBox);
+
+        for(String m : messageCheckBox){
+            log.info("m = {}", m);
+            Integer messageNo = Integer.parseInt(m);
+
+            Message message = messageRepository.findById(messageNo).get();
+            log.info("message = {}", message);
+
+            if(message.getSenderNo().equals(employee)){
+                log.info("보낸 메세지");
+                message.setSenderDelete(1);
+            }
+            if(message.getReceiveNo().equals(employee)){
+                log.info("받은 메세지");
+                message.setReceiveDelete(1);
+            }
+
+            log.info("message = {}", message);
+        }
+    }
+
 
 }
