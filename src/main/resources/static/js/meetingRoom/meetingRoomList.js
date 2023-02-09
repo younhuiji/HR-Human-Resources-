@@ -1,34 +1,3 @@
-// time table!
-//
-// let tbl = "<table>";
-//
-// for (let i = 1; i <= 10; i++) {
-//     tbl += "<tr>";
-//     for (let j = 8; j <= 20; j++) {
-//         if (i == 1) {
-//             if (j == 8) {
-//                 tbl += `<th></th>`;
-//             } else {
-//                 tbl += `<th>${j}:00</th>`;
-//             }
-//         }else {
-//             if (j == 8) {
-//                 tbl += `<th>회의실${i}`;
-//             } else {
-//                 tbl += `<td id="${j}:00">`;
-//             }
-//         }
-//
-//     }
-//     tbl += "</tr>";
-// }
-// tbl += "</table>";
-// document.getElementById("listTable").innerHTML = tbl;
-//
-
-
-
-
 let listTable = document.querySelector('#listTable');
 createTable();
 
@@ -161,8 +130,13 @@ function getBoundsForElements(elements) {
 }
 
 $td.on('mousedown', function(e) {
-    dragging = true;
-    startCell = e.target;
+    if(e.target.style.background == 'green'){
+        alert('예약된 회의실입니다.');
+        return;
+    } else{
+        dragging= true;
+        startCell= e.target;
+    }
     end(e);
 });
 $td.on('mouseenter', function(e) {
@@ -172,10 +146,16 @@ $td.on('mouseenter', function(e) {
     end(e);
 });
 $td.on('mouseup', function(e) {
-    dragging = false;
-    console.log(dragSelectIds);
+    if(e.target.style.background == 'green'){
+        alert('예약된 회의실입니다.');
+        return;
+    } else{
+        dragging= false;
+        console.log(dragSelectIds);
 
-    button.value = dragSelectIds;
+        button.value =dragSelectIds;
+    }
+
 
 });
 
@@ -278,26 +258,23 @@ function updateTable(list){
 const btnRegisterRoom = document.getElementById('btnRegisterRoom');
 btnRegisterRoom.addEventListener('click', function () {
     console.log('selected:', dragSelectIds);
+    console.log()
     let start = 0;
     let end = 0;
+    let day = document.querySelector('#reserveDate').value;
+
     if (dragSelectIds.length > 0) {
         start = mapTemp.get(dragSelectIds[0]);
         end = mapTemp.get(dragSelectIds[dragSelectIds.length - 1]);
     }
-    console.log(`start=${start}, end=${end}`);
 
-    location.href = `/meetingRoom/create?start=${start}&end=${end}`;
+    console.log(`start=${start}, end=${end}, day=${day}`);
+
+    location.href = `/meetingRoom/create?start=${start}&end=${end}&day=${day}`;
+
+
 });
 
 
-// window.addEventListener("DOMContentLoaded", (event) => {
-//     const form = document.querySelector("#listBtnCreate");
-//     // const button = document.querySelector('#button');
-//     button.addEventListener('click', function () {
-//         form.action = '/meetingRoom/create';
-//         form.method = 'get';
-//         form.submit();
-//     // });
-// });
 
 

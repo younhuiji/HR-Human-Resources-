@@ -27,21 +27,15 @@
 
 
                 <div class = "p-3 border-bottom">
-                    <label for="myid1" style=" width: 150px; ">예약날짜</label>
-<!--                    <input id="reserveDate" class="align-text-top"-->
-<!--                           type="date" name="reserveDate" required />-->
-                    <input id="myid1" class="align-text-top" type="text"
+                    <label for="reserveDate" style=" width: 150px; ">예약날짜</label>
+                    <input id="reserveDate" class="align-text-top" type="text"
                           name="reserveDate" required />
-<!--                    <input type="text" name="datetimes" />-->
 
-                    <input id="start" class="align-text-top" type="text"
-                           name="startTime" required />
+                    <input id="startTime" class="align-text-top" type="text"
+                           name="startTime" required/>
                     <span class="mt-auto m-2 pb-3 pt-xl-5">~</span>
-                    <input id="end" class="align-text-top" type="text"
-                           name="endTime" required />
-
-
-                    <span class="mt-auto m-2 pb-3 pt-xl-5">~</span>
+                    <input id="endTime" class="align-text-top" type="text"
+                           name="endTime" required/>
 
                 </div>
 
@@ -129,5 +123,32 @@
 
     <script th:src="@{ /js/meetingRoom/meetingRoomCreate.js}"></script>
 
+
+    <script>
+        let query = window.location.search;
+        let param = new URLSearchParams(query);
+        let starts = param.get('start');
+        console.log(starts);
+        let ends = param.get('end');
+        console.log(ends);
+        let days = param.get('day');
+        console.log(days)
+
+
+
+        startTime = document.getElementById("startTime");
+        startTime.value = starts;
+
+
+
+        endTime = document.getElementById("endTime");
+        endTime.value = ends;
+
+
+        reserveDate = document.getElementById("reserveDate");
+        reserveDate.value = days;
+
+
+    </script>
 </th:block>
 </html>

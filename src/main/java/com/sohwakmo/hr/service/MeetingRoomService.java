@@ -45,6 +45,7 @@ public class MeetingRoomService {
 //    }
 
 
+
     @Transactional
     public MeetingRoom read(Integer meetingRoomNo) {
         log.info("read(meetingRoomNo = {})", meetingRoomNo);
