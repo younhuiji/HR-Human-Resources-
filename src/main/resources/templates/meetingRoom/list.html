@@ -12,42 +12,27 @@
                 <h1>회의실 예약</h1>
 <!--                    <button type="button" class="checkBtn btn btn-outline-secondary">*</button>-->
 
-            <div class="section-header">
-                <h1 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >회의실 예약</h1>
                     <input type="date" name="dateValue" value="xxx" min="yyy" max="zzz" id="reserveDate" />
                     <input id="input_submit" type="submit" onclick="input()" value="확인" />
-                    <input id="button" type="button" value="버튼"/>
-            </div>
-            <div class="col-3">
-                <a th:href="@{/meetingRoom/create}" class="btn btn-outline-info">예약</a>
-            </div>
-            <div class="calendar"></div>
-                <div class="calendar_nav">
-                    <button class="nav-btn go-prev">&lt;</button>
-                        <p id="myid1" ></p>
-<!--                    <span class="year"></span>년-->
-<!--                    <span class="month"></span>월-->
-<!--                    <span class="day"></span>일-->
-                    <button type="button" class="checkBtn btn btn-outline-secondary">*</button>
-                    <!-- <button class="nav-btn go-today">오늘로 가기</button> -->
-                    <button class="nav-btn go-next">&gt;</button>
-                </div>
+                    <button id="button" type="button" class="checkBtn">버튼</button>
 
+            <div class="col-3">
+                <button id="btnRegisterRoom" class="btn btn-outline-info">예약</button>
             </div>
 
 
         <div class="section-header">
-            <table drag-select class="table table-bordered" id="listTable"></table>
-            <form id="listBtnCreate">
+<!--            <table drag-select class="table table-bordered" id="listTable"></table>-->
+
                 <div style="width: 100%; overflow: auto;">
                     <table drag-select class="table table-bordered" id="listTable"></table>
-                    <button type="button"  class="checkBtn" id="clickButton">click</button>
+<!--                    <button type="button"  class="checkBtn" id="button">click</button>-->
                     <p id="myid1" ></p>
 
                     <div class="col-lg-12" id="ex2_Result1" ></div>
                     <pre id='result'></pre>
                 </div>
-            </form>
+
 
 <!--            예약 현황-->
             <div>
@@ -85,6 +70,7 @@
                     </form>
                 </div>
             </div>
+        </div>
         </div>
 </div>
 

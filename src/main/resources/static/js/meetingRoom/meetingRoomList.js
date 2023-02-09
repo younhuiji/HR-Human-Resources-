@@ -1,30 +1,30 @@
 // time table!
-
-let tbl = "<table>";
-
-for (let i = 1; i <= 10; i++) {
-    tbl += "<tr>";
-    for (let j = 8; j <= 20; j++) {
-        if (i == 1) {
-            if (j == 8) {
-                tbl += `<th></th>`;
-            } else {
-                tbl += `<th>${j}:00</th>`;
-            }
-        }else {
-            if (j == 8) {
-                tbl += `<th>회의실${i}`;
-            } else {
-                tbl += `<td id="${j}:00">`;
-            }
-        }
-
-    }
-    tbl += "</tr>";
-}
-tbl += "</table>";
-document.getElementById("listTable").innerHTML = tbl;
-
+//
+// let tbl = "<table>";
+//
+// for (let i = 1; i <= 10; i++) {
+//     tbl += "<tr>";
+//     for (let j = 8; j <= 20; j++) {
+//         if (i == 1) {
+//             if (j == 8) {
+//                 tbl += `<th></th>`;
+//             } else {
+//                 tbl += `<th>${j}:00</th>`;
+//             }
+//         }else {
+//             if (j == 8) {
+//                 tbl += `<th>회의실${i}`;
+//             } else {
+//                 tbl += `<td id="${j}:00">`;
+//             }
+//         }
+//
+//     }
+//     tbl += "</tr>";
+// }
+// tbl += "</table>";
+// document.getElementById("listTable").innerHTML = tbl;
+//
 
 
 
@@ -39,12 +39,16 @@ function createTable(){
         tbl+= "<tr>";
         for (let j = 8; j <= 20; j++) {
             if (i == 1) {
-                tbl+= `<th>${j}시</th>`;
-            } else {
-                if(j==8) {
-                    tbl+= `<th>회의실${i}`;
+                if (j == 8) {
+                    tbl += `<th></th>`;
                 } else {
-                    tbl+= `<td id="${j}:00">`;
+                    tbl += `<th>${j}:00</th>`;
+                }
+            }else {
+                if (j == 8) {
+                    tbl += `<th>회의실${i}`;
+                } else {
+                    tbl += `<td id="${j}:00">`;
                 }
 
             }
@@ -79,14 +83,6 @@ let mapTemp = new Map([
     ["20:00", 12]
 ]);
 
-
-
-const result11 = document.getElementById('result')
-const button =document.querySelector('#clickButton');
-const myid1 = document.getElementById("myid1");
-
-
-// creat 보낼때
 
 
 
@@ -181,12 +177,6 @@ $td.on('mouseup', function(e) {
 
     button.value = dragSelectIds;
 
-
-    result11.innerHTML = dragSelectIds;
-    result11.value = dragSelectIds;
-    button.value = dragSelectIds;
-    // document.getElementById('result').innerHTML = dragSelectIds;
-
 });
 
 
@@ -225,7 +215,6 @@ window.onload = function() {
     bir.value = today;
     myid1.innerHTML = today;
 }
-
 
 
 // input date 값 받아오기.
@@ -285,18 +274,30 @@ function updateTable(list){
 
     }
 }
+// 데이터 전송
+const btnRegisterRoom = document.getElementById('btnRegisterRoom');
+btnRegisterRoom.addEventListener('click', function () {
+    console.log('selected:', dragSelectIds);
+    let start = 0;
+    let end = 0;
+    if (dragSelectIds.length > 0) {
+        start = mapTemp.get(dragSelectIds[0]);
+        end = mapTemp.get(dragSelectIds[dragSelectIds.length - 1]);
+    }
+    console.log(`start=${start}, end=${end}`);
 
-
+    location.href = `/meetingRoom/create?start=${start}&end=${end}`;
+});
 
 
 // window.addEventListener("DOMContentLoaded", (event) => {
-    const form = document.querySelector("#listBtnCreate");
-    // const button = document.querySelector('#button');
-    button.addEventListener('click', function () {
-        form.action = '/meetingRoom/create';
-        form.method = 'get';
-        form.submit();
-    // });
-});
+//     const form = document.querySelector("#listBtnCreate");
+//     // const button = document.querySelector('#button');
+//     button.addEventListener('click', function () {
+//         form.action = '/meetingRoom/create';
+//         form.method = 'get';
+//         form.submit();
+//     // });
+// });
 
 

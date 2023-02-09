@@ -34,48 +34,46 @@
                 th:text="${meetingRoom.roomPlace}" readonly ></span>
         </div>
         <div class = "p-3 border-bottom">
-          <label for="startTime" style=" width: 150px; ">예약날짜</label>
+          <label for="reserveDate" style=" width: 150px; ">예약날짜</label>
           <span id="reserveDate" class="align-text-top"
                 th:text="${meetingRoom.reserveDate}" readonly ></span>
-          <select id="startTime" class="align-text-top"  name="startTime" th:value="${meetingRoom.startTime}">
-            <option>시간을 선택해주세요</option>
-            <option th:selected="${meetingRoom.startTime}=='08:00'" value="08:00">08:00</option>
-            <option th:selected="${meetingRoom.startTime}=='09:00'" value="09:00">09:00</option>
-            <option th:selected="${meetingRoom.startTime}=='10:00'" value="10:00">10:00</option>
-            <option th:selected="${meetingRoom.startTime}=='11:00'" value="11:00">11:00</option>
-            <option th:selected="${meetingRoom.startTime}=='12:00'" value="12:00">12:00</option>
-            <option th:selected="${meetingRoom.startTime}=='13:00'" value="13:00">13:00</option>
-            <option th:selected="${meetingRoom.startTime}=='14:00'" value="14:00">14:00</option>
-            <option th:selected="${meetingRoom.startTime}=='15:00'" value="15:00">15:00</option>
-            <option th:selected="${meetingRoom.startTime}=='16:00'" value="16:00">16:00</option>
-            <option th:selected="${meetingRoom.startTime}=='17:00'" value="17:00">17:00</option>
-            <option th:selected="${meetingRoom.startTime}=='18:00'" value="18:00">18:00</option>
-            <option th:selected="${meetingRoom.startTime}=='19:00'" value="19:00">19:00</option>
-            <option th:selected="${meetingRoom.startTime}=='20:00'" value="20:00">20:00</option>
-          </select>
+          <span id="startTime" class="align-text-top"
+                th:text="${meetingRoom.startTime}" readonly ></span>
           <span class="mt-auto m-2 pb-3 pt-xl-5">~</span>
-          <select id="endTime" class="align-text-top" name="endTime" th:value="${meetingRoom.endTime}">
-            <option>시간을 선택해주세요</option>
-            <option th:selected="${meetingRoom.endTime}=='08:00'" value="08:00">08:00</option>
-            <option th:selected="${meetingRoom.endTime}=='09:00'" value="09:00">09:00</option>
-            <option th:selected="${meetingRoom.endTime}=='10:00'" value="10:00">10:00</option>
-            <option th:selected="${meetingRoom.endTime}=='11:00'" value="11:00">11:00</option>
-            <option th:selected="${meetingRoom.endTime}=='12:00'" value="12:00">12:00</option>
-            <option th:selected="${meetingRoom.endTime}=='13:00'" value="13:00">13:00</option>
-            <option th:selected="${meetingRoom.endTime}=='14:00'" value="14:00">14:00</option>
-            <option th:selected="${meetingRoom.endTime}=='15:00'" value="15:00">15:00</option>
-            <option th:selected="${meetingRoom.endTime}=='16:00'" value="16:00">16:00</option>
-            <option th:selected="${meetingRoom.endTime}=='17:00'" value="17:00">17:00</option>
-            <option th:selected="${meetingRoom.endTime}=='18:00'" value="18:00">18:00</option>
-            <option th:selected="${meetingRoom.endTime}=='19:00'" value="19:00">19:00</option>
-            <option th:selected="${meetingRoom.endTime}=='20:00'" value="20:00">20:00</option>
-          </select>
+          <span id="endTime" class="align-text-top"
+                th:text="${meetingRoom.endTime}" readonly ></span>
         </div>
         <div class= "p-3 border-bottom">
           <label for="attendee" style=" width: 150px; ">참석자</label>
           <input id="attendee" class="align-text-top"
-                 th:value="${meetingRoom.attendee}" name="attendee" />
-          <button id="invite">참석자</button>
+                 th:value="${meetingRoom.attendee}" name="attendee" readonly />
+
+          <input type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#inviteModal" data-bs-whatever="@mdo" value="초대" />
+
+          <div class="modal fade" id="inviteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5">참석자</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="container" style=" width: 300px; height: 400px;">
+                  <ul class="tree" id="orgTree">
+
+                  </ul>
+                </div>
+
+                <div>
+                  <input id="name" type="text" style="border: none; background: lightgray; width: 70px;" class="text-center" readonly/>
+                </div>
+                <div class="modal-footer">
+
+                  <button type="button" class="btn btn-dark" data-bs-dismiss="modal">초대하기</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
         <div class= "p-3 mt-2 border-bottom">
           <label for="purpose" style=" width: 150px; " >사용목적</label>
@@ -94,6 +92,7 @@
 <th:block layout:fragment="script">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script th:src="@{ /js/meetingRoom/meetingRoomModify.js}"></script>
+  <script th:src="@{ /js/meetingRoom/meetingRoomCreate.js}"></script>
 
 </th:block>
 </html>

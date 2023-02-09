@@ -13,9 +13,6 @@ public class MeetingRoomUpdateDto {
 
     private String title;
 
-    private String startTime;
-
-    private String endTime;
 
     private String attendee;
 
@@ -25,8 +22,6 @@ public class MeetingRoomUpdateDto {
         return MeetingRoom.builder()
                 .meetingRoomNo(meetingRoomNo)
                 .title(title)
-                .startTime(startTime)
-                .endTime(endTime)
                 .attendee(attendee)
                 .purpose(purpose)
                 .build();
