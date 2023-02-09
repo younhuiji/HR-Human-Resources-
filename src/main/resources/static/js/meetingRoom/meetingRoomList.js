@@ -16,6 +16,7 @@ function createTable(){
             }else {
                 if (j == 8) {
                     tbl += `<th>회의실${i}`;
+                    // tbl += '<input type="checkbox" id="${i}">'
                 } else {
                     tbl += `<td id="${j}:00">`;
                 }
