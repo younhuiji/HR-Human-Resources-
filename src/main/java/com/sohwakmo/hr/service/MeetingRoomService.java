@@ -1,12 +1,9 @@
 package com.sohwakmo.hr.service;
 
 import com.sohwakmo.hr.domain.MeetingRoom;
-import com.sohwakmo.hr.domain.MeetingRoomReservationTime;
 import com.sohwakmo.hr.dto.MeetingRoomCreateDto;
-import com.sohwakmo.hr.dto.MeetingRoomReservationTimeDto;
 import com.sohwakmo.hr.dto.MeetingRoomUpdateDto;
 import com.sohwakmo.hr.repository.MeetingRoomRepository;
-import com.sohwakmo.hr.repository.MeetingRoomReservationTimeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,9 +18,6 @@ import java.util.Optional;
 public class MeetingRoomService {
 
     private final MeetingRoomRepository meetingRoomRepository;
-
-    private final MeetingRoomReservationTimeRepository meetingRoomReservationTimeRepository;
-
 
     public List<MeetingRoom> read() {
         log.info("read()");
@@ -66,23 +60,6 @@ public class MeetingRoomService {
         return entity.getMeetingRoomNo();
     }
 
-    @Transactional
-    public void addReserveTime(MeetingRoomReservationTimeDto dto) {
-        MeetingRoom meetingRoom = meetingRoomRepository.findById(dto.getNo()).get();
-        log.info("meetingRoom={}", meetingRoom);
-
-        MeetingRoomReservationTime entity = MeetingRoomReservationTime.builder()
-                .reserveDate(dto.getReserveDate())
-                .roomName(dto.getRoomName())
-                .reserveTime(dto.getReserveTime())
-                .build();
-        log.info("entity={}", entity);
-        Optional<MeetingRoomReservationTime> result = meetingRoomReservationTimeRepository.findByMeetingRoomNo(dto.getMeetingRoomNo()); 
-
-        meetingRoomReservationTimeRepository.save(entity);
-
-
-    }
 
     public List<MeetingRoom> getTodayReservation(String employeeNo, String formatedNow) {
         formatedNow = formatedNow.substring(0, 2) + "-" + formatedNow.substring(3);
