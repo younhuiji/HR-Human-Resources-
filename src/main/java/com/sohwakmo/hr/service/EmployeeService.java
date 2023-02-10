@@ -51,7 +51,7 @@ public class EmployeeService {
         if (photo.getSize() != 0) {
             photoPath = saveImage(photo);
         }else {
-            photoPath = "사진미정";
+            photoPath = "기본이미지.jpeg";
         }
         // 사내번호 문자열 처리하기
         String companyPhone = joinDto.getPhone();
@@ -65,6 +65,7 @@ public class EmployeeService {
                 .employeeNo(joinDto.getEmployeeNo())
                 .password(joinDto.getPassword())
                 .name(joinDto.getName())
+                .position(joinDto.getPosition())
                 .phone(companyPhone)
                 .email(joinDto.getEmail())
                 .part(part)
@@ -72,7 +73,6 @@ public class EmployeeService {
                 .joinedDate(joinedDateToString)
                 .build();
         employee.addRole(EmployeePosition.LEVEL_1);
-        log.info("employee={}", employee.toString());
         employeeRepository.save(employee);
     }
 
