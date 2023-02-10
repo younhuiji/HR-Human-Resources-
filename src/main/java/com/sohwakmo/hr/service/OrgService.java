@@ -63,6 +63,17 @@ public class OrgService {
                 .toList();
     }
 
+    public List<MeetingReadDto> readMeetingListByDate(String date) {
+        log.info("readAllMeetingList(date={})", date);
+
+        List<MeetingRoom> meetingRoomListByDate = meetingRoomRepository.findByReserveDateOrderByRoomNameAscStartTimeAsc(date);
+        log.info("meetingRoomListByDate={}", meetingRoomListByDate);
+
+        return meetingRoomListByDate.stream()
+                .map(MeetingReadDto::fromEntity)
+                .toList();
+    }
+
     public List<BusinessTripReadDto> readBusinessTripList(String loginUser) {
         log.info("readBusinessTripList(loginUser={})", loginUser);
 
@@ -84,4 +95,6 @@ public class OrgService {
                 .map(VacationListReadDto::fromEntity)
                 .toList();
     }
+
+
 }

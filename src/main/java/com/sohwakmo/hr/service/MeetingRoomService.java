@@ -60,7 +60,7 @@ public class MeetingRoomService {
         log.info("update(dto={})", dto);
 
         MeetingRoom entity = meetingRoomRepository.findById(dto.getMeetingRoomNo()).get();
-        MeetingRoom newMeetingRoom = entity.update(dto.getTitle(),  dto.getStartTime(), dto.getEndTime(), dto.getAttendee(), dto.getPurpose());
+        MeetingRoom newMeetingRoom = entity.update(dto.getTitle(), dto.getAttendee(), dto.getPurpose());
         log.info("newMeetingRoom = {}",newMeetingRoom.toString());
 
         return entity.getMeetingRoomNo();

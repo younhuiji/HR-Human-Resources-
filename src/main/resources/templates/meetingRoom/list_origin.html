@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{ layout/layout.html}">
+<head>
+    <title>hr</title>
+    <link rel="stylesheet" th:href="@{/css/meetingRoom/meetingRoom.css}" />
+    <link rel="stylesheet" th:href="@{/css/meetingRoom/calendar.css}" />
+</head>
+<div layout:fragment="content">
+    <div class="col" style="background-size: 5px">
+        <div class ="container">
+
+            <div class="section-header">
+                <h1 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >회의실 예약</h1>
+                <input type="date" value="xxx" min="yyy" max="zzz" id="reserveDate" />
+                <input id="input_submit" type="submit" onclick="input()" value="확인" />
+
+            </div>
+            <div class="col-3">
+                <a th:href="@{/meetingRoom/create}" class="btn btn-outline-info">예약</a>
+            </div>
+            <div class="calendar"></div>
+                <div class="calendar_nav">
+                    <button class="nav-btn go-prev">&lt;</button>
+                        <p id="myid1" ></p>
+<!--                    <span class="year"></span>년-->
+<!--                    <span class="month"></span>월-->
+<!--                    <span class="day"></span>일-->
+                    <button type="button" class="checkBtn btn btn-outline-secondary">*</button>
+                    <!-- <button class="nav-btn go-today">오늘로 가기</button> -->
+                    <button class="nav-btn go-next">&gt;</button>
+                </div>
+
+            </div>
+
+
+        <div class="section-header">
+                <table drag-select class="table table-bordered" id="listTable">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <th>08:00</th>
+                            <th>09:00</th>
+                            <th>10:00</th>
+                            <th>11:00</th>
+                            <th>12:00</th>
+                            <th>13:00</th>
+                            <th>14:00</th>
+                            <th>15:00</th>
+                            <th>16:00</th>
+                            <th>17:00</th>
+                            <th>18:00</th>
+                            <th>19:00</th>
+                            <th>20:00</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyId">
+                        <tr>
+                            <td style="width: 100px;">회의실1</td>
+                            <td id="08:00"></td>
+                            <td id="09:00"></td>
+                            <td id="10:00"></td>
+                            <td id="11:00"></td>
+                            <td id="12:00"></td>
+                            <td id="13:00"></td>
+                            <td id="14:00"></td>
+                            <td id="15:00"></td>
+                            <td id="16:00"></td>
+                            <td id="17:00"></td>
+                            <td id="18:00"></td>
+                            <td id="19:00"></td>
+                            <td id="20:00"></td>
+                            <button type="button"  class="checkBtn" id="button">click</button>
+                        </tr>
+                        <tr>
+                            <td>회의실2</td>
+                            <td value="08:00"><input value="08:00" type="hidden"/></td>
+                            <td><input value="09:00" type="hidden"/></td>
+                            <td><input value="10:00" type="hidden" /></td>
+                            <td><input value="11:00" type="hidden" /></td>
+                            <td><input value="12:00" type="hidden" /></td>
+                            <td><input value="13:00" type="hidden" /></td>
+                            <td><input value="14:00" type="hidden" /></td>
+                            <td><input value="15:00" type="hidden" /></td>
+                            <td><input value="16:00" type="hidden" /></td>
+                            <td><input value="17:00" type="hidden" /></td>
+                            <td><input value="18:00" type="hidden" /></td>
+                            <td><input value="19:00" type="hidden" /></td>
+                            <td><input value="20:00" type="hidden" /></td>
+                            <td><button type="button" class="saveBtn">click</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="col-lg-12" id="ex2_Result1" ></div>
+                <pre id='result'></pre>
+            </div>
+
+
+            <div class="my-3">
+                <div>
+                    <h2 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >내 예약 현황</h2>
+                </div>
+                <form th:action="@{ /meetingRoom/ list}" method="get">
+                    <table class="table table-hover" >
+                        <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>예약날짜</th>
+                                <th>시작시간</th>
+                                <th>종료시간</th>
+                                <th>제목</th>
+                                <th>회의실</th>
+                                <th>회의실 위치</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="meetingRoom : ${ list }">
+                                <td>
+                                    <a th:href="@{/meetingRoom/detail?meetingRoomNo={meetingRoomNo} (meetingRoomNo = ${meetingRoom.meetingRoomNo}) }" th:text="${meetingRoom.meetingRoomNo}"></a>
+                                </td>
+                                <td th:text="${meetingRoom.reserveDate}"></td>
+                                <td th:text="${meetingRoom.startTime}"></td>
+                                <td th:text="${meetingRoom.endTime}"></td>
+                                <td th:text="${meetingRoom.title}"></td>
+                                <td th:text="${meetingRoom.roomName}"></td>
+                                <td th:text="${meetingRoom.roomPlace}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+    <script th:src="@{ /js/meetingRoomList.js}" th:inline="javascript"></script>
+
+</th:block>
+
+
+</html>
