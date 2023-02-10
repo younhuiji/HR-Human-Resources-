@@ -15,7 +15,8 @@
             <div id="image" class="row">
                 <input type="file" th:name="photo" class="real-upload" accept="image/*" multiple style="display: none;">
                 <div class="col-3 upload">
-                    <img th:src="@{${employee.getPhoto()}}" alt="사원사진"/>
+                    <img id="employee_img" th:src="@{${employee.getPhoto()}}" alt="사원사진"/>
+                    <div id="new_employee_img"></div>
                 </div>
                 <div id="header_info_wrap" class="col-9">
                     <div id="header_info_1" class="row">
