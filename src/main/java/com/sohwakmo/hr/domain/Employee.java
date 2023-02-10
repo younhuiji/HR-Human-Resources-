@@ -75,4 +75,10 @@ public class Employee implements Serializable {
         this.part = part;
         return this;
     }
+
+    public Employee update(String name, String phone) {
+        this.name = name;
+        this.phone = phone;
+        return this;
+    }
 }

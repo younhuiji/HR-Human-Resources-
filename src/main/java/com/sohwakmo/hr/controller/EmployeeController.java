@@ -114,7 +114,6 @@ public class EmployeeController {
 
     @PostMapping("/myPage/update")
     public String myPageUpdate(EmployeeUpdateDto dto, Part part) {
-
         log.info(dto.toString());
         log.info(part.toString());
         employeeService.update(dto, part);

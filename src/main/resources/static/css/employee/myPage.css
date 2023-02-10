@@ -24,56 +24,54 @@
 
 /*!*-----사진 이름 소속팀-----*!*/
 #image img {
-    margin-left: 25%;
+    margin-left: 24%;
+    width: 230px;
+    height: 250px;
+    object-fit: fill;
 }
 
 
 /*------공통 인풋 디자인------*/
 .design-input{
-    border: 1px solid #dadada;
-    border-radius: 6px 6px 6px 6px;
     padding: 0.7em;
     font-weight: bold;
     font-size: 18px;
-    width: 64%;
-    margin: 10px 0;
 }
 
-.input_wrap_div{
-    display: inline-block;
-    height: 100%;
-}
+/*.input_wrap_div{*/
+/*    display: inline-block;*/
+/*    height: 100%;*/
+/*}*/
 
 .wrap_div{
-    /*border: 2px solid black;*/
-    margin: 30px 0 30px 50px;
-    height: 80px;
+    margin: 4% 0;
 }
-.wrap_div span{
+.wrap_div{
     font-size: 20px;
-    float: left;
-    width: 150px;
-    line-height: 80px;
+    font-weight: bold;
 }
+.sector_div{
+    padding-top: 10px;
+}
+/*.wrap_div span{*/
+/*    font-size: 20px;*/
+/*    float: left;*/
+/*    width: 150px;*/
+/*    line-height: 80px;*/
+/*}*/
 
 /*----인정사항 수정 폼----*/
+/*.select_div{*/
+/*    padding: 0 20px 20px 0;*/
+/*}*/
+/*#select_title_div{*/
+/*    padding-right: 0;*/
+/*    margin-right: 3%;*/
+/*}*/
 
-.select_part {
-    width: 176px;
-    height: 50px;
-    margin: 14px 0.8%;
-    border: solid 1px #dadada;
-
-    -o-appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-.select_part option{
-    text-align: center;
-}
-.select_part::-ms-expand {
-    display: none;
+#department,#team,#work{
+    height: 54px;
+    font-size: 17px;
 }
 #btnSearch_div{
     margin-bottom: 0.5%;

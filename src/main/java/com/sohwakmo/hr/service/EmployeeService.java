@@ -128,7 +128,8 @@ public class EmployeeService {
     @Transactional
     public void update(EmployeeUpdateDto dto, Part part) {
         Employee employee = employeeRepository.findByEmployeeNo(dto.getEmployeeNo());
-        employee = employee.update(dto.getName(),dto.getPhone(),part);
+        if (part.getDepartment()==null || part.getTeam()==null || part.getWork()==null) employee = employee.update(dto.getName(), dto.getPhone());
+        else employee = employee.update(dto.getName(),dto.getPhone(),part);
     }
 
     /**
