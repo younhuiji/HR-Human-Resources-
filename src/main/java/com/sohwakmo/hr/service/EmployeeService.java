@@ -343,8 +343,12 @@ public class EmployeeService {
      * @return 28일, 30일, 31일 에 따라 배열 길이를 다르게해서 변환.
      */
     public String[] setStartTimeDays(List<Attendance> list) {
-        Attendance attendance = list.get(list.size()-1);
-        int month = Integer.parseInt(attendance.getMonth());
+        int month = 31;
+        if (list.size() == 0) month = Integer.parseInt(currentMonth());
+        else{
+            Attendance attendance = list.get(list.size()-1);
+            month = Integer.parseInt(attendance.getMonth());
+        }
         // 2월인경우
         if (month==2) {
             String[] startTimeDays = new String[28];
@@ -383,8 +387,12 @@ public class EmployeeService {
      * @return 28일, 30일, 31일 에 따라 배열 길이를 다르게해서 변환.
      */
     public String[] setEndTimeDays(List<Attendance> list) {
-        Attendance attendance = list.get(list.size()-1);
-        int month = Integer.parseInt(attendance.getMonth());
+        int month = 31;
+        if (list.size() == 0) month = Integer.parseInt(currentMonth());
+        else{
+            Attendance attendance = list.get(list.size()-1);
+            month = Integer.parseInt(attendance.getMonth());
+        }
         // 2월인경우
         if (month==2) {
             String[] endTimeDays = new String[28];
@@ -423,8 +431,12 @@ public class EmployeeService {
      * @return 출석현황을 배열에 담아서 리턴
      */
     public String[] setWorkState(List<Attendance> list) {
-        Attendance attendance = list.get(list.size()-1);
-        int month = Integer.parseInt(attendance.getMonth());
+        int month = 1;
+        if (list.size() == 0) month = Integer.parseInt(currentMonth());
+        else{
+            Attendance attendance = list.get(list.size()-1);
+            month = Integer.parseInt(attendance.getMonth());
+        }
         // 2월인경우
         if (month==2) {
             String[] workState = new String[28];
@@ -465,11 +477,20 @@ public class EmployeeService {
      * @return 지정한 달의 출근 기록 리스트
      */
     public List<Attendance> getCurrentMonth(List<Attendance> employeeAttendanceList,String employeeNo) {
-        LocalDate now = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM");
-        String currentMonth = now.format(formatter);
+        String currentMonth = currentMonth();
         return attendanceRepository.findByEmployeeEmployeeNoAndMonth(employeeNo, currentMonth);
     }
+
+    /**
+     * 오늘 날짜에서 달만 가져오기
+     * @return 오늘 날짜의 달
+     */
+    public String currentMonth() {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM");
+        return now.format(formatter);
+    }
+
     /**
      * 로그인한 멤버의 총 출근기록을 가져와서 검색한 달의 출근 기록의 달을 반환한다.
      *
