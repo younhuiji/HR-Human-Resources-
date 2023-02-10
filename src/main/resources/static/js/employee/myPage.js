@@ -61,6 +61,17 @@ window.addEventListener('DOMContentLoaded',function (){
     })
 
 
+    // 이미지 변경
+    const realUpload = document.querySelector('.real-upload');
+    const upload = document.querySelector('.upload');
+
+    function getImageFiles(e) {
+        const files = e.currentTarget.files;
+        console.log(typeof files, files);
+    }
+    upload.addEventListener('click', () => realUpload.click());
+    realUpload.addEventListener('change', getImageFiles);
+
     // 수정버튼
     const buttonUpdate = document.querySelector('#buttonUpdate');
     const form = document.querySelector('#form');
