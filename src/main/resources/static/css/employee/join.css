@@ -82,10 +82,13 @@ span>p{display: inline;}
 .select_part::-ms-expand {
     display: none;
 }
-
-.team,.work{
-    margin-left: 33px;
+div select{
+    padding: 10px 110px 10px 14px;
+    height: 51px;
 }
+/*.team,.work{*/
+/*    margin-left: 33px;*/
+/*}*/
 label{
     margin-top: 1em;
 }
