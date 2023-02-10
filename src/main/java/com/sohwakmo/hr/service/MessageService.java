@@ -86,15 +86,15 @@ public class MessageService {
         file.transferTo(saveFile);
 
         if (message.getFilePath1() == null) {
-            message.setFilePath1(projectFilePath + "\\" + fileName);
+            message.setFilePath1("/files/message" + "/" + fileName);
             message.setFileName1(file.getOriginalFilename());
             log.info("message = {}", message);
         } else if (message.getFilePath2() == null) {
-            message.setFilePath2(projectFilePath + "\\" + fileName);
+            message.setFilePath2("/files/message" + "/" + fileName);
             message.setFileName2(file.getOriginalFilename());
             log.info("message = {}", message);
         } else if (message.getFilePath3() == null) {
-            message.setFilePath3(projectFilePath + "\\" + fileName);
+            message.setFilePath3("/files/message" + "/" + fileName);
             message.setFileName3(file.getOriginalFilename());
             log.info("message = {}", message);
         }
@@ -372,6 +372,28 @@ public class MessageService {
 
             log.info("message = {}", message);
         }
+    }
+
+    /**
+     *
+     * @param employeeNo
+     * @param messageNo
+     * @return
+     */
+    @Transactional
+    public Message detailMessage(String employeeNo, Integer messageNo) {
+        log.info("detailMessage(employeeNo = {}, messageNo = {})", employeeNo, messageNo);
+
+        Message message = messageRepository.findById(messageNo).get();
+        log.info("message = {}", message);
+
+        if(employeeNo.equals(message.getReceiveNo())) {
+            log.info("true");
+            message.setReceiveReadCheck(1);
+            log.info("message = {}", message);
+        }
+
+        return message;
     }
 
 

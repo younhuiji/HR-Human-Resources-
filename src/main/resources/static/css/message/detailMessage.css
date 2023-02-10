@@ -1,0 +1,11 @@
+
+header{background: #ccc;}
+.column { width: 100px; font-weight: bold;}
+.titleInputBox { width:90%;}
+.receiverDiv { width: 90%; display: inline-block;}
+.receiverDiv > input { width: 93%;}
+.receiverDiv > div {width: 7%; float: right;}
+.receiverDiv > div > input {width:100%; }
+
+textarea { min-width:100%;}
+.buttonBox {text-align: right}

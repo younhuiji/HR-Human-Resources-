@@ -57,9 +57,9 @@
                 </thead>
                 <tbody>
                     <form action="/message/receiveSendTrash" id="sendTrash">
-                        <tr th:each="message : ${messageList}">
+                        <th:block th:each="message : ${messageList}">
                             <!-- 안읽은 쪽지이면-->
-                            <th:block th:if="${ message.getReceiveReadCheck() == 0}">
+                            <tr th:if="${ message.getReceiveReadCheck() == 0}" th:onclick="|location.href='@{ /message/detailMessage(messageNo=${ message.getMessageNo() }) }'|">
                                 <td><input type="checkbox" name="messageCheckBox" th:value="${message.getMessageNo()}"/></td>
                                 <th:block>
                                     <td th:if="${message.getMessageType() == '긴급'}" style="color: red">!</td>
@@ -69,9 +69,9 @@
                                 <td th:text="${ message.getTitle()}"></td>
                                 <td th:text="${ message.getSenderEmployeeNo().getName()}"></td>
                                 <td th:text="${ #temporals.format(message.getSendTime(), 'yyyy-MM-dd HH:mm') }"></td>
-                            </th:block>
+                            </tr>
                             <!-- 읽은 쪽이이면 -->
-                            <th:block th:if="${ message.getReceiveReadCheck() == 1}">
+                            <tr th:if="${ message.getReceiveReadCheck() == 1}" th:onclick="|location.href='@{ /message/detailMessage(messageNo=${ message.getMessageNo() }) }'|">
                                 <td style="background: #f2f2f2;"><input type="checkbox" name="messageCheckBox" th:value="${message.getMessageNo()}"/></td>
                                 <th:block>
                                     <td style="background: #f2f2f2; color: red" th:if="${message.getMessageType() == '긴급'}">!</td>
@@ -81,8 +81,8 @@
                                 <td style="background: #f2f2f2;" th:text="${ message.getTitle()}"></td>
                                 <td style="background: #f2f2f2;" th:text="${ message.getSenderEmployeeNo().getName()}"></td>
                                 <td style="background: #f2f2f2;" th:text="${ #temporals.format(message.getSendTime(), 'yyyy-MM-dd HH:mm') }"></td>
-                            </th:block>
-                        </tr>
+                            </tr>
+                        </th:block>
                     </form>
                 </tbody>
             </table>

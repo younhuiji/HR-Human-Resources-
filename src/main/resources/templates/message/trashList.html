@@ -57,7 +57,7 @@
                 </thead>
                 <tbody>
                     <form action="/message/trashSendDelete" id="sendTrash">
-                        <tr th:each="message : ${messageList}">
+                        <tr th:each="message : ${messageList}" th:onclick="|location.href='@{ /message/detailMessage(messageNo=${ message.getMessageNo() }) }'|">
                             <td><input type="checkbox" name="messageCheckBox" th:value="${message.getMessageNo()}"/></td>
                             <th:block>
                                 <td th:if="${message.getMessageType() == '긴급'}" style="color: red">!</td>

@@ -265,4 +265,41 @@ public class MessageController {
         return "redirect:/message/trashList";
     }
 
+    /**
+     * 상세 보기 페이지
+     * @param employeeNo
+     * @param messageNo
+     * @return
+     */
+    @GetMapping("/detailMessage")
+    public String detailMessage(String employeeNo, Integer messageNo, Model model) {
+        log.info("datailMessage(employeeNo = {}, messageNo = {})", employeeNo, messageNo);
+
+        employeeNo = "2";
+
+        Message message = messageService.detailMessage(employeeNo, messageNo);
+        log.info("message = {}", message);
+
+        String isFile = null;
+        if(message.getFileName1() != null) {
+            log.info("1번 있음");
+            isFile = "1";
+        }
+        if(message.getFileName2() != null) {
+            log.info("2번 있음");
+            isFile = "2";
+        }
+        if(message.getFileName3() != null) {
+            log.info("3번 있음");
+            isFile = "3";
+        }
+
+        log.info("isFile = {}", isFile);
+
+        model.addAttribute("message", message);
+        model.addAttribute("isFile", isFile);
+
+        return "/message/detailMessage";
+    }
+
 }
