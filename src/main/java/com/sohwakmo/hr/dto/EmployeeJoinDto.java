@@ -17,9 +17,10 @@ public class EmployeeJoinDto {
     private String name;
     private String phone; // 사내 전화번호
     private String email;
+    private String position;
 
     public Employee toEntity(){
         return Employee.builder()
-                .employeeNo(employeeNo).password(password).name(name).phone(phone).email(email).build();
+                .employeeNo(employeeNo).password(password).name(name).phone(phone).email(email).position(position).build();
     }
 }

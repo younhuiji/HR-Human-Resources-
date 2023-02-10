@@ -2,6 +2,7 @@ package com.sohwakmo.hr.domain;
 
 import javax.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -38,6 +39,7 @@ public class Employee implements Serializable {
     private String phone; // 사내 전화번호
 
 
+    @Column(columnDefinition = "varchar(255) default '/images/employeeImage/사진미정'")
     private String photo;
 
     @Embedded
@@ -70,6 +72,12 @@ public class Employee implements Serializable {
         this.name = name;
         this.phone = phone;
         this.part = part;
+        return this;
+    }
+
+    public Employee update(String name, String phone) {
+        this.name = name;
+        this.phone = phone;
         return this;
     }
 }

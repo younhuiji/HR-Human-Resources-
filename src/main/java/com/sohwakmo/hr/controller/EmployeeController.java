@@ -27,7 +27,6 @@ import java.util.List;
 public class EmployeeController {
 
     private final EmployeeService employeeService;
-
     @GetMapping("/login")
     public String login() {
 
@@ -82,10 +81,10 @@ public class EmployeeController {
         // 검색한 달이 있는경우의 list 와 없는 경우의 list를 나눈다.
         List<Attendance> list = new ArrayList<>();
         if(month.equals("")){
-            list = employeeService.getCurrentMonth(employee.getAttendances());
+            list = employeeService.getCurrentMonth(list,employeeNo);
             setAttendanceList(list,model);
         }else{
-            list = employeeService.getSearchMonth(month);
+            list = employeeService.getSearchMonth(month,employeeNo);
             if (list.size() == 0){
                 model.addAttribute("searchResult", 0);
                 model.addAttribute("monthLength", setMonthLength(month));
@@ -116,7 +115,6 @@ public class EmployeeController {
 
     @PostMapping("/myPage/update")
     public String myPageUpdate(EmployeeUpdateDto dto, Part part) {
-
         log.info(dto.toString());
         log.info(part.toString());
         employeeService.update(dto, part);

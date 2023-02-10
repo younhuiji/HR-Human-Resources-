@@ -19,6 +19,8 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -51,7 +53,7 @@ public class EmployeeService {
         if (photo.getSize() != 0) {
             photoPath = saveImage(photo);
         }else {
-            photoPath = "사진미정";
+            photoPath = "기본이미지.jpeg";
         }
         // 사내번호 문자열 처리하기
         String companyPhone = joinDto.getPhone();
@@ -65,6 +67,7 @@ public class EmployeeService {
                 .employeeNo(joinDto.getEmployeeNo())
                 .password(joinDto.getPassword())
                 .name(joinDto.getName())
+                .position(joinDto.getPosition())
                 .phone(companyPhone)
                 .email(joinDto.getEmail())
                 .part(part)
@@ -72,7 +75,6 @@ public class EmployeeService {
                 .joinedDate(joinedDateToString)
                 .build();
         employee.addRole(EmployeePosition.LEVEL_1);
-        log.info("employee={}", employee.toString());
         employeeRepository.save(employee);
     }
 
@@ -126,7 +128,8 @@ public class EmployeeService {
     @Transactional
     public void update(EmployeeUpdateDto dto, Part part) {
         Employee employee = employeeRepository.findByEmployeeNo(dto.getEmployeeNo());
-        employee = employee.update(dto.getName(),dto.getPhone(),part);
+        if (part.getDepartment()==null || part.getTeam()==null || part.getWork()==null) employee = employee.update(dto.getName(), dto.getPhone());
+        else employee = employee.update(dto.getName(),dto.getPhone(),part);
     }
 
     /**
@@ -340,8 +343,12 @@ public class EmployeeService {
      * @return 28일, 30일, 31일 에 따라 배열 길이를 다르게해서 변환.
      */
     public String[] setStartTimeDays(List<Attendance> list) {
-        Attendance attendance = list.get(list.size()-1);
-        int month = Integer.parseInt(attendance.getMonth());
+        int month = 31;
+        if (list.size() == 0) month = Integer.parseInt(currentMonth());
+        else{
+            Attendance attendance = list.get(list.size()-1);
+            month = Integer.parseInt(attendance.getMonth());
+        }
         // 2월인경우
         if (month==2) {
             String[] startTimeDays = new String[28];
@@ -380,8 +387,12 @@ public class EmployeeService {
      * @return 28일, 30일, 31일 에 따라 배열 길이를 다르게해서 변환.
      */
     public String[] setEndTimeDays(List<Attendance> list) {
-        Attendance attendance = list.get(list.size()-1);
-        int month = Integer.parseInt(attendance.getMonth());
+        int month = 31;
+        if (list.size() == 0) month = Integer.parseInt(currentMonth());
+        else{
+            Attendance attendance = list.get(list.size()-1);
+            month = Integer.parseInt(attendance.getMonth());
+        }
         // 2월인경우
         if (month==2) {
             String[] endTimeDays = new String[28];
@@ -420,8 +431,12 @@ public class EmployeeService {
      * @return 출석현황을 배열에 담아서 리턴
      */
     public String[] setWorkState(List<Attendance> list) {
-        Attendance attendance = list.get(list.size()-1);
-        int month = Integer.parseInt(attendance.getMonth());
+        int month = 1;
+        if (list.size() == 0) month = Integer.parseInt(currentMonth());
+        else{
+            Attendance attendance = list.get(list.size()-1);
+            month = Integer.parseInt(attendance.getMonth());
+        }
         // 2월인경우
         if (month==2) {
             String[] workState = new String[28];
@@ -461,19 +476,30 @@ public class EmployeeService {
      * @param employeeAttendanceList 지금까지의 출근기록
      * @return 지정한 달의 출근 기록 리스트
      */
-    public List<Attendance> getCurrentMonth(List<Attendance> employeeAttendanceList) {
-        Collections.reverse(employeeAttendanceList);
-        String currentMonth = employeeAttendanceList.get(0).getMonth();
-        return attendanceRepository.findByMonth(currentMonth);
+    public List<Attendance> getCurrentMonth(List<Attendance> employeeAttendanceList,String employeeNo) {
+        String currentMonth = currentMonth();
+        return attendanceRepository.findByEmployeeEmployeeNoAndMonth(employeeNo, currentMonth);
+    }
+
+    /**
+     * 오늘 날짜에서 달만 가져오기
+     * @return 오늘 날짜의 달
+     */
+    public String currentMonth() {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM");
+        return now.format(formatter);
     }
 
     /**
      * 로그인한 멤버의 총 출근기록을 가져와서 검색한 달의 출근 기록의 달을 반환한다.
-     * @param month 마이페이지에서 전달받은 검색하고 싶은 달
+     *
+     * @param month      마이페이지에서 전달받은 검색하고 싶은 달
+     * @param employeeNo
      * @return 검색한 달의 달만 리턴
      */
-    public List<Attendance> getSearchMonth(String month) {
-        return attendanceRepository.findByMonth(month);
+    public List<Attendance> getSearchMonth(String month, String employeeNo) {
+        return attendanceRepository.findByEmployeeEmployeeNoAndMonth(employeeNo,month);
     }
     // 결재자 지정할 때에 임시방편으로 모든 리스트 불러옴
     public List<Employee> readPart(String teamName) {
@@ -508,4 +534,6 @@ public class EmployeeService {
         Employee employee = employeeRepository.findByEmployeeNo(employeeNo);
         employee.setPassword(passwordEncoder.encode(password));
     }
+
+
 }

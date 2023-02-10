@@ -1,5 +1,6 @@
 package com.sohwakmo.hr.service;
 
+import com.sohwakmo.hr.domain.BusinessTrip;
 import com.sohwakmo.hr.domain.Post;
 import com.sohwakmo.hr.dto.post.PostCreateDto;
 import com.sohwakmo.hr.dto.post.PostUpdateDto;
@@ -56,33 +57,16 @@ public class PostService {
         return postRepository.deleteByPostNo(postNo).getPostNo();
     }
 
-//    public List<Post> search(String type, String keyword) {
-//        log.info("search(type={}, keyword={})", type, keyword);
-//
-//        List<Post> list = new ArrayList<>();
-//        switch (type) {
-//            case "t": // 제목만 검색
-//                list = postRepository.findByTitleIgnoreCaseContainingOrderByIdDesc(keyword);
-//                break;
-//            case "c": // 내용만 검색
-//                list = postRepository.findByContentIgnoreCaseContainingOrderByIdDesc(keyword);
-//                break;
-//            case "tc": // 제목 또는 내용 검색
-//                list = postRepository.searchByKeyword(keyword);
-//                break;
-//            case "a": // 작성자만 검색
-//                list = postRepository.findByAuthorIgnoreCaseContainingOrderByIdDesc(keyword);
-//                break;
-//        }
-//
-//        return list;
-//    }
     public List<Post> readPostSeven() {
         List<Post> allList = postRepository.findByOrderByNoticeYnAscPostNoDesc();
-        List<Post> list = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            list.add(allList.get(i));
+        if (allList.size() <=7) {
+            return allList;
+        }else {
+            List<Post> list = new ArrayList<>();
+            for (int i = 0; i < 7; i++) {
+                list.add(allList.get(i));
+            }
+            return list;
         }
-        return list;
     }
 }
