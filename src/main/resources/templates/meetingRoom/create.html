@@ -4,15 +4,17 @@
       layout:decorate="~{ layout/layout.html}">
 <head>
     <link th:href="@{/css/layout/styles.css}" rel="stylesheet"/>
+    <link th:href="@{/css/meetingRoom/meetingRoomCreate.css}" rel="stylesheet"/>
+
 </head>
 <div layout:fragment="content">
-    <div class="col" style="background-size: 5px">
         <div class ="container">
-            <div class="section-header">
-                <h1 class="section-title wow fadeInUp mb-5" data-wow-duration="1000ms" data-wow-delay="300ms" >회의실 예약신청</h1>
+            <div>
+                <h1>회의실 예약신청</h1>
             </div>
+
             <form method = "post" action = "/meetingRoom/create" id="createForm">
-                <input  type="hidden" name="employeeNo" id="employeeNo" th:value="1" />
+                <input  type="hidden" name="employeeNo" id="employeeNo" th:value="5" />
                 <div class="p-3 border-bottom">
                     <label for="reserveName" style=" width: 150px; ">예약자</label>
                     <input id="reserveName" type="text" name="reserveName" th:value="김김김" style="border: none; background: transparent;" readonly />
@@ -22,120 +24,70 @@
                     <input id="title" class="align-text-top"
                            type="text" name="title" placeholder="제목을 입력해주세요." required />
                 </div>
-                <div class = "p-3 border-bottom">
-                    <label for="roomName" style=" width: 150px; ">회의실</label>
-                    <select id="roomName" class="align-text-top"  name="roomName" onchange="roomNamePlace(this)">
-                        <option>회의실을 선택해주세요</option>
-                        <option value="회의실1">회의실1</option>
-                        <option value="회의실2">회의실2</option>
-                        <option value="회의실3">회의실3</option>
-                        <option value="회의실4">회의실4</option>
-                        <option value="회의실5">회의실5</option>
-                        <option value="회의실6">회의실6</option>
-                        <option value="회의실7">회의실7</option>
-                        <option value="회의실8">회의실8</option>
-                        <option value="회의실9">회의실9</option>
-                        <option value="회의실10">회의실10</option>
-                    </select>
-                </div>
-                <div class = "p-3 border-bottom">
-                    <label for="roomPlace" style=" width: 150px; " >회의실 위치</label>
-                    <select id="roomPlace" class="align-text-top"  name="roomPlace" readonly>
-                        <option >회의실을 선택해주세요.</option>
-                    </select>
-<!--                    <input id="roomPlace" class="align-text-top"-->
-<!--                            type="text" name="roomPlace" readonly required/>-->
-                </div>
+
 
                 <div class = "p-3 border-bottom">
                     <label for="reserveDate" style=" width: 150px; ">예약날짜</label>
-                    <input id="reserveDate" class="align-text-top"
-                           type="date" name="reserveDate" required />
-
-<!--                    <input type="text" name="datetimes" />-->
-                    <select id="startTime" class="align-text-top"  name="startTime">
-                        <option>시간을 선택해주세요</option>
-                        <option value="08:00">08:00</option>
-                        <option value="09:00">09:00</option>
-                        <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
-                        <option value="12:00">12:00</option>
-                        <option value="13:00">13:00</option>
-                        <option value="14:00">14:00</option>
-                        <option value="15:00">15:00</option>
-                        <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
-                        <option value="18:00">18:00</option>
-                        <option value="19:00">19:00</option>
-                        <option value="20:00">20:00</option>
-                    </select>
-                    <span class="mt-auto m-2 pb-3 pt-xl-5">~</span>
-                    <select id="endTime" class="align-text-top" name="endTime">
-                        <option>시간을 선택해주세요</option>
-                        <option value="08:00">08:00</option>
-                        <option value="09:00">09:00</option>
-                        <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
-                        <option value="12:00">12:00</option>
-                        <option value="13:00">13:00</option>
-                        <option value="14:00">14:00</option>
-                        <option value="15:00">15:00</option>
-                        <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
-                        <option value="18:00">18:00</option>
-                        <option value="19:00">19:00</option>
-                        <option value="20:00">20:00</option>
-                    </select>
+                    <input id="reserveDate" class="align-text-top" type="text"
+                          name="reserveDate" style="border: none; background: transparent; width: 100px;" readonly />
                 </div>
+                <div class = "p-3 border-bottom">
+                    <label for="startTime" style=" width: 150px; ">예약시간</label>
+                    <input id="startTime" class="align-text-top" type="text"
+                           name="startTime" style="border: none; background: transparent; width: 50px;" readonly />
+                    <span class="mt-auto m-2 pb-3 pt-xl-5">~</span>
+                    <input id="endTime" class="align-text-top" type="text"
+                           name="endTime"  style="border: none; background: transparent; width: 100px;" readonly />
+                </div>
+
+                <div class = "p-3 border-bottom">
+                    <label for="roomName" style=" width: 150px; ">회의실</label>
+                    <input id="roomName" class="align-text-top" type="text"
+                           name="roomName" style="border: none; background: transparent; width: 100px;" readonly />
+                </div>
+                <div class = "p-3 border-bottom">
+                    <label for="roomPlace" style=" width: 150px; " >회의실 위치</label>
+                    <input id="roomPlace" class="align-text-top" type="text"
+                           name="roomPlace" style="border: none; background: transparent; width: 100px;" readonly />
+                </div>
+
                 <div class= "p-3 border-bottom">
                     <label for="attendee" style=" width: 150px; ">참석자</label>
                     <input id="attendee" class="align-text-top"
-                           type="text" name="attendee" required />
+                           type="text" name="attendee" readonly />
+
 <!--                    <div class="invite-icon"><i class="fa-solid fa-user-plus"></i></div>-->
 
-<!--                    <div class="member-serch">-->
-<!--                        <input type="text" placeholder="참석자를 명단을 입력해주세요.">-->
-<!--                        <button type="button"><i class="fa-solid fa-magnifying-glass" ></i></button>-->
-<!--                    </div>-->
+                    <input type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#inviteModal" data-bs-whatever="@mdo" value="초대" />
 
-<!--                    <div class="container">-->
-<!--                        <ul class="tree" id="orgTree">-->
+                    <div class="modal fade" id="inviteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5">참석자</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="container" style=" width: 300px; height: 400px;">
+                                    <ul class="tree" id="orgTree">
 
-<!--                        </ul>-->
-<!--                    </div>-->
+                                    </ul>
+                                </div>
 
+                                <div>
+                                    <input id="name" type="text" style="border: none; background: lightgray; width: 70px;" class="text-center" readonly/>
+                                </div>
+                                <div class="modal-footer">
 
-<!--                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">초대</button>-->
-
-<!--                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-<!--                        <div class="modal-dialog">-->
-<!--                            <div class="modal-content">-->
-<!--                                <div class="modal-header">-->
-<!--                                    <h1 class="modal-title fs-5" id="exampleModalLabel">참석자</h1>-->
-<!--                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--                                </div>-->
-<!--                                <div class="modal-body">-->
-<!--                                    <form>-->
-<!--                                        <div class="mb-3">-->
-<!--                                            <label for="recipient-name" class="col-form-label">이름</label>-->
-<!--                                            <input type="text" class="form-control" id="recipient-name">-->
-<!--                                        </div>-->
-
-<!--                                    </form>-->
-<!--                                </div>-->
-<!--                                <div class="modal-footer">-->
-<!--                                    <button type="button" class="btn btn-light" id="modelBtnInvite">초대하기</button>-->
-<!--                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">닫기</button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
+                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">초대하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <div class= "p-3 mt-2 border-bottom">
                     <label for="purpose" style=" width: 150px; " >사용목적</label>
-                    <textarea rows="5" cols="80" id="purpose" class="align-text-top"
+                    <textarea id="purpose" class="align-text-top" style="width: 100%;"
                               name="purpose" placeholder="사용목적을 입력해주세요." required></textarea>
                 </div>
 
@@ -145,14 +97,48 @@
                 </div>
             </form>
 
-        </div>
+
     </div>
 </div>
 
 <th:block layout:fragment="script">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script th:src="@{ /js/meetingRoomCreate.js}"></script>
-<!--    <script th:src="@{/js/organizationRefer.js}"></script>-->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 
+
+    <script th:src="@{ /js/meetingRoom/meetingRoomCreate.js}"></script>
+
+
+    <script>
+        let query = window.location.search;
+        let param = new URLSearchParams(query);
+        let starts = param.get('start');
+        console.log(starts);
+        let ends = param.get('end');
+        console.log(ends);
+        let days = param.get('day');
+        console.log(days);
+        let room = param.get('room');
+        console.log(room);
+        let roomPlaces = param.get('roomPlace')
+        console.log(roomPlaces);
+
+
+        startTime = document.getElementById("startTime");
+        startTime.value = starts;
+
+        endTime = document.getElementById("endTime");
+        endTime.value = ends;
+
+        reserveDate = document.getElementById("reserveDate");
+        reserveDate.value = days;
+
+        roomName = document.getElementById("roomName");
+        roomName.value = room;
+
+        roomPlace = document.getElementById("roomPlace");
+        roomPlace.value = roomPlaces;
+
+    </script>
 </th:block>
 </html>

@@ -59,10 +59,9 @@ public class MeetingRoom {
 
     private boolean state;   // 현재 상태  -- 써야하나 말아야 하나(true : 예약 중)
 
-    public MeetingRoom update( String title, String startTime, String endTime, String attendee, String purpose) {
+    public MeetingRoom update( String title, String attendee, String purpose) {
         this.title = title;
-        this.startTime = startTime;
-        this.endTime = endTime;
+
         this.attendee = attendee;
         this.purpose = purpose;
 

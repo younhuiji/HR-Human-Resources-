@@ -1,11 +1,7 @@
-body {
-    margin: 0;
-    padding: 0;
-}
 
 #result {
     font-size: 1.4rem;
-    margin: 56px;
+    /*margin: 56px;*/
 }
 
 [drag-select] {
@@ -24,8 +20,15 @@ body {
 }
 
 table {
-    width: 360px;
-    margin: 56px;
+    /*width: 360px;*/
+    /*margin: 56px;*/
     border-collapse: collapse;
     border-spacing: 2px;
 }
+
+/* date style */
+/*input[type="date"]::-webkit-calendar-picker-indicator{*/
+/*    opacity:0;*/
+/*    z-index: 1;*/
+/*    cursor: pointer;*/
+/*}*/
