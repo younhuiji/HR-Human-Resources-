@@ -2,38 +2,10 @@
  * organization View
  */
 window.addEventListener('DOMContentLoaded', event =>{
-
     //innerHTML ID
     const orgTree = document.querySelector('#orgTree');
-
     readAllOrgList();
     let orgMember;
-
-    // meetingRoom
-    const divModal = document.querySelector('#inviteModal');
-    const inviteModal = new bootstrap.Modal(divModal);
-    const attendee = document.querySelector('#attendee')
-
-    const modalInviteBtn = document.querySelector('#modelInviteBtn');
-
-    modalInviteBtn.addEventListener('click', inviteName);
-
-    function inviteName(event) {
-        const attendees = attendee.value;
-
-        const result = confirm('초대하시겠습니까?')
-        if(result) {
-            const data = {attendees : attendees};
-            axios
-                .put('/api/meetingRoom/create/' + data)
-                .then(response => {
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        }
-    }
-
     //사용자 상세정보
     const name = document.querySelector('#name');
     const phone = document.querySelector('#phone');
@@ -68,8 +40,6 @@ window.addEventListener('DOMContentLoaded', event =>{
             })
         }
     }
-
-
     function readAllOrgList() {
         axios.get('/api/org/allList')
             .then(response => {
@@ -79,14 +49,11 @@ window.addEventListener('DOMContentLoaded', event =>{
                 console.log(err)
             })
     }
-
     function updateOrgList(orgList) {
         let str = '';
-
         //현재 depart, team값
         let depart = '';
         let team = '';
-
         for (let l of orgList) {
             if (l.department != depart) {
                 endDepartTag()
@@ -107,9 +74,7 @@ window.addEventListener('DOMContentLoaded', event =>{
             str += '<li>'
                 // + '<input class="tree_label" type="text" data-id='+l.id+' value='+l.name +' '+ l.position +' readonly/></li>'
                 + '<span class="tree_label" id="memberInfo" data-id="'+l.id+'">' + l.name +' '+ l.position + '</span></li>'
-
         }
-
         function endDepartTag(){
             if(depart != '') {
                 endTeamTag()
@@ -118,25 +83,14 @@ window.addEventListener('DOMContentLoaded', event =>{
                 team = '';
             }
         }
-
         function endTeamTag(){
             if(team != '') {
                 str += '</ul>'
                     + '</li>'
             }
         }
-
         orgTree.innerHTML = str;
-
         orgMember = document.querySelectorAll('#memberInfo')
         findByMemeber(orgMember)
-
-
     }
-
-
-
-
 });
-
-
