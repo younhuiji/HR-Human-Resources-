@@ -19,6 +19,8 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -461,19 +463,21 @@ public class EmployeeService {
      * @param employeeAttendanceList 지금까지의 출근기록
      * @return 지정한 달의 출근 기록 리스트
      */
-    public List<Attendance> getCurrentMonth(List<Attendance> employeeAttendanceList) {
-        Collections.reverse(employeeAttendanceList);
-        String currentMonth = employeeAttendanceList.get(0).getMonth();
-        return attendanceRepository.findByMonth(currentMonth);
+    public List<Attendance> getCurrentMonth(List<Attendance> employeeAttendanceList,String employeeNo) {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM");
+        String currentMonth = now.format(formatter);
+        return attendanceRepository.findByEmployeeEmployeeNoAndMonth(employeeNo, currentMonth);
     }
-
     /**
      * 로그인한 멤버의 총 출근기록을 가져와서 검색한 달의 출근 기록의 달을 반환한다.
-     * @param month 마이페이지에서 전달받은 검색하고 싶은 달
+     *
+     * @param month      마이페이지에서 전달받은 검색하고 싶은 달
+     * @param employeeNo
      * @return 검색한 달의 달만 리턴
      */
-    public List<Attendance> getSearchMonth(String month) {
-        return attendanceRepository.findByMonth(month);
+    public List<Attendance> getSearchMonth(String month, String employeeNo) {
+        return attendanceRepository.findByEmployeeEmployeeNoAndMonth(employeeNo,month);
     }
     // 결재자 지정할 때에 임시방편으로 모든 리스트 불러옴
     public List<Employee> readPart(String teamName) {
@@ -508,4 +512,6 @@ public class EmployeeService {
         Employee employee = employeeRepository.findByEmployeeNo(employeeNo);
         employee.setPassword(passwordEncoder.encode(password));
     }
+
+
 }
