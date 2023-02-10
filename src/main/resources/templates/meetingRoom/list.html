@@ -29,6 +29,7 @@
 
                     <div class="col-lg-12" id="ex2_Result1" ></div>
                     <pre id='result'></pre>
+                    <div id='results'></div>
                 </div>
 
 
@@ -42,7 +43,7 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>번호</th>
+                                    <th>예약자</th>
                                     <th>예약날짜</th>
                                     <th>시작시간</th>
                                     <th>종료시간</th>
@@ -53,15 +54,14 @@
                             </thead>
                             <tbody>
                                 <tr th:each="meetingRoom : ${ list }">
-                                    <td>
-                                        <a th:href="@{/meetingRoom/detail?meetingRoomNo={meetingRoomNo} (meetingRoomNo = ${meetingRoom.meetingRoomNo}) }" th:text="${meetingRoom.meetingRoomNo}"></a>
-                                    </td>
+                                    <td th:text="${meetingRoom.reserveName}"></td>
                                     <td th:text="${meetingRoom.reserveDate}"></td>
                                     <td th:text="${meetingRoom.startTime}"></td>
                                     <td th:text="${meetingRoom.endTime}"></td>
                                     <td th:text="${meetingRoom.title}"></td>
                                     <td th:text="${meetingRoom.roomName}"></td>
                                     <td th:text="${meetingRoom.roomPlace}"></td>
+                                    <td><a th:href="@{/meetingRoom/detail?meetingRoomNo={meetingRoomNo} (meetingRoomNo = ${meetingRoom.meetingRoomNo}) }" class="btn btn-light">상세</a></td>
                                 </tr>
                             </tbody>
                         </table>

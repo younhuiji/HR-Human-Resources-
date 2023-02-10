@@ -15,8 +15,8 @@ function createTable(){
                 }
             }else {
                 if (j == 8) {
-                    tbl += `<th>회의실${i}`;
-                    // tbl += '<input type="checkbox" id="${i}">'
+                    tbl += `<th><input type="checkbox" class="btn-check" id="회의실${i-1}" name="rooms"  autocomplete="off" value="회의실${i-1}" onclick='getCheckboxValue(event)'>
+                            <label class="btn btn-outline-dark" for="회의실${i-1}">회의실${i-1}</label></th>`;
                 } else {
                     tbl += `<td id="${j}:00">`;
                 }
@@ -31,10 +31,9 @@ function createTable(){
 
 var dragging = false;
 var dragSelectIds = [];
-// var tempSelected =[];
+
 var $td = $('td');
 var startCell = null;
-//const result11 = document.getElementById('result')
 const button =document.querySelector('#button');
 const myid1 = document.querySelector('#myid1');
 const inputDate = document.querySelector('#input_submit');
@@ -53,6 +52,19 @@ let mapTemp = new Map([
     ["20:00", 12]
 ]);
 
+// // 회의실 체크박스
+
+function getCheckboxValue(event)  {
+    let results = '';
+    if(event.target.checked)  {
+        results = event.target.value;
+    }
+
+    document.getElementById('results').innerText
+        = results;
+
+    console.log('회의실 : ' + results)
+}
 
 
 
@@ -64,9 +76,13 @@ function end(e) {
     $(cellsBetween(startCell, e.target)).each(function() {
         $(this).addClass('selected-item');
         dragSelectIds.push($(this).attr('id'));
+
         console.log('this'+ $(this).children());
     });
+
 }
+
+
 
 function cellsBetween(start, end) {
     var bounds, elementsInside;
@@ -161,8 +177,6 @@ $td.on('mouseup', function(e) {
 });
 
 
-// td로 th값 가져오기
-
 // 버튼 클릭시 Row 값 가져오기
 $(".checkBtn").click(function(e){
 
@@ -170,10 +184,8 @@ $(".checkBtn").click(function(e){
     var tdArr = new Array();	// 배열 선언
     var checkBtn = $(this);
 
-    // checkBtn.parent() : checkBtn의 부모는 <td>이다.
-    // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
     var tr = checkBtn.parent().parent();
-    // var tr = $(this);
+
     var td = tr.children();
 
     console.log('클릭한 데이터 가져오기'+ button.value);
@@ -259,20 +271,62 @@ function updateTable(list){
 const btnRegisterRoom = document.getElementById('btnRegisterRoom');
 btnRegisterRoom.addEventListener('click', function () {
     console.log('selected:', dragSelectIds);
-    console.log()
-    let start = 0;
-    let end = 0;
+    let start = 0
+    let end = 0
     let day = document.querySelector('#reserveDate').value;
+    let room =  0
+    let roomPlace = 0
 
     if (dragSelectIds.length > 0) {
-        start = mapTemp.get(dragSelectIds[0]);
-        end = mapTemp.get(dragSelectIds[dragSelectIds.length - 1]);
+        start = mapTemp.get(dragSelectIds[0])+8 + ":00";
+        end = mapTemp.get(dragSelectIds[dragSelectIds.length - 1])+9 + ":00";
+
+
     }
 
-    console.log(`start=${start}, end=${end}, day=${day}`);
+    // 회의실 이름 넘기기
+    var room_length = document.getElementsByName("rooms").length;
 
-    location.href = `/meetingRoom/create?start=${start}&end=${end}&day=${day}`;
+    for (var i=0; i<room_length; i++) {
+        if (document.getElementsByName("rooms")[i].checked == true) {
+            room = document.getElementsByName("rooms")[i].value;
+        }
+    }
 
+    // 회의실 위치 넘기기
+    if(room == "회의실1") {
+        roomPlace = "1층 102호"
+    }
+    else if(room == "회의실2") {
+        roomPlace = "2층 102호"
+    }
+    else if(room == "회의실3") {
+        roomPlace = "3층 102호"
+    }
+    else if(room == "회의실4") {
+        roomPlace = "4층 102호"
+    }
+    else if(room == "회의실5") {
+        roomPlace = "5층 102호"
+    }
+    else if(room == "회의실6") {
+        roomPlace = "6층 102호"
+    }
+    else if(room == "회의실7") {
+        roomPlace = "7층 102호"
+    }
+    else if(room == "회의실8") {
+        roomPlace = "8층 102호"
+    }
+    else if(room == "회의실9") {
+        roomPlace = "9층 102호"
+    }
+
+
+
+    console.log(`start=${start}, end=${end}, day=${day},room=${room},roomPlace=${roomPlace}`);
+
+    location.href = `/meetingRoom/create?start=${start}&end=${end}&day=${day}&room=${room}&roomPlace=${roomPlace}`;
 
 });
 

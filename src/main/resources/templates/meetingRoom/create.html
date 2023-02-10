@@ -29,39 +29,26 @@
                 <div class = "p-3 border-bottom">
                     <label for="reserveDate" style=" width: 150px; ">예약날짜</label>
                     <input id="reserveDate" class="align-text-top" type="text"
-                          name="reserveDate" required />
-
+                          name="reserveDate" style="border: none; background: transparent; width: 100px;" readonly />
+                </div>
+                <div class = "p-3 border-bottom">
+                    <label for="startTime" style=" width: 150px; ">예약시간</label>
                     <input id="startTime" class="align-text-top" type="text"
-                           name="startTime" required/>
+                           name="startTime" style="border: none; background: transparent; width: 50px;" readonly />
                     <span class="mt-auto m-2 pb-3 pt-xl-5">~</span>
                     <input id="endTime" class="align-text-top" type="text"
-                           name="endTime" required/>
-
+                           name="endTime"  style="border: none; background: transparent; width: 100px;" readonly />
                 </div>
 
                 <div class = "p-3 border-bottom">
                     <label for="roomName" style=" width: 150px; ">회의실</label>
-                    <select id="roomName" class="align-text-top"  name="roomName" onchange="roomNamePlace(this)">
-                        <option>회의실을 선택해주세요</option>
-                        <option value="회의실1">회의실1</option>
-                        <option value="회의실2">회의실2</option>
-                        <option value="회의실3">회의실3</option>
-                        <option value="회의실4">회의실4</option>
-                        <option value="회의실5">회의실5</option>
-                        <option value="회의실6">회의실6</option>
-                        <option value="회의실7">회의실7</option>
-                        <option value="회의실8">회의실8</option>
-                        <option value="회의실9">회의실9</option>
-                        <option value="회의실10">회의실10</option>
-                    </select>
+                    <input id="roomName" class="align-text-top" type="text"
+                           name="roomName" style="border: none; background: transparent; width: 100px;" readonly />
                 </div>
                 <div class = "p-3 border-bottom">
                     <label for="roomPlace" style=" width: 150px; " >회의실 위치</label>
-                    <select id="roomPlace" class="align-text-top"  name="roomPlace" readonly>
-                        <option >회의실을 선택해주세요.</option>
-                    </select>
-                    <!--                    <input id="roomPlace" class="align-text-top"-->
-                    <!--                            type="text" name="roomPlace" readonly required/>-->
+                    <input id="roomPlace" class="align-text-top" type="text"
+                           name="roomPlace" style="border: none; background: transparent; width: 100px;" readonly />
                 </div>
 
                 <div class= "p-3 border-bottom">
@@ -70,7 +57,6 @@
                            type="text" name="attendee" readonly />
 
 <!--                    <div class="invite-icon"><i class="fa-solid fa-user-plus"></i></div>-->
-
 
                     <input type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#inviteModal" data-bs-whatever="@mdo" value="초대" />
 
@@ -92,7 +78,6 @@
                                 </div>
                                 <div class="modal-footer">
 
-<!--                                    <button type="button" class="btn btn-light" id="modelInviteBtn">초대하기</button>-->
                                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal">초대하기</button>
                                 </div>
                             </div>
@@ -132,22 +117,27 @@
         let ends = param.get('end');
         console.log(ends);
         let days = param.get('day');
-        console.log(days)
-
+        console.log(days);
+        let room = param.get('room');
+        console.log(room);
+        let roomPlaces = param.get('roomPlace')
+        console.log(roomPlaces);
 
 
         startTime = document.getElementById("startTime");
         startTime.value = starts;
 
-
-
         endTime = document.getElementById("endTime");
         endTime.value = ends;
-
 
         reserveDate = document.getElementById("reserveDate");
         reserveDate.value = days;
 
+        roomName = document.getElementById("roomName");
+        roomName.value = room;
+
+        roomPlace = document.getElementById("roomPlace");
+        roomPlace.value = roomPlaces;
 
     </script>
 </th:block>

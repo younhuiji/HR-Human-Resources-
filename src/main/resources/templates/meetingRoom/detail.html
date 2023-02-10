@@ -36,11 +36,14 @@
             <label for="reserveDate" style=" width: 150px; ">예약날짜</label>
             <span id="reserveDate" class="align-text-top"
                   th:text="${meetingRoom.reserveDate}" readonly ></span>
-            <span id="startTime" class="align-text-top"
-                  th:text="${meetingRoom.startTime}" readonly ></span>
-            <span class="mt-auto m-2 pb-3 pt-xl-5">~</span>
-            <span id="endTime" class="align-text-top"
-                  th:text="${meetingRoom.endTime}" readonly ></span>
+        </div>
+          <div class = "p-3 border-bottom">
+              <label for="startTime" style=" width: 150px; ">예약시간</label>
+                <span id="startTime" class="align-text-top"
+                      th:text="${meetingRoom.startTime}" readonly ></span>
+                <span class="mt-auto m-2 pb-3 pt-xl-5">~</span>
+                <span id="endTime" class="align-text-top"
+                      th:text="${meetingRoom.endTime}" readonly ></span>
         </div>
         <div class= "p-3 border-bottom">
             <label for="attendee" style=" width: 150px; ">참석자</label>

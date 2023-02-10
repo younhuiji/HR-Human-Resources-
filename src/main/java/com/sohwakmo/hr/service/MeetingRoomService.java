@@ -25,26 +25,6 @@ public class MeetingRoomService {
         return meetingRoomRepository.findByOrderByMeetingRoomNoDesc();
     }
 
-//    public List<MeetingRoom> readTime(String date) {
-//        log.info("date={}", date);
-//
-////        List<MeetingRoom> meetingRoomTime = meetingRoomRepository.findByReserveDateOrderByRoomNameAscStartTimeAsc(date);
-////        log.info("meetingRoomTime={}", meetingRoomTime);
-//        return meetingRoomRepository.findByReserveDateOrderByRoomNameAscStartTimeAsc();
-//    }
-
-    //    public List<MeetingReadDto> readMeetingListByDate(String date) {
-//        log.info("readAllMeetingList(date={})", date);
-//
-//        List<MeetingRoom> meetingRoomListByDate = meetingRoomRepository.findByReserveDateOrderByRoomNameAscStartTimeAsc(date);
-//        log.info("meetingRoomListByDate={}", meetingRoomListByDate);
-//
-//        return meetingRoomListByDate.stream()
-//                .map(MeetingReadDto::fromEntity)
-//                .toList();
-//    }
-
-
 
     @Transactional
     public MeetingRoom read(Integer meetingRoomNo) {
