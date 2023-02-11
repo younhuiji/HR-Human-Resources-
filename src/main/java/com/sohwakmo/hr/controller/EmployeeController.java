@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -114,10 +116,13 @@ public class EmployeeController {
     }
 
     @PostMapping("/myPage/update")
-    public String myPageUpdate(EmployeeUpdateDto dto, Part part) {
+    public String myPageUpdate(EmployeeUpdateDto dto, Principal principal, Part part, MultipartFile photo) throws IOException {
+        String employeeNo = principal.getName();
+        log.info("employeeNo = {}", employeeNo);
         log.info(dto.toString());
         log.info(part.toString());
-        employeeService.update(dto, part);
-        return "redirect:/myPage?employeeNo=" + dto.getEmployeeNo();
+        log.info("photo={}", photo.getOriginalFilename());
+        employeeService.update(dto, part,employeeNo,photo);
+        return "redirect:/myPage?employeeNo=" + employeeNo;
     }
 }

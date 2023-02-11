@@ -11,56 +11,57 @@
 <body>
 <div layout:fragment="content">
     <div id="wrap">
-        <div id="header_info">
-            <div id="image" class="row">
-                <input type="file" th:name="photo" class="real-upload" accept="image/*" multiple style="display: none;">
-                <div class="col-3 upload">
-                    <img id="employee_img" th:src="@{${employee.getPhoto()}}" alt="사원사진"/>
-                    <div id="new_employee_img"></div>
-                </div>
-                <div id="header_info_wrap" class="col-9">
-                    <div id="header_info_1" class="row">
-                        <div class="col-xxl-3 info">
-                            <p class="info_1_title header_title_color">* 사번</p>
-                            <p class="header_content_color" th:text="${employee.employeeNo}"></p>
-                        </div>
-                        <div class="col-xxl-3 info">
-                            <p class="info_1_title header_title_color">* 소속</p>
-                            <p class="header_content_color" th:text="${employee.part.department}"></p>
-                        </div>
-                        <div class="col-xxl-3 info">
-                            <p class="info_1_title header_title_color">* 팀</p>
-                            <p class="header_content_color" th:text="${employee.part.team}"></p>
-                        </div>
-                        <div class="col-xxl-3 info">
-                            <p class="info_1_title header_title_color">* 직책</p>
-                            <p class="header_content_color" th:text="${employee.part.work}"></p>
-                        </div>
-                    </div>
-                    <div id="header_info_2" class="row">
-                        <div class="col-xxl-3 info">
-                            <p class="info_1_title header_title_color">* 성명</p>
-                            <p class="header_content_color" th:text="${employee.name}"></p>
-                        </div>
-                        <div class="col-xxl-3 info">
-                            <p class="info_1_title header_title_color">* 입사일</p>
-                            <p class="header_content_color" th:text="${employee.joinedDate}"></p>
-                        </div>
-                        <div class="col-xxl-3 info">
-                            <p class="info_1_title header_title_color">* 사내 이메일</p>
-                            <p class="header_content_color" th:text="${employee.email}"></p>
-                        </div>
-                        <div class="col-xxl-3 info">
-                            <p class="info_1_title header_title_color">* 사내 번호</p>
-                            <p class="header_content_color" th:text="${employee.phone}"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <form id="form" enctype="multipart/form-data">
-            <div id="body_wrap">
-                <div id="div_body_cover">
+                <div id="header_info">
+                    <div id="image" class="row">
+                        <input type="file" th:name="photo" class="real-upload" accept="image/*" multiple style="display: none;">
+                        <div class="col-3 upload">
+                            <img id="employee_img" th:src="@{${employee.getPhoto()}}" alt="사원사진"/>
+                            <div id="new_employee_img"></div>
+                        </div>
+                        <div id="header_info_wrap" class="col-9">
+                            <div id="header_info_1" class="row">
+                                <div class="col-xxl-3 info">
+                                    <p class="info_1_title header_title_color">* 사번</p>
+                                    <p class="header_content_color" th:text="${employee.employeeNo}"></p>
+                                </div>
+                                <div class="col-xxl-3 info">
+                                    <p class="info_1_title header_title_color">* 소속</p>
+                                    <p class="header_content_color" th:text="${employee.part.department}"></p>
+                                </div>
+                                <div class="col-xxl-3 info">
+                                    <p class="info_1_title header_title_color">* 팀</p>
+                                    <p class="header_content_color" th:text="${employee.part.team}"></p>
+                                </div>
+                                <div class="col-xxl-3 info">
+                                    <p class="info_1_title header_title_color">* 직책</p>
+                                    <p class="header_content_color" th:text="${employee.part.work}"></p>
+                                </div>
+                            </div>
+                            <div id="header_info_2" class="row">
+                                <div class="col-xxl-3 info">
+                                    <p class="info_1_title header_title_color">* 성명</p>
+                                    <p class="header_content_color" th:text="${employee.name}"></p>
+                                </div>
+                                <div class="col-xxl-3 info">
+                                    <p class="info_1_title header_title_color">* 입사일</p>
+                                    <p class="header_content_color" th:text="${employee.joinedDate}"></p>
+                                </div>
+                                <div class="col-xxl-3 info">
+                                    <p class="info_1_title header_title_color">* 사내 이메일</p>
+                                    <p class="header_content_color" th:text="${employee.email}"></p>
+                                </div>
+                                <div class="col-xxl-3 info">
+                                    <p class="info_1_title header_title_color">* 사내 번호</p>
+                                    <p class="header_content_color" th:text="${employee.phone}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!--        TODO 한칸 당기기-->
+                <div id="body_wrap">
+                    <div id="div_body_cover">
                         <!-- 사원번호 이름 -->
                         <div id="employeeNo_name" class="wrap_div row">
                             <div id="div_employeeNo" class="input_wrap_div text-left col-xxl-6">
@@ -84,7 +85,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!--입사일, 사내 번호-->
                         <div id="joinedDate_phone" class="wrap_div row">
                             <div id="div_joinedDate" class="input_wrap_div text-left col-6">
@@ -108,7 +108,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!--사내이메일 , 부서 팀 직책-->
                         <div id="email_team" class="wrap_div row">
                             <div id="div_email" class="input_wrap_div col-xxl-6 col-md-3 text-left">
@@ -163,6 +162,7 @@
                         </div>
                     </div>
                 </div>
+        </form>
             <div id="attendance_graph">
                 <form id="search_form" class="float-end">
                     <div id="div_search" class="row">
@@ -236,10 +236,9 @@
             <div id="div_updateButton">
                 <input type="submit" value="수정" class="btn btn-primary" id="buttonUpdate">
             </div>
-        </form>
-    </div>
+        </div>
 
-</div>
+    </div>
 
 
 <th:block layout:fragment="script">

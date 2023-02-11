@@ -86,7 +86,7 @@ public class EmployeeService {
      * @throws IOException
      */
     private String saveImage(MultipartFile photo) throws IOException {
-        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\employeeImage";
+        String projectPath = System.getProperty("user.dir") + "//src//main//resources//static//images//employeeImage";
         String fileName = photo.getOriginalFilename();
         File saveFile = new File(projectPath, fileName);
         photo.transferTo(saveFile);
@@ -122,14 +122,28 @@ public class EmployeeService {
 
     /**
      * 회원 정보 수정
-     * @param dto 이름, 전화번호
-     * @param part 부서,팀 , 맡은일 설정
+     *
+     * @param dto        이름, 전화번호
+     * @param part       부서,팀 , 맡은일 설정
+     * @param employeeNo
+     * @param photo
      */
     @Transactional
-    public void update(EmployeeUpdateDto dto, Part part) {
-        Employee employee = employeeRepository.findByEmployeeNo(dto.getEmployeeNo());
-        if (part.getDepartment()==null || part.getTeam()==null || part.getWork()==null) employee = employee.update(dto.getName(), dto.getPhone());
-        else employee = employee.update(dto.getName(),dto.getPhone(),part);
+    public void update(EmployeeUpdateDto dto, Part part, String employeeNo, MultipartFile photo) throws IOException {
+        Employee employee = employeeRepository.findByEmployeeNo(employeeNo);
+        // 이미지를 변경하지 않을 시에는 기본 이미지로 유지
+        String photoPath;
+        if (photo.getSize() == 0) photoPath = employee.getPhoto();
+        else photoPath = "/images/employeeImage/" + saveImage(photo);
+
+        log.info("photoPath={}", photoPath);
+        if (part.getDepartment()==null || part.getTeam()==null || part.getWork()==null){
+            employee = employee.update(dto.getName(), dto.getPhone(), photoPath);
+        }
+        else {
+            employee = employee.update(dto.getName(),dto.getPhone(),part,photoPath);
+            log.info(employee.toString());
+        }
     }
 
     /**

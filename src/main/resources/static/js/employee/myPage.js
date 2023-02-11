@@ -90,7 +90,8 @@ window.addEventListener('DOMContentLoaded',function (){
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     const preview = createElement(e, file);
-                    // imagePreview.remove();
+                    // 기존에 이미지 파일이 있다면 그 파일 삭제.
+                    checkCurrentImage();
                     imagePreview.appendChild(preview);
                 };
                 reader.readAsDataURL(file);
@@ -98,12 +99,18 @@ window.addEventListener('DOMContentLoaded',function (){
         });
     }
 
+    function checkCurrentImage() {
+        const imagePreview = document.querySelector('#new_employee_img');
+        console.log(imagePreview.childElementCount);
+        if (imagePreview.childElementCount === 1) {
+            let currentImg  = imagePreview.childNodes[0];
+            currentImg.remove();
+        }
+    }
     function createElement(e, file) {
-        // const div = document.createElement('div');
         const img = document.createElement('img');
         img.setAttribute('src', e.target.result);
         img.setAttribute('data-file', file.name);
-        // div.appendChild(img);
 
         return img;
     }

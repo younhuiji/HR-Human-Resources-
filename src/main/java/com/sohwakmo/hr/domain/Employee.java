@@ -68,16 +68,18 @@ public class Employee implements Serializable {
         return this;
     }
 
-    public Employee update(String name, String phone, Part part) {
+    public Employee update(String name, String phone, Part part,String photo) {
         this.name = name;
         this.phone = phone;
         this.part = part;
+        this.photo = photo;
         return this;
     }
 
-    public Employee update(String name, String phone) {
+    public Employee update(String name, String phone,String photo) {
         this.name = name;
         this.phone = phone;
+        this.photo = photo;
         return this;
     }
 }
