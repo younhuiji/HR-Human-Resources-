@@ -38,10 +38,6 @@
     font-size: 18px;
 }
 
-/*.input_wrap_div{*/
-/*    display: inline-block;*/
-/*    height: 100%;*/
-/*}*/
 
 .wrap_div{
     margin: 4% 0;
@@ -53,21 +49,6 @@
 .sector_div{
     padding-top: 10px;
 }
-/*.wrap_div span{*/
-/*    font-size: 20px;*/
-/*    float: left;*/
-/*    width: 150px;*/
-/*    line-height: 80px;*/
-/*}*/
-
-/*----인정사항 수정 폼----*/
-/*.select_div{*/
-/*    padding: 0 20px 20px 0;*/
-/*}*/
-/*#select_title_div{*/
-/*    padding-right: 0;*/
-/*    margin-right: 3%;*/
-/*}*/
 
 #department,#team,#work{
     height: 54px;

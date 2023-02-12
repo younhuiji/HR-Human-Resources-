@@ -163,82 +163,80 @@
                 </div>
             </div>
         </form>
-            <div id="attendance_graph">
-                <form id="search_form" class="float-end">
-                    <div id="div_search" class="row">
-                        <div class="col-10"></div>
-                        <div id="btnSearch_div" class="col-2">
-                            <select id="search" class="selectMonth float-right" th:name="month">
-                                <option value="01">1월</option>
-                                <option value="02">2월</option>
-                                <option value="03">3월</option>
-                                <option value="04">4월</option>
-                                <option value="05">5월</option>
-                                <option value="06">6월</option>
-                                <option value="08">8월</option>
-                                <option value="09">9월</option>
-                                <option value="10">10월</option>
-                                <option value="11">11월</option>
-                                <option value="12">12월</option>
-                            </select>
-                            <input id="btnSearch" type="submit" value="검색" class="btn btn-primary float-end">
-                            <input type="hidden" th:value="${employee.employeeNo}" th:name="employeeNo"/>
-                        </div>
+        <div id="attendance_graph">
+            <form id="search_form">
+                <div id="div_search" class="row">
+                    <div class="col-10"></div>
+                    <div id="btnSearch_div" class="col-2">
+                        <select id="search" class="selectMonth float-right" th:name="month">
+                            <option value="01">1월</option>
+                            <option value="02">2월</option>
+                            <option value="03">3월</option>
+                            <option value="04">4월</option>
+                            <option value="05">5월</option>
+                            <option value="06">6월</option>
+                            <option value="08">8월</option>
+                            <option value="09">9월</option>
+                            <option value="10">10월</option>
+                            <option value="11">11월</option>
+                            <option value="12">12월</option>
+                        </select>
+                        <input id="btnSearch" type="submit" value="검색" class="btn btn-primary float-end">
+                        <input type="hidden" th:value="${employee.employeeNo}" th:name="employeeNo"/>
                     </div>
-                </form>
-                <th:block th:if="${searchResult}!=0">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-bordered">
-                            <thead>
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col" th:each="m : ${#numbers.sequence(1,startTimeDays.length)}" th:text="${m}"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">출근 시간</th>
-                                <td th:each="d : ${startTimeDays}" th:text="${d}"></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">퇴근 시간</th>
-                                <td th:each="d : ${endTimeDays}" th:text="${d}"></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">출근 여부</th>
-                                <td th:each="d : ${workState}" th:text="${d}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </th:block>
-                <th:block th:if="${searchResult}==0">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col" th:each="d : ${#numbers.sequence(1,monthLength)}" th:text="${d}"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td th:colspan="${monthLength}">
-                                        <p style="text-align: center">검색 결과가 없습니다.</p>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </th:block>
-            </div>
-
-            <!--수정 버튼-->
-            <div id="div_updateButton">
-                <input type="submit" value="수정" class="btn btn-primary" id="buttonUpdate">
-            </div>
+                </div>
+            </form>
+            <th:block th:if="${searchResult}!=0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col" th:each="m : ${#numbers.sequence(1,startTimeDays.length)}" th:text="${m}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">출근 시간</th>
+                            <td th:each="d : ${startTimeDays}" th:text="${d}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">퇴근 시간</th>
+                            <td th:each="d : ${endTimeDays}" th:text="${d}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">출근 여부</th>
+                            <td th:each="d : ${workState}" th:text="${d}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </th:block>
+            <th:block th:if="${searchResult}==0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col" th:each="d : ${#numbers.sequence(1,monthLength)}" th:text="${d}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td th:colspan="${monthLength}">
+                                <p style="text-align: center">검색 결과가 없습니다.</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </th:block>
         </div>
-
+        <!--수정 버튼-->
+        <div id="div_updateButton">
+            <input type="submit" value="수정" class="btn btn-primary" id="buttonUpdate">
+        </div>
     </div>
+</div>
 
 
 <th:block layout:fragment="script">
