@@ -17,16 +17,17 @@ window.addEventListener('DOMContentLoaded', event =>{
     const level = document.querySelector('#level');
     const work = document.querySelector('#work');
 
+    const no = document.querySelector("#no");
+
     function updateDetailInfo(member) {
         console.log(member);
-        name.value = member[0].name;
-        phone.value = member[0].phone;
-        department.value = member[0].department;
         team.value = member[0].team;
+        name.value = member[0].name;
         level.value = member[0].position;
+        no.value = member[0].id;
+        department.value = member[0].department;
+        phone.value = member[0].phone;
         work.value = member[0].work;
-
-        
     }
 
     function findByMemeber(orgMember) {

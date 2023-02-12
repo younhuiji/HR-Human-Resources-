@@ -24,8 +24,3 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
 });
-
-
-function openReceiverHtml() {
-    // window.open()
-}

@@ -302,4 +302,16 @@ public class MessageController {
         return "/message/detailMessage";
     }
 
+    /**
+     * 수신자 팝업창
+     * @return
+     */
+    @GetMapping("/receiver")
+    public String receiver() {
+        log.info("receiver()");
+
+        return "/message/receiver";
+    }
+
+
 }
