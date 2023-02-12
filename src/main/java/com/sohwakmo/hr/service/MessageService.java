@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -375,7 +377,7 @@ public class MessageService {
     }
 
     /**
-     *
+     * 디테일 페이지
      * @param employeeNo
      * @param messageNo
      * @return
@@ -387,9 +389,13 @@ public class MessageService {
         Message message = messageRepository.findById(messageNo).get();
         log.info("message = {}", message);
 
+        LocalDateTime currentLocalDateTime = LocalDateTime.now();
+        log.info("currentLocalDateTime = {}", currentLocalDateTime);
+
         if(employeeNo.equals(message.getReceiveNo())) {
             log.info("true");
             message.setReceiveReadCheck(1);
+            message.setReadTime(currentLocalDateTime);
             log.info("message = {}", message);
         }
 

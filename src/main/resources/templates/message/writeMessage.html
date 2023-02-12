@@ -17,7 +17,7 @@
         </header>
         <div clas="card-body">
             <form enctype="multipart/form-data" id="formBody">
-                <input type="hidden" name="senderNo" th:value="3"/>
+                <input type="hidden" name="senderNo" th:value="2"/>
 
                 <div class="py-3 border-bottom">
                     <input type="radio" name="messageType" value="긴급" />긴급
@@ -32,7 +32,7 @@
                     <label for="receiveNo" class="column">수신자</label>
                     <div class="receiverDiv">
                         <input type="text" id="receiveName"  placeholder="받는 사람" readonly/>
-                        <input type="hidden" id="receiveNo" name="receiveNo" readonl/>
+                        <input type="hidden" id="receiveNo" name="receiveNo" />
                         <div>
                             <input type="button" value="주소록" onclick="openReceiverHtml()" />
                         </div>
