@@ -10,6 +10,8 @@ import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,6 +38,16 @@ public class BusinessTripService {
 
     public BusinessTrip selectByNo(Integer no){
         return businessTripRepository.findById(no).orElse(null);
+    }
+
+    @Transactional
+    public Integer update(Integer no){
+
+        BusinessTrip entity = businessTripRepository.selectByNo(no);
+        entity.setState(Collections.singleton(PaymentState.승인));
+        entity.add(LocalDateTime.now());
+
+        return no;
     }
 
 }

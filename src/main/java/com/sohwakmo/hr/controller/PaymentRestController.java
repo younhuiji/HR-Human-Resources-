@@ -4,7 +4,9 @@ import com.sohwakmo.hr.domain.BusinessCard;
 import com.sohwakmo.hr.domain.Leave;
 import com.sohwakmo.hr.dto.LeaveUpdateDto;
 import com.sohwakmo.hr.service.BusinessCardService;
+import com.sohwakmo.hr.service.BusinessTripService;
 import com.sohwakmo.hr.service.LeaveService;
+import com.sohwakmo.hr.service.VacationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ public class PaymentRestController {
 
     private final LeaveService leaveService;
     private final BusinessCardService businessCardService;
+    private final VacationService vacationService;
+    private final BusinessTripService businessTripService;
 
     @GetMapping("/readAll/{employeeNo}")
     public ResponseEntity<List<Leave>> readAll(@PathVariable String employeeNo) {
@@ -27,19 +31,6 @@ public class PaymentRestController {
         return ResponseEntity.ok(list);
     }
 
-    // 퇴사 (leave) 1차 승인
-    @GetMapping("/leave/compete/{leaveNo}")
-    public ResponseEntity<Integer> compete(@PathVariable Integer leaveNo){
-        Integer result = leaveService.update(leaveNo);
-        return ResponseEntity.ok(result);
-    }
-
-    // 퇴사 (leave) 2차 승인
-    @GetMapping("/leave/compete2/{leaveNo}")
-    public ResponseEntity<Integer> compete2(@PathVariable Integer leaveNo){
-        Integer result = leaveService.update2(leaveNo);
-        return ResponseEntity.ok(result);
-    }
 
     // 퇴사(leave) 반려 modal
     @GetMapping("/leave/return/{leaveNo}")
@@ -64,10 +55,37 @@ public class PaymentRestController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/card/compete/{cardNo}")
-    public ResponseEntity<Integer> competeCard(@PathVariable Integer cardNo){
-        Integer result = businessCardService.update(cardNo);
+    @GetMapping("/card/compete/{no}")
+    public ResponseEntity<Integer> competeCard(@PathVariable Integer no){
+        Integer result = businessCardService.update(no);
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/vacation/compete/{no}")
+    public ResponseEntity<Integer> competeVacation(@PathVariable Integer no){
+        Integer result = vacationService.update(no);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/trip/compete/{no}")
+    public ResponseEntity<Integer> competeTrip(@PathVariable Integer no){
+        Integer result = businessTripService.update(no);
+        return ResponseEntity.ok(result);
+    }
+
+    // 퇴사 (leave) 1차 승인
+    @GetMapping("/leave/compete/{leaveNo}")
+    public ResponseEntity<Integer> compete(@PathVariable Integer leaveNo){
+        Integer result = leaveService.update(leaveNo);
+        return ResponseEntity.ok(result);
+    }
+
+    // 퇴사 (leave) 2차 승인
+    @GetMapping("/leave/compete2/{leaveNo}")
+    public ResponseEntity<Integer> compete2(@PathVariable Integer leaveNo){
+        Integer result = leaveService.update2(leaveNo);
+        return ResponseEntity.ok(result);
+    }
+
 
 }

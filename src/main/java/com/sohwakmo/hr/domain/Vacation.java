@@ -12,6 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Getter
+@Setter
 @ToString
 @Entity(name="VACATION")
 @SequenceGenerator(name = "VACATION_SEQ_GEN", sequenceName = "VACATION_SEQ", allocationSize = 1)

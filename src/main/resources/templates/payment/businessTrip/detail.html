@@ -63,7 +63,7 @@
                         <tbody>
                         <tr>
                             <td style="width:15%; padding: 3px !important; border: 0px solid black; height: 90px; !important; font-size: 30px; font-weight: bold; text-align: center; vertical-align: middle;" colspan="2" >
-                                명함 신청서
+                                출장 신청서
                             </td>
                         </tr>
                         <tr>
@@ -99,7 +99,7 @@
                                             문서번호
                                         </td>
                                         <td style="width: 60%;padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
-                                            <input style="width: 100%" th:value="${trip.no}" readonly/>
+                                            <input style="width: 100%" th:value="${trip.no}"  id="number"  readonly/>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -224,6 +224,16 @@
                             </td>
                         </tr>
                         <tr>
+                            <td style="width:200px;background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 80px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                <b style="color: rgb(255, 0, 0);">*</b>신청&nbsp;사유
+                            </td>
+                            <td colspan="3" style="padding: 3px; border: 1px solid black; width: 450px; height: 100px; text-align: left; color: rgb(0, 0, 0); font-size: 12px;  vertical-align: top; background: rgb(255, 255, 255);">
+                                        <span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="8" data-dsl="{{textarea:description}}" >
+                                           <textarea style="width: 100%; height: 100%; " id="reason" name="reason" th:text="${trip.reason}" required></textarea>
+                                        </span>
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan="4" style="width:100%; padding: 20px !important; height: 22px; vertical-align: middle;border: 1px solid #bcbcbc; text-align: left; background: rgb(255, 255, 255);">
                                 <br>
                                 <br>
@@ -296,14 +306,14 @@
                 <br>
 
 <!--                    <div th:if="${employee.part.department == '사원'}">-->
-<!--                        <div class="card mb-8">-->
-<!--                            <input type="submit" class="btn btn-secondary" value="삭제" />-->
-<!--                        </div>-->
+                        <div class="card mb-8">
+                            <input type="submit" class="btn btn-secondary" value="삭제" />
+                        </div>
 <!--                    </div>-->
                     <br>
 <!--                    <div th:if="${employee.part.department == '팀장'}">-->
                         <div class="card mb-8">
-                                <input type="submit" class="btn btn-primary" id="buttonCompeteCard" value="승인" />
+                                <input type="submit" class="btn btn-primary"  data-rid="${trip.no}" onclick="getCompete('/api/payment/trip/compete/')" value="승인" />
                             <br>
                                 <input type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-rid="${card.no}" id="btnReturn2" value="반려" />
                         </div>
@@ -318,6 +328,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script th:src="@{ /js/payment/list.js }"></script>
     <script th:src="@{ /js/payment/detail.js }"></script>
+    <script th:src="@{ /js/payment/compete.js }"></script>
 </th:block>
 
 </html>

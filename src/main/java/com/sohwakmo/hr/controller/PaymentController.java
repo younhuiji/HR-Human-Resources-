@@ -129,7 +129,7 @@ public class PaymentController {
         String no = "1";
 
         Vacation vacation = Vacation.builder()
-                .employeeNo(no).approverNo(no).title(dto.getTitle()).reason(dto.getReason())
+                .employeeNo(no).title(dto.getTitle()).reason(dto.getReason()).approverNo(dto.getApproverNo())
                 .category(dto.getCategory()).effectiveDate(dto.getEffectiveDate()).expirationDate(dto.getExpirationDate())
                 .build();
 
@@ -168,7 +168,7 @@ public class PaymentController {
         String no = "1";
 
         BusinessTrip businessTrip = BusinessTrip.builder()
-                .employeeNo(no).approverNo(no).title(dto.getTitle()).reason(dto.getReason())
+                .employeeNo(no).title(dto.getTitle()).reason(dto.getReason()).approverNo(dto.getApproverNo())
                 .category(dto.getCategory()).effectiveDate(dto.getEffectiveDate()).expirationDate(dto.getExpirationDate())
                 .place(dto.getPlace()).companionNO(no).build();
 
@@ -216,7 +216,7 @@ public class PaymentController {
         String no = "1";
 
         BusinessCard businessCard = BusinessCard.builder()
-                .employeeNo(no).approverNo(no).title(dto.getTitle()).reason(dto.getReason())
+                .employeeNo(no).title(dto.getTitle()).reason(dto.getReason()).approverNo(dto.getApproverNo())
                 .category(dto.getCategory()).build();
 
         BusinessCard businessCards = businessCardService.create(businessCard);
@@ -241,7 +241,7 @@ public class PaymentController {
     }
 
     // ----------- leave -------------
-    // 퇴사(list) create
+    // 퇴사(leave) create
     @GetMapping("/leave/create")
     public void createGetLeave(Model model){
 
@@ -252,21 +252,21 @@ public class PaymentController {
 
     }
 
-    // 퇴사(list) create
+    // 퇴사(leave) create
     @PostMapping("/leave/create")
     public void createPostLeave(LeaveCreateDto dto){
 
         String no = "1";
 
         Leave leave = Leave.builder()
-                .employeeNo(no).approverNo(no).secondApproverNO(no)
+                .employeeNo(no).approverNo(dto.getApproverNo()).secondApproverNO(dto.getSecondApproverNO())
                 .title(dto.getTitle()).reason(dto.getReason()).category(dto.getCategory())
                 .effectiveDate(dto.getEffectiveDate())
                 .build();
         Leave leaves = leaveService.create(leave);
     }
 
-    // 퇴사(list) dtail
+    // 퇴사(leave) dtail
     @GetMapping("/leave/detail")
     public void detailLeave(@RequestParam Integer no, Model model) {
 

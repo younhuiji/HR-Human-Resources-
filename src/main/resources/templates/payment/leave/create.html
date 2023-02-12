@@ -209,13 +209,23 @@
                                 </td>
                                 <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
                                     <input style="width: 75%" type="hidden" class="textFrom" id="approverNo" name="approverNo" required >
-                                    <input style="width: 75%" type="text" class="textFrom" id="approverName" name="approverName" required >
+                                    <input style="width: 75%" type="text" class="textFrom" id="approverName" name="approverName"  required >
                                     <input type="button" id="search" value="찾기"/>
                                 </td>
+                                <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc;height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                    <b style="color: rgb(255, 0, 0);">*</b>최종 결재자 지정
+                                </td>
+                                <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                    <input style="width: 75%" type="hidden" class="textFrom" id="secondApproverNO" name="approverNo" required >
+                                    <input style="width: 75%" type="text" class="textFrom" id="secondApproverName" name="approverName"  required >
+                                    <input type="button" id="SecondSearch" value="찾기"/>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
                                     <b style="color: rgb(255, 0, 0);">*</b>보고서 분류
                                 </td>
-                                <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                <td colspan="3" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
                                     <select id="category" name="category">
                                         <option value="퇴사">퇴사</option>
                                         <option value="출장">출장</option>
@@ -229,9 +239,9 @@
                                     <b style="color: rgb(255, 0, 0);">*</b>신청&nbsp;사유
                                 </td>
                                 <td colspan="3" style="padding: 3px; border: 1px solid black; width: 450px; height: 100px; text-align: left; color: rgb(0, 0, 0); font-size: 12px;  vertical-align: top; background: rgb(255, 255, 255);">
-                                                    <span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="8" data-dsl="{{textarea:description}}" >
-                                                           <textarea style="width: 100%; height: 100%; " id="reason" name="reason" required></textarea>
-                                                   </span>
+                                      <span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="8" data-dsl="{{textarea:description}}" >
+                                            <textarea style="width: 100%; height: 100%; " id="reason" name="reason" required></textarea>
+                                      </span>
                                 </td>
                             </tr>
                             <tr>
@@ -272,6 +282,16 @@
                 let _top = Math.ceil(( window.screen.height - 600 )/2)
                 window.open(
                     "/payment/approver?number=1" ,
+                    "PopupNew",
+                    "width=900,height=600,left="+_left+",top="+_top);
+            })
+
+            const SecondSearch = document.querySelector('#SecondSearch');
+            SecondSearch.addEventListener('click', function(){
+                let _left = Math.ceil(( window.screen.width - 900 )/2);
+                let _top = Math.ceil(( window.screen.height - 600 )/2)
+                window.open(
+                    "/payment/approver?number=3" ,
                     "PopupNew",
                     "width=900,height=600,left="+_left+",top="+_top);
             })

@@ -16,6 +16,7 @@ window.addEventListener('DOMContentLoaded', event =>{
     const team = document.querySelector('#team')
     const level = document.querySelector('#level');
     const work = document.querySelector('#work');
+    const no = document.querySelector('#no');
 
     function updateDetailInfo(member) {
         console.log(member);

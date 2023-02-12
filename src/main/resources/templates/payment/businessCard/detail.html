@@ -101,7 +101,7 @@
                                             문서번호
                                         </td>
                                         <td style="width: 60%;padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
-                                            <input style="width: 100%" th:value="${card.no}" readonly/>
+                                            <input style="width: 100%" th:value="${card.no}"  id="number"  readonly/>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -299,9 +299,9 @@
                 <br>
                 <!--                    <div th:if="${employee.part.department == '팀장'}">-->
                 <div class="card mb-8">
-                    <input type="submit" class="btn btn-primary" id="buttonCompeteCard" value="승인" />
+                    <input type="submit" class="btn btn-primary" id="buttonCompeteCard"  data-rid="${card.no}" value="승인" onclick="getCompete('/api/payment/card/compete/')"/>
                     <br>
-                    <input type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-rid="${card.no}" id="btnReturn2" value="반려" />
+                    <input type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-rid="${card.no}" id="btnReturn2" onclick="getCompete('/api/payment/card/compete/')" value="반려" />
                 </div>
                 <!--                    </div>-->
             </div>
@@ -314,6 +314,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script th:src="@{ /js/payment/list.js }"></script>
     <script th:src="@{ /js/payment/detail.js }"></script>
+    <script th:src="@{ /js/payment/compete.js }"></script>
 </th:block>
 
 </html>

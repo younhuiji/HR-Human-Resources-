@@ -1,5 +1,6 @@
 package com.sohwakmo.hr.service;
 
+import com.sohwakmo.hr.domain.BusinessCard;
 import com.sohwakmo.hr.domain.BusinessTrip;
 import com.sohwakmo.hr.domain.PaymentState;
 import com.sohwakmo.hr.domain.Vacation;
@@ -9,6 +10,9 @@ import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -37,4 +41,13 @@ public class VacationService {
         return vacationRepository.findById(no).orElse(null);
     }
 
+    @Transactional
+    public Integer update(Integer no){
+
+        Vacation entity = vacationRepository.selectByNo(no);
+        entity.setState(Collections.singleton(PaymentState.승인));
+        entity.add(LocalDateTime.now());
+
+        return no;
+    }
 }

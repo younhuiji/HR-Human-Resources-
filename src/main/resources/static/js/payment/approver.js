@@ -7,7 +7,7 @@ window.addEventListener('DOMContentLoaded', event => {
     const div = document.querySelector('#title');
     const div2 = document.querySelector('#jb-header')
 
-    if(id == 2){
+    if(id == 2){ // 동반 출장자 지정
 
         let str = `<h3 style="font-size: 30px"> 동반 출장자 지정</h3>`;
         div.innerHTML = str;
@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded', event => {
         let str2 = `결재내용의 동반 출장자를 지정합니다.`;
         div2.innerHTML = str2;
 
-    } else{
+    } else if(id == 1){ // 결재자 지정
 
         let str = `<h3 style="font-size: 30px">결재자 지정</h3>`;
         div.innerHTML = str;
@@ -23,6 +23,13 @@ window.addEventListener('DOMContentLoaded', event => {
         let str2 = `결재내용의 결재자를 지정합니다.`;
         div2.innerHTML = str2;
 
+    } else if(id == 3) { // 퇴사 최종 결재자 지정
+
+        let str = `<h3 style="font-size: 30px">최종 결재자 지정</h3>`;
+        div.innerHTML = str;
+
+        let str2 = `결재내용의 최종 결재자를 지정합니다.`;
+        div2.innerHTML = str2;
     }
 
 

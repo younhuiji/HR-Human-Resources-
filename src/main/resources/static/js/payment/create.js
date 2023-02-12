@@ -19,6 +19,16 @@ window.addEventListener('DOMContentLoaded', event => {
         }
     }
 
+    const insert = document.querySelector('#insertButton');
+    insert.addEventListener('click', function(e){
+        e.preventDefault();
+        const result = confirm('신청 되었습니다.');
+        if(result){
+            location.href = 'http://localhost:8889';
+        }
+    })
+
+
 
 
 }) // window end
