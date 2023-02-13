@@ -120,14 +120,14 @@
                                     </tr>
                                     <tr>
                                         <td style=" height: 80%; padding: 3px;  vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
-                                            <div  style="text-align: center;" th:if="${card.competeDate} != null">
+                                            <div  style="text-align: center;" th:if="${card.completeDate} != null">
                                                 <img src="/images/dojang.png" style="height: 65px; ">
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td rowspan="1" style="border: 1px solid #bcbcbc; text-align: center; height: 20px">
-                                            <span th:text="${ #temporals.format(card.competeDate, 'yyyy.MM.dd') }"></span>
+                                            <span th:text="${ #temporals.format(card.completeDate, 'yyyy.MM.dd') }"></span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -260,13 +260,13 @@
                             </div>
 
                             <div >
-                                <div th:if="${card.competeDate == null}">
+                                <div th:if="${card.completeDate == null}">
                                     <p style="color: #0a53be">승인 처리까지 : 50%</p>
                                     <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                                         <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 50%"></div>
                                     </div>
                                 </div>
-                                <div th:if="${card.competeDate != null}">
+                                <div th:if="${card.completeDate != null}">
                                     <p style="color: #0a53be">승인 처리 : 100%</p>
                                     <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                         <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
@@ -293,15 +293,15 @@
 
 <!--                <div th:if="${employee.part.department == '사원'}">-->
                     <div class="card mb-8">
-                        <input type="submit" class="btn btn-secondary" value="삭제" />
+                        <input type="submit" class="btn btn-secondary" onclick="getDelete('/api/payment/businessCard/delete/')"  value="삭제" />
                     </div>
 <!--                </div>-->
                 <br>
                 <!--                    <div th:if="${employee.part.department == '팀장'}">-->
                 <div class="card mb-8">
-                    <input type="submit" class="btn btn-primary" id="buttonCompeteCard"  data-rid="${card.no}" value="승인" onclick="getCompete('/api/payment/card/compete/')"/>
+                    <input type="submit" class="btn btn-primary" id="buttonCompleteCard"  data-rid="${card.no}" value="승인" onclick="getComplete('/api/payment/card/complete/')"/>
                     <br>
-                    <input type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-rid="${card.no}" id="btnReturn2" onclick="getCompete('/api/payment/card/compete/')" value="반려" />
+                    <input type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-rid="${card.no}" id="btnReturn2" onclick="getComplete('/api/payment/card/complete/')" value="반려" />
                 </div>
                 <!--                    </div>-->
             </div>
@@ -314,7 +314,8 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script th:src="@{ /js/payment/list.js }"></script>
     <script th:src="@{ /js/payment/detail.js }"></script>
-    <script th:src="@{ /js/payment/compete.js }"></script>
+    <script th:src="@{ /js/payment/delete.js }"></script>
+    <script th:src="@{ /js/payment/completeReturn.js }"></script>
 </th:block>
 
 </html>

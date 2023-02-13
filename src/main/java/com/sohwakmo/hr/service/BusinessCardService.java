@@ -56,4 +56,20 @@ public class BusinessCardService {
         return no;
     }
 
+    @Transactional
+    public Integer delete(Integer no){
+        businessCardRepository.deleteById(no);
+        return no;
+    }
+
+    @Transactional
+    public Integer updateReturn(Integer no, String returnReason){
+
+        BusinessCard entity = businessCardRepository.selectByNo(no);
+        entity.setState(Collections.singleton(PaymentState.반려));
+        entity.add(LocalDateTime.now()); // 반려 시간
+        entity.returnReason(returnReason); // 반려 사유
+
+        return no;
+    }
 }

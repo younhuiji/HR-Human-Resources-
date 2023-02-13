@@ -44,9 +44,28 @@ public class VacationService {
     @Transactional
     public Integer update(Integer no){
 
-        Vacation entity = vacationRepository.selectByNo(no);
-        entity.setState(Collections.singleton(PaymentState.승인));
-        entity.add(LocalDateTime.now());
+//        Vacation entity = VacationRepository.selectByNo(no);
+//        entity.setState(Collections.singleton(PaymentState.승인));
+//        entity.add(LocalDateTime.now());
+
+        return no;
+    }
+
+    @Transactional
+    public Integer delete(Integer no){
+
+        vacationRepository.deleteById(no);
+
+        return no;
+    }
+
+    @Transactional
+    public Integer updateReturn(Integer no, String returnReason){
+
+//        Vacation entity = VacationRepository.selectByNo(no);
+//        entity.setState(Collections.singleton(PaymentState.반려));
+//        entity.add(LocalDateTime.now()); // 반려 시간
+//        entity.returnReason(returnReason); // 반려 사유
 
         return no;
     }

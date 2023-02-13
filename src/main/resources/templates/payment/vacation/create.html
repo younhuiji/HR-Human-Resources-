@@ -56,7 +56,7 @@
             </div>
             <div id="jb-content">
                 <div id="jb-text">
-                    <form id="form" method="post" action="/payment/vacation/create" >
+                    <form id="formB" method="post" action="/payment/vacation/create" onsubmit="getSubmit()" >
                         <table style="width: 100%; border-collapse: collapse !important; color: black; background: white; border: 0px solid #bcbcbc; font-size: 12px; font-family: malgun gothic,dotum,arial,tahoma;">
                             <tbody>
                                 <tr>
@@ -251,7 +251,6 @@
     <script>
         const search = document.querySelector('#search');
         search.addEventListener('click', function(){
-            console.log("111");
             let _left = Math.ceil(( window.screen.width - 900 )/2);
             let _top = Math.ceil(( window.screen.height - 600 )/2)
             window.open(
@@ -259,6 +258,10 @@
                 "PopupNew",
                 "width=900,height=600,left="+_left+",top="+_top);
         })
+
+        function getSubmit(){
+            alert( '신청이 완료되었습니다.');
+        }
     </script>
 </th:block>
 

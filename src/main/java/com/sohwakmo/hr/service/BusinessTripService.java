@@ -1,9 +1,6 @@
 package com.sohwakmo.hr.service;
 
-import com.sohwakmo.hr.domain.BusinessCard;
-import com.sohwakmo.hr.domain.BusinessTrip;
-import com.sohwakmo.hr.domain.PaymentState;
-import com.sohwakmo.hr.domain.Vacation;
+import com.sohwakmo.hr.domain.*;
 import com.sohwakmo.hr.repository.BusinessCardRepository;
 import com.sohwakmo.hr.repository.BusinessTripRepository;
 import groovy.util.logging.Slf4j;
@@ -43,9 +40,26 @@ public class BusinessTripService {
     @Transactional
     public Integer update(Integer no){
 
-        BusinessTrip entity = businessTripRepository.selectByNo(no);
-        entity.setState(Collections.singleton(PaymentState.승인));
-        entity.add(LocalDateTime.now());
+//        BusinessTrip entity = BusinessTripRepository.selectByNo(no);
+//        entity.setState(Collections.singleton(PaymentState.승인));
+//        entity.add(LocalDateTime.now());
+
+        return no;
+    }
+
+    @Transactional
+    public Integer delete(Integer no){
+        businessTripRepository.deleteById(no);
+        return no;
+    }
+
+    @Transactional
+    public Integer updateReturn(Integer no, String returnReason){
+
+//        BusinessTrip entity = BusinessTripRepository.findById(no);
+//        entity.setState(Collections.singleton(PaymentState.반려));
+//        entity.add(LocalDateTime.now()); // 반려 시간
+//        entity.returnReason(returnReason); // 반려 사유
 
         return no;
     }

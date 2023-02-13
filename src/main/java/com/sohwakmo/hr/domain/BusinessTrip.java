@@ -2,7 +2,6 @@ package com.sohwakmo.hr.domain;
 
 import javax.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -52,7 +51,7 @@ public class BusinessTrip  extends BaseTimeEntity{
     private String expirationDate;
 
     @Column // 최종 결재일시
-    private LocalDateTime competeDate;
+    private LocalDateTime completeDate;
 
     @Column(nullable = false) // 출장지
     private String place;
@@ -66,7 +65,7 @@ public class BusinessTrip  extends BaseTimeEntity{
     }
 
     public BusinessTrip add(LocalDateTime competeDate){
-        this.competeDate = competeDate;
+        this.completeDate = competeDate;
         return this;
     }
 

@@ -74,4 +74,10 @@ public class LeaveService {
         return leaveRepository.findByEmployeeNoAndState(no, state);
     }
 
+    @Transactional
+    public Integer delete(Integer no){
+        leaveRepository.deleteById(no);
+        return no;
+    }
+
 }

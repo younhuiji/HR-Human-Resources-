@@ -128,6 +128,8 @@ public class PaymentController {
 
         String no = "1";
 
+        log.info("create 컨트롤 넘어옴");
+
         Vacation vacation = Vacation.builder()
                 .employeeNo(no).title(dto.getTitle()).reason(dto.getReason()).approverNo(dto.getApproverNo())
                 .category(dto.getCategory()).effectiveDate(dto.getEffectiveDate()).expirationDate(dto.getExpirationDate())
@@ -170,7 +172,7 @@ public class PaymentController {
         BusinessTrip businessTrip = BusinessTrip.builder()
                 .employeeNo(no).title(dto.getTitle()).reason(dto.getReason()).approverNo(dto.getApproverNo())
                 .category(dto.getCategory()).effectiveDate(dto.getEffectiveDate()).expirationDate(dto.getExpirationDate())
-                .place(dto.getPlace()).companionNO(no).build();
+                .place(dto.getPlace()).companionNO(dto.getCompanionNo()).build();
 
 
         BusinessTrip businessTrips = businessTripService.create(businessTrip);
@@ -183,7 +185,7 @@ public class PaymentController {
 
         BusinessTrip trip = businessTripService.selectByNo(no);
         model.addAttribute("trip", trip);
-        log.info("trip={}", trip);
+        log.info("trip??????????={}", trip);
 
         Employee employee = employeeService.selectByNo(trip.getEmployeeNo());
         model.addAttribute("employee", employee);
@@ -192,8 +194,14 @@ public class PaymentController {
         Employee approver = employeeService.selectByNo(trip.getApproverNo());
         model.addAttribute("approver", approver);
 
-        Employee companion = employeeService.selectByNo(trip.getCompanionNO());
-        model.addAttribute("companion", companion);
+        if(employeeService.selectByNo(trip.getCompanionNO()) != null){
+            Employee companion = employeeService.selectByNo(trip.getCompanionNO());
+            model.addAttribute("companion", companion);
+        } else {
+            Employee companion = null;
+            model.addAttribute("companion", companion);
+        }
+
 
     }
 
@@ -284,7 +292,5 @@ public class PaymentController {
             Employee secondApprover = employeeService.selectByNo(leave.getSecondApproverNO());
             model.addAttribute("secondApprover", secondApprover);
     }
-
-
 
 }

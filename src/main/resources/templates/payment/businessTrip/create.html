@@ -56,7 +56,7 @@
                 </div>
                 <div id="jb-content">
                     <div id="jb-text">
-                        <form id="form" method="post" action="/payment/businessTrip/create" >
+                        <form id="form" method="post" action="/payment/businessTrip/create" onsubmit="getSubmit()">
                             <table style="width: 100%; border-collapse: collapse !important; color: black; background: white; border: 0px solid #bcbcbc; font-size: 12px; font-family: malgun gothic,dotum,arial,tahoma;">
                                 <tbody>
                                 <tr>
@@ -218,7 +218,7 @@
                                         동반 출장자
                                     </td>
                                     <td colspan="3" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                        <input type="hidden" class="textFrom" id="companionNO" name="companionNO"  >
+                                        <input type="hidden" class="textFrom" id="companionNo" name="companionNo"  >
                                         <input type="text" class="textFrom" id="companionName" name="companionName"  >
                                         <input type="button" id="search2" value="찾기"/>
                                     </td>
@@ -286,6 +286,9 @@
                     "width=900,height=600,left="+_left+",top="+_top);
             })
 
+            function getSubmit(){
+                alert( '신청이 완료되었습니다.');
+            }
 
         </script>
     </th:block>

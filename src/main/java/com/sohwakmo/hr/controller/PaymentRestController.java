@@ -2,7 +2,7 @@ package com.sohwakmo.hr.controller;
 
 import com.sohwakmo.hr.domain.BusinessCard;
 import com.sohwakmo.hr.domain.Leave;
-import com.sohwakmo.hr.dto.LeaveUpdateDto;
+import com.sohwakmo.hr.dto.updateDto;
 import com.sohwakmo.hr.service.BusinessCardService;
 import com.sohwakmo.hr.service.BusinessTripService;
 import com.sohwakmo.hr.service.LeaveService;
@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -33,19 +34,30 @@ public class PaymentRestController {
 
 
     // 퇴사(leave) 반려 modal
-    @GetMapping("/leave/return/{leaveNo}")
-    public ResponseEntity<Leave> leaveReturn (@PathVariable Integer leaveNo) {
-        Leave entity = leaveService.selectByNo(leaveNo);
-        return ResponseEntity.ok(entity);
-    }
-
-    // 퇴사(leave) 반려 신청
-    @PutMapping("/leave/{leaveNo}")
-    public ResponseEntity<Integer> updateReturnReason(@PathVariable Integer leaveNo, @RequestBody LeaveUpdateDto dto){
-        Integer result = leaveService.updateReturn(leaveNo, dto.getReturnReason());
+    @PutMapping ("/leave/return/{no}")
+    public ResponseEntity<Integer> leaveReturnReason(@PathVariable Integer no, @RequestBody updateDto dto){
+        Integer result = leaveService.updateReturn(no, dto.getReturnReason());
         return ResponseEntity.ok(result);
-
     }
+
+    @PutMapping ("/businessCard/return/{leaveNo}")
+    public ResponseEntity<Integer> businessCardReturnReason(@PathVariable Integer no, @RequestBody updateDto dto){
+        Integer result = businessCardService.updateReturn(no, dto.getReturnReason());
+        return ResponseEntity.ok(result);
+    }
+
+    @PutMapping ("/businessTrip/return/{no}")
+    public ResponseEntity<Integer> businessTripReturnReason(@PathVariable Integer no, @RequestBody updateDto dto){
+        Integer result = businessTripService.updateReturn(no, dto.getReturnReason());
+        return ResponseEntity.ok(result);
+    }
+
+    @PutMapping ("/vacation/return/{no}")
+    public ResponseEntity<Integer> vacationReturnReason(@PathVariable Integer no, @RequestBody updateDto dto){
+        Integer result = vacationService.updateReturn(no, dto.getReturnReason());
+        return ResponseEntity.ok(result);
+    }
+
 
     // bs card list 출력
     @GetMapping("/cardList/{employeeNo}")
@@ -55,36 +67,96 @@ public class PaymentRestController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/card/compete/{no}")
-    public ResponseEntity<Integer> competeCard(@PathVariable Integer no){
+    @GetMapping("/card/complete/{no}")
+    public ResponseEntity<Integer> completeCard(@PathVariable Integer no){
         Integer result = businessCardService.update(no);
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/vacation/compete/{no}")
-    public ResponseEntity<Integer> competeVacation(@PathVariable Integer no){
+    @GetMapping("/vacation/complete/{no}")
+    public ResponseEntity<Integer> completeVacation(@PathVariable Integer no){
         Integer result = vacationService.update(no);
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/trip/compete/{no}")
-    public ResponseEntity<Integer> competeTrip(@PathVariable Integer no){
+    @GetMapping("/trip/complete/{no}")
+    public ResponseEntity<Integer> completeTrip(@PathVariable Integer no){
         Integer result = businessTripService.update(no);
         return ResponseEntity.ok(result);
     }
 
     // 퇴사 (leave) 1차 승인
-    @GetMapping("/leave/compete/{leaveNo}")
-    public ResponseEntity<Integer> compete(@PathVariable Integer leaveNo){
+    @GetMapping("/leave/complete/{leaveNo}")
+    public ResponseEntity<Integer> complete(@PathVariable Integer leaveNo){
         Integer result = leaveService.update(leaveNo);
         return ResponseEntity.ok(result);
     }
 
     // 퇴사 (leave) 2차 승인
-    @GetMapping("/leave/compete2/{leaveNo}")
-    public ResponseEntity<Integer> compete2(@PathVariable Integer leaveNo){
+    @GetMapping("/leave/complete2/{leaveNo}")
+    public ResponseEntity<Integer> complete2(@PathVariable Integer leaveNo){
         Integer result = leaveService.update2(leaveNo);
         return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping("/vacation/delete/{no}")
+    public ResponseEntity<Integer> deleteVacation(@PathVariable Integer no){
+
+        // 승인 처리 안됐을 경우, 삭제 가능
+        if(vacationService.selectByNo(no).getCompleteDate() == null) {
+            Integer result = vacationService.delete(no);
+            return ResponseEntity.ok(result);
+
+        // 승인 처리가 진행된 경우, 삭제 불가능
+        } else {
+            Integer result = 0;
+            return ResponseEntity.ok(result);
+        }
+    }
+
+    @DeleteMapping("/businessCard/delete/{no}")
+    public ResponseEntity<Integer> deleteBusinessCard(@PathVariable Integer no){
+
+        // 승인 처리 안됐을 경우, 삭제 가능
+        if(businessCardService.selectByNo(no).getCompleteDate() == null) {
+            Integer result = businessCardService.delete(no);
+            return ResponseEntity.ok(result);
+
+            // 승인 처리가 진행된 경우, 삭제 불가능
+        } else {
+            Integer result = 0;
+            return ResponseEntity.ok(result);
+        }
+    }
+
+    @DeleteMapping("/businessTrip/delete/{no}")
+    public ResponseEntity<Integer> deleteBusinessTrip(@PathVariable Integer no){
+
+        // 승인 처리 안됐을 경우, 삭제 가능
+        if(businessTripService.selectByNo(no).getCompleteDate() == null) {
+            Integer result = businessTripService.delete(no);
+            return ResponseEntity.ok(result);
+
+            // 승인 처리가 진행된 경우, 삭제 불가능
+        } else {
+            Integer result = 0;
+            return ResponseEntity.ok(result);
+        }
+    }
+
+    @DeleteMapping("/leave/delete/{no}")
+    public ResponseEntity<Integer> deleteLeave(@PathVariable Integer no){
+
+        // 승인 처리 안됐을 경우, 삭제 가능
+        if(leaveService.selectByNo(no).getSemiCompleteDate() == null) {
+            Integer result = leaveService.delete(no);
+            return ResponseEntity.ok(result);
+
+            // 승인 처리가 진행된 경우, 삭제 불가능
+        } else {
+            Integer result = 0;
+            return ResponseEntity.ok(result);
+        }
     }
 
 

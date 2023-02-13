@@ -16,6 +16,6 @@ public interface VacationRepository extends JpaRepository<Vacation, Integer> {
     List<Vacation> findByEmployeeNoAndState(String no, PaymentState state);
 
     @Query("select v from VACATION v where v.no = :no ")
-    Vacation selectByNo(@Param(value = "no")Integer no);
+    public Vacation selectByNo(@Param(value = "no") Integer no);
 
 }

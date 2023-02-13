@@ -55,7 +55,7 @@
             </div>
             <div id="jb-content">
                 <div id="jb-text">
-                    <form id="form" method="post" action="/payment/leave/create" >
+                    <form id="form" method="post" action="/payment/leave/create" onsubmit="getSubmit()">
                         <table  style="width: 100%; border-collapse: collapse !important; color: black; background: white; border: 0px solid #bcbcbc; font-size: 12px; ">
                             <tbody>
                             <tr>
@@ -216,8 +216,8 @@
                                     <b style="color: rgb(255, 0, 0);">*</b>최종 결재자 지정
                                 </td>
                                 <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                    <input style="width: 75%" type="hidden" class="textFrom" id="secondApproverNO" name="approverNo" required >
-                                    <input style="width: 75%" type="text" class="textFrom" id="secondApproverName" name="approverName"  required >
+                                    <input style="width: 75%" type="hidden" class="textFrom" id="secondApproverNo" name="secondApproverNo" required >
+                                    <input style="width: 75%" type="text" class="textFrom" id="secondApproverName" name="secondApproverName"  required >
                                     <input type="button" id="SecondSearch" value="찾기"/>
                                 </td>
                             </tr>
@@ -295,6 +295,11 @@
                     "PopupNew",
                     "width=900,height=600,left="+_left+",top="+_top);
             })
+
+            function getSubmit(){
+                alert( '신청이 완료되었습니다.');
+            }
+
         </script>
     </th:block>
 

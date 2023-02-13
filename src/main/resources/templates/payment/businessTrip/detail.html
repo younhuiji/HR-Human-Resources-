@@ -118,14 +118,14 @@
                                     </tr>
                                     <tr>
                                         <td style=" height: 80%; padding: 3px;  vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
-                                            <div  style="text-align: center;" th:if="${trip.competeDate} != null">
+                                            <div  style="text-align: center;" th:if="${trip.completeDate} != null">
                                                 <img src="/images/dojang.png" style="height: 65px; ">
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td rowspan="1" style="border: 1px solid #bcbcbc; text-align: center; height: 20px">
-                                            <span th:text="${ #temporals.format(trip.competeDate, 'yyyy.MM.dd') }"></span>
+                                            <span th:text="${ #temporals.format(trip.completeDate, 'yyyy.MM.dd') }"></span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -217,11 +217,20 @@
                             <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc;height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
                                 동반 출장자
                             </td>
-                            <td colspan="3" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                <input type="hidden" class="textFrom" id="companionNO" name="companionNO"  >
-                                <input type="text" class="textFrom" id="companionName" name="companionName" th:value="${companion.name}"  >
-                                <input type="button" id="search2" value="찾기"/>
-                            </td>
+                            <div th:if="${companion != null}">
+                                <td colspan="3" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;" >
+                                    <input type="hidden" class="textFrom" id="companionNO" name="companionNO"  >
+                                    <input type="text" class="textFrom" id="companionName" name="companionName" th:value="${companion.name}"  >
+                                    <input type="button" id="search2" value="찾기"/>
+                                </td>
+                            </div>
+                            <div th:if="${companion == null}">
+                                <td colspan="3" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;" >
+                                    <input type="hidden" class="textFrom"  name="companionNO"  >
+                                    <input type="text" class="textFrom" i name="companionName" value=" "  >
+                                    <input type="button"  value="찾기"/>
+                                </td>
+                            </div>
                         </tr>
                         <tr>
                             <td style="width:200px;background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 80px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
@@ -274,13 +283,13 @@
                             </div>
 
                             <div >
-                                <div th:if="${trip.competeDate == null}">
+                                <div th:if="${trip.completeDate == null}">
                                     <p style="color: #0a53be">승인 처리까지 : 50%</p>
                                     <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                                         <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 50%"></div>
                                     </div>
                                 </div>
-                                <div th:if="${trip.competeDate != null}">
+                                <div th:if="${trip.completeDate != null}">
                                     <p style="color: #0a53be">승인 처리 : 100%</p>
                                     <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                         <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
@@ -307,13 +316,13 @@
 
 <!--                    <div th:if="${employee.part.department == '사원'}">-->
                         <div class="card mb-8">
-                            <input type="submit" class="btn btn-secondary" value="삭제" />
+                            <input type="submit" class="btn btn-secondary" data-rid="${trip.no}"  onclick="getDelete('/api/payment/businessTrip/delete/')" value="삭제" />
                         </div>
 <!--                    </div>-->
                     <br>
 <!--                    <div th:if="${employee.part.department == '팀장'}">-->
                         <div class="card mb-8">
-                                <input type="submit" class="btn btn-primary"  data-rid="${trip.no}" onclick="getCompete('/api/payment/trip/compete/')" value="승인" />
+                                <input type="submit" class="btn btn-primary"  data-rid="${trip.no}"  onclick="getComplete('/api/payment/trip/complete/')" value="승인" />
                             <br>
                                 <input type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-rid="${card.no}" id="btnReturn2" value="반려" />
                         </div>
@@ -328,7 +337,8 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script th:src="@{ /js/payment/list.js }"></script>
     <script th:src="@{ /js/payment/detail.js }"></script>
-    <script th:src="@{ /js/payment/compete.js }"></script>
+    <script th:src="@{ /js/payment/delete.js }"></script>
+    <script th:src="@{ /js/payment/completeReturn.js }"></script>
 </th:block>
 
 </html>
