@@ -181,7 +181,7 @@
                     <div class="col-4" style="height: 100%; margin: 0;">
                         <div style="height: 100%; padding: 0;">
                             <div id="schedule" style="height: 100%">
-                                <div>
+                                <div style="height: 100%; overflow: auto; overflow-x:hidden">
                                     <h4 th:text="${todayMonth} + '월 ' + ${todayDate} + '일'"></h4>
                                     <!--오늘 일정-->
                                     <div>
@@ -231,9 +231,9 @@
                                             </div>
                                             <div class="col-10">
                                                 <div th:each="r:${reservationList}">
-                                                    <p th:text="'- 회의시간 : '+${r.startTime} + ' ~ ' +${r.endTime}"></p>
+                                                    <p th:text="'⏱ 회의시간 : '+${r.startTime} + ' ~ ' +${r.endTime}"></p>
                                                     <p th:text="'- 회의실 위치 : ' + ${r.roomPlace} + ' ' + ${r.roomName}"></p>
-                                                    <p th:text="'- 회의 목적 : ' + ${r.purpose}"></p>
+                                                    <p th:text="'❗ 회의 목적 : ' + ${r.purpose}"></p>
                                                 </div>
                                             </div>
                                         </div>
