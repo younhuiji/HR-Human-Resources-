@@ -118,7 +118,7 @@ window.addEventListener('DOMContentLoaded', function (){
     phone.addEventListener('keyup', function (){
         let phone_length = phone.value.length;
         let phoneValue = phone.value;
-        if (phone_length<10) {
+        if (phone_length<11) {
             phone.classList.add('border_danger','error_icon');
             phone.classList.remove('border_success','ok_icon');
             phone_not_ok.className = '';
