@@ -19,7 +19,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * @return
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "where m.receiveNo = :employeeNo AND "
                     + "m.receiveTrash = 0 "
@@ -30,7 +30,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 받은쪽지함 전체 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "where m.receiveNo = :employeeNo AND "
@@ -46,7 +46,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 받은쪽지함 제목으로 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "where m.receiveNo = :employeeNo AND "
@@ -61,7 +61,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 받은쪽지함 보낸사람으로 검색
      */
     @Query(
-           value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+           value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                    + "from MESSAGE m "
                    + "inner join Employee e on m.senderNo = e.employeeNo "
                    + "where m.receiveNo = :employeeNo AND "
@@ -76,7 +76,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 받은쪽지함 메세지 타입이 있는 전체 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "where m.receiveNo = :employeeNo AND "
@@ -94,7 +94,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 받은쪽지함 메세지 타입이 있는 제목 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "where m.receiveNo = :employeeNo AND "
@@ -111,7 +111,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 받은쪽지함 메세지 타입이 있는 보낸사람 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "where m.receiveNo = :employeeNo AND "
@@ -134,7 +134,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * @return
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "where m.senderNo = :employeeNo AND "
                     + "m.senderTrash = 0 "
@@ -145,7 +145,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 보낸쪽지함 전체 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.receiveNo = e.employeeNo "
                     + "where m.senderNo = :employeeNo AND "
@@ -161,7 +161,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 보낸쪽지함 제목으로 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.receiveNo = e.employeeNo "
                     + "where m.senderNo = :employeeNo AND "
@@ -176,7 +176,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 보낸쪽지함 받은사람으로 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.receiveNo = e.employeeNo "
                     + "where m.senderNo = :employeeNo AND "
@@ -191,7 +191,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 보낸쪽지함 메세지 타입이 있는 전체 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.receiveNo = e.employeeNo "
                     + "where m.senderNo = :employeeNo AND "
@@ -209,7 +209,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 보낸쪽지함 메세지 타입이 있는 제목 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.receiveNo = e.employeeNo "
                     + "where m.senderNo = :employeeNo AND "
@@ -226,7 +226,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 보낸쪽지함 메세지 타입이 있는 빋는사람 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.receiveNo = e.employeeNo "
                     + "where m.senderNo = :employeeNo AND "
@@ -250,7 +250,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * @return
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "where  (m.receiveNo = :employeeNo AND m.receiveTrash = 1 AND m.receiveDelete = 0) OR "
                     + "(m.senderNo = :employeeNo AND m.senderTrash = 1 AND m.senderDelete = 0) "
@@ -261,7 +261,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 휴지통 전체 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "inner join Employee e2 on m.receiveNo = e2.employeeNo "
@@ -280,7 +280,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 휴지통 제목으로 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "inner join Employee e2 on m.receiveNo = e2.employeeNo "
@@ -297,7 +297,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 휴지통 사람으로 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "inner join Employee e2 on m.receiveNo = e2.employeeNo "
@@ -315,7 +315,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 휴지통 메세지 타입이 있는 전체 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "inner join Employee e2 on m.receiveNo = e2.employeeNo "
@@ -336,7 +336,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 휴지통 메세지 타입이 있는 제목 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "inner join Employee e2 on m.receiveNo = e2.employeeNo "
@@ -355,7 +355,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
      * 휴지통 메세지 타입이 있는 사람 검색
      */
     @Query(
-            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
+            value = "select new com.sohwakmo.hr.dto.MessageSearchDto(m.messageNo, m.messageType, m.receiveReadCheck, m.title, m.sendTime, m.readTime, m.senderNo, m.senderEmployee, m.receiveEmployee) "
                     + "from MESSAGE m "
                     + "inner join Employee e on m.senderNo = e.employeeNo "
                     + "inner join Employee e2 on m.receiveNo = e2.employeeNo "

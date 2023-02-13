@@ -159,10 +159,10 @@ public class MessageController {
     @GetMapping("/sendList")
     public String sendList(String employeeNo, Model model, String messageType, String contentType, String keyword,
                            @PageableDefault(page = 0, size = 5, sort = "messageNo", direction = Sort.Direction.DESC) Pageable pageable) {
-        log.info("receiveList(messageType = {}, contentType = {}, keyword = {})", messageType, contentType, keyword);
+        log.info("sendList(messageType = {}, contentType = {}, keyword = {})", messageType, contentType, keyword);
 
         // 로그인한 사원 번호 임시 값
-        employeeNo = "2";
+        employeeNo = "1";
         log.info("employeeNo = {}", employeeNo);
 
         Page<MessageSearchDto> messageList;

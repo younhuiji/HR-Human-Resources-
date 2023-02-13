@@ -68,10 +68,10 @@
                             <td th:text="${ message.getTitle()}"></td>
                             <td th:text="${ message.getReceiveEmployeeNo().getName()}"></td>
                             <td th:text="${ #temporals.format(message.getSendTime(), 'yyyy-MM-dd HH:mm') }"></td>
-                            <th:block th:if="${message.getReadTime() != 'null'}" >
+                            <th:block th:if="${message.getReceiveReadCheck() == 1}" >
                                 <td th:text="${ #temporals.format(message.getReadTime(), 'yyyy-MM-dd HH:mm') }"></td>
                             </th:block>
-                            <th:block th:if="${message.getReadTime() == 'null'}" >
+                            <th:block th:if="${message.getReceiveReadCheck() == 0}" >
                                 <td>안읽음</td>
                             </th:block>
                         </tr>

@@ -15,6 +15,7 @@ public class MessageSearchDto {
     private Integer receiveReadCheck;
     private String title;
     private LocalDateTime sendTime;
+    private LocalDateTime readTime;
     private String senderNo;
     private Employee senderEmployeeNo;
     private Employee receiveEmployeeNo;
