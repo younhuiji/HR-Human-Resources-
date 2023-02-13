@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{ layout/layout.html }">
+
+<head>
+    <meta charset="UTF-8">
+    <title>수신자</title>
+    <link th:href="@{/css/layout/styles.css}" rel="stylesheet"/>
+</head>
+
+<div layout:fragment="content">
+    <h1>수신자</h1>
+    <hr>
+
+    <div class="card my-2">
+        <div class="card-body">
+
+            <div class="container">
+                <ul class="tree" id="orgTree">
+
+                </ul>
+            </div>
+            <div class="col-xl-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar me-1"></i>
+                        상세정보
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div style= "float:left;margin-right: 15px;">
+                                    <h6>프로필 이미지</h6>
+                                    <img height="200px" width="200px"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <h6>사용자 정보</h6>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;"> 이름</label>
+                                    <input id="name" class="form-control" value="*" readonly/>
+                                </div>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;"> 전화번호 </label>
+                                    <input id="phone" class="form-control" value="*" readonly/>
+                                </div>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;"> 소속부서 </label>
+                                    <input id="department" class="form-control" value="*" readonly/>
+                                </div>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;"> 소속팀 </label>
+                                    <input id="team" class="form-control" value="*" readonly/>
+                                </div>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;"> 직급 </label>
+                                    <input id="level" class="form-control" value="*" readonly/>
+                                </div>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;"> 담당업무 </label>
+                                    <input id="work" class="form-control" value="*" readonly/>
+                                </div>
+                                <div style="text-align:right;">
+                                    <button class="btn btn-secondary mt-2" onclick="closePopup()">확인</button>
+                                    <input type="hidden" id="no" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</div>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/organization.js}"></script>
+    <script>
+        function closePopup() {
+            if(document.getElementById("name").value == '*') {
+                alert("누구한테 보낼지 선택해주세요.");
+                return;
+            }else {
+                opener.document.getElementById("receiveNo").value = document.getElementById("no").value;
+                opener.document.getElementById("receiveName").value = document.getElementById("name").value;
+                close();
+            }
+        }
+    </script>
+</th:block>
+
+
+</html>

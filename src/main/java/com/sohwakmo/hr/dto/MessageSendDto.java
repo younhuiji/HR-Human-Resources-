@@ -13,7 +13,8 @@ public class MessageSendDto {
     private String title;
     private String receiveNo;
     private String content;
-    private Employee employee;
+    private Employee senderEmployee;
+    private Employee receiveEmployee;
 
     public Message toEntity() {
         return Message.builder()
@@ -22,7 +23,8 @@ public class MessageSendDto {
                 .title(title)
                 .receiveNo(receiveNo)
                 .content(content)
-                .employee(employee)
+                .senderEmployee(senderEmployee)
+                .receiveEmployee(receiveEmployee)
                 .build();
     }
 

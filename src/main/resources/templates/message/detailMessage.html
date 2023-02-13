@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{ layout/layout.html }">
+<head>
+    <meta charset="UTF-8">
+    <title>상세 보기</title>
+    <link rel="stylesheet" th:href="@{/css/message/detailMessage.css}">
+</head>
+
+<div layout:fragment="content">
+
+    <div class="container my-2 main">
+        <header>
+            <p>상세 보기</p>
+        </header>
+        <div clas="card-body">
+            <form enctype="multipart/form-data" id="formBody">
+                <input type="hidden" name="senderNo" th:value="3"/>
+
+                <div class="py-3 border-bottom">
+                    <th:block th:if="${message.getMessageType()} == '긴급'" >
+                        <input type="radio" name="messageType" value="긴급" checked="checked" onclick="return(false)" />긴급
+                        <input type="radio" name="messageType" value="중요" onclick="return(false)" />중요
+                        <input type="radio" name="messageType" value="일반" onclick="return(false)" />일반
+                    </th:block>
+                    <th:block th:if="${message.getMessageType()} == '중요'" >
+                        <input type="radio" name="messageType" value="긴급" onclick="return(false)" />긴급
+                        <input type="radio" name="messageType" value="중요" checked="checked" onclick="return(false)" />중요
+                        <input type="radio" name="messageType" value="일반" onclick="return(false)" />일반
+                    </th:block>
+                    <th:block th:if="${message.getMessageType()} == '일반'" >
+                        <input type="radio" name="messageType" value="긴급" onclick="return(false)" />긴급
+                        <input type="radio" name="messageType" value="중요" onclick="return(false)" />중요
+                        <input type="radio" name="messageType" value="일반" checked="checked" onclick="return(false)" />일반
+                    </th:block>
+                </div>
+                <div class="py-3 border-bottom">
+                    <span>제목: </span>
+                    <span th:text="${message.getTitle()}"></span>
+                </div>
+                <div class="py-3 border-bottom">
+                    <div class="mb-2">
+                        <span>보낸사람: </span>
+                        <span th:text="${message.getSenderEmployee().getName()}"></span>
+                    </div>
+                    <div>
+                        <span>받는사람: </span>
+                        <span th:text="${message.getReceiveEmployee().getName()}"></span>
+                    </div>
+                </div>
+                <div class="py-3 border-bottom">
+                    <textarea rows="5" th:text="${message.getContent()}" readonly></textarea>
+                </div>
+                <div class="py-3 border-bottom">
+                    <th:block th:if="${isFile != null}">
+                        <span>파일: </span>
+                    </th:block>
+                    <th:block th:if="${isFile == '1'}">
+                        <a th:href="${message.getFilePath1()}" download="">다운로드</a>
+                    </th:block>
+                    <th:block th:if="${isFile == '2'}">
+                        <a th:href="${message.getFilePath1()}" download="">다운로드</a>
+                        <a th:href="${message.getFilePath2()}" download="">다운로드</a>
+                    </th:block>
+                    <th:block th:if="${isFile == '3'}">
+                        <a th:href="${message.getFilePath1()}" download="">다운로드</a>
+                        <a th:href="${message.getFilePath2()}" download="">다운로드</a>
+                        <a th:href="${message.getFilePath3()}" download="">다운로드</a>
+                    </th:block>
+                </div>
+
+                <div class="py-3 border-bottom buttonBox">
+                    <a class="btn btn-outline-secondary" href="#" onclick="sendPrevPage('이전 페이지로 돌아가시겠습니까?')">돌아가기</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/message/sendPrevPage.js}"></script>
+</th:block>
+
+</html>

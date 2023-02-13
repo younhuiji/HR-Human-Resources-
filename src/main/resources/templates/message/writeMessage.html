@@ -31,14 +31,15 @@
                 <div class="py-3 border-bottom">
                     <label for="receiveNo" class="column">수신자</label>
                     <div class="receiverDiv">
-                        <input type="text" id="receiveNo" name="receiveNo" placeholder="받는 사람" />
+                        <input type="text" id="receiveName"  placeholder="받는 사람" readonly/>
+                        <input type="hidden" id="receiveNo" name="receiveNo" />
                         <div>
-                            <input type="button" value="주소록"/>
+                            <input type="button" value="주소록" onclick="openReceiverHtml()" />
                         </div>
                     </div>
                 </div>
                 <div class="py-3 border-bottom">
-                    <textarea rows="5" name="content" placeholder="내용"></textarea>
+                    <textarea rows="5" name="content" id="content" placeholder="내용"></textarea>
                 </div>
                 <div class="py-3 border-bottom">
                     <label class="column">파일 업로드</label>
@@ -46,17 +47,29 @@
                 </div>
                 <div class="py-3 border-bottom buttonBox">
                     <button class="btn btn-secondary" id="btnSend">보내기</button>
-                    <a class="btn btn-outline-secondary" href="/message/receiveList" >취소</a>
+                    <a class="btn btn-outline-secondary" href="#" onclick="sendPrevPage('취소 하시겠습니까?')">취소</a>
                 </div>
+
             </form>
         </div>
     </div>
 
 </div>
 
-<!--<script th:src="@{/js/message/writeMessage.js}"></script>-->
 <th:block layout:fragment="script">
     <script th:src="@{/js/message/writeMessage.js}"></script>
+    <script th:src="@{/js/message/sendPrevPage.js}"></script>
+
+    <script>
+        function openReceiverHtml() {
+            let screenWidth = window.screen.width;
+            let screenHeight = window.screen.height;
+            let popupWidth = 600;
+            let popupHeight = 600;
+
+             window.open("/message/receiver", "new", "scrollbars=yes, resizable=no width="+popupWidth+", height="+popupHeight+", left="+(screenWidth - popupWidth) / 2+", top="+(screenHeight - popupHeight) / 2+"");
+        }
+    </script>
 </th:block>
 
 </html>
