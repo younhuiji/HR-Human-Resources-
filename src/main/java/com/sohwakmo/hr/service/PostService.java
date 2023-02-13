@@ -6,11 +6,13 @@ import com.sohwakmo.hr.dto.post.PostUpdateDto;
 import com.sohwakmo.hr.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -21,10 +23,41 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional(readOnly = true)
-    public List<Post> readPost() {
+    public Page<Post> readPost(Pageable pageable) {
         log.info("readPost()");
 
-        return postRepository.findByOrderByNoticeYnAscPostNoDesc();
+        Integer page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable= PageRequest.of(page,10);
+
+        return postRepository.findByOrderByNoticeLvAscPostNoDesc(pageable);
+    }
+
+    public Page<Post> search(Pageable pageable, String type, String keyword) {
+        log.info("search(type={}, keyword={})", type, keyword);
+
+        Integer page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable= PageRequest.of(page,10);
+
+        Page<Post> list= null;
+        switch (type) {
+            case "tcw": // 전체 검색
+                list = postRepository.findByTitleContainingIgnoreCaseOrContentContainingIgnoreCaseOrWriterContainingIgnoreCaseOrderByNoticeLvAscPostNoDesc(pageable, keyword, keyword, keyword);
+                break;
+            case "t": // 제목만 검색
+                list = postRepository.findByTitleContainingIgnoreCaseOrderByNoticeLvAscPostNoDesc(pageable, keyword);
+                break;
+            case "c": // 내용만 검색
+                list = postRepository.findByContentContainingIgnoreCaseOrderByNoticeLvAscPostNoDesc(pageable, keyword);
+                break;
+            case "tc": // 제목 또는 내용 검색
+                list = postRepository.findByTitleContainingIgnoreCaseOrContentContainingIgnoreCaseOrderByNoticeLvAscPostNoDesc(pageable, keyword, keyword);
+                break;
+            case "w": // 작성자만 검색
+                list = postRepository.findByWriterContainingIgnoreCaseOrderByNoticeLvAscPostNoDesc(pageable, keyword);
+                break;
+        }
+
+        return list;
     }
 
     public Post createPost(PostCreateDto dto){
@@ -55,25 +88,4 @@ public class PostService {
         return postRepository.deleteByPostNo(postNo).getPostNo();
     }
 
-//    public List<Post> search(String type, String keyword) {
-//        log.info("search(type={}, keyword={})", type, keyword);
-//
-//        List<Post> list = new ArrayList<>();
-//        switch (type) {
-//            case "t": // 제목만 검색
-//                list = postRepository.findByTitleIgnoreCaseContainingOrderByIdDesc(keyword);
-//                break;
-//            case "c": // 내용만 검색
-//                list = postRepository.findByContentIgnoreCaseContainingOrderByIdDesc(keyword);
-//                break;
-//            case "tc": // 제목 또는 내용 검색
-//                list = postRepository.searchByKeyword(keyword);
-//                break;
-//            case "a": // 작성자만 검색
-//                list = postRepository.findByAuthorIgnoreCaseContainingOrderByIdDesc(keyword);
-//                break;
-//        }
-//
-//        return list;
-//    }
 }

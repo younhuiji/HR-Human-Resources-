@@ -6,11 +6,15 @@ import com.sohwakmo.hr.dto.post.PostUpdateDto;
 import com.sohwakmo.hr.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -24,13 +28,23 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/list")
-    public String list(Model model){
+    public String list(@PageableDefault Pageable pageable, Model model){
         log.info("/post/list");
 
-        List<Post> list= postService.readPost();
+        Page<Post> list= postService.readPost(pageable);
         model.addAttribute("list", list);
 
         return "/post/list";
+    }
+
+    @GetMapping("/search")
+    public String search(@PageableDefault Pageable pageable, @RequestParam String type, @RequestParam String keyword, Model model) {
+        log.info("search(type={}, keyword={})", type, keyword);
+
+        Page<Post> list= postService.search(pageable, type, keyword);
+        model.addAttribute("list", list);
+
+        return "/post/list"; // list.html 파일
     }
 
     @GetMapping("/create")

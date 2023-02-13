@@ -5,7 +5,6 @@
 
 <head>
     <title>HR | 게시판</title>
-    <link rel="stylesheet" th:href="@{/css/post/postList.css}" />
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css" /> -->
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
@@ -28,26 +27,32 @@
                 <input id="postNo" name="postNo" th:value="${ post.postNo }" style="display: none;" />
                 <div>
                     <span id="titleSpan">
-                        <input id="titleInput" type="text" name="title" th:value="${ post.title }" required autofocus />
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">제목</span>
+                            <input id="titleInput" name="title" type="text" th:value="${ post.title }" class="form-control" required autofocus />
+                        </div>
                     </span>
                 </div>
                 
                 <div>
+                    <span id="writerSpan">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">작성자</span>
+                            <input id="writerInput" th:value="${ post.writer }" class="form-control" aria-describedby="basic-addon1" readonly />
+                        </div>
+                    </span>
+                </div>
+
+                <div>
                     <span id="contentSpan">
                         <textarea id="contentArea" type="text" th:text="${ post.content }" style="display: none;"></textarea>
-                        <div id="editor"></div>
+                        <div id="editor" class="mb-3"></div>
                         <textarea id="modifiedContentArea" type="text" name="content" style="display: none;"></textarea>
                     </span>
                 </div>
 
                 <div>
-                    <span id="writerSpan">
-                        <input id="writerInput" type="text" name="writer" th:value="${ post.writer }" readonly/>
-                    </span>
-                </div>
-
-                <div>
-                    <input type="button" value="수정 완료" id="btnUpdate">
+                    <input type="button" value="수정 완료" id="btnUpdate" class="btn btn-outline-primary">
                 </div>
             </form>
         </div>
@@ -75,6 +80,7 @@
         previewHighlight: false,
         plugins: colorSyntax,
         language: 'ko-KR',
+        autofocus: false,
     });
 
     var content= editor.getMarkdown();

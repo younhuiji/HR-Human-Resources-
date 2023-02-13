@@ -10,7 +10,7 @@ public class PostCreateDto {
     private String content;
     private String writer;
     private Integer viewCnt;
-    private Integer noticeYn;
+    private Integer noticeLv;
 
     public Post toEntity(){
         return Post.builder()
@@ -18,7 +18,7 @@ public class PostCreateDto {
                 .content(content)
                 .writer(writer)
                 .viewCnt(viewCnt)
-                .noticeYn(noticeYn)
+                .noticeLv(noticeLv)
                 .build();
     }
 }

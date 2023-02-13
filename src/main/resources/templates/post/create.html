@@ -5,7 +5,6 @@
 
 <head>
     <title>HR | 게시판</title>
-    <link rel="stylesheet" th:href="@{/css/post/postList.css}" />
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css" /> -->
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
@@ -27,26 +26,34 @@
             <form method="post" id="postForm">
                 <div>
                     <span id="titleSpan">
-                        <select name="noticeYn" class="form-select mb-3" aria-label="Default select example">
-                            <option value="4"selected>일반 게시글</option>
-                            <option value="3">팀 공지</option>
-                            <option value="2">부서 공지</option>
-                            <option value="1">전체 공지</option>
-                        </select>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">분류</span>
+                            <div class="form-control">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="noticeLv" id="radioPost" value=4 checked>
+                                    <label class="form-check-label" for="radioPost">일반 게시글</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="noticeLv" id="teamNoti" value=3 >
+                                    <label class="form-check-label" for="teamNoti">팀 공지</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="noticeLv" id="deptNoti" value=2 >
+                                    <label class="form-check-label" for="deptNoti">부서 공지</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="noticeLv" id="allNoti" value=1 >
+                                    <label class="form-check-label" for="allNoti">전체 공지</label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">제목</span>
-                            <input id="titleInput" name="title" type="text" class="form-control" placeholder="제목을 입력해 주세요." aria-describedby="basic-addon1" required autofocus />
+                            <input id="titleInput" name="title" type="text" class="form-control" placeholder="제목을 입력해 주세요." required autofocus />
                         </div>
                     </span>
                 </div>
                 
-                <div>
-                    <span id="contentSpan">
-                        <div id="editor" class="mb-3"></div>
-                        <textarea id="contentArea" type="text" name="content" style="display: none;"></textarea>
-                    </span>
-                </div>
-
                 <div>
                     <span id="writerSpan">
                         <div class="input-group mb-3">
@@ -57,7 +64,14 @@
                 </div>
 
                 <div>
-                    <input type="button" value="등록" id="btnSubmit">
+                    <span id="contentSpan">
+                        <div id="editor" class="mb-3"></div>
+                        <textarea id="contentArea" type="text" name="content" style="display: none;"></textarea>
+                    </span>
+                </div>
+
+                <div>
+                    <input type="button" value="등록" id="btnSubmit" class="btn btn-outline-primary">
                 </div>
             </form>
         </div>
