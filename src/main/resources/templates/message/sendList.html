@@ -59,21 +59,21 @@
                 <tbody>
                     <form action="/message/senderSendTrash" id="sendTrash">
                         <input type="hidden" name="employeeNo" th:value="${#authentication.principal.employeeNo}" />
-                        <tr th:each="message : ${messageList}" th:onclick="|location.href='@{ /message/detailMessage(messageNo=${ message.getMessageNo() }, employeeNo=${#authentication.principal.employeeNo} ) }'|">
+                        <tr th:each="message : ${messageList}">
                             <td><input type="checkbox" name="messageCheckBox" th:value="${message.getMessageNo()}"/></td>
                             <th:block>
-                                <td th:if="${message.getMessageType() == '긴급'}" style="color: red">!</td>
-                                <td th:if="${message.getMessageType() != '긴급'}">!</td>
+                                <td th:if="${message.getMessageType() == '긴급'}" style="color: red" th:onclick="|location.href='@{ /message/detailMessage(messageNo=${ message.getMessageNo() }, employeeNo=${#authentication.principal.employeeNo} ) }'|">!</td>
+                                <td th:if="${message.getMessageType() != '긴급'}" th:onclick="|location.href='@{ /message/detailMessage(messageNo=${ message.getMessageNo() }, employeeNo=${#authentication.principal.employeeNo} ) }'|">!</td>
                             </th:block>
-                            <td th:text="${ message.getMessageType()}"></td>
-                            <td th:text="${ message.getTitle()}"></td>
-                            <td th:text="${ message.getReceiveEmployeeNo().getName()}"></td>
-                            <td th:text="${ #temporals.format(message.getSendTime(), 'yyyy-MM-dd HH:mm') }"></td>
+                            <td th:text="${ message.getMessageType()}" th:onclick="|location.href='@{ /message/detailMessage(messageNo=${ message.getMessageNo() }, employeeNo=${#authentication.principal.employeeNo} ) }'|"></td>
+                            <td th:text="${ message.getTitle()}" th:onclick="|location.href='@{ /message/detailMessage(messageNo=${ message.getMessageNo() }, employeeNo=${#authentication.principal.employeeNo} ) }'|"></td>
+                            <td th:text="${ message.getReceiveEmployeeNo().getName()}" th:onclick="|location.href='@{ /message/detailMessage(messageNo=${ message.getMessageNo() }, employeeNo=${#authentication.principal.employeeNo} ) }'|"></td>
+                            <td th:text="${ #temporals.format(message.getSendTime(), 'yyyy-MM-dd HH:mm') }" th:onclick="|location.href='@{ /message/detailMessage(messageNo=${ message.getMessageNo() }, employeeNo=${#authentication.principal.employeeNo} ) }'|"></td>
                             <th:block th:if="${message.getReceiveReadCheck() == 1}" >
-                                <td th:text="${ #temporals.format(message.getReadTime(), 'yyyy-MM-dd HH:mm') }"></td>
+                                <td th:text="${ #temporals.format(message.getReadTime(), 'yyyy-MM-dd HH:mm') }" th:onclick="|location.href='@{ /message/detailMessage(messageNo=${ message.getMessageNo() }, employeeNo=${#authentication.principal.employeeNo} ) }'|"></td>
                             </th:block>
                             <th:block th:if="${message.getReceiveReadCheck() == 0}" >
-                                <td>안읽음</td>
+                                <td th:onclick="|location.href='@{ /message/detailMessage(messageNo=${ message.getMessageNo() }, employeeNo=${#authentication.principal.employeeNo} ) }'|">안읽음</td>
                             </th:block>
                         </tr>
                     </form>
