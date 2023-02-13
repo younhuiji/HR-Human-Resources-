@@ -70,11 +70,12 @@
 
 
 #attendance_wrap {
-    margin-top: 5.8%;
+    /*margin-top: 50%;*/
     border: 1px solid #dadada;
     padding: 24px;
     border-radius: 8px;
     box-shadow : 2px 3px 5px 0 rgba(0,0,0,0.2) ;
+    height: 50%;
 }
 #time_info{
     height: 100%;
@@ -144,4 +145,14 @@
     padding: 33px 16px 16px 16px;
     height: 100%;
     box-shadow : 2px 3px 5px 0 rgba(0,0,0,0.2) ;
+}
+.title_td{
+    text-align: left;
+}
+#post_table{
+    text-align: center;
+}
+
+#doc{
+    text-align: center;
 }

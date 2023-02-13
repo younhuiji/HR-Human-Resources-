@@ -62,14 +62,64 @@ window.addEventListener('DOMContentLoaded',function (){
 
 
     // 이미지 변경
+    const employee_img = document.querySelector('#employee_img');
+    function getImageFiles(e) {
+        const uploadFiles = [];
+        const files = e.currentTarget.files;
+        const imagePreview = document.querySelector('#new_employee_img');
+        const docFrag = new DocumentFragment();
+
+        employee_img.setAttribute("hidden", "hidden");
+        // imagePreview.setAttribute("hidden", "hidden");
+
+        if ([...files].length >= 2) {
+            alert('이미지는 최대 1개 까지 업로드가 가능합니다.');
+            return;
+        }
+
+        // 파일 타입 검사
+        [...files].forEach(file => {
+            if (!file.type.match("image/.*")) {
+                alert('이미지 파일만 업로드가 가능합니다.');
+                return
+            }
+
+            // 파일 갯수 검사
+            if ([...files].length < 7) {
+                uploadFiles.push(file);
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const preview = createElement(e, file);
+                    // 기존에 이미지 파일이 있다면 그 파일 삭제.
+                    checkCurrentImage();
+                    imagePreview.appendChild(preview);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    function checkCurrentImage() {
+        const imagePreview = document.querySelector('#new_employee_img');
+        console.log(imagePreview.childElementCount);
+        if (imagePreview.childElementCount === 1) {
+            let currentImg  = imagePreview.childNodes[0];
+            currentImg.remove();
+        }
+    }
+    function createElement(e, file) {
+        const img = document.createElement('img');
+        img.setAttribute('src', e.target.result);
+        img.setAttribute('data-file', file.name);
+
+        return img;
+    }
+
     const realUpload = document.querySelector('.real-upload');
     const upload = document.querySelector('.upload');
 
-    function getImageFiles(e) {
-        const files = e.currentTarget.files;
-        console.log(typeof files, files);
-    }
     upload.addEventListener('click', () => realUpload.click());
+
     realUpload.addEventListener('change', getImageFiles);
 
     // 수정버튼
@@ -81,5 +131,4 @@ window.addEventListener('DOMContentLoaded',function (){
         form.submit();
         alert('수정 완료');
     })
-
 })
