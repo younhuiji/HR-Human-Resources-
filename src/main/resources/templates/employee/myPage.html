@@ -169,17 +169,18 @@
                     <div class="col-10"></div>
                     <div id="btnSearch_div" class="col-2">
                         <select id="search" class="selectMonth float-right" th:name="month">
-                            <option value="01">1월</option>
-                            <option value="02">2월</option>
-                            <option value="03">3월</option>
-                            <option value="04">4월</option>
-                            <option value="05">5월</option>
-                            <option value="06">6월</option>
-                            <option value="08">8월</option>
-                            <option value="09">9월</option>
-                            <option value="10">10월</option>
-                            <option value="11">11월</option>
-                            <option value="12">12월</option>
+                            <option value="01" th:attrappend="selected = ${month=='01' ? 'selected' : ''}">1월</option>
+                            <option value="02" th:attrappend="selected = ${month=='02' ? 'selected' : ''}">2월</option>
+                            <option value="03" th:attrappend="selected = ${month=='03' ? 'selected' : ''}">3월</option>
+                            <option value="04" th:attrappend="selected = ${month=='04' ? 'selected' : ''}">4월</option>
+                            <option value="05" th:attrappend="selected = ${month=='05' ? 'selected' : ''}">5월</option>
+                            <option value="06" th:attrappend="selected = ${month=='06' ? 'selected' : ''}">6월</option>
+                            <option value="07" th:attrappend="selected = ${month=='07' ? 'selected' : ''}">7월</option>
+                            <option value="08" th:attrappend="selected = ${month=='08' ? 'selected' : ''}">8월</option>
+                            <option value="09" th:attrappend="selected = ${month=='09' ? 'selected' : ''}">9월</option>
+                            <option value="10" th:attrappend="selected = ${month=='10' ? 'selected' : ''}">10월</option>
+                            <option value="11" th:attrappend="selected = ${month=='11' ? 'selected' : ''}">11월</option>
+                            <option value="12" th:attrappend="selected = ${month=='12' ? 'selected' : ''}">12월</option>
                         </select>
                         <input id="btnSearch" type="submit" value="검색" class="btn btn-primary float-end">
                         <input type="hidden" th:value="${employee.employeeNo}" th:name="employeeNo"/>
@@ -233,7 +234,7 @@
         </div>
         <!--수정 버튼-->
         <div id="div_updateButton">
-            <input type="submit" value="수정" class="btn btn-primary" id="buttonUpdate">
+            <input type="submit" value="수정완료" class="btn btn-primary" id="buttonUpdate">
         </div>
     </div>
 </div>

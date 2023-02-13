@@ -94,6 +94,7 @@ public class EmployeeController {
             else setAttendanceList(list, model);
         }
         model.addAttribute("employee", employee);
+        model.addAttribute("month", month);
         return "/employee/myPage";
     }
 

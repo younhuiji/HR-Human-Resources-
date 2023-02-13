@@ -21,7 +21,7 @@
         <div style="height: 92%; width: 100%;">
             <div id="myWork" class="row" style="height: 49%; width: 100%; margin: 0 0 1% 0;">
                 <div class="col-4" style="margin: 0; padding: 0 16px 0 0; height: 100%;">
-                    <div id="work_info_div" style="margin: 0;">
+                    <div id="work_info_div" style="margin: 0; height: 50%">
                         <h3>Hi! <span th:text="${#authentication.principal.name}"></span>님,</h3>
                         <div id="notWorking_msg" th:if="${attendance=='notAttendance'}">
                             <h3>아직 출근 전입니다 :)</h3>
@@ -152,15 +152,17 @@
                                 <table class="table" style="border-collapse: collapse">
                                     <thead>
                                     <tr>
-                                        <th>제목</th>
-                                        <th>작성 시간</th>
-                                        <th>결재 상태</th>
+                                        <th style="width: 16%"></th>
+                                        <th style="width: 40%">제목</th>
+                                        <th style="width: 22%">작성 시간</th>
+                                        <th style="width: 22%">결재 상태</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="l : ${docList}">
                                         <!--                                     th:onclick="|location.href='@{vacation/detail(no=${l.no})}'|">-->
-                                        <td th:text="${l.title}"></td>
+                                        <td></td>
+                                        <td class="title_td" th:text="${l.title}"></td>
                                         <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
                                         <td th:text="${l.state}"></td>
                                     </tr>
@@ -255,10 +257,10 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr class="tr">
-                                        <th></th>
-                                        <th scope="col">제목</th>
-                                        <th scope="col">작성자</th>
-                                        <th scope="col">작성일</th>
+                                        <th style="width: 16%;"></th>
+                                        <th scope="col" style="width: 40%;">제목</th>
+                                        <th scope="col" style="width: 22%;">작성자</th>
+                                        <th scope="col" style="width: 22%;">작성일</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -269,7 +271,7 @@
                                             <span th:case="2" style="padding: 2px 4px; border-radius: 2px; border: 1px solid orange; color: orange;">부서 공지</span>
                                             <span th:case="1" style="padding: 2px 4px; border-radius: 2px; border: 1px solid red; color: red;">전체 공지</span>
                                         </td>
-                                        <td th:text="${post.title}"></td>
+                                        <td class="title_td" th:text="${post.title}"></td>
                                         <td th:text="${post.writer}"></td>
                                         <td th:text="${#temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm') }"></td>
                                     </tr>
