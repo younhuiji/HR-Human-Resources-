@@ -4,6 +4,9 @@ import com.sohwakmo.hr.domain.MeetingRoom;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+import java.util.Map;
+
 @Builder
 @Data
 public class MeetingRoomCreateDto {
@@ -23,7 +26,7 @@ public class MeetingRoomCreateDto {
 
     private String endTime;  //  예약 종료시간
 
-    private String attendee;  // 참석자 사번
+    private List<String> attendee;  // 참석자 사번
 
     private String purpose;  // 내용
 

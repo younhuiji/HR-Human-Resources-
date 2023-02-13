@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 end: l.reserveDate + 'T' + l.end
                             })
                         }
+                        console.log('events!!!'+events[0].start);
                         successCallback(events);
                     })
                     .catch(err => {

@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', event =>{
 
     function updateDetailInfo(member) {
         console.log(member);
-        name.value = member[0].name;
+        name.value += member[0].name;
 
 
         }
@@ -26,11 +26,14 @@ window.addEventListener('DOMContentLoaded', event =>{
     // modelInviteBtn.addEventListener('click', attendeeNew);
 
     const attendee = document.querySelector('#attendee');
+    let attendeesArr = new Array();
 
     function attendeeNew(member) {
 
         // attendee.value = member[0].name;
-        document.querySelector("#attendee").value = member[0].name;
+
+        attendeesArr.push(member[0].employeeNo);
+        attendee.value = attendeesArr;
         // $('#modelInviteBtn').trigger('click');
         // document.querySelector('#attendee').value = '';
     }

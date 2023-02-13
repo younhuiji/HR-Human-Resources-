@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.List;
+
+
 @AllArgsConstructor
 @Builder
 @Getter
@@ -19,7 +22,7 @@ public class MeetingReadDto {
     private String reserveDate;
     private String start;
     private String end;
-    private String attendee;
+    private List<String> attendee;
     private String purpose;
 
     public static MeetingReadDto fromEntity(MeetingRoom entity){
