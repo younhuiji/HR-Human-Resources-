@@ -57,9 +57,10 @@
                 </thead>
                 <tbody>
                     <form action="/message/receiveSendTrash" id="sendTrash">
+                        <input type="hidden" name="employeeNo" th:value="${#authentication.principal.employeeNo}" />
                         <th:block th:each="message : ${messageList}">
                             <!-- 안읽은 쪽지이면-->
-                            <tr th:if="${ message.getReceiveReadCheck() == 0}" th:onclick="|location.href='@{ /message/detailMessage(messageNo=${ message.getMessageNo() }) }'|">
+                            <tr th:if="${ message.getReceiveReadCheck() == 0}" th:onclick="|location.href='@{ /message/detailMessage(messageNo=${ message.getMessageNo() }, employeeNo=${#authentication.principal.employeeNo} ) }'|">
                                 <td><input type="checkbox" name="messageCheckBox" th:value="${message.getMessageNo()}"/></td>
                                 <th:block>
                                     <td th:if="${message.getMessageType() == '긴급'}" style="color: red">!</td>

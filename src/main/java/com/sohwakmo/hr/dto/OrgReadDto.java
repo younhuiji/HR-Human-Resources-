@@ -23,6 +23,7 @@ public class OrgReadDto {
     private String work;
     private String position;
     private String email;
+    private String employeeNo;
 
 
     public static OrgReadDto fromEntity(Employee entity){
@@ -36,6 +37,7 @@ public class OrgReadDto {
                 .work(entity.getPart().getWork())
                 .position(entity.getPosition())
                 .email(entity.getEmail())
+                .employeeNo(entity.getEmployeeNo())
                 .build();
     }
 }

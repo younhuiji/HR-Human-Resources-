@@ -58,16 +58,16 @@
                         <span>파일: </span>
                     </th:block>
                     <th:block th:if="${isFile == '1'}">
-                        <a th:href="${message.getFilePath1()}" download="">다운로드</a>
+                        <a th:href="${message.getFilePath1()}" th:download="${message.getFileName1()}">다운로드</a>
                     </th:block>
                     <th:block th:if="${isFile == '2'}">
-                        <a th:href="${message.getFilePath1()}" download="">다운로드</a>
-                        <a th:href="${message.getFilePath2()}" download="">다운로드</a>
+                        <a th:href="${message.getFilePath1()}" th:download="${message.getFileName1()}">다운로드</a>
+                        <a th:href="${message.getFilePath2()}" th:download="${message.getFileName2()}">다운로드</a>
                     </th:block>
                     <th:block th:if="${isFile == '3'}">
-                        <a th:href="${message.getFilePath1()}" download="">다운로드</a>
-                        <a th:href="${message.getFilePath2()}" download="">다운로드</a>
-                        <a th:href="${message.getFilePath3()}" download="">다운로드</a>
+                        <a th:href="${message.getFilePath1()}" th:download="${message.getFileName1()}">다운로드</a>
+                        <a th:href="${message.getFilePath2()}" th:download="${message.getFileName2()}">다운로드</a>
+                        <a th:href="${message.getFilePath3()}" th:download="${message.getFileName3()}">다운로드</a>
                     </th:block>
                 </div>
 

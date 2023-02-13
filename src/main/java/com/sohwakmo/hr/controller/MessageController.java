@@ -97,11 +97,7 @@ public class MessageController {
     @GetMapping("/receiveList")
     public String receiveList(String employeeNo, Model model, String messageType, String contentType, String keyword,
                               @PageableDefault(page = 0, size = 5, sort = "messageNo", direction = Sort.Direction.DESC) Pageable pageable) {
-        log.info("receiveList(messageType = {}, contentType = {}, keyword = {})", messageType, contentType, keyword);
-
-        // 로그인한 사원 번호 임시 값
-        employeeNo = "2";
-        log.info("employeeNo = {}", employeeNo);
+        log.info("receiveList(employeeNo = {}, messageType = {}, contentType = {}, keyword = {})", employeeNo, messageType, contentType, keyword);
 
         Page<MessageSearchDto> messageList;
         if(messageType == "") { messageType = null; }
@@ -140,7 +136,6 @@ public class MessageController {
     public String receiveSendTrash(String employeeNo, String[] messageCheckBox) {
         log.info("receiveSendTrash(employeeNo = {}, messageCheckBox = {})", employeeNo, messageCheckBox);
 
-        employeeNo = "2";
         messageService.receiveSendTrash(employeeNo, messageCheckBox);
 
         return "redirect:/message/receiveList";
@@ -159,11 +154,7 @@ public class MessageController {
     @GetMapping("/sendList")
     public String sendList(String employeeNo, Model model, String messageType, String contentType, String keyword,
                            @PageableDefault(page = 0, size = 5, sort = "messageNo", direction = Sort.Direction.DESC) Pageable pageable) {
-        log.info("sendList(messageType = {}, contentType = {}, keyword = {})", messageType, contentType, keyword);
-
-        // 로그인한 사원 번호 임시 값
-        employeeNo = "1";
-        log.info("employeeNo = {}", employeeNo);
+        log.info("sendList(employeeNo = {}, messageType = {}, contentType = {}, keyword = {})", employeeNo, messageType, contentType, keyword);
 
         Page<MessageSearchDto> messageList;
         if(messageType == "") { messageType = null;}
@@ -203,7 +194,6 @@ public class MessageController {
     public String senderSendTrash(String employeeNo, String[] messageCheckBox) {
         log.info("senderSendTrash(employeeNo = {}, messageCheckBox = {})", employeeNo, messageCheckBox);
 
-        employeeNo = "2";
         messageService.senderSendTrash(employeeNo, messageCheckBox);
 
         return "redirect:/message/sendList";
@@ -218,9 +208,6 @@ public class MessageController {
     public String trashList(String employeeNo, Model model, String messageType, String contentType, String keyword,
                             @PageableDefault(page = 0, size = 5, sort = "messageNo", direction = Sort.Direction.DESC) Pageable pageable) {
         log.info("trashList(employeeNo = {}, messageType = {}, contentType = {}, keyword = {})", employeeNo, messageType, contentType, keyword);
-
-        employeeNo = "2";
-        log.info("employeeNo = {}", employeeNo);
 
         Page<MessageSearchDto> messageList;
         if(messageType == "") { messageType = null; }
@@ -259,7 +246,6 @@ public class MessageController {
     public String trashSendDelete(String employeeNo, String[] messageCheckBox) {
         log.info("trashSendDelete(employeeNo = {}, messageCheckBox = {})", employeeNo, messageCheckBox);
 
-        employeeNo = "2";
         messageService.trashSendDelete(employeeNo, messageCheckBox);
 
         return "redirect:/message/trashList";
@@ -274,8 +260,6 @@ public class MessageController {
     @GetMapping("/detailMessage")
     public String detailMessage(String employeeNo, Integer messageNo, Model model) {
         log.info("datailMessage(employeeNo = {}, messageNo = {})", employeeNo, messageNo);
-
-        employeeNo = "2";
 
         Message message = messageService.detailMessage(employeeNo, messageNo);
         log.info("message = {}", message);

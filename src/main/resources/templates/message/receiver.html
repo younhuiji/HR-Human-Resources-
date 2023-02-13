@@ -33,7 +33,7 @@
                             <div class="col-lg-3">
                                 <div style= "float:left;margin-right: 15px;">
                                     <h6>프로필 이미지</h6>
-                                    <img height="200px" width="200px"/>
+                                    <img class="user_img" height="150px" width="150px" id="userImage"/>
                                 </div>
                             </div>
                             <div class="col-lg-5">
@@ -64,7 +64,7 @@
                                 </div>
                                 <div style="text-align:right;">
                                     <button class="btn btn-secondary mt-2" onclick="closePopup()">확인</button>
-                                    <input type="hidden" id="no" />
+                                    <input type="hidden" id="employeeNo" />
                                 </div>
                             </div>
                         </div>
@@ -82,14 +82,16 @@
 </div>
 
 <th:block layout:fragment="script">
-    <script th:src="@{/js/organization.js}"></script>
+    <script th:src="@{/js/message/receiverShow.js}"></script>
     <script>
         function closePopup() {
             if(document.getElementById("name").value == '*') {
                 alert("누구한테 보낼지 선택해주세요.");
                 return;
             }else {
-                opener.document.getElementById("receiveNo").value = document.getElementById("no").value;
+                console.log("1");
+                opener.document.getElementById("receiveNo").value = document.getElementById("employeeNo").value;
+                console.log("2");
                 opener.document.getElementById("receiveName").value = document.getElementById("name").value;
                 close();
             }
