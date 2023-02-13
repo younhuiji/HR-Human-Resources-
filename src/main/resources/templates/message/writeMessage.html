@@ -62,13 +62,16 @@
     <script th:src="@{/js/message/sendPrevPage.js}"></script>
 
     <script>
+        const logIn = [[${#authentication.principal.employeeNo}]];
+        console.log(logIn);
         function openReceiverHtml() {
+
             let screenWidth = window.screen.width;
             let screenHeight = window.screen.height;
             let popupWidth = 600;
             let popupHeight = 600;
 
-             window.open("/message/receiver", "new", "scrollbars=yes, resizable=no width="+popupWidth+", height="+popupHeight+", left="+(screenWidth - popupWidth) / 2+", top="+(screenHeight - popupHeight) / 2+"");
+             window.open("/message/receiver?logIn="+logIn+"", "new", "scrollbars=yes, resizable=no width="+popupWidth+", height="+popupHeight+", left="+(screenWidth - popupWidth) / 2+", top="+(screenHeight - popupHeight) / 2+"");
         }
     </script>
 </th:block>

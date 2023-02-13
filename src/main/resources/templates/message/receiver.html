@@ -65,6 +65,7 @@
                                 <div style="text-align:right;">
                                     <button class="btn btn-secondary mt-2" onclick="closePopup()">확인</button>
                                     <input type="hidden" id="employeeNo" />
+                                    <input type="hidden" id="employeeId" />
                                 </div>
                             </div>
                         </div>
@@ -84,14 +85,19 @@
 <th:block layout:fragment="script">
     <script th:src="@{/js/message/receiverShow.js}"></script>
     <script>
+        let query = window.location.search;
+        let param = new URLSearchParams(query);
+        let logIn = param.get('logIn');
         function closePopup() {
             if(document.getElementById("name").value == '*') {
                 alert("누구한테 보낼지 선택해주세요.");
                 return;
             }else {
-                console.log("1");
+                if(document.getElementById("employeeId").value == logIn) {
+                    alert("내게 쓰기는 안됩니다.")
+                    return;
+                }
                 opener.document.getElementById("receiveNo").value = document.getElementById("employeeNo").value;
-                console.log("2");
                 opener.document.getElementById("receiveName").value = document.getElementById("name").value;
                 close();
             }
