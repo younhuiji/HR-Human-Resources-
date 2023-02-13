@@ -9,14 +9,14 @@ function createTable(){
         for (let j = 8; j <= 20; j++) {
             if (i == 1) {
                 if (j == 8) {
-                    tbl += `<th></th>`;
+                    tbl += `<th class="text-center bg-dark p-2 text-dark bg-opacity-10"></th>`;
                 } else {
-                    tbl += `<th>${j}:00</th>`;
+                    tbl += `<th class="text-center bg-dark p-2 text-dark bg-opacity-10" >${j}:00</th>`;
                 }
             }else {
                 if (j == 8) {
-                    tbl += `<th><input type="checkbox" class="btn-check" id="회의실${i-1}" name="rooms"  autocomplete="off" value="회의실${i-1}" onclick='getCheckboxValue(event)'>
-                            <label class="btn btn-outline-dark" for="회의실${i-1}">회의실${i-1}</label></th>`;
+                    tbl += `<th style="width: 100px;"><input type="radio" class="btn-check" id="회의실${i-1}" name="rooms"  autocomplete="off" value="회의실${i-1}" onclick='getCheckboxValue(event)'>
+                            <label class="btn btn-outline-dark "  style="width: 100px; border: none; font-weight: bolder" for="회의실${i-1}">회의실${i-1}</label></th>`;
                 } else {
                     tbl += `<td id="${j}:00">`;
                 }
@@ -34,8 +34,6 @@ var dragSelectIds = [];
 
 var $td = $('td');
 var startCell = null;
-const button =document.querySelector('#button');
-const myid1 = document.querySelector('#myid1');
 const inputDate = document.querySelector('#input_submit');
 let mapTemp = new Map([
     ["9:00", 1],
@@ -52,21 +50,15 @@ let mapTemp = new Map([
     ["20:00", 12]
 ]);
 
-// // 회의실 체크박스
+// 회의실 체크박스
 
 function getCheckboxValue(event)  {
     let results = '';
     if(event.target.checked)  {
         results = event.target.value;
     }
-
-    document.getElementById('results').innerText
-        = results;
-
     console.log('회의실 : ' + results)
 }
-
-
 
 function end(e) {
     dragSelectIds = [];
@@ -169,8 +161,6 @@ $td.on('mouseup', function(e) {
     } else{
         dragging= false;
         console.log(dragSelectIds);
-
-        button.value =dragSelectIds;
     }
 
 
@@ -188,8 +178,8 @@ $(".checkBtn").click(function(e){
 
     var td = tr.children();
 
-    console.log('클릭한 데이터 가져오기'+ button.value);
-    console.log('날짜 가져오기'+myid1.value)
+    // console.log('클릭한 데이터 가져오기'+ button.value);
+    // console.log('날짜 가져오기'+myid1.value)
 
 });
 
@@ -206,7 +196,7 @@ window.onload = function() {
     today = today.toISOString().slice(0, 10);
     bir = document.getElementById("reserveDate");
     bir.value = today;
-    myid1.innerHTML = today;
+    // myid1.innerHTML = today;
 }
 
 
@@ -214,9 +204,6 @@ window.onload = function() {
 function input() {
     const dday = document.querySelector('#reserveDate').value;
     console.log(dday)
-
-    myid1.value = dday;
-    myid1.innerHTML = dday;
 
     // 데이터를 불러옴
     let allMeetingList = [];

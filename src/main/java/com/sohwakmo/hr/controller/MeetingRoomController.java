@@ -1,11 +1,13 @@
 package com.sohwakmo.hr.controller;
 
 import com.sohwakmo.hr.domain.MeetingRoom;
+import com.sohwakmo.hr.dto.MeetingReadDto;
 import com.sohwakmo.hr.dto.MeetingRoomCreateDto;
 import com.sohwakmo.hr.dto.MeetingRoomUpdateDto;
 import com.sohwakmo.hr.service.MeetingRoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,10 +30,9 @@ public class MeetingRoomController {
         log.info("list()");
 
         List<MeetingRoom> list = meetingRoomService.read();
-
         model.addAttribute("list", list);
 
-        return "/meetingRoom/list";
+        return"/meetingRoom/list";
     }
 
     @GetMapping("/readByDate")

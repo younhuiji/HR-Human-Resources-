@@ -20,7 +20,7 @@ public class MeetingRoomService {
     private final MeetingRoomRepository meetingRoomRepository;
 
     public List<MeetingRoom> read() {
-        log.info("read()");
+        log.info("readMyList()");
 
         return meetingRoomRepository.findByOrderByMeetingRoomNoDesc();
     }

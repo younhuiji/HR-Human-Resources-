@@ -8,58 +8,54 @@
 
 </head>
 <div layout:fragment="content">
-        <div class ="container">
-            <div>
-                <h1>회의실 예약신청</h1>
-            </div>
-
+    <div class ="container-fluid px-4" style="border-color: gray;">
+        <div class="mb-4"  style="font-weight: bolder; font-family:  'Corbel';">
+            <h1>회의실 예약신청</h1>
+        </div>
+        <div class="my-4" style="padding-left: 50px;  padding-right: 200px;" >
             <form method = "post" action = "/meetingRoom/create" id="createForm">
-                <input  type="hidden" name="employeeNo" id="employeeNo" th:value="22222222" />
-                <div class="p-3 border-bottom">
-                    <label for="reserveName" style=" width: 150px; ">예약자</label>
-                    <input id="reserveName" type="text" name="reserveName" th:value="이이름" style="border: none; background: transparent;" readonly />
+                <input  type="hidden" name="employeeNo" id="employeeNo" th:value="${#authentication.principal.employeeNo}" />
+                <div class="p-3 border-bottom-0 my-2">
+                    <label for="reserveName" style=" width: 200px; font-family: 'Corbel'; font-weight: bolder; font-size: 20px; ">예약자명</label>
+                    <input id="reserveName" type="text" name="reserveName" th:value="${#authentication.principal.name}" style="border: none; background: transparent; " readonly />
                 </div>
-                <div class = "p-3 border-bottom">
-                    <label for="title" style=" width: 150px; ">제목</label>
-                    <input id="title" class="align-text-top"
+                <div class = "p-3 border-bottom-0 my-2">
+                    <label for="title" style=" width: 200px;font-family: 'Corbel'; font-weight: bolder; font-size: 20px; ">제목</label>
+                    <input id="title" class="align-text-top bg-secondary bg-opacity-10" style="width: 70%; height: 40px; border:0 solid black"
                            type="text" name="title" placeholder="제목을 입력해주세요." required />
                 </div>
 
 
-                <div class = "p-3 border-bottom">
-                    <label for="reserveDate" style=" width: 150px; ">예약날짜</label>
-                    <input id="reserveDate" class="align-text-top" type="text"
-                          name="reserveDate" style="border: none; background: transparent; width: 100px;" readonly />
+                <div class = "p-3 border-bottom-0 my-2">
+                    <label for="reserveDate" style=" width: 200px; font-family: 'Corbel'; font-weight: bolder; font-size: 20px; ">예약날짜</label>
+                    <input id="reserveDate" class="align-text-top " type="text"
+                          name="reserveDate" style="width: 70%; height: 40px; border:0 solid black" readonly />
                 </div>
-                <div class = "p-3 border-bottom">
-                    <label for="startTime" style=" width: 150px; ">예약시간</label>
+                <div class = "p-3 border-bottom-0 my-2">
+                    <label for="startTime" style=" width: 200px;font-family: 'Corbel'; font-weight: bolder; font-size: 20px; ">예약시간</label>
                     <input id="startTime" class="align-text-top" type="text"
                            name="startTime" style="border: none; background: transparent; width: 50px;" readonly />
                     <span class="mt-auto m-2 pb-3 pt-xl-5">~</span>
-                    <input id="endTime" class="align-text-top" type="text"
-                           name="endTime"  style="border: none; background: transparent; width: 100px;" readonly />
+                    <input id="endTime" class="align-text-top " type="text"
+                           name="endTime"  style="width: 70%; height: 40px; border:0 solid black" readonly />
                 </div>
 
-                <div class = "p-3 border-bottom">
-                    <label for="roomName" style=" width: 150px; ">회의실</label>
-                    <input id="roomName" class="align-text-top" type="text"
+                <div class = "p-3 border-bottom-0 my-2">
+                    <label for="roomName" style=" width: 200px; font-family: 'Corbel'; font-weight: bolder; font-size: 20px; ">회의실</label>
+                    <input id="roomName" class="align-text-top " type="text"
                            name="roomName" style="border: none; background: transparent; width: 100px;" readonly />
                 </div>
-                <div class = "p-3 border-bottom">
-                    <label for="roomPlace" style=" width: 150px; " >회의실 위치</label>
-                    <input id="roomPlace" class="align-text-top" type="text"
+                <div class = "p-3 border-bottom-0 my-2">
+                    <label for="roomPlace" style=" width: 200px; font-family: 'Corbel'; font-weight: bolder; font-size: 20px; " >회의실 위치</label>
+                    <input id="roomPlace" class="align-text-top " type="text"
                            name="roomPlace" style="border: none; background: transparent; width: 100px;" readonly />
                 </div>
 
-                <div class= "p-3 border-bottom">
-                    <label for="attendee" style=" width: 150px; ">참석자</label>
-                    <input id="attendee" class="align-text-top"
-                           type="text" name="attendee" readonly />
-
-<!--                    <div class="invite-icon"><i class="fa-solid fa-user-plus"></i></div>-->
-
-                    <input type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#inviteModal" data-bs-whatever="@mdo" value="초대" />
-
+                <div class= "p-3 border-bottom-0 my-2">
+                    <label for="attendee" style=" width: 200px; font-family: 'Corbel'; font-weight: bolder; font-size: 20px; ">참석자</label>
+                    <input id="attendee" class="align-text-top " style="border:0 solid black; height: 40px;"
+                           type="text" name="attendee" placeholder="참석자를 선택해주세요." readonly />
+                    <button class="btn btn-light" style="margin-top: 15px; " data-bs-toggle="modal" data-bs-target="#inviteModal" data-bs-whatever="@mdo"><i class="fa-solid fa-user-plus"  ></i></button>
                     <div class="modal fade" id="inviteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -85,19 +81,18 @@
                     </div>
 
                 </div>
-                <div class= "p-3 mt-2 border-bottom">
-                    <label for="purpose" style=" width: 150px; " >사용목적</label>
-                    <textarea id="purpose" class="align-text-top" style="width: 100%;"
+                <div class= "p-3 mt-2 border-bottom-0 my-2">
+                    <label for="purpose" style=" width: 200px; font-family: 'Corbel'; font-weight: bolder; font-size: 20px; " >사용목적</label>
+                    <textarea id="purpose" class="align-text-top bg-secondary bg-opacity-10" style="width: 70%; height:100px;  border:0 solid black;"
                               name="purpose" placeholder="사용목적을 입력해주세요." required></textarea>
                 </div>
 
-                <div class="pb-3 d-md-flex justify-content-md-end">
+                <div class="pb-3 d-md-flex justify-content-md-end my-2">
                     <button type="submit" class="btn btn-light me-md-1" id="createBtn" name="createForm">저장</button>
                     <a class="btn btn-light" href="/meetingRoom/list" >목록</a>
                 </div>
             </form>
-
-
+        </div>
     </div>
 </div>
 
