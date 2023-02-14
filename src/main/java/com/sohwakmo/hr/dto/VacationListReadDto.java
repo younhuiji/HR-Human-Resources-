@@ -13,6 +13,7 @@ import lombok.ToString;
 public class VacationListReadDto {
     private Integer vacationNo;
     private String employeeNo;
+    private String category;
     private String title;
     private String reason;
     private String start;
@@ -22,6 +23,7 @@ public class VacationListReadDto {
         return VacationListReadDto.builder()
                 .vacationNo(entity.getNo())
                 .employeeNo(entity.getEmployeeNo())
+                .category(entity.getCategory())
                 .title(entity.getTitle())
                 .reason(entity.getReason())
                 .start(entity.getEffectiveDate())

@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 + '<p>동반출장자 사번: ' + list.companionNo+'</p>'
         } else if (groupId == 'vacation'){
             str += '<p>휴가명: '+list.title+'</p>'
+                + '<p>카테고리: '+list.category+'</p>'
                 + '<p>휴가일자: '+list.start+'~'+list.end+'</p>'
                 + '<p>사유: '+list.reason+'</p>'
         }
@@ -147,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     groupId: 'businessTrip',
                                     title: l.title,
                                     start:l.start,
-                                    end: l.end
+                                    end: l.end + 'T23:59:00'
                                 })
                             }
                             successCallback(events);
@@ -172,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     groupId:'vacation',
                                     title:l.title,
                                     start:l.start,
-                                    end:l.end
+                                    end:l.end + 'T23:59:00'
                                 })
                             }
                             successCallback(events);

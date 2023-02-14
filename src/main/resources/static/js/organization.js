@@ -73,7 +73,7 @@ window.addEventListener('DOMContentLoaded', event =>{
             }
             str += '<li>'
                 // + '<input class="tree_label" type="text" data-id='+l.id+' value='+l.name +' '+ l.position +' readonly/></li>'
-                + '<span class="tree_label" id="memberInfo" data-id="'+l.id+'">' + l.name +' '+ l.position + '</span></li>'
+                + '<span class="tree_label" id="memberInfo" data-id="'+l.id+'" style="cursor:pointer">' + l.name +' '+ l.position + '</span></li>'
         }
         function endDepartTag(){
             if(depart != '') {
