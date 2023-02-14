@@ -1,11 +1,14 @@
 package com.sohwakmo.hr.controller;
 
+import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.MeetingRoom;
+import com.sohwakmo.hr.dto.MeetingReadDto;
 import com.sohwakmo.hr.dto.MeetingRoomCreateDto;
 import com.sohwakmo.hr.dto.MeetingRoomUpdateDto;
 import com.sohwakmo.hr.service.MeetingRoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,21 +26,25 @@ public class MeetingRoomController {
 
     private final MeetingRoomService meetingRoomService;
 
+
+
     @GetMapping("/list")
-    public String list(Model model) {
-        log.info("list()");
+    public String list(String employeeNo, Model model) {
+        log.info("list(employeeNo={})", employeeNo);
 
-        List<MeetingRoom> list = meetingRoomService.read();
+        List<MeetingRoom> meetingRoom =  meetingRoomService.read(employeeNo);
 
-        model.addAttribute("list", list);
+        model.addAttribute("meetingRoom", meetingRoom);
+        log.info("model={}", model);
 
         return "/meetingRoom/list";
     }
 
+
+
     @GetMapping("/readByDate")
     public void list(Model model, String dateValue){
         log.info("readByDate(date={})",dateValue);
-
 
     }
 
@@ -56,7 +63,7 @@ public class MeetingRoomController {
 
         attrs.addFlashAttribute("createdNo", entity.getMeetingRoomNo());
 
-        return "redirect:/meetingRoom/list";
+        return "redirect:/meetingRoom/list?employeeNo=" + dto.getEmployeeNo();
     }
 
     // 예약 상세

@@ -62,7 +62,7 @@
     <script th:src="@{/js/message/sendPrevPage.js}"></script>
 
     <script>
-        const logIn = [[${#authentication.principal.employeeNo}]];
+        const logIn = [[${#authentication.principal.username}]];
         console.log(logIn);
         function openReceiverHtml() {
 

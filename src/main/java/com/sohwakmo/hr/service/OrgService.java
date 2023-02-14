@@ -54,8 +54,8 @@ public class OrgService {
     public List<MeetingReadDto> readMeetingList(String loginUser) {
         log.info("readAllCalList(loginUser={})", loginUser);
 
-
-        List<MeetingRoom> meetingSchedule = meetingRoomRepository.findByAttendeeOrEmployeeNo(loginUser, loginUser);
+        List<MeetingRoom> meetingSchedule = meetingRoomRepository.findByEmployeeNoOrAttendeeQuestion(loginUser,loginUser);
+//        List<MeetingRoom> meetingSchedule = meetingRoomRepository.findByAttendeeOrEmployeeNo(loginUser, loginUser);
         log.info("meetingSchedule={}", meetingSchedule);
 
         return meetingSchedule.stream()
@@ -77,7 +77,7 @@ public class OrgService {
     public List<BusinessTripReadDto> readBusinessTripList(String loginUser) {
         log.info("readBusinessTripList(loginUser={})", loginUser);
 
-        List<BusinessTrip> businessTripSchedule = businessTripRepository.findByEmployeeNoOrCompanionNO(loginUser, loginUser);
+        List<BusinessTrip> businessTripSchedule = businessTripRepository.findByBusinessTripQuestion(loginUser, loginUser);
         log.info("businessTripSchedule={}", businessTripSchedule);
 
         return businessTripSchedule.stream()
@@ -88,7 +88,7 @@ public class OrgService {
     public List<VacationListReadDto> readVacationList(String loginUser) {
         log.info("readVacationList(loginUser={})", loginUser);
 
-        List<Vacation> vacationSchedule = vacationRepository.findByEmployeeNo(loginUser);
+        List<Vacation> vacationSchedule = vacationRepository.findByVacationQuestion(loginUser);
         log.info("vacationSchedule={}", vacationSchedule);
 
         return vacationSchedule.stream()

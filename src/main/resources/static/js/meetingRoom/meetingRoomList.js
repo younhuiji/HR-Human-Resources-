@@ -9,18 +9,19 @@ function createTable(){
         for (let j = 8; j <= 20; j++) {
             if (i == 1) {
                 if (j == 8) {
-                    tbl += `<th></th>`;
+                    tbl += `<th class="text-center bg-dark p-2 text-dark bg-opacity-10"></th>`;
                 } else {
-                    tbl += `<th>${j}:00</th>`;
+                    tbl += `<th class="text-center bg-dark p-2 text-dark bg-opacity-10" >${j}:00</th>`;
                 }
             }else {
                 if (j == 8) {
-                    tbl += `<th><input type="checkbox" class="btn-check" id="회의실${i-1}" name="rooms"  autocomplete="off" value="회의실${i-1}" onclick='getCheckboxValue(event)'>
-                            <label class="btn btn-outline-dark" for="회의실${i-1}">회의실${i-1}</label></th>`;
+                    tbl += `<th style="width: 100px;"><input type="radio" class="btn-check" id="회의실${i-1}" name="rooms"  autocomplete="off" value="회의실${i-1}" onclick='getCheckboxValue(event)'>
+                            <label class="btn btn-outline-dark "  style="width: 100px; border: none; font-weight: bolder" for="회의실${i-1}">회의실${i-1}</label></th>`;
+                } else if(j == 9) {
+                    tbl += `<td id="0${j}:00">`;
                 } else {
                     tbl += `<td id="${j}:00">`;
                 }
-
             }
         }
         tbl+= "</tr>";
@@ -34,11 +35,9 @@ var dragSelectIds = [];
 
 var $td = $('td');
 var startCell = null;
-const button =document.querySelector('#button');
-const myid1 = document.querySelector('#myid1');
 const inputDate = document.querySelector('#input_submit');
 let mapTemp = new Map([
-    ["9:00", 1],
+    ["09:00", 1],
     ["10:00", 2],
     ["11:00", 3],
     ["12:00", 4],
@@ -52,21 +51,15 @@ let mapTemp = new Map([
     ["20:00", 12]
 ]);
 
-// // 회의실 체크박스
+// 회의실 체크박스
 
 function getCheckboxValue(event)  {
     let results = '';
     if(event.target.checked)  {
         results = event.target.value;
     }
-
-    document.getElementById('results').innerText
-        = results;
-
     console.log('회의실 : ' + results)
 }
-
-
 
 function end(e) {
     dragSelectIds = [];
@@ -169,8 +162,6 @@ $td.on('mouseup', function(e) {
     } else{
         dragging= false;
         console.log(dragSelectIds);
-
-        button.value =dragSelectIds;
     }
 
 
@@ -188,8 +179,8 @@ $(".checkBtn").click(function(e){
 
     var td = tr.children();
 
-    console.log('클릭한 데이터 가져오기'+ button.value);
-    console.log('날짜 가져오기'+myid1.value)
+    // console.log('클릭한 데이터 가져오기'+ button.value);
+    // console.log('날짜 가져오기'+myid1.value)
 
 });
 
@@ -206,7 +197,7 @@ window.onload = function() {
     today = today.toISOString().slice(0, 10);
     bir = document.getElementById("reserveDate");
     bir.value = today;
-    myid1.innerHTML = today;
+    // myid1.innerHTML = today;
 }
 
 
@@ -214,9 +205,6 @@ window.onload = function() {
 function input() {
     const dday = document.querySelector('#reserveDate').value;
     console.log(dday)
-
-    myid1.value = dday;
-    myid1.innerHTML = dday;
 
     // 데이터를 불러옴
     let allMeetingList = [];
@@ -281,7 +269,6 @@ btnRegisterRoom.addEventListener('click', function () {
         start = mapTemp.get(dragSelectIds[0])+8 + ":00";
         end = mapTemp.get(dragSelectIds[dragSelectIds.length - 1])+9 + ":00";
 
-
     }
 
     // 회의실 이름 넘기기
@@ -295,38 +282,38 @@ btnRegisterRoom.addEventListener('click', function () {
 
     // 회의실 위치 넘기기
     if(room == "회의실1") {
-        roomPlace = "1층 102호"
+        roomPlace = "본관 1층 102호"
     }
     else if(room == "회의실2") {
-        roomPlace = "2층 102호"
+        roomPlace = "본관 2층 203호"
     }
     else if(room == "회의실3") {
-        roomPlace = "3층 102호"
+        roomPlace = "본관 2층 205호"
     }
     else if(room == "회의실4") {
-        roomPlace = "4층 102호"
+        roomPlace = "본관 3층 303호"
     }
     else if(room == "회의실5") {
-        roomPlace = "5층 102호"
+        roomPlace = "본관 5층 502호"
     }
     else if(room == "회의실6") {
-        roomPlace = "6층 102호"
+        roomPlace = "별관 2층 203호"
     }
     else if(room == "회의실7") {
-        roomPlace = "7층 102호"
+        roomPlace = "별관 3층 305호"
     }
     else if(room == "회의실8") {
-        roomPlace = "8층 102호"
+        roomPlace = "별관 4층 402호"
     }
     else if(room == "회의실9") {
-        roomPlace = "9층 102호"
+        roomPlace = "별관 4층 403호"
     }
 
 
 
-    console.log(`start=${start}, end=${end}, day=${day},room=${room},roomPlace=${roomPlace}`);
+    console.log(`start=${dragSelectIds[0]}, end=${end}, day=${day},room=${room},roomPlace=${roomPlace}`);
 
-    location.href = `/meetingRoom/create?start=${start}&end=${end}&day=${day}&room=${room}&roomPlace=${roomPlace}`;
+    location.href = `/meetingRoom/create?start=${dragSelectIds[0]}&end=${end}&day=${day}&room=${room}&roomPlace=${roomPlace}`;
 
 });
 
