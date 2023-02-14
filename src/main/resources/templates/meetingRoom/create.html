@@ -50,11 +50,10 @@
                     <input id="roomPlace" class="align-text-top " type="text"
                            name="roomPlace" style="border: none; background: transparent; font-weight: bold; width: 100px; font-size: 18px; color: #999999;  " readonly />
                 </div>
-
                 <div class= "p-3 border-bottom my-2">
                     <label for="attendee" style=" width: 200px; font-weight: bolder; font-size: 18px; color: #5c636a ">참석자</label>
                     <input id="attendee" class="align-text-top bg-secondary bg-opacity-10 " style="border:0 solid black;  height: 40px; width:50%; font-weight: bolder; font-size: 15px;"
-                           type="text" name="attendee" placeholder="참석자를 선택해주세요." readonly />
+                           type="text" name="attendee" placeholder="참석자를 선택해주세요."  />
                     <button class="btn btn-light" style="margin-top: 15px; " data-bs-toggle="modal" data-bs-target="#inviteModal" data-bs-whatever="@mdo"><i class="fa-solid fa-user-plus"  ></i></button>
                     <div class="modal fade" id="inviteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -63,17 +62,16 @@
                                     <h1 class="modal-title fs-5">참석자</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="container" style=" width: 600px; height: 500px;">
+                                <div class="container border-bottom my-2" style=" width: 600px; height: 500px;">
                                     <ul class="tree" id="orgTree">
 
                                     </ul>
                                 </div>
-
-                                <div>
-                                    <input id="name" type="text" style="border: none; background: lightgray; width: 70px;" class="text-center" readonly/>
-                                </div>
+                                <span class="modal-title fs-5">참석자 명단</span>
+                                    <div>
+                                        <input id="name" type="text" style="border: none; width: 300px;" class="text-center" />
+                                    </div>
                                 <div class="modal-footer">
-
                                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal">초대하기</button>
                                 </div>
                             </div>

@@ -269,7 +269,6 @@ btnRegisterRoom.addEventListener('click', function () {
         start = mapTemp.get(dragSelectIds[0])+8 + ":00";
         end = mapTemp.get(dragSelectIds[dragSelectIds.length - 1])+9 + ":00";
 
-
     }
 
     // 회의실 이름 넘기기
@@ -283,31 +282,31 @@ btnRegisterRoom.addEventListener('click', function () {
 
     // 회의실 위치 넘기기
     if(room == "회의실1") {
-        roomPlace = "1층 102호"
+        roomPlace = "본관 1층 102호"
     }
     else if(room == "회의실2") {
-        roomPlace = "2층 102호"
+        roomPlace = "본관 2층 203호"
     }
     else if(room == "회의실3") {
-        roomPlace = "3층 102호"
+        roomPlace = "본관 2층 205호"
     }
     else if(room == "회의실4") {
-        roomPlace = "4층 102호"
+        roomPlace = "본관 3층 303호"
     }
     else if(room == "회의실5") {
-        roomPlace = "5층 102호"
+        roomPlace = "본관 5층 502호"
     }
     else if(room == "회의실6") {
-        roomPlace = "6층 102호"
+        roomPlace = "별관 2층 203호"
     }
     else if(room == "회의실7") {
-        roomPlace = "7층 102호"
+        roomPlace = "별관 3층 305호"
     }
     else if(room == "회의실8") {
-        roomPlace = "8층 102호"
+        roomPlace = "별관 4층 402호"
     }
     else if(room == "회의실9") {
-        roomPlace = "9층 102호"
+        roomPlace = "별관 4층 403호"
     }
 
 
