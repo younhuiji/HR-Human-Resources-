@@ -2,7 +2,6 @@ package com.sohwakmo.hr.domain;
 
 import javax.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -12,6 +11,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Getter
+@Setter
 @ToString
 @Entity(name="VACATION")
 @SequenceGenerator(name = "VACATION_SEQ_GEN", sequenceName = "VACATION_SEQ", allocationSize = 1)
@@ -51,7 +51,7 @@ public class Vacation  extends BaseTimeEntity {
     private String expirationDate;
 
     @Column // 최종 결재일시
-    private LocalDateTime competeDate;
+    private LocalDateTime completeDate;
 
     public Vacation addRole(PaymentState status) {
         state.add(status);
@@ -59,7 +59,7 @@ public class Vacation  extends BaseTimeEntity {
     }
 
     public Vacation add(LocalDateTime competeDate){
-        this.competeDate = competeDate;
+        this.completeDate = competeDate;
         return this;
     }
 

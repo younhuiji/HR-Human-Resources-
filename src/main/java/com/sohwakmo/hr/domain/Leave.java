@@ -4,7 +4,6 @@ import javax.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,7 +28,7 @@ public class Leave extends BaseTimeEntity {
     private String approverNo;
 
     @Column(nullable = false) // 승인자2 사번 (상무)
-    private String secondApproverNO;
+    private String secondApproverNo;
 
     @Column(nullable = false, length = 100) // 제목
     private String title;
@@ -55,21 +54,21 @@ public class Leave extends BaseTimeEntity {
     private String effectiveDate;
 
     @Column // 중간 결재일시
-    private LocalDateTime semiCompeteDate;
+    private LocalDateTime semiCompleteDate;
     @Column // 최종 결재일시
-    private LocalDateTime competeDate;
+    private LocalDateTime completeDate;
 
     public Leave addRole(PaymentState status) {
         state.add(status);
         return this;
     }
     public Leave semiAdd(LocalDateTime semiCompeteDate){
-        this.semiCompeteDate = semiCompeteDate;
+        this.semiCompleteDate = semiCompeteDate;
         return this;
     }
 
     public Leave add(LocalDateTime competeDate){
-        this.competeDate = competeDate;
+        this.completeDate = competeDate;
         return this;
     }
 

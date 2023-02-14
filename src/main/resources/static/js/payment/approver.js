@@ -1,62 +1,37 @@
 window.addEventListener('DOMContentLoaded', event => {
 
-    readAllApprover();
+    let query = window.location.search;
+    let param = new URLSearchParams(query);
+    let id = param.get('number');
 
-    // TODO: 병합 후 처리하기
-    // 결재자 지정 창 ============================================================
-    function readAllApprover() {
-        axios.get('/api/payment/card/all')
-            .then(response => {
-                organic(response.data);
-                approverList();
-            })
-            .catch(error => {
-                console.log(error);
-            });
+    const div = document.querySelector('#title');
+    const div2 = document.querySelector('#jb-header')
+
+    if(id == 2){ // 동반 출장자 지정
+
+        let str = `<h3 style="font-size: 30px"> 동반 출장자 지정</h3>`;
+        div.innerHTML = str;
+
+        let str2 = `결재내용의 동반 출장자를 지정합니다.`;
+        div2.innerHTML = str2;
+
+    } else if(id == 1){ // 결재자 지정
+
+        let str = `<h3 style="font-size: 30px">결재자 지정</h3>`;
+        div.innerHTML = str;
+
+        let str2 = `결재내용의 결재자를 지정합니다.`;
+        div2.innerHTML = str2;
+
+    } else if(id == 3) { // 퇴사 최종 결재자 지정
+
+        let str = `<h3 style="font-size: 30px">최종 결재자 지정</h3>`;
+        div.innerHTML = str;
+
+        let str2 = `결재내용의 최종 결재자를 지정합니다.`;
+        div2.innerHTML = str2;
     }
 
-    // 조직도 그리기 =============================================================
-    function organic(data) {
 
-        const divOrganic = document.querySelector('#jb-text');
 
-        let str1 = '';
-
-        for (let r of data) {
-
-            str1 +=
-
-                `<div id="jb-text">
-                      <fieldset class="border-0" style="height: 450px; border: 1px solid #bcbcbc">
-                        <div class="container">
-                          <ul class="tree" id="orgTree">
-                            TODO: 조직도 나오기 전 test 용 
-                            <li th:value="인사팀">인사팀</li>
-                            <li th:value="개발팀">개발팀</li>
-                            <li th:value="총무팀">총무팀</li>
-                          </ul>
-                        </div>
-                      </fieldset>
-                </div>`
-        }
-        divOrganic.innerHTML = str1;
-    }
-
-    // 결재자 지정 리스트
-    function approverList() {
-
-        const divApproverList = document.querySelector('#jb-sidebar');
-
-        let str = '';
-
-        for (let r of data) {
-
-            str +=
-
-                '<h2>안녕</h2>';
-
-        }
-        divApproverList.innerHTML = str;
-    }
-
-}) // window end
+});

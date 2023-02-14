@@ -4,7 +4,6 @@ import javax.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,6 +11,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Getter
+@Setter
 @ToString
 @Entity(name="BUSINESSCARD")
 @SequenceGenerator(name = "BUSINESSCARD_SEQ_GEN", sequenceName = "BUSINESSCARD_SEQ", allocationSize = 1)
@@ -45,7 +45,7 @@ public class BusinessCard extends BaseTimeEntity{
     private String returnReason;
 
     @Column // 최종 결재일시
-    private LocalDateTime competeDate;
+    private LocalDateTime completeDate;
 
     public BusinessCard addRole(PaymentState status) {
         state.add(status);
@@ -53,7 +53,7 @@ public class BusinessCard extends BaseTimeEntity{
     }
 
     public BusinessCard add(LocalDateTime competeDate){
-        this.competeDate = competeDate;
+        this.completeDate = competeDate;
         return this;
     }
 

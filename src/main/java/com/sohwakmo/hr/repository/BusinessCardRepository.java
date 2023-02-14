@@ -15,10 +15,19 @@ public interface BusinessCardRepository extends JpaRepository<BusinessCard, Inte
     @Query("select b from BUSINESSCARD b where b.category = :card ")
     List<BusinessCard> selectByCard(@Param(value = "card") String card);
 
-    @Query("select b from BUSINESSCARD b where b.employeeNo = :no ")
+    @Query("select b from BUSINESSCARD b where b.employeeNo = :no order by b.no desc ")
     List<BusinessCard> selectByEmployeeNo(@Param(value = "no") String no);
 
-    public List<BusinessCard> findByEmployeeNoAndState(String no, PaymentState state);
+    @Query("select b from BUSINESSCARD b where b.no = :no ")
+    BusinessCard selectByNo(@Param(value = "no")Integer no);
+
+    List<BusinessCard> findByEmployeeNoAndState(String no, PaymentState state);
+
+    List<BusinessCard> findByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2);
+
+    List<BusinessCard> findByApproverNoAndState(String no, PaymentState state);
+
+    List<BusinessCard> findByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2);
 
     List<BusinessCard> findByEmployeeNoOrderByNoDesc(String employeeNo);
 }

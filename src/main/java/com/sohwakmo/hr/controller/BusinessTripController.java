@@ -28,7 +28,7 @@ public class BusinessTripController {
     @PostMapping("/create")
     public String create(BusinessTripCreateDto dto){
 
-        String no = "11111111";
+        String no = "1";
 
         BusinessTrip businessTrip = BusinessTrip.builder()
                 .employeeNo(no).approverNo(no).title(dto.getTitle()).reason(dto.getReason())

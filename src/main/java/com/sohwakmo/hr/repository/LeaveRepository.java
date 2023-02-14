@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface LeaveRepository extends JpaRepository<Leave, Integer> {
 
-    @Query("select l from LEAVE l where l.employeeNo = :no ")
+    @Query("select l from LEAVE l where l.employeeNo = :no order by l.no desc ")
     List<Leave> selectByEmployeeNO(@Param(value = "no")String no);
 
     @Query("select l from LEAVE l where l.no = :no ")
@@ -21,7 +21,10 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer> {
 
     @Modifying
     @Query("update LEAVE l SET l.state = :state where l.no = :no")
-    int updateState(@Param(value = "no")Integer no, @Param(value = "state")PaymentState state);
+    Leave updateState(@Param(value = "no")Integer no, @Param(value = "state")PaymentState state);
 
-    public List<Leave> findByEmployeeNoAndState(String no, PaymentState state);
+    List<Leave> findByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2);
+    List<Leave> findByEmployeeNoAndState(String no, PaymentState state);
+    List<Leave> findByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2);
+    List<Leave> findByApproverNoAndState(String no, PaymentState state);
 }
