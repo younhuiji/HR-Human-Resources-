@@ -1,5 +1,6 @@
 package com.sohwakmo.hr.controller;
 
+import com.sohwakmo.hr.domain.Employee;
 import com.sohwakmo.hr.domain.MeetingRoom;
 import com.sohwakmo.hr.dto.MeetingReadDto;
 import com.sohwakmo.hr.dto.MeetingRoomCreateDto;
@@ -30,15 +31,35 @@ public class MeetingRoomController {
         log.info("list()");
 
         List<MeetingRoom> list = meetingRoomService.read();
+
         model.addAttribute("list", list);
 
-        return"/meetingRoom/list";
+        return "/meetingRoom/list";
     }
+
+//    @GetMapping("/list")
+//    public void list(String loginUser, Model model) {
+//
+//        model.addAttribute("loginUser", loginUser);
+//    }
+
+
+//    @GetMapping("/list")
+//    public String lists(Model model, String employeeNo) {
+//        log.info("list()");
+//
+//        List<MeetingRoom> list = meetingRoomService.myRead(employeeNo);
+//
+//        model.addAttribute("list", list);
+//
+//        return "/meetingRoom/list";
+//    }
+
+
 
     @GetMapping("/readByDate")
     public void list(Model model, String dateValue){
         log.info("readByDate(date={})",dateValue);
-
 
     }
 

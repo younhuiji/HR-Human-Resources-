@@ -7,6 +7,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -52,14 +53,12 @@ public class MeetingRoom {
     @Column(nullable = false)
     private String endTime;  // 종료시간
 
-    @Column(nullable = false)
-    private String attendee;  // 참석자사번
+    @Convert(converter = StringListConverter.class)
+    private List<String> attendee;  // 참석자사번
     @Column(nullable = false)
     private String purpose; // 사용목적
 
-    private boolean state;   // 현재 상태  -- 써야하나 말아야 하나(true : 예약 중)
-
-    public MeetingRoom update( String title, String attendee, String purpose) {
+    public MeetingRoom update( String title, List<String> attendee, String purpose) {
         this.title = title;
 
         this.attendee = attendee;

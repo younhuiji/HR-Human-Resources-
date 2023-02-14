@@ -82,4 +82,5 @@ public class Employee implements Serializable {
         this.photo = photo;
         return this;
     }
+
 }

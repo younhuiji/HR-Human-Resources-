@@ -17,10 +17,11 @@ function createTable(){
                 if (j == 8) {
                     tbl += `<th style="width: 100px;"><input type="radio" class="btn-check" id="회의실${i-1}" name="rooms"  autocomplete="off" value="회의실${i-1}" onclick='getCheckboxValue(event)'>
                             <label class="btn btn-outline-dark "  style="width: 100px; border: none; font-weight: bolder" for="회의실${i-1}">회의실${i-1}</label></th>`;
+                } else if(j == 9) {
+                    tbl += `<td id="0${j}:00">`;
                 } else {
                     tbl += `<td id="${j}:00">`;
                 }
-
             }
         }
         tbl+= "</tr>";
@@ -36,7 +37,7 @@ var $td = $('td');
 var startCell = null;
 const inputDate = document.querySelector('#input_submit');
 let mapTemp = new Map([
-    ["9:00", 1],
+    ["09:00", 1],
     ["10:00", 2],
     ["11:00", 3],
     ["12:00", 4],
@@ -311,9 +312,9 @@ btnRegisterRoom.addEventListener('click', function () {
 
 
 
-    console.log(`start=${start}, end=${end}, day=${day},room=${room},roomPlace=${roomPlace}`);
+    console.log(`start=${dragSelectIds[0]}, end=${end}, day=${day},room=${room},roomPlace=${roomPlace}`);
 
-    location.href = `/meetingRoom/create?start=${start}&end=${end}&day=${day}&room=${room}&roomPlace=${roomPlace}`;
+    location.href = `/meetingRoom/create?start=${dragSelectIds[0]}&end=${end}&day=${day}&room=${room}&roomPlace=${roomPlace}`;
 
 });
 
