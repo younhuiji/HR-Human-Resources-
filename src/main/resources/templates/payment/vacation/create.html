@@ -118,7 +118,6 @@
                                             <tr>
                                                 <td style=" height: 80%; padding: 3px;  vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
                                                     <div  style="text-align: center;">
-    <!--                                                    <img src="/images/dojang.png" style="height: 65px; ">-->
                                                     </div>
                                                 </td>
                                             </tr>
@@ -147,7 +146,7 @@
                                                    <b style="color: rgb(255, 0, 0);">*</b>제목
                                              </td>
                                              <td colspan="3" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                 <input style="width: 100%"  type="text" class="textFrom" id="title" name="title"  placeholder="[000 휴가 신청]" required autofocus>
+                                                 <input style="width: 100%"  type="text" class="textFrom" id="title" name="title"  placeholder="[000팀 000 휴가 신청]" required autofocus>
                                              </td>
                                          </tr>
                                          <tr>
@@ -155,13 +154,13 @@
                                                  <b style="color: rgb(255, 0, 0);">*</b>부서
                                              </td>
                                              <td id="name" colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                 <input style="width: 100%" type="text" class="textFrom" id="department" name="department" required >
+                                                 <input style="width: 100%" type="text" class="textFrom" id="department" name="department" th:value="${#authentication.principal.part.department}" readonly required >
                                              </td>
                                              <td colspan="1" style="width:200px; background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
                                                   <b style="color: rgb(255, 0, 0);">*</b>직위
                                              </td>
                                              <td id="positionName" colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                  <input style="width: 100%" type="text" class="textFrom" id="position" name="position" required >
+                                                  <input style="width: 100%" type="text" class="textFrom" id="position" name="position" th:value="${#authentication.principal.position}" readonly required >
                                              </td>
                                          </tr>
                                          <tr>
@@ -169,7 +168,8 @@
                                                    <b style="color: rgb(255, 0, 0);">*</b>이름
                                              </td>
                                              <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                  <input style="width: 100%" type="text" class="textFrom" id="employeeName" name="employeeName" required >
+                                                  <input style="width: 100%" type="text" class="textFrom" id="employeeName" name="employeeName" th:value="${#authentication.principal.name}" readonly required >
+                                                  <input style="width: 100%" type="hidden" class="textFrom" id="employeeNo" name="employeeNo" th:value="${#authentication.principal.employeeNo}" required >
                                              </td>
                                              <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc;height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
                                                   <b style="color: rgb(255, 0, 0);">*</b>결재자 지정

@@ -97,7 +97,7 @@
                                     <input type="text" style="border:none; width: 100%;" id="level"   readonly/>
                                 </td>
                                 <td>
-                                    <input type="hidden" style="border:none; width: 100%;" id="no"   readonly/>
+                                    <input type="hidden" style="border:none; width: 100%;" id="employeeNo"   readonly/>
                                 </td>
                                 <td>
                                     <input  type="button" value="추가"  onclick="test()"/>
@@ -129,15 +129,15 @@
     function test(){
 
         if(id == 1){
-            opener.document.getElementById("approverNo").value = document.getElementById("no").value
+            opener.document.getElementById("approverNo").value = document.getElementById("employeeNo").value
             opener.document.getElementById("approverName").value = document.getElementById("name").value
             window.close();
         } else if(id == 2) {
-            opener.document.getElementById("companionNo").value = document.getElementById("no").value
+            opener.document.getElementById("companionNo").value = document.getElementById("employeeNo").value
             opener.document.getElementById("companionName").value = document.getElementById("name").value
             window.close();
         } else if(id == 3) {
-            opener.document.getElementById("secondApproverNo").value = document.getElementById("no").value
+            opener.document.getElementById("secondApproverNo").value = document.getElementById("employeeNo").value
             opener.document.getElementById("secondApproverName").value = document.getElementById("name").value
             window.close();
         }

@@ -26,7 +26,7 @@
             /*border: 1px solid #bcbcbc;*/
         }
         #jb-content {
-            width: 67%;
+            width: 77%;
             padding: 20px;
             margin-bottom: 20px;
             min-height: 91%;
@@ -34,8 +34,9 @@
             border: 1px solid #bcbcbc;
         }
         #jb-sidebar {
-            width: 30%;
+            width: 20%;
             padding: 20px;
+            min-height: 91%;
             float: right;
             border: 1px solid #bcbcbc;
         }
@@ -169,7 +170,7 @@
                 <div class="card mb-8">
                     <div class="card-header">
                         <i class="fas fa-chart-bar"></i>
-                        상세정보
+                        회원 상세정보
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -177,24 +178,28 @@
                                 <h6>프로필 이미지</h6>
                                 <br>
                                 <div style= "text-align: center; padding: 5px;">
-                                    <img height="250px" width="250px" />
-                                    <br>
+                                    <img height="90%" width="70%" th:src="${#authentication.principal.photo}"/>
                                     <br>
                                 </div>
                                 <br>
                             </div>
                             <div >
                                 <div >
-                                    <label class="form-control font-weight-bold" style="border:none;">남은 휴가일</label>
-                                    <input id="name" class="form-control" value="*" readonly/>
+                                    <label class="form-control font-weight-bold" style="border:none;">부서</label>
+                                    <input  class="form-control" th:value="${#authentication.principal.part.department}" readonly/>
+                                </div>
+                                <div >
+                                    <label class="form-control font-weight-bold" style="border:none;">팀</label>
+                                    <input id="team" class="form-control" th:value="${#authentication.principal.part.team}" readonly/>
                                 </div>
                                 <div>
-                                    <label class="form-control font-weight-bold" style="border:none;">사용한 휴가일</label>
-                                    <input id="phone" class="form-control" value="*" readonly/>
+                                    <label class="form-control font-weight-bold" style="border:none;">직책</label>
+                                    <input id="position" class="form-control" th:value="${#authentication.principal.position}" readonly/>
+
                                 </div>
                                 <div>
-                                    <label class="form-control font-weight-bold" style="border:none;">출장 횟수</label>
-                                    <input id="department" class="form-control" value="*" readonly/>
+                                    <label class="form-control font-weight-bold" style="border:none;">이름</label>
+                                    <input id="name" class="form-control" th:value="${#authentication.principal.name}" readonly/>
                                 </div>
                             </div>
                         </div>

@@ -69,7 +69,7 @@ public class PaymentController {
     @GetMapping("/process")
     public void process(Model model, @RequestParam(defaultValue = "vacation")String payment) {
 
-        String no = "1";
+        String no = "11111111";
         PaymentState state = PaymentState.진행중;
 
         if(payment.equals("vacation")){
@@ -136,12 +136,8 @@ public class PaymentController {
     @PostMapping("/vacation/create")
     public void createPostVacation(VacationCreateDto dto){
 
-        String no = "1";
-
-        log.info("create 컨트롤 넘어옴");
-
         Vacation vacation = Vacation.builder()
-                .employeeNo(no).title(dto.getTitle()).reason(dto.getReason()).approverNo(dto.getApproverNo())
+                .employeeNo(dto.getEmployeeNo()).title(dto.getTitle()).reason(dto.getReason()).approverNo(dto.getApproverNo())
                 .category(dto.getCategory()).effectiveDate(dto.getEffectiveDate()).expirationDate(dto.getExpirationDate())
                 .build();
 
