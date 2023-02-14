@@ -49,7 +49,7 @@
         <div class="row" style="margin: 30px auto;">
             <!--postCount-->
             <div class="col">
-                <p style="font-size: .9em;">총 <span th:text="${list.size}"></span>개의 게시글</p>
+                <p style="font-size: .9em;">총 <span th:text="${list.number}"></span>개의 게시글</p>
             </div>
             
             <!--search-->
@@ -58,16 +58,16 @@
                 id="searchForm" style="display: inline-block; width: auto;">
                     <div style="float: left;">
                         <select name="type" class="form-select">
-                            <option value="tcw">전체 검색</option>
-                            <option value="t">제목</option>
-                            <option value="c">내용</option>
-                            <option value="tc">제목 + 내용</option>
-                            <option value="w">작성자</option>
+                            <option value="tcw" th:selected="${type}== ${'tcw'}">전체 검색</option>
+                            <option value="t" th:selected="${type}== ${'t'}">제목</option>
+                            <option value="c" th:selected="${type}== ${'c'}">내용</option>
+                            <option value="tc" th:selected="${type}== ${'tc'}">제목 + 내용</option>
+                            <option value="w" th:selected="${type}== ${'w'}">작성자</option>
                         </select>
                     </div>
                     <div style="float: left;">
-                        <input type="text" class="form-control" name="keyword" style="padding-right: 4em;"
-                        placeholder="검색어를 입력해 주세요." required/>
+                        <input type="text" class="form-control" name="keyword" th:value="${keyword}"
+                        style="padding-right: 4em;" placeholder="검색어를 입력해 주세요." required/>
                     </div>
                     <div style="float: left;">
                         <button id="btnSearch" type="submit" class="btn btn-light" style="border: 1px solid #ced4da;">
@@ -94,11 +94,20 @@
                 <ul class="pagination" th:with="
                 start=(${(list.number/10)*10 + 1}),
                 last=(${ list.totalPages > start + 9 ? start + 9 : list.totalPages})">
+                    <!--th:if="${type}== '' or ${keyword}== ''" -->
                     <th:block th:with="
-                    firstPage=@{/post/list(page=1)},
-                    prevPage=@{/post/list(page=${list.number})},
-                    nextPage=@{/post/list(page=${list.number + 2})},
-                    lastPage=@{/post/list(page=${list.totalPages})}">
+                        firstPage=@{/post/list(page=1)},
+                        prevPage=@{/post/list(page=${list.number})},
+                        nextPage=@{/post/list(page=${list.number + 2})},
+                        lastPage=@{/post/list(page=${list.totalPages})}">
+                    </th:block>
+                    <!--
+                    <th:block th:if="${type}!= '' and ${keyword}!= ''" th:with="
+                        firstPage=@{/post/search(type=${type}&keyword=${keyword}&page=1)},
+                        prevPage=@{/post/search(type=${type}&keyword=${keyword}&page=${list.number})},
+                        nextPage=@{/post/search(type=${type}&keyword=${keyword}&page=${list.number + 2})},
+                        lastPage=@{/post/search(type=${type}&keyword=${keyword}&page=${list.totalPages})}"><
+                    </th:block>-->
                         <!--첫 페이지-->
                         <li class="page-item">
                             <a class="page-link" th:href="${firstPage}" aria-label="First">
@@ -115,7 +124,13 @@
                         <!--페이지-->
                         <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}"
                             th:class="${page == list.number + 1} ? 'active'">
-                            <a class="page-link" th:text="${page}" th:href="@{/post/list(page=${page})}"></a>
+                                <a class="page-link" th:text="${page}" th:href="@{/post/list(page=${page})}"></a>
+                            <!--
+                            <th:block th:if="${type}== '' or ${keyword}== ''">
+                            </th:block>
+                            <th:block th:if="${type}!= '' and ${keyword}!= ''">
+                                <a class="page-link" th:text="${page}" th:href="@{/post/search(type=${type}&keyword=${keyword}&page=${page})}"></a>
+                            </th:block>-->
                         </li>
                         <!--다음 페이지-->
                         <li class="page-item" th:class="${list.last} ? 'disabled'">

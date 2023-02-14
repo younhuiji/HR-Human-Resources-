@@ -38,13 +38,16 @@ public class PostController {
     }
 
     @GetMapping("/search")
-    public String search(@PageableDefault Pageable pageable, @RequestParam String type, @RequestParam String keyword, Model model) {
+    public String search(@PageableDefault Pageable pageable, String type, String keyword, Model model) {
         log.info("search(type={}, keyword={})", type, keyword);
 
         Page<Post> list= postService.search(pageable, type, keyword);
-        model.addAttribute("list", list);
 
-        return "/post/list"; // list.html 파일
+        model.addAttribute("list", list);
+        model.addAttribute("type", type);
+        model.addAttribute("keyword", keyword);
+
+        return "/post/list";
     }
 
     @GetMapping("/create")
