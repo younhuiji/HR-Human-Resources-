@@ -77,15 +77,19 @@ public class HomeController {
         switch (payment) {
             case "vacation" -> {
                 model.addAttribute("docList", vacationService.getVacationListSeven(employeeNo));
+                model.addAttribute("vacation", "vacation");
             }
             case "trip" -> {
                 model.addAttribute("docList", businessTripService.getBusinessTripSeven(employeeNo));
+                model.addAttribute("trip", "trip");
             }
             case "leave" -> {
                 model.addAttribute("docList", leaveService.selectByEmployeeNO(employeeNo));
+                model.addAttribute("leave", "leave");
             }
             default -> {
                 model.addAttribute("docList",  businessCardService.getBusinessCardSeven(employeeNo));
+                model.addAttribute("card", "card");
             }
         }
     }

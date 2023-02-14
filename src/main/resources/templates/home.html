@@ -136,14 +136,13 @@
                     <div id="doc" class="border">
                         <div>
                             <form id="form">
-                                <div class="row" style="padding: 10px">
+                                <div class="row" style="padding-left: 16px">
                                     <div id="select_div" class="col-2">
                                         <select  id="payment" name="payment"  class="form-control" >
-                                            <option selected>선택</option>
-                                            <option value="vacation">휴가/연차/반차</option>
-                                            <option value="trip">출장</option>
-                                            <option value="card">명함신청</option>
-                                            <option value="leave">퇴사신청</option>
+                                            <option value="vacation" th:attrappend="selected = ${vacation=='vacation' ? 'selected' : ''}">휴가/연차/반차</option>
+                                            <option value="trip" th:attrappend="selected = ${trip=='trip' ? 'selected' : ''}">출장</option>
+                                            <option value="card" th:attrappend="selected = ${card=='card' ? 'selected' : ''}">명함신청</option>
+                                            <option value="leave" th:attrappend="selected = ${leave=='leave' ? 'selected' : ''}">퇴사신청</option>
                                         </select>
                                     </div>
                                 </div>
