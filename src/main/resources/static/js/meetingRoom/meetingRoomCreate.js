@@ -9,32 +9,29 @@ window.addEventListener('DOMContentLoaded', event =>{
 
     // meetingRoom
     const divModal = document.querySelector('#inviteModal');
-    const inviteModal = new bootstrap.Modal(divModal);
+    // const inviteModal = new bootstrap.Modal(divModal);
 
 
     //사용자 상세정보
     const name = document.querySelector('#name');
 
+
     function updateDetailInfo(member) {
         console.log(member);
-        name.value = member[0].name;
+        name.value += member[0].name;
 
-
-        }
-
-    const modelInviteBtn = document.querySelector('#modelInviteBtn');
-    // modelInviteBtn.addEventListener('click', attendeeNew);
-
-    const attendee = document.querySelector('#attendee');
-
-    function attendeeNew(member) {
-
-        // attendee.value = member[0].name;
-        document.querySelector("#attendee").value = member[0].name;
-        // $('#modelInviteBtn').trigger('click');
-        // document.querySelector('#attendee').value = '';
     }
 
+    const modelInviteBtn = document.querySelector('#modelInviteBtn');
+
+    const attendee = document.querySelector('#attendee');
+    let attendeesArr = new Array();
+
+    function attendeeNew(member) {
+        attendeesArr.push(member[0].employeeNo);
+        attendee.value = attendeesArr;
+
+    }
 
         function findByMemeber(orgMember) {
             for (let i = 0; i < orgMember.length; i++) {

@@ -74,8 +74,7 @@
                     </a>
                     <div class="collapse" id="collapsePageMeetingRoom" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class ="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" th:href="@{/meetingRoom/list}">회의실 예약</a>
-                            <a class="nav-link" th:href="@{/meetingRoom/myReserve}">내 예약 현황</a>
+                            <a class="nav-link" th:href="@{/meetingRoom/list?employeeNo={employeeNo} (employeeNo = ${#authentication.principal.employeeNo})}">회의실 예약</a>
                         </nav>
                     </div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePostPages" aria-expanded="false" aria-controls="collapsePages">

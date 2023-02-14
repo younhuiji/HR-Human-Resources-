@@ -54,8 +54,8 @@ public class OrgService {
     public List<MeetingReadDto> readMeetingList(String loginUser) {
         log.info("readAllCalList(loginUser={})", loginUser);
 
-
-        List<MeetingRoom> meetingSchedule = meetingRoomRepository.findByAttendeeOrEmployeeNo(loginUser, loginUser);
+        List<MeetingRoom> meetingSchedule = meetingRoomRepository.findByEmployeeNoOrAttendeeQuestion(loginUser,loginUser);
+//        List<MeetingRoom> meetingSchedule = meetingRoomRepository.findByAttendeeOrEmployeeNo(loginUser, loginUser);
         log.info("meetingSchedule={}", meetingSchedule);
 
         return meetingSchedule.stream()

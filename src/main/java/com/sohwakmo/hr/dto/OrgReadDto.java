@@ -15,6 +15,7 @@ import lombok.ToString;
 public class OrgReadDto {
 
     private Long id;
+    private String employeeNo;
     private String name;
     private String phone;
     private String photo;
@@ -29,6 +30,7 @@ public class OrgReadDto {
     public static OrgReadDto fromEntity(Employee entity){
         return OrgReadDto.builder()
                 .id(entity.getId())
+                .employeeNo(entity.getEmployeeNo())
                 .name(entity.getName())
                 .phone(entity.getPhone())
                 .photo(entity.getPhoto())
