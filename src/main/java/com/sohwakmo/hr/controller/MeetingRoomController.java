@@ -26,34 +26,19 @@ public class MeetingRoomController {
 
     private final MeetingRoomService meetingRoomService;
 
+
+
     @GetMapping("/list")
-    public String list(Model model) {
-        log.info("list()");
+    public String list(String employeeNo, Model model) {
+        log.info("list(employeeNo={})", employeeNo);
 
-        List<MeetingRoom> list = meetingRoomService.read();
+        List<MeetingRoom> meetingRoom =  meetingRoomService.read(employeeNo);
 
-        model.addAttribute("list", list);
+        model.addAttribute("meetingRoom", meetingRoom);
+        log.info("model={}", model);
 
         return "/meetingRoom/list";
     }
-
-//    @GetMapping("/list")
-//    public void list(String loginUser, Model model) {
-//
-//        model.addAttribute("loginUser", loginUser);
-//    }
-
-
-//    @GetMapping("/list")
-//    public String lists(Model model, String employeeNo) {
-//        log.info("list()");
-//
-//        List<MeetingRoom> list = meetingRoomService.myRead(employeeNo);
-//
-//        model.addAttribute("list", list);
-//
-//        return "/meetingRoom/list";
-//    }
 
 
 
@@ -78,7 +63,7 @@ public class MeetingRoomController {
 
         attrs.addFlashAttribute("createdNo", entity.getMeetingRoomNo());
 
-        return "redirect:/meetingRoom/list";
+        return "redirect:/meetingRoom/list?employeeNo=" + dto.getEmployeeNo();
     }
 
     // 예약 상세
