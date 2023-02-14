@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 public class EmployeeSecurityDto extends User {
     private String username;
     private String password;
-
     private String name;
     private String employeeNo;
     private String joinedDate;
@@ -30,7 +29,8 @@ public class EmployeeSecurityDto extends User {
     private String photo;
     private String email;
     private String phone;
-    public EmployeeSecurityDto(String username, String password, String name,String employeeNo,String joinedDate,Part part,String photo,String email,String phone,Collection<? extends GrantedAuthority> authorities) {
+    private String position;
+    public EmployeeSecurityDto(String username, String password, String name,String employeeNo,String joinedDate,Part part,String photo,String email,String phone,String position,Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
         this.username = username;
         this.password = password;
@@ -41,12 +41,13 @@ public class EmployeeSecurityDto extends User {
         this.photo = photo;
         this.email = email;
         this.phone = phone;
+        this.position = position;
     }
 
     public static EmployeeSecurityDto fromEntity(Employee e) {
         List<GrantedAuthority> authorities = e.getEmployeePosition().stream()
                 .map(x -> new SimpleGrantedAuthority(x.getRole()))
                 .collect(Collectors.toList());
-        return new EmployeeSecurityDto(e.getEmployeeNo(),e.getPassword(),e.getName(),e.getEmployeeNo(),e.getJoinedDate(),e.getPart(),e.getPhoto(),e.getEmail(),e.getPhone(),authorities);
+        return new EmployeeSecurityDto(e.getEmployeeNo(),e.getPassword(),e.getName(),e.getEmployeeNo(),e.getJoinedDate(),e.getPart(),e.getPhoto(),e.getEmail(),e.getPhone(),e.getPosition(),authorities);
     }
 }

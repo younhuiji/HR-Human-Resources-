@@ -65,8 +65,11 @@
 #doc{
     border-radius: 8px;
     height: 100%;
-    padding: 28px 16px 16px 16px;
+    padding: 16px 16px 16px 16px;
     box-shadow : 2px 3px 5px 0 rgba(0,0,0,0.2) ;
+}
+#payment{
+    width: 80%;
 }
 
 
