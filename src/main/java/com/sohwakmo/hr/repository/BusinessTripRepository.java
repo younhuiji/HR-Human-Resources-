@@ -10,9 +10,13 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface BusinessTripRepository extends JpaRepository<BusinessTrip, Integer> {
-    public List<BusinessTrip> findByEmployeeNoOrCompanionNO(String employeeNo, String companionNo);
-    public List<BusinessTrip> findByEmployeeNo(String employeeNo);
-    public List<BusinessTrip> findByEmployeeNoAndState(String no, PaymentState state);
+    List<BusinessTrip> findByEmployeeNoOrCompanionNO(String employeeNo, String companionNo);
+    List<BusinessTrip> findByEmployeeNoOrderByNoDesc(String employeeNo);
+    List<BusinessTrip> findByEmployeeNoAndState(String no, PaymentState state);
+    List<BusinessTrip> findByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2);
+    List<BusinessTrip> findByApproverNoAndState(String no, PaymentState state);
+    List<BusinessTrip> findByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2);
+
     @Query("select b from BUSINESSTRIP b where b.no = :no ")
     public BusinessTrip selectByNo(@Param(value = "no") Integer no);
 }

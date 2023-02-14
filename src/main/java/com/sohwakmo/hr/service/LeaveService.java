@@ -2,6 +2,7 @@ package com.sohwakmo.hr.service;
 
 import com.sohwakmo.hr.domain.Leave;
 import com.sohwakmo.hr.domain.PaymentState;
+import com.sohwakmo.hr.domain.Vacation;
 import com.sohwakmo.hr.repository.LeaveRepository;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -70,8 +71,20 @@ public class LeaveService {
         return no;
     }
 
+    public List<Leave> selectByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2){
+        return leaveRepository.findByEmployeeNoAndStateOrState(no, state, state2);
+    }
+
     public List<Leave> selectByEmployeeNoAndState(String no, PaymentState state){
         return leaveRepository.findByEmployeeNoAndState(no, state);
+    }
+
+    public List<Leave> selectByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2){
+        return leaveRepository.findByApproverNoAndStateOrState(no, state, state2);
+    }
+
+    public List<Leave> selectByApproverNoAndState(String no, PaymentState state){
+        return leaveRepository.findByApproverNoAndState(no, state);
     }
 
     @Transactional

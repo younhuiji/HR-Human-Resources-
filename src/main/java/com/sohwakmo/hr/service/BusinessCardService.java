@@ -3,6 +3,7 @@ package com.sohwakmo.hr.service;
 import com.sohwakmo.hr.domain.BusinessCard;
 import com.sohwakmo.hr.domain.Leave;
 import com.sohwakmo.hr.domain.PaymentState;
+import com.sohwakmo.hr.domain.Vacation;
 import com.sohwakmo.hr.repository.BusinessCardRepository;
 import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,18 @@ public class BusinessCardService {
 
     public List<BusinessCard> selectByEmployeeNoAndState(String no, PaymentState state){
         return businessCardRepository.findByEmployeeNoAndState(no, state);
+    }
+
+    public List<BusinessCard> selectByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2){
+        return businessCardRepository.findByEmployeeNoAndStateOrState(no, state, state2);
+    }
+
+    public List<BusinessCard> selectByApproverNoAndState(String no, PaymentState state){
+        return businessCardRepository.findByApproverNoAndState(no, state);
+    }
+
+    public List<BusinessCard> selectByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2){
+        return businessCardRepository.findByApproverNoAndStateOrState(no, state, state2);
     }
 
     @Transactional

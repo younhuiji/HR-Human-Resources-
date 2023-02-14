@@ -77,7 +77,7 @@ public class OrgService {
     public List<VacationListReadDto> readVacationList(String loginUser) {
         log.info("readVacationList(loginUser={})", loginUser);
 
-        List<Vacation> vacationSchedule = vacationRepository.findByEmployeeNo(loginUser);
+        List<Vacation> vacationSchedule = vacationRepository.findByEmployeeNoOrderByNoDesc(loginUser);
         log.info("vacationSchedule={}", vacationSchedule);
 
         return vacationSchedule.stream()

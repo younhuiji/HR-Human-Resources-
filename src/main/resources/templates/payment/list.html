@@ -29,6 +29,7 @@
             width: 67%;
             padding: 20px;
             margin-bottom: 20px;
+            min-height: 91%;
             float: left;
             border: 1px solid #bcbcbc;
         }
@@ -49,6 +50,31 @@
             /*border: 1px solid #bcbcbc;*/
         }
 
+        table {
+            width: 100%;
+        }
+
+        th, td {
+            width: 10%;
+            padding: 5px;
+        }
+
+        thead {
+            display: table;
+            width: calc(100% - 17px);
+        }
+
+        tbody {
+            display: block;
+            max-height: 100%;
+            overflow-y: scroll;
+        }
+
+        tr {
+            display: table;
+            width: 100%;
+        }
+
 
     </style>
 </head>
@@ -66,29 +92,29 @@
                     <div class="row" style="padding: 10px">
                         <div class="col-3">
                             <select  id="payment" name="payment"  class="form-control" >
-                                <option selected>선택</option>
-                                <option value="vacation">휴가/연차/반차</option>
-                                <option value="trip">출장</option>
-                                <option value="card">명함신청</option>
-                                <option value="leave">퇴사신청</option>
+                                <option value="vacation" th:attrappend="selected = ${vacation=='vacation' ? 'selected' : ''}">휴가/연차/반차</option>
+                                <option value="trip" th:attrappend="selected = ${trip=='trip' ? 'selected' : ''}">출장</option>
+                                <option value="card" th:attrappend="selected = ${card=='card' ? 'selected' : ''}">명함 신청</option>
+                                <option value="leave" th:attrappend="selected = ${leave=='leave' ? 'selected' : ''}">퇴사 신청</option>
                             </select>
                         </div>
                         <div class="col-7">
-                            <input type="text" class="form-control"
-                                   name="keyword" placeholder="검색어를 입력하세요" required autofocus />
+<!--                            <input type="text" class="form-control"-->
+<!--                                   name="keyword" placeholder="검색어를 입력하세요" required autofocus />-->
                         </div>
                         <div class="col-2">
-                            <input type="submit" class="btn btn-light" value="찾기" />
+<!--                            <input type="submit" class="btn btn-light" value="찾기" />-->
                         </div>
                     </div>
                 </form>
                 <form  >
                     <fieldset class="border-0" id="jb-table">
-                        <table class="table" style="border-collapse: collapse">
+                        <table class="table" style="border-collapse: collapse; overflow:auto;" >
                             <thead>
                             <tr>
                                 <th>번호</th>
                                 <th>제목</th>
+                                <th>카테고리</th>
                                 <th>작성 시간</th>
                                 <th>결재 상태</th>
                             </tr>
@@ -99,14 +125,16 @@
                                     <tr th:onclick="|location.href='@{businessCard/detail(no=${l.no})}'|">
                                         <td th:text="${l.no}"></td>
                                         <td th:text="${l.title}"></td>
+                                        <td th:text="${l.category}"></td>
                                         <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
                                         <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
                                     </tr>
                                 </th:block>
-                                <th:block th:if="${l.category} == '연차' ">
+                                <th:block th:if="${l.category} == '연차' or ${l.category} == '오전 반차' or ${l.category} == '오후 반차'  ">
                                     <tr th:onclick="|location.href='@{vacation/detail(no=${l.no})}'|">
                                         <td th:text="${l.no}"></td>
                                         <td th:text="${l.title}"></td>
+                                        <td th:text="${l.category}"></td>
                                         <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
                                         <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
                                     </tr>
@@ -115,6 +143,7 @@
                                     <tr th:onclick="|location.href='@{businessTrip/detail(no=${l.no})}'|">
                                         <td th:text="${l.no}"></td>
                                         <td th:text="${l.title}"></td>
+                                        <td th:text="${l.category}"></td>
                                         <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
                                         <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
                                     </tr>
@@ -123,6 +152,7 @@
                                     <tr th:onclick="|location.href='@{leave/detail(no=${l.no})}'|">
                                         <td th:text="${l.no}"></td>
                                         <td th:text="${l.title}"></td>
+                                        <td th:text="${l.category}"></td>
                                         <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
                                         <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
                                     </tr>

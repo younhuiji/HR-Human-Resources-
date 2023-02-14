@@ -24,4 +24,18 @@ window.addEventListener('DOMContentLoaded', event => {
         formProcess.submit();
     })
 
+    const formResponse = document.querySelector('#formResponse');
+    payment.addEventListener('change', function () {
+        formResponse.action = "/payment/response";
+        formResponse.method = "get";
+        formResponse.submit();
+    })
+
+    const formRequest = document.querySelector('#formRequest');
+    payment.addEventListener('change', function () {
+        formRequest.action = "/payment/request";
+        formRequest.method = "get";
+        formRequest.submit();
+    })
+
 }) // window end

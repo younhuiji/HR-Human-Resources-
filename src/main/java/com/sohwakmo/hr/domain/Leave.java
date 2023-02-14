@@ -28,7 +28,7 @@ public class Leave extends BaseTimeEntity {
     private String approverNo;
 
     @Column(nullable = false) // 승인자2 사번 (상무)
-    private String secondApproverNO;
+    private String secondApproverNo;
 
     @Column(nullable = false, length = 100) // 제목
     private String title;

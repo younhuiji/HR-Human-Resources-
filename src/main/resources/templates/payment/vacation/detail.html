@@ -295,9 +295,29 @@
                     <div class="card mb-8">
                         <input type="submit" class="btn btn-primary" id="buttonComplete" value="승인" data-rid="${vacation.no}" onclick="getComplete('/api/payment/vacation/complete/')" />
                         <br>
-                        <input type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-rid="${vacation.no}" id="btnReturn2" value="반려" />
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal">
+                            반려
+                        </button>
                     </div>
                     <!--                    </div>-->
+                    <!-- Modal -->
+                    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title fs-5" id="exampleModalLabel">반려 사유</h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea style="width: 100%; height: 100px; " id="returnReason"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                    <button type="button" class="btn btn-primary" onclick="returnReason('/api/payment/vacation/return/')">반려</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -305,56 +325,10 @@
 </div>
 
 
-<!-- Modal -->
-<div
-        class="modal fade"
-        id="modal"
-        tabindex="-1"
-        aria-labelledby="ReplyModalLabel"
-        aria-hidden="true"
->
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="ReplyModalLabel">반려 사유</h1>
-                <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                ></button>
-            </div>
-            <div class="modal-body">
-                <!-- card.returnReason 삽입 위치 -->
-                <textarea class="form-control" id="modalReturnReason"></textarea>
-            </div>
-            <div class="modal-footer">
 
-                <button
-                        type="button"
-                        class="btn btn-outline-secondary"
-                        data-bs-dismiss="modal"
-                >
-                    취소
-                </button>
-
-                <button
-                        type="button"
-                        class="btn btn-outline-success"
-                        id="modalBtnUpdate"
-                >
-                    확인
-                </button>
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end Modal -->
 
 <th:block layout:fragment="script">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script th:src="@{ /js/payment/list.js }"></script>
     <script th:src="@{ /js/payment/detail.js }"></script>
     <script th:src="@{ /js/payment/completeReturn.js }"></script>
     <script th:src="@{ /js/payment/delete.js }"></script>

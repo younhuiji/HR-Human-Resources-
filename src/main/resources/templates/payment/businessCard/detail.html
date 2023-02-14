@@ -301,18 +301,40 @@
                 <div class="card mb-8">
                     <input type="submit" class="btn btn-primary" id="buttonCompleteCard"  data-rid="${card.no}" value="승인" onclick="getComplete('/api/payment/card/complete/')"/>
                     <br>
-                    <input type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-rid="${card.no}" id="btnReturn2" onclick="getComplete('/api/payment/card/complete/')" value="반려" />
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal">
+                        반려
+                    </button>
                 </div>
                 <!--                    </div>-->
+
+                <!-- Modal -->
+                <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title fs-5" id="exampleModalLabel">반려 사유</h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <textarea style="width: 100%; height: 100px; " id="returnReason"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                <button type="button" class="btn btn-primary" onclick="returnReason('/api/payment/businessCard/return/')">반려</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
+    </body>
 </div>
-</body>
+
 
 <th:block layout:fragment="script">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script th:src="@{ /js/payment/list.js }"></script>
     <script th:src="@{ /js/payment/detail.js }"></script>
     <script th:src="@{ /js/payment/delete.js }"></script>
     <script th:src="@{ /js/payment/completeReturn.js }"></script>

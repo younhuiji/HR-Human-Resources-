@@ -40,7 +40,7 @@ public class PaymentRestController {
         return ResponseEntity.ok(result);
     }
 
-    @PutMapping ("/businessCard/return/{leaveNo}")
+    @PutMapping ("/businessCard/return/{no}")
     public ResponseEntity<Integer> businessCardReturnReason(@PathVariable Integer no, @RequestBody updateDto dto){
         Integer result = businessCardService.updateReturn(no, dto.getReturnReason());
         return ResponseEntity.ok(result);
@@ -57,7 +57,6 @@ public class PaymentRestController {
         Integer result = vacationService.updateReturn(no, dto.getReturnReason());
         return ResponseEntity.ok(result);
     }
-
 
     // bs card list 출력
     @GetMapping("/cardList/{employeeNo}")

@@ -10,12 +10,18 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface VacationRepository extends JpaRepository<Vacation, Integer> {
-    List<Vacation> findByEmployeeNo(String loginUser);
+    List<Vacation> findByEmployeeNoOrderByNoDesc(String loginUser);
 
     // 진행중 and EmployeeNo List
+    List<Vacation> findByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2);
+
     List<Vacation> findByEmployeeNoAndState(String no, PaymentState state);
 
+    List<Vacation> findByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2);
+
+    List<Vacation> findByApproverNoAndState(String no, PaymentState state);
+
     @Query("select v from VACATION v where v.no = :no ")
-    public Vacation selectByNo(@Param(value = "no") Integer no);
+    Vacation selectByNo(@Param(value = "no") Integer no);
 
 }

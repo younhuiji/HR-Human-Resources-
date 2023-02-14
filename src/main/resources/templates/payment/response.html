@@ -5,7 +5,7 @@
       layout:decorate="~{ layout/layout.html }">
 <head>
     <meta charset="UTF-8">
-    <title>Complete</title>
+    <title>Request</title>
     <style>
         * {
             font: 16px "나눔고딕", "Nanum Gothic", "sans-serif";
@@ -27,12 +27,13 @@
         }
         #jb-content {
             width: 100%;
-            min-height: 100%;
             padding: 20px;
             margin-bottom: 20px;
+            min-height: 100%;
             float: left;
             border: 1px solid #bcbcbc;
         }
+
 
         #jb-text {
             width: 100%;
@@ -43,6 +44,7 @@
             float: left;
             /*border: 1px solid #bcbcbc;*/
         }
+
 
         table {
             width: 100%;
@@ -75,13 +77,13 @@
     <body>
     <div id="jb-container">
         <div id="jb-header">
-            <h3>결재 완료</h3>
+            <h3>기안 승인 문서</h3>
             진행중인 결재내역을 확인하고 관리합니다.
         </div>
         <div id="jb-content">
             <div id="jb-text">
                 <br>
-                <form id="formComplete">
+                <form id="formResponse" th:action="@{ /payment/response/search }" method="get">
                     <div class="row" style="padding: 10px">
                         <div class="col-3">
                             <select  id="payment" name="payment"  class="form-control" >
@@ -92,23 +94,21 @@
                             </select>
                         </div>
                         <div class="col-7">
-<!--                            <input type="text" class="form-control"-->
-<!--                                   name="keyword" placeholder="검색어를 입력하세요" required autofocus />-->
+                            <input type="text" class="form-control" name="keyword" placeholder="검색어를 입력하세요" required autofocus />
                         </div>
                         <div class="col-2">
-<!--                            <input type="submit" class="btn btn-light" value="찾기" />-->
+                            <input type="submit" class="btn btn-light" value="찾기" />
                         </div>
                     </div>
                 </form>
                 <form  >
                     <fieldset class="border-0" id="jb-table">
-                        <table class="table" style="border-collapse: collapse">
+                        <table class="table" style="border-collapse: collapse; overflow:auto;" >
                             <thead>
                             <tr>
                                 <th>번호</th>
                                 <th>제목</th>
-                                <th>카테고리</th>
-                                <th>신청 사유</th>
+                                <th>신청자</th>
                                 <th>작성 시간</th>
                                 <th>결재 상태</th>
                             </tr>
@@ -119,18 +119,16 @@
                                     <tr th:onclick="|location.href='@{businessCard/detail(no=${l.no})}'|">
                                         <td th:text="${l.no}"></td>
                                         <td th:text="${l.title}"></td>
-                                        <td th:text="${l.category}"></td>
-                                        <td th:text="${l.reason}"></td>
+                                        <td ></td>
                                         <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
                                         <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
                                     </tr>
                                 </th:block>
-                                <th:block th:if="${l.category} == '연차' or ${l.category} == '오전 반차' or ${l.category} ==  '오후 반차'  ">
+                                <th:block th:if="${l.category} == '연차' ">
                                     <tr th:onclick="|location.href='@{vacation/detail(no=${l.no})}'|">
                                         <td th:text="${l.no}"></td>
                                         <td th:text="${l.title}"></td>
-                                        <td th:text="${l.category}"></td>
-                                        <td th:text="${l.reason}"></td>
+                                        <td ></td>
                                         <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
                                         <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
                                     </tr>
@@ -139,8 +137,7 @@
                                     <tr th:onclick="|location.href='@{businessTrip/detail(no=${l.no})}'|">
                                         <td th:text="${l.no}"></td>
                                         <td th:text="${l.title}"></td>
-                                        <td th:text="${l.category}"></td>
-                                        <td th:text="${l.reason}"></td>
+                                        <td ></td>
                                         <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
                                         <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
                                     </tr>
@@ -149,8 +146,7 @@
                                     <tr th:onclick="|location.href='@{leave/detail(no=${l.no})}'|">
                                         <td th:text="${l.no}"></td>
                                         <td th:text="${l.title}"></td>
-                                        <td th:text="${l.category}"></td>
-                                        <td th:text="${l.reason}"></td>
+                                        <td ></td>
                                         <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
                                         <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
                                     </tr>
@@ -160,7 +156,6 @@
                         </table>
                     </fieldset>
                 </form>
-                <input style="float: right;" type="submit" class="btn btn-secondary" value="문서 작성"  th:onclick="|location.href='@{/payment/vacation/create}'|"/>
             </div>
         </div>
     </div>

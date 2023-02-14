@@ -17,7 +17,7 @@ public class LeaveCreateDto {
     private Integer no; // PK
     private String employeeNo; // 시행자 사번
     private String approverNo; // 승인자 사번
-    private String secondApproverNO; // 승인자2 사번
+    private String secondApproverNo; // 승인자2 사번
     private String title; // 제목
     private String reason; // 사유
     private String category; // 결재 분류

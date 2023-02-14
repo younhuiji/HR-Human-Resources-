@@ -39,18 +39,22 @@ public class PaymentController {
 
         if(payment.equals("vacation")){
             List<Vacation> list = vacationService.selectByEmployeeNo(no);
-            log.info(list.toString());
+            log.info("연차={}",list);
             model.addAttribute("list", list);
+            model.addAttribute("vacation", "vacation");
         } else if(payment.equals("trip")) {
             List<BusinessTrip> list = businessTripService.selectByEmployeeNo(no);
             log.info(list.toString());
             model.addAttribute("list", list);
+            model.addAttribute("trip", "trip");
         } else if(payment.equals("leave")) {
             List<Leave> list = leaveService.selectByEmployeeNO(no);
             model.addAttribute("list", list);
+            model.addAttribute("leave", "leave");
         } else {
             List<BusinessCard> list = businessCardService.selectByEmployeeNo(no);
             model.addAttribute("list", list);
+            model.addAttribute("card", "card");
             log.info("명함 = {}", list);
         }
 
@@ -71,18 +75,20 @@ public class PaymentController {
 
         if(payment.equals("vacation")){
             List<Vacation> list = vacationService.selectByEmployeeNoAndState(no, state);
-            log.info(list.toString());
             model.addAttribute("list", list);
+            model.addAttribute("vacation", "vacation");
         } else if(payment.equals("trip")) {
             List<BusinessTrip> list = businessTripService.selectByEmployeeNoAndState(no, state);
-            log.info(list.toString());
             model.addAttribute("list", list);
+            model.addAttribute("trip", "trip");
         } else if(payment.equals("leave")) {
             List<Leave> list = leaveService.selectByEmployeeNoAndState(no, state);
             model.addAttribute("list", list);
+            model.addAttribute("leave", "leave");
         } else {
             List<BusinessCard> list = businessCardService.selectByEmployeeNoAndState(no, state);
             model.addAttribute("list", list);
+            model.addAttribute("card", "card");
         }
 
     }
@@ -93,21 +99,26 @@ public class PaymentController {
 
         String no = "1";
         PaymentState state = PaymentState.승인;
+        PaymentState state2 = PaymentState.반려;
 
         if(payment.equals("vacation")){
-            List<Vacation> list = vacationService.selectByEmployeeNoAndState(no, state);
+            List<Vacation> list = vacationService.selectByEmployeeNoAndStateOrState(no, state, state2);
             log.info(list.toString());
             model.addAttribute("list", list);
+            model.addAttribute("vacation", "vacation");
         } else if(payment.equals("trip")) {
-            List<BusinessTrip> list = businessTripService.selectByEmployeeNoAndState(no, state);
+            List<BusinessTrip> list = businessTripService.selectByEmployeeNoAndStateOrState(no, state, state2);
             log.info(list.toString());
             model.addAttribute("list", list);
+            model.addAttribute("trip", "trip");
         } else if(payment.equals("leave")) {
-            List<Leave> list = leaveService.selectByEmployeeNoAndState(no, state);
+            List<Leave> list = leaveService.selectByEmployeeNoAndStateOrState(no, state, state2);
             model.addAttribute("list", list);
+            model.addAttribute("leave", "leave");
         } else {
-            List<BusinessCard> list = businessCardService.selectByEmployeeNoAndState(no, state);
+            List<BusinessCard> list = businessCardService.selectByEmployeeNoAndStateOrState(no, state, state2);
             model.addAttribute("list", list);
+            model.addAttribute("card", "card");
         }
 
     }
@@ -267,7 +278,7 @@ public class PaymentController {
         String no = "1";
 
         Leave leave = Leave.builder()
-                .employeeNo(no).approverNo(dto.getApproverNo()).secondApproverNO(dto.getSecondApproverNO())
+                .employeeNo(no).approverNo(dto.getApproverNo()).secondApproverNo(dto.getSecondApproverNo())
                 .title(dto.getTitle()).reason(dto.getReason()).category(dto.getCategory())
                 .effectiveDate(dto.getEffectiveDate())
                 .build();
@@ -289,8 +300,61 @@ public class PaymentController {
             Employee approver = employeeService.selectByNo(leave.getApproverNo());
             model.addAttribute("approver", approver);
 
-            Employee secondApprover = employeeService.selectByNo(leave.getSecondApproverNO());
+            Employee secondApprover = employeeService.selectByNo(leave.getSecondApproverNo());
             model.addAttribute("secondApprover", secondApprover);
     }
+
+    @GetMapping("/request")
+    public void request(Model model, @RequestParam(defaultValue = "vacation")String payment){
+
+        String no = "1";
+        PaymentState state = PaymentState.진행중;
+
+        if(payment.equals("vacation")){
+            List<Vacation> list = vacationService.selectByApproverNoAndState(no, state);
+            model.addAttribute("list", list);
+            model.addAttribute("vacation", "vacation");
+        } else if(payment.equals("trip")) {
+            List<BusinessTrip> list = businessTripService.selectByApproverNoAndState(no, state);
+            model.addAttribute("list", list);
+            model.addAttribute("trip", "trip");
+        } else if(payment.equals("leave")) {
+            List<Leave> list = leaveService.selectByApproverNoAndState(no, state);
+            model.addAttribute("list", list);
+            model.addAttribute("leave", "leave");
+        } else {
+            List<BusinessCard> list = businessCardService.selectByApproverNoAndState(no, state);
+            model.addAttribute("list", list);
+            model.addAttribute("card", "card");
+        }
+    }
+
+    @GetMapping("/response")
+    public void response(Model model, @RequestParam(defaultValue = "vacation")String payment){
+        String no = "1";
+        PaymentState state = PaymentState.승인;
+        PaymentState state2 = PaymentState.반려;
+
+        if(payment.equals("vacation")){
+            List<Vacation> list = vacationService.selectByApproverNoAndStateOrState(no, state, state2);
+            log.info(list.toString());
+            model.addAttribute("list", list);
+            model.addAttribute("vacation", "vacation");
+        } else if(payment.equals("trip")) {
+            List<BusinessTrip> list = businessTripService.selectByApproverNoAndStateOrState(no, state, state2);
+            log.info(list.toString());
+            model.addAttribute("list", list);
+            model.addAttribute("trip", "trip");
+        } else if(payment.equals("leave")) {
+            List<Leave> list = leaveService.selectByApproverNoAndStateOrState(no, state, state2);
+            model.addAttribute("list", list);
+            model.addAttribute("leave", "leave");
+        } else {
+            List<BusinessCard> list = businessCardService.selectByApproverNoAndStateOrState(no, state, state2);
+            model.addAttribute("list", list);
+            model.addAttribute("card", "card");
+        }
+    }
+
 
 }
