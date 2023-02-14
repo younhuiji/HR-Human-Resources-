@@ -58,7 +58,7 @@
                 <tbody>
                     <form action="/message/receiveSendTrash" id="sendTrash">
                         <input type="hidden" name="employeeNo" th:value="${#authentication.principal.employeeNo}" />
-                        <span th:each="message : ${messageList}">
+                        <th:block th:each="message : ${messageList}">
                             <!-- 안읽은 쪽지이면-->
                             <tr th:if="${ message.getReceiveReadCheck() == 0}">
                                 <td><input type="checkbox" name="messageCheckBox" th:value="${message.getMessageNo()}"/></td>
@@ -107,7 +107,7 @@
                 </ul>
             </nav>
 
-            <div>
+            <div style="text-align: right;">
                 <a href="writeMessage" class="btn btn-outline-secondary">쪽지쓰기</a>
                 <button type="button" href="#" class="btn btn-outline-secondary" form="sendTrash" onclick="messageSendTrash(this)">삭제하기</button>
             </div>
