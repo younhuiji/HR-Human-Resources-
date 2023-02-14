@@ -32,7 +32,7 @@
 /*----출결 버튼 msg----*/
 
 #work_info_div{
-    padding: 43px 4%;
+    padding: 3% 4%;
     background: rgb(65,76,95);
     box-shadow : 2px 3px 5px 0 rgba(0,0,0,0.2) ;
     border-radius: 8px;
@@ -41,6 +41,7 @@
 #work_info_div h3{
     color: white;
     padding: 5px;
+    height:33%;
 }
 #work_info_div .btn{
     padding: 5px;
