@@ -62,9 +62,16 @@
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="/payment/list">기안문서</a>
-                            <a class="nav-link" href="/payment/process">결재대기</a>
-                            <a class="nav-link" href="/payment/complete">결재완료</a>
+                            <div th:if="${#authentication.principal.position} == '사원' or ${#authentication.principal.position} == '과장'">
+                                <a class="nav-link" th:href="@{/payment/list?employeeNo={employeeNo} (employeeNo=${#authentication.principal.employeeNo})}">기안문서</a>
+                                <a class="nav-link" th:href="@{/payment/process?employeeNo={employeeNo} (employeeNo=${#authentication.principal.employeeNo})}">결재대기</a>
+                                <a class="nav-link" th:href="@{/payment/complete?employeeNo={employeeNo} (employeeNo=${#authentication.principal.employeeNo})}">결재완료</a>
+                            </div>
+                            <div th:if="${#authentication.principal.position} == '팀장' or ${#authentication.principal.position} == '차장'">
+                                <a class="nav-link" th:href="@{/payment/request?employeeNo={employeeNo} (employeeNo=${#authentication.principal.employeeNo})}">결재요청</a>
+                                <a class="nav-link" th:href="@{/payment/response?employeeNo={employeeNo} (employeeNo=${#authentication.principal.employeeNo})}">결재승인</a>
+                            </div>
+
                         </nav>
                     </div>
                     <a class="nav-link collapsed" href="" data-bs-toggle="collapse" data-bs-target="#collapsePageMeetingRoom" aria-expanded="false" aria-controls="collapsePageMeetingRoom">

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{ layout/layout.html }">
+<head>
+    <meta charset="UTF-8">
+    <title>BusinessTrip</title>
+    <style>
+        * {
+            font: 16px "나눔고딕", "Nanum Gothic", "sans-serif";
+            color: #333;
+        }
+
+        #jb-container {
+            margin: 5px auto;
+            padding: 20px;
+            /*border: 1px solid #bcbcbc;*/
+            height: 100%;
+        }
+
+        #jb-content {
+            width: 77%;
+            height: 100%;
+            /*padding: 20px;*/
+            /*margin-bottom: 20px;*/
+            float: left;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        #jb-sidebar {
+            width: 20%;
+            padding: 20px;
+            float: right;
+            border: 1px solid #bcbcbc;
+        }
+
+        #jb-text {
+            width: 80%;
+            height: 100%;
+            padding: 20px;
+            height: 100%;
+            margin-left: 10%;
+            /*margin-bottom: 20px;*/
+            border: 1px solid #bcbcbc;
+        }
+
+
+    </style>
+</head>
+<div layout:fragment="content">
+    <body>
+    <div id="jb-container">
+        <div id="jb-content">
+            <div id="jb-text">
+                <form >
+                    <table style="width: 100%; border-collapse: collapse !important; color: black; background: white; border: 0px solid #bcbcbc; font-size: 12px; font-family: malgun gothic,dotum,arial,tahoma;">
+                        <tbody>
+                        <tr>
+                            <td style="width:15%; padding: 3px !important; border: 0px solid black; height: 90px; !important; font-size: 30px; font-weight: bold; text-align: center; vertical-align: middle;" colspan="2" >
+                                출장 신청서
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:30%; border: 0; padding: 0 !important" >
+                                <table style="background: white; margin: 0px; border: 0px solid #bcbcbc; border-image: none; color: black; font-size: 12px; border-collapse: collapse !important;">
+                                    <tbody>
+                                    <tr>
+                                        <td style="width: 40%; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: center; font-weight: bold; background: rgb(221, 221, 221); padding: 3px !important;">
+                                            기안자
+                                        </td>
+                                        <td style="width: 80%; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left; padding: 3px !important;">
+                                            <input style="width: 100%" th:value="${employee.name}" readonly />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 40%; padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: center; font-weight: bold; background: #ddd;">
+                                            기안부서
+                                        </td>
+                                        <td style="width: 60%; padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
+                                            <input style="width: 100%" th:value="${employee.part.department}" readonly />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 40%; padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: center; font-weight: bold; background: #ddd;">
+                                            기안일
+                                        </td>
+                                        <td style="width: 60%;padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
+                                            <input style="width: 100%" th:value="${ #temporals.format(trip.createdTime, 'yyyy-MM-dd') }" readonly/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 40%; padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: center; font-weight: bold; background: #ddd;">
+                                            문서번호
+                                        </td>
+                                        <td style="width: 60%;padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
+                                            <input style="width: 100%" th:value="${trip.no}"  id="number"  readonly/>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+
+                            <td >
+                                <table style="height: 120px; width: 20%; background: white; float: right; margin: 0px;  border: 1px solid #bcbcbc;  color: black; font-size: 12px; ">
+                                    <tbody>
+                                    <tr>
+                                        <td rowspan="3"  style="width: 10%; height: 30px; vertical-align: middle; border: 1px solid #bcbcbc; text-align: center; font-weight: bold; background: rgb(221, 221, 221); padding: 3px !important;">
+                                            결 재
+                                        </td>
+                                        <td colspan="1" style="width: 60%;  height: 10%; vertical-align: middle; border: 1px solid #bcbcbc;  text-align: center; font-weight: bold; background: rgb(221, 221, 221); padding: 3px !important;" th:text="${approver.name} + ${approver.position}" readonly/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style=" height: 80%; padding: 3px;  vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
+                                            <div  style="text-align: center;" th:if="${trip.completeDate != null and trip.returnReason == null} ">
+                                                <img src="/images/dojang.png" style="height: 65px; ">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="1" style="border: 1px solid #bcbcbc; text-align: center; height: 20px" >
+                                            <div th:if="${trip.completeDate != null and trip.returnReason == null} ">
+                                                <span th:text="${ #temporals.format(trip.completeDate, 'yyyy.MM.dd') }" readonly ></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+
+                    <table id="timelineApprovalForm"  style="width: 100%; margin-top : 0px; margin-bottom:20px; border-collapse: collapse !important; color: black; background: white; font-size: 12px; ">
+                        <tbody>
+                        <tr>
+                            <td colspan="4" style="width:800px; background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                신청&nbsp;현황
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                <b style="color: rgb(255, 0, 0);">*</b>제목
+                            </td>
+                            <td colspan="3" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                <input style="width: 100%"  type="text" class="textFrom" id="title" name="title" th:value="${trip.title}" readonly >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" style="width:100px; background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                <b style="color: rgb(255, 0, 0);">*</b>부서
+                            </td>
+                            <td id="name" colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                <input style="width: 100%" type="text" class="textFrom" id="department" name="department"  th:value="${employee.part.department}" readonly >
+                            </td>
+                            <td colspan="1" style="width:200px; background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                <b style="color: rgb(255, 0, 0);">*</b>직위
+                            </td>
+                            <td id="positionName" colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                <input style="width: 100%" type="text" class="textFrom" id="position" name="position"  th:value="${employee.position}" readonly >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                <b style="color: rgb(255, 0, 0);">*</b>이름
+                            </td>
+                            <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                <input style="width: 100%" type="text" class="textFrom" id="employeeName" name="employeeName" th:value="${employee.name}"  readonly >
+                            </td>
+                            <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc;height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                <b style="color: rgb(255, 0, 0);">*</b>결재자 지정
+                            </td>
+                            <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                <input style="width: 75%" type="text" class="textFrom" id="approverName" name="approverName" th:value="${approver.part.team} +' '+  ${approver.name} +' '+ ${approver.position}" readonly >
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                <b style="color: rgb(255, 0, 0);">*</b>시행 일자
+                            </td>
+                            <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                <input type="date" class="textFrom" id="effectiveDate" name="effectiveDate" th:value="${trip.effectiveDate}" readonly >
+                            </td>
+                            <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc;height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                <b style="color: rgb(255, 0, 0);">*</b>종료 일자
+                            </td>
+                            <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                <input type="date" class="textFrom" id="expirationDate" name="expirationDate" th:value="${trip.expirationDate}" readonly >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                <b style="color: rgb(255, 0, 0);">*</b>보고서 분류
+                            </td>
+                            <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                <select id="category" name="category">
+                                    <option value="출장">출장</option>
+                                    <option value="퇴사">퇴사</option>
+                                    <option value="휴가/연차/반차">휴가/연차/반차</option>
+                                    <option value="명함">명함</option>
+                                </select>
+                            </td>
+                            <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc;height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                <b style="color: rgb(255, 0, 0);">*</b>출장지
+                            </td>
+                            <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                <input type="text" class="textFrom" id="place" name="place" th:value="${trip.place}" readonly >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc;height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                동반 출장자
+                            </td>
+                            <div th:if="${companion != null}">
+                                <td colspan="3" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;" >
+                                    <input type="hidden" class="textFrom" id="companionNO" name="companionNO"  >
+                                    <input type="text" class="textFrom" id="companionName" name="companionName" th:value="${companion.name}" readonly >
+                                    <input type="button" id="search2" value="찾기"/>
+                                </td>
+                            </div>
+                            <div th:if="${companion == null}">
+                                <td colspan="3" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;" >
+                                    <input type="hidden" class="textFrom"  name="companionNO"  >
+                                    <input type="text" class="textFrom" i name="companionName" value=" "  >
+                                    <input type="button"  value="찾기"/>
+                                </td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <td style="width:200px;background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 80px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                <b style="color: rgb(255, 0, 0);">*</b>신청&nbsp;사유
+                            </td>
+                            <td colspan="3" style="padding: 3px; border: 1px solid black; width: 450px; height: 100px; text-align: left; color: rgb(0, 0, 0); font-size: 12px;  vertical-align: top; background: rgb(255, 255, 255);">
+                                        <span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="8" data-dsl="{{textarea:description}}" >
+                                           <textarea style="width: 100%; height: 100%; " id="reason" name="reason" th:text="${trip.reason}" readonly></textarea>
+                                        </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="width:100%; padding: 20px !important; height: 22px; vertical-align: middle;border: 1px solid #bcbcbc; text-align: left; background: rgb(255, 255, 255);">
+                                <br>
+                                <br>
+                                <div style="text-align: center">
+                                    <p th:text="'상기 본인은 위와 같은 사정으로 인하여 '  "></p><p>명함 신청하고자 하오니 결재하여 주시기 바랍니다. </p>
+                                    <br>
+                                    <br>
+                                    <p  style="text-align: center" th:text="${ #temporals.format(trip.createdTime, 'yyyy년 MM월 dd일') }"></p>
+                                    <br>
+                                    <p th:text="'신청인 : ' + ${employee.name}">  </p>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </span>
+                </form>
+        </div>
+    </div>
+        <div id="jb-sidebar">
+            <div >
+                <div class="card mb-8">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar"></i>
+                        상세정보
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div >
+                                <h6>프로필 이미지</h6>
+                                <br>
+                                <div style= "text-align: center; padding: 5px;">
+                                    <img  height="90%" width="70%" th:src="${employee.photo}" readonly />
+                                    <br>
+                                    <br>
+                                </div>
+                                <br>
+                            </div>
+
+                            <div >
+                                <div th:if="${trip.completeDate == null }">
+                                    <p style="color: #0a53be">승인 처리까지 : 50%</p>
+                                    <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 50%"></div>
+                                    </div>
+                                </div>
+                                <div th:if="${trip.completeDate} != null and ${trip.returnReason} == null">
+                                    <p style="color: #0a53be">승인 처리 : 100%</p>
+                                    <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                <div th:if="${trip.completeDate != null and trip.returnReason != null}">
+                                    <p style="color: #842029">반려 처리 : 100%</p>
+                                    <div class="progress" role="progressbar" aria-label="Danger striped example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar progress-bar-striped bg-danger" style="width: 100%"></div>
+                                    </div>
+
+                                    <div class="alert alert-danger" role="alert">
+                                        <p th:text="${trip.returnReason}" style="color: #842029; font-style: oblique"></p> 위와 같은 사유로 반려 처리 되었습니다. 다시 결재 서류를 <a href="create" class="alert-link"> 작성</a>하세요.
+                                    </div>
+                                </div>
+                                <div >
+                                    <label class="form-control font-weight-bold" style="border:none;">부서</label>
+                                    <input  class="form-control" th:value="${employee.part.department}" readonly/>
+                                </div>
+                                <div >
+                                    <label class="form-control font-weight-bold" style="border:none;">팀</label>
+                                    <input id="team" class="form-control" th:value="${employee.part.team}" readonly/>
+                                </div>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;">직책</label>
+                                    <input class="form-control" th:value="${employee.position}" readonly/>
+
+                                </div>
+                                <div>
+                                    <label class="form-control font-weight-bold" style="border:none;">이름</label>
+                                    <input  class="form-control" th:value="${employee.name}" readonly/>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+
+                    <div th:if="${#authentication.principal.position == '사원' and trip.completeDate == null}">
+                        <div class="card mb-8">
+                            <input type="submit" class="btn btn-secondary" data-rid="${trip.no}"  onclick="getDelete('/api/payment/businessTrip/delete/')" value="삭제" />
+                        </div>
+                    </div>
+                    <br>
+                    <div th:if="${#authentication.principal.position == '팀장' and trip.completeDate == null}">
+                        <div class="card mb-8">
+                                <input type="submit" class="btn btn-primary"  data-rid="${trip.no}"  onclick="getComplete('/api/payment/trip/complete/')" value="승인" />
+                                <br>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal">
+                                    반려
+                                </button>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title fs-5" id="exampleModalLabel">반려 사유</h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea style="width: 100%; height: 100px; " id="returnReason"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                    <button type="button" class="btn btn-primary" onclick="returnReason('/api/payment/businessTrip/return/')">반려</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            </div>
+        </div>
+    </body>
+</div>
+
+<th:block layout:fragment="script">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script th:src="@{ /js/payment/detail.js }"></script>
+    <script th:src="@{ /js/payment/delete.js }"></script>
+    <script th:src="@{ /js/payment/completeReturn.js }"></script>
+
+</th:block>
+
+</html>

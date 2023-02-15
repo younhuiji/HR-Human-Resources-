@@ -26,6 +26,7 @@ public class OrgReadDto {
     private String email;
 
 
+
     public static OrgReadDto fromEntity(Employee entity){
         return OrgReadDto.builder()
                 .id(entity.getId())

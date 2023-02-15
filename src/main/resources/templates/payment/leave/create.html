@@ -55,7 +55,7 @@
             </div>
             <div id="jb-content">
                 <div id="jb-text">
-                    <form id="form" method="post" action="/leave/create" >
+                    <form id="form" method="post" action="/payment/leave/create" onsubmit="getSubmit()">
                         <table  style="width: 100%; border-collapse: collapse !important; color: black; background: white; border: 0px solid #bcbcbc; font-size: 12px; ">
                             <tbody>
                             <tr>
@@ -120,12 +120,10 @@
                                         <tr>
                                             <td style=" height: 80%; padding: 3px;  vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
                                                 <div  style="text-align: center;">
-                                                    <!--                                                    <img src="/images/dojang.png" style="height: 65px; ">-->
                                                 </div>
                                             </td>
                                             <td style=" height: 80%; padding: 3px;  vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
                                                 <div  style="text-align: center;">
-                                                    <!--                                                        <img src="/images/dojang2..jpg" style="height: 80px; ">-->
                                                 </div>
                                             </td>
                                         </tr>
@@ -157,7 +155,7 @@
                                     <b style="color: rgb(255, 0, 0);">*</b>제목
                                 </td>
                                 <td colspan="3" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                    <input style="width: 100%"  type="text" class="textFrom" id="title" name="title"  placeholder="[000 퇴사 신청]" required autofocus>
+                                    <input style="width: 100%"  type="text" class="textFrom" id="title" name="title"  placeholder="[000팀 000 퇴사 신청]" required autofocus>
                                 </td>
                             </tr>
                             <tr>
@@ -165,13 +163,13 @@
                                     <b style="color: rgb(255, 0, 0);">*</b>부서
                                 </td>
                                 <td id="name" colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                    <input style="width: 100%" type="text" class="textFrom" id="department" name="department" required >
+                                    <input style="width: 100%" type="text" class="textFrom" id="department" name="department"  th:value="${#authentication.principal.part.department}" readonly  required >
                                 </td>
                                 <td colspan="1" style="width:200px; background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
                                     <b style="color: rgb(255, 0, 0);">*</b>직위
                                 </td>
                                 <td id="positionName" colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                    <input style="width: 100%" type="text" class="textFrom" id="position" name="position" required >
+                                    <input style="width: 100%" type="text" class="textFrom" id="position" name="position"  th:value="${#authentication.principal.position}" readonly  required >
                                 </td>
                             </tr>
                             <tr>
@@ -179,13 +177,14 @@
                                     <b style="color: rgb(255, 0, 0);">*</b>이름
                                 </td>
                                 <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                    <input style="width: 100%" type="text" class="textFrom" id="employeeName" name="employeeName" required >
+                                    <input style="width: 100%" type="hidden" class="textFrom" id="employeeNo" name="employeeNo" th:value="${#authentication.principal.employeeNo}" required >
+                                    <input style="width: 100%" type="text" class="textFrom" id="employeeName" name="employeeName"  th:value="${#authentication.principal.name}" readonly  required >
                                 </td>
                                 <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
                                     <b style="color: rgb(255, 0, 0);">*</b>연락처
                                 </td>
                                 <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                    <input style="width: 100%" type="text" class="textFrom" id="phone" name="phone" required >
+                                    <input style="width: 100%" type="text" class="textFrom" id="phone" name="phone"  th:value="${#authentication.principal.phone}" readonly  required >
                                 </td>
                             </tr>
                             <tr>
@@ -193,7 +192,7 @@
                                     <b style="color: rgb(255, 0, 0);">*</b>입사 일자
                                 </td>
                                 <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                    <input type="date" class="textFrom" id="joinDate" name="joinDate" required >
+                                    <input type="date" class="textFrom" id="joinDate" name="joinDate"  th:value="${#authentication.principal.joinedDate}" readonly  required >
                                 </td>
                                 <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
                                     <b style="color: rgb(255, 0, 0);">*</b>시행 일자
@@ -208,14 +207,24 @@
                                     <b style="color: rgb(255, 0, 0);">*</b>결재자 지정
                                 </td>
                                 <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                    <input style="width: 75%" type="text" class="textFrom" id="approverNo" name="approverNo" required >
-                                    <input style="width: 75%" type="hidden" class="textFrom" id="approverName" name="approverName" required >
-                                    <input type="button" value="찾기"/>
+                                    <input style="width: 75%" type="hidden" class="textFrom" id="approverNo" name="approverNo" required >
+                                    <input style="width: 75%" type="text" class="textFrom" id="approverName" name="approverName"  required >
+                                    <input type="button" id="search" value="찾기"/>
                                 </td>
+                                <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc;height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                    <b style="color: rgb(255, 0, 0);">*</b>최종 결재자 지정
+                                </td>
+                                <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                    <input style="width: 75%" type="hidden" class="textFrom" id="secondApproverNo" name="secondApproverNo" required >
+                                    <input style="width: 75%" type="text" class="textFrom" id="secondApproverName" name="secondApproverName"  required >
+                                    <input type="button" id="SecondSearch" value="찾기"/>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
                                     <b style="color: rgb(255, 0, 0);">*</b>보고서 분류
                                 </td>
-                                <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
+                                <td colspan="3" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
                                     <select id="category" name="category">
                                         <option value="퇴사">퇴사</option>
                                         <option value="출장">출장</option>
@@ -229,9 +238,9 @@
                                     <b style="color: rgb(255, 0, 0);">*</b>신청&nbsp;사유
                                 </td>
                                 <td colspan="3" style="padding: 3px; border: 1px solid black; width: 450px; height: 100px; text-align: left; color: rgb(0, 0, 0); font-size: 12px;  vertical-align: top; background: rgb(255, 255, 255);">
-                                                    <span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="8" data-dsl="{{textarea:description}}" >
-                                                           <textarea style="width: 100%; height: 100%; " id="reason" name="reason" required></textarea>
-                                                   </span>
+                                      <span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="8" data-dsl="{{textarea:description}}" >
+                                            <textarea style="width: 100%; height: 100%; " id="reason" name="reason" required></textarea>
+                                      </span>
                                 </td>
                             </tr>
                             <tr>
@@ -250,19 +259,47 @@
                             </tr>
                             </tbody>
                         </table>
-                        <div style="float: right;  width: 150px; display: inline-block;" >
-                            <input type="submit" class="btn btn-secondary" id="insertButton" value="요청" />
-                            <input type="submit" class="btn btn-dark"   id="btnCancel" value="취소" />
-                        </div>
-                        </span>
-                    </form>
+                        <div style="text-align:right;  width: 100%; display: inline-block;" >
+                                <input type="submit" class="btn btn-secondary" id="insertButton" value="요청" />
+                                <input type="submit" class="btn btn-dark"   id="btnCancel" value="취소" />
+                            </div>
+                            </span>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
+        </body>
     </div>
 
     <th:block layout:fragment="script">
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script th:src="@{ /js/payment/create.js }"></script>
+        <script>
+            const search = document.querySelector('#search');
+            search.addEventListener('click', function(){
+                let _left = Math.ceil(( window.screen.width - 900 )/2);
+                let _top = Math.ceil(( window.screen.height - 600 )/2)
+                window.open(
+                    "/payment/approver?number=1" ,
+                    "PopupNew",
+                    "width=900,height=600,left="+_left+",top="+_top);
+            })
+
+            const SecondSearch = document.querySelector('#SecondSearch');
+            SecondSearch.addEventListener('click', function(){
+                let _left = Math.ceil(( window.screen.width - 900 )/2);
+                let _top = Math.ceil(( window.screen.height - 600 )/2)
+                window.open(
+                    "/payment/approver?number=3" ,
+                    "PopupNew",
+                    "width=900,height=600,left="+_left+",top="+_top);
+            })
+
+            function getSubmit(){
+                alert( '신청이 완료되었습니다.');
+            }
+
+        </script>
     </th:block>
 
 </html>

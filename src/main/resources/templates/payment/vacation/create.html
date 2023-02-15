@@ -56,7 +56,7 @@
             </div>
             <div id="jb-content">
                 <div id="jb-text">
-                    <form id="form" method="post" action="/vacation/create" >
+                    <form id="formB" method="post" action="/payment/vacation/create" onsubmit="getSubmit()" >
                         <table style="width: 100%; border-collapse: collapse !important; color: black; background: white; border: 0px solid #bcbcbc; font-size: 12px; font-family: malgun gothic,dotum,arial,tahoma;">
                             <tbody>
                                 <tr>
@@ -118,7 +118,6 @@
                                             <tr>
                                                 <td style=" height: 80%; padding: 3px;  vertical-align: middle; border: 1px solid #bcbcbc; text-align: left;">
                                                     <div  style="text-align: center;">
-    <!--                                                    <img src="/images/dojang.png" style="height: 65px; ">-->
                                                     </div>
                                                 </td>
                                             </tr>
@@ -147,7 +146,7 @@
                                                    <b style="color: rgb(255, 0, 0);">*</b>제목
                                              </td>
                                              <td colspan="3" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                 <input style="width: 100%"  type="text" class="textFrom" id="title" name="title"  placeholder="[000 휴가 신청]" required autofocus>
+                                                 <input style="width: 100%"  type="text" class="textFrom" id="title" name="title"  placeholder="[000팀 000 휴가 신청]" required autofocus>
                                              </td>
                                          </tr>
                                          <tr>
@@ -155,13 +154,13 @@
                                                  <b style="color: rgb(255, 0, 0);">*</b>부서
                                              </td>
                                              <td id="name" colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                 <input style="width: 100%" type="text" class="textFrom" id="department" name="department" required >
+                                                 <input style="width: 100%" type="text" class="textFrom" id="department" name="department" th:value="${#authentication.principal.part.department}" readonly required >
                                              </td>
                                              <td colspan="1" style="width:200px; background: rgb(221, 221, 221); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
                                                   <b style="color: rgb(255, 0, 0);">*</b>직위
                                              </td>
                                              <td id="positionName" colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                  <input style="width: 100%" type="text" class="textFrom" id="position" name="position" required >
+                                                  <input style="width: 100%" type="text" class="textFrom" id="position" name="position" th:value="${#authentication.principal.position}" readonly required >
                                              </td>
                                          </tr>
                                          <tr>
@@ -169,15 +168,16 @@
                                                    <b style="color: rgb(255, 0, 0);">*</b>이름
                                              </td>
                                              <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                  <input style="width: 100%" type="text" class="textFrom" id="employeeName" name="employeeName" required >
+                                                  <input style="width: 100%" type="text" class="textFrom" id="employeeName" name="employeeName" th:value="${#authentication.principal.name}" readonly required >
+                                                  <input style="width: 100%" type="hidden" class="textFrom" id="employeeNo" name="employeeNo" th:value="${#authentication.principal.employeeNo}" required >
                                              </td>
                                              <td style="width:200px;background: rgb(221, 221, 221); padding: 5px;border: 1px solid #bcbcbc;height: 25px; text-align: center; color: rgb(0, 0, 0); font-size: 14px; font-weight: bold; vertical-align: middle;">
                                                   <b style="color: rgb(255, 0, 0);">*</b>결재자 지정
                                              </td>
                                              <td colspan="1" style="background: rgb(255, 255, 255); padding: 5px; border: 1px solid #bcbcbc; height: 25px; text-align: left; color: rgb(0, 0, 0); font-size: 14px; font-weight: normal; vertical-align: middle;">
-                                                 <input style="width: 75%" type="text" class="textFrom" id="approverNo" name="approverNo" required >
-                                                 <input style="width: 75%" type="hidden" class="textFrom" id="approverName" name="approverName" required >
-                                                 <input type="button" value="찾기"/>
+                                                 <input style="width: 75%" type="hidden" class="textFrom" id="approverNo" name="approverNo" required >
+                                                 <input style="width: 75%" type="text" class="textFrom" id="approverName" name="approverName" required >
+                                                 <input type="button" id="search" value="찾기"/>
                                              </td>
                                          </tr>
                                          <tr>
@@ -219,7 +219,7 @@
                                                   <br>
                                                   <br>
                                                   <div style="text-align: center">
-                                                        <p 상기 본인은 위와 같은 사정으로 인하여 ></p><p>휴가 신청하고자 하오니 결재하여 주시기 바랍니다. </p>
+                                                        <p  >상기 본인은 위와 같은 사정으로 인하여</p><p>휴가 신청하고자 하오니 결재하여 주시기 바랍니다. </p>
                                                         <br>
                                                         <br>
                                                         <p  style="text-align: center"></p>
@@ -231,7 +231,7 @@
                                 </tbody>
                             </table>
                         </span>
-                        <div style="float: right;  width: 150px; display: inline-block;" >
+                        <div style="text-align:right;  width: 100%; display: inline-block;" >
                             <input type="submit" class="btn btn-secondary" id="insertButton" value="요청" />
                             <input type="submit" class="btn btn-dark"   id="btnCancel" value="취소" />
                         </div>
@@ -248,6 +248,21 @@
 <th:block layout:fragment="script">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script th:src="@{ /js/payment/create.js }"></script>
+    <script>
+        const search = document.querySelector('#search');
+        search.addEventListener('click', function(){
+            let _left = Math.ceil(( window.screen.width - 900 )/2);
+            let _top = Math.ceil(( window.screen.height - 600 )/2)
+            window.open(
+                "/payment/approver?number=1" ,
+                "PopupNew",
+                "width=900,height=600,left="+_left+",top="+_top);
+        })
+
+        function getSubmit(){
+            alert( '신청이 완료되었습니다.');
+        }
+    </script>
 </th:block>
 
 </html>

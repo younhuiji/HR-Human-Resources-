@@ -18,7 +18,6 @@ window.addEventListener('DOMContentLoaded', event =>{
 
     function updateDetailInfo(member) {
         console.log(member);
-        userImage.src = member[0].photo;
         team.value = member[0].team;
         name.value = member[0].name;
         level.value = member[0].position;
@@ -26,6 +25,7 @@ window.addEventListener('DOMContentLoaded', event =>{
         department.value = member[0].department;
         phone.value = member[0].phone;
         work.value = member[0].work;
+        userImage.src = member[0].photo;
 
     }
 

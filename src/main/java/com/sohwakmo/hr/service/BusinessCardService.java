@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -45,6 +48,44 @@ public class BusinessCardService {
         return businessCardRepository.findByEmployeeNoAndState(no, state);
     }
 
+    public List<BusinessCard> selectByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2){
+        return businessCardRepository.findByEmployeeNoAndStateOrState(no, state, state2);
+    }
+
+    public List<BusinessCard> selectByApproverNoAndState(String no, PaymentState state){
+        return businessCardRepository.findByApproverNoAndState(no, state);
+    }
+
+    public List<BusinessCard> selectByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2){
+        return businessCardRepository.findByApproverNoAndStateOrState(no, state, state2);
+    }
+
+    @Transactional
+    public Integer update(Integer no){
+
+        BusinessCard entity = businessCardRepository.selectByNo(no);
+        entity.setState(Collections.singleton(PaymentState.승인));
+        entity.add(LocalDateTime.now());
+
+        return no;
+    }
+
+    @Transactional
+    public Integer delete(Integer no){
+        businessCardRepository.deleteById(no);
+        return no;
+    }
+
+    @Transactional
+    public Integer updateReturn(Integer no, String returnReason){
+
+        BusinessCard entity = businessCardRepository.selectByNo(no);
+        entity.setState(Collections.singleton(PaymentState.반려));
+        entity.add(LocalDateTime.now()); // 반려 시간
+        entity.returnReason(returnReason); // 반려 사유
+
+        return no;
+    }
     public List<BusinessCard> getBusinessCardSeven(String employeeNo) {
         List<BusinessCard> allList = businessCardRepository.findByEmployeeNoOrderByNoDesc(employeeNo);
         if (allList.size() <=7) {

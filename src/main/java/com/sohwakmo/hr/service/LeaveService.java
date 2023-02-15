@@ -2,6 +2,7 @@ package com.sohwakmo.hr.service;
 
 import com.sohwakmo.hr.domain.Leave;
 import com.sohwakmo.hr.domain.PaymentState;
+import com.sohwakmo.hr.domain.Vacation;
 import com.sohwakmo.hr.repository.LeaveRepository;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +53,6 @@ public class LeaveService {
     public Integer update2(Integer no){
 
         Leave entity = leaveRepository.selectByNo(no);
-        boolean true1 = true;
         entity.setState(Collections.singleton(PaymentState.승인)); // 2차 승인자
         entity.add(LocalDateTime.now()); // 2차 승인 시간
 
@@ -71,8 +71,26 @@ public class LeaveService {
         return no;
     }
 
+    public List<Leave> selectByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2){
+        return leaveRepository.findByEmployeeNoAndStateOrState(no, state, state2);
+    }
+
     public List<Leave> selectByEmployeeNoAndState(String no, PaymentState state){
         return leaveRepository.findByEmployeeNoAndState(no, state);
+    }
+
+    public List<Leave> selectByApproverNoOrSecondApproverNoAndStateOrState(String no, String no2, PaymentState state, PaymentState state2){
+        return leaveRepository.findByApproverNoOrSecondApproverNoAndStateOrState(no, no2, state, state2);
+    }
+
+    public List<Leave> selectByApproverNoOrSecondNoAndState(String no, String no2, PaymentState state){
+        return leaveRepository.findByApproverNoOrSecondApproverNoAndState(no, no2, state);
+    }
+
+    @Transactional
+    public Integer delete(Integer no){
+        leaveRepository.deleteById(no);
+        return no;
     }
 
 }

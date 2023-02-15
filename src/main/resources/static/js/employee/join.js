@@ -7,10 +7,25 @@ window.addEventListener('DOMContentLoaded', function (){
         let employeeNoValue = employeeNo.value;
         const employeeNoLength = employeeNoValue.length;
         const employeeNo_length_errorMsg = document.querySelector('#employeeNo_length_errorMsg');
+        const employeeNo_checkString = document.querySelector('#employeeNo_checkString');
+        const employeeNoOkMsg = document.getElementById('employeeNoOk');
+        const employeeNoNotOkMsg = document.querySelector('#employeeNoNotOk');
+        if (!isNaN(employeeNoValue)) { // 초록색이 떠야함
+            employeeNo_checkString.classList.add('d-none');
+        }else{
+            employeeNo_checkString.classList.remove('d-none');
+            employeeNo_length_errorMsg.classList.add('d-none');
+            employeeNoOkMsg.classList.add('d-none');
+            employeeNoNotOkMsg.classList.add('d-none');
+            inputEmployeeNo.classList.add('error_icon','border_danger');
+            inputEmployeeNo.classList.remove('border_success', 'ok_icon');
+            return;
+        }
         if (employeeNoLength < 8) {
             employeeNo_length_errorMsg.classList.remove('d-none');
-            inputEmployeeNo.classList.add('error_icon','border_danger')
+            inputEmployeeNo.classList.add('error_icon','border_danger');
             inputEmployeeNo.classList.remove('border_success', 'ok_icon');
+            employeeNoNotOkMsg.classList.add('d-none');
             employeeNoOkMsg.className = 'd-none';
         }else{
             axios
