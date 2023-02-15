@@ -324,7 +324,7 @@
                 <br>
                 <br>
 
-                    <div th:if="${#authentication.principal.position == '사원' and trip.completeDate == null}">
+                    <div th:if="${#authentication.principal.employeeNo == trip.employeeNo and trip.completeDate == null}">
                         <div class="card mb-8">
                             <input type="submit" class="btn btn-secondary" data-rid="${trip.no}"  onclick="getDelete('/api/payment/businessTrip/delete/')" value="삭제" />
                         </div>

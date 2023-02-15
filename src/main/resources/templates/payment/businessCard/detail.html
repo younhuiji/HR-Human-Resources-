@@ -302,7 +302,7 @@
                 <br>
                 <br>
 
-                <div th:if="${#authentication.principal.position == '사원' and card.completeDate == null}">
+                <div th:if="${#authentication.principal.employeeNo == card.employeeNo and card.completeDate == null}">
                     <div class="card mb-8">
                         <input type="submit" class="btn btn-secondary" onclick="getDelete('/api/payment/businessCard/delete/')"  value="삭제" />
                     </div>
