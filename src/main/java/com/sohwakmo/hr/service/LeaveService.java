@@ -79,12 +79,12 @@ public class LeaveService {
         return leaveRepository.findByEmployeeNoAndState(no, state);
     }
 
-    public List<Leave> selectByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2){
-        return leaveRepository.findByApproverNoAndStateOrState(no, state, state2);
+    public List<Leave> selectByApproverNoOrSecondApproverNoAndStateOrState(String no, String no2, PaymentState state, PaymentState state2){
+        return leaveRepository.findByApproverNoOrSecondApproverNoAndStateOrState(no, no2, state, state2);
     }
 
-    public List<Leave> selectByApproverNoAndState(String no, PaymentState state){
-        return leaveRepository.findByApproverNoAndState(no, state);
+    public List<Leave> selectByApproverNoOrSecondNoAndState(String no, String no2, PaymentState state){
+        return leaveRepository.findByApproverNoOrSecondApproverNoAndState(no, no2, state);
     }
 
     @Transactional

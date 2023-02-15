@@ -107,10 +107,11 @@
                             <thead>
                             <tr>
                                 <th>번호</th>
+                                <th>카테고리</th>
                                 <th>제목</th>
-                                <th>신청자</th>
-                                <th>작성 시간</th>
+                                <th>시행 날짜</th>
                                 <th>결재 상태</th>
+                                <th>결재 시간</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -118,37 +119,41 @@
                                 <th:block th:if="${l.category} == '명함' ">
                                     <tr th:onclick="|location.href='@{businessCard/detail(no=${l.no})}'|">
                                         <td th:text="${l.no}"></td>
+                                        <td th:text="${l.category}"></td>
                                         <td th:text="${l.title}"></td>
-                                        <td ></td>
-                                        <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
+                                        <td th:text="${l.effectiveDate} + ' - ' +  ${l.expirationDate}"></td>
                                         <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
+                                        <td th:text="${ #temporals.format(l.completeDate, 'yyyy-MM-dd HH:MM') }"></td>
                                     </tr>
                                 </th:block>
-                                <th:block th:if="${l.category} == '연차' ">
+                                <th:block th:if="${l.category} == '연차' or ${l.category} == '오전 반차' or ${l.category} == '오후 반차'  ">
                                     <tr th:onclick="|location.href='@{vacation/detail(no=${l.no})}'|">
                                         <td th:text="${l.no}"></td>
+                                        <td th:text="${l.category}"></td>
                                         <td th:text="${l.title}"></td>
-                                        <td ></td>
-                                        <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
+                                        <td th:text="${l.effectiveDate} + ' - ' +  ${l.expirationDate}"></td>
                                         <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
+                                        <td th:text="${ #temporals.format(l.completeDate, 'yyyy-MM-dd HH:MM') }"></td>
                                     </tr>
                                 </th:block>
                                 <th:block th:if="${l.category} == '출장' ">
                                     <tr th:onclick="|location.href='@{businessTrip/detail(no=${l.no})}'|">
                                         <td th:text="${l.no}"></td>
+                                        <td th:text="${l.category}"></td>
                                         <td th:text="${l.title}"></td>
-                                        <td ></td>
-                                        <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
+                                        <td th:text="${l.effectiveDate} + ' - ' +  ${l.expirationDate}"></td>
                                         <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
+                                        <td th:text="${ #temporals.format(l.completeDate, 'yyyy-MM-dd HH:MM') }"></td>
                                     </tr>
                                 </th:block>
                                 <th:block th:if="${l.category} == '퇴사' ">
                                     <tr th:onclick="|location.href='@{leave/detail(no=${l.no})}'|">
                                         <td th:text="${l.no}"></td>
+                                        <td th:text="${l.category}"></td>
                                         <td th:text="${l.title}"></td>
-                                        <td ></td>
-                                        <td th:text="${ #temporals.format(l.createdTime, 'yyyy년 MM월 dd일') }"></td>
+                                        <td th:text="${l.effectiveDate} "></td>
                                         <td th:text="${l.state}" style="color: #0a53be; font-weight: bold;"></td>
+                                        <td th:text="${ #temporals.format(l.completeDate, 'yyyy-MM-dd HH:MM') }"></td>
                                     </tr>
                                 </th:block>
                             </th:block>

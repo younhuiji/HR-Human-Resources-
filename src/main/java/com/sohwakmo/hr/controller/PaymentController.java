@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 @Slf4j
@@ -31,31 +32,27 @@ public class PaymentController {
 
     // 기안 문서 list
     @GetMapping("/list")
-    public void list(Model model, @RequestParam(defaultValue = "vacation")String payment) {
+    public void list(Model model, @RequestParam(defaultValue = "vacation")String payment, Principal principal) {
 
+        String employeeNo = principal.getName();
 
-        // TODO: 임원 테이블 연결 시에 수정하기
-        String no = "1";
-
-        if(payment.equals("vacation")){
-            List<Vacation> list = vacationService.selectByEmployeeNo(no);
-            log.info("연차={}",list);
-            model.addAttribute("list", list);
-            model.addAttribute("vacation", "vacation");
-        } else if(payment.equals("trip")) {
-            List<BusinessTrip> list = businessTripService.selectByEmployeeNo(no);
-            log.info(list.toString());
-            model.addAttribute("list", list);
-            model.addAttribute("trip", "trip");
-        } else if(payment.equals("leave")) {
-            List<Leave> list = leaveService.selectByEmployeeNO(no);
-            model.addAttribute("list", list);
-            model.addAttribute("leave", "leave");
-        } else {
-            List<BusinessCard> list = businessCardService.selectByEmployeeNo(no);
-            model.addAttribute("list", list);
-            model.addAttribute("card", "card");
-            log.info("명함 = {}", list);
+        switch (payment) {
+            case "vacation" -> {
+                model.addAttribute("list", vacationService.getVacationListSeven(employeeNo));
+                model.addAttribute("vacation", "vacation");
+            }
+            case "trip" -> {
+                model.addAttribute("list", businessTripService.getBusinessTripSeven(employeeNo));
+                model.addAttribute("trip", "trip");
+            }
+            case "leave" -> {
+                model.addAttribute("list", leaveService.selectByEmployeeNO(employeeNo));
+                model.addAttribute("leave", "leave");
+            }
+            default -> {
+                model.addAttribute("list",  businessCardService.getBusinessCardSeven(employeeNo));
+                model.addAttribute("card", "card");
+            }
         }
 
     }
@@ -67,25 +64,25 @@ public class PaymentController {
 
     // 결재 대기 list
     @GetMapping("/process")
-    public void process(Model model, @RequestParam(defaultValue = "vacation")String payment) {
+    public void process(Model model, @RequestParam(defaultValue = "vacation")String payment, Principal principal) {
 
-        String no = "11111111";
+        String employeeNo = principal.getName();
         PaymentState state = PaymentState.진행중;
 
         if(payment.equals("vacation")){
-            List<Vacation> list = vacationService.selectByEmployeeNoAndState(no, state);
+            List<Vacation> list = vacationService.selectByEmployeeNoAndState(employeeNo, state);
             model.addAttribute("list", list);
             model.addAttribute("vacation", "vacation");
         } else if(payment.equals("trip")) {
-            List<BusinessTrip> list = businessTripService.selectByEmployeeNoAndState(no, state);
+            List<BusinessTrip> list = businessTripService.selectByEmployeeNoAndState(employeeNo, state);
             model.addAttribute("list", list);
             model.addAttribute("trip", "trip");
         } else if(payment.equals("leave")) {
-            List<Leave> list = leaveService.selectByEmployeeNoAndState(no, state);
+            List<Leave> list = leaveService.selectByEmployeeNoAndState(employeeNo, state);
             model.addAttribute("list", list);
             model.addAttribute("leave", "leave");
         } else {
-            List<BusinessCard> list = businessCardService.selectByEmployeeNoAndState(no, state);
+            List<BusinessCard> list = businessCardService.selectByEmployeeNoAndState(employeeNo, state);
             model.addAttribute("list", list);
             model.addAttribute("card", "card");
         }
@@ -94,28 +91,28 @@ public class PaymentController {
 
     // 결재 완료 list
     @GetMapping("/complete")
-    public void complete(Model model, @RequestParam(defaultValue = "vacation")String payment) {
+    public void complete(Model model, @RequestParam(defaultValue = "vacation")String payment, Principal principal) {
 
-        String no = "1";
+        String employeeNo = principal.getName();
         PaymentState state = PaymentState.승인;
         PaymentState state2 = PaymentState.반려;
 
         if(payment.equals("vacation")){
-            List<Vacation> list = vacationService.selectByEmployeeNoAndStateOrState(no, state, state2);
+            List<Vacation> list = vacationService.selectByEmployeeNoAndStateOrState(employeeNo, state, state2);
             log.info(list.toString());
             model.addAttribute("list", list);
             model.addAttribute("vacation", "vacation");
         } else if(payment.equals("trip")) {
-            List<BusinessTrip> list = businessTripService.selectByEmployeeNoAndStateOrState(no, state, state2);
+            List<BusinessTrip> list = businessTripService.selectByEmployeeNoAndStateOrState(employeeNo, state, state2);
             log.info(list.toString());
             model.addAttribute("list", list);
             model.addAttribute("trip", "trip");
         } else if(payment.equals("leave")) {
-            List<Leave> list = leaveService.selectByEmployeeNoAndStateOrState(no, state, state2);
+            List<Leave> list = leaveService.selectByEmployeeNoAndStateOrState(employeeNo, state, state2);
             model.addAttribute("list", list);
             model.addAttribute("leave", "leave");
         } else {
-            List<BusinessCard> list = businessCardService.selectByEmployeeNoAndStateOrState(no, state, state2);
+            List<BusinessCard> list = businessCardService.selectByEmployeeNoAndStateOrState(employeeNo, state, state2);
             model.addAttribute("list", list);
             model.addAttribute("card", "card");
         }
@@ -173,10 +170,8 @@ public class PaymentController {
     @PostMapping("/businessTrip/create")
     public void createPostTrip(BusinessTripCreateDto dto){
 
-        String no = "1";
-
         BusinessTrip businessTrip = BusinessTrip.builder()
-                .employeeNo(no).title(dto.getTitle()).reason(dto.getReason()).approverNo(dto.getApproverNo())
+                .employeeNo(dto.getEmployeeNo()).title(dto.getTitle()).reason(dto.getReason()).approverNo(dto.getApproverNo())
                 .category(dto.getCategory()).effectiveDate(dto.getEffectiveDate()).expirationDate(dto.getExpirationDate())
                 .place(dto.getPlace()).companionNO(dto.getCompanionNo()).build();
 
@@ -226,11 +221,8 @@ public class PaymentController {
     @PostMapping ("/businessCard/create")
     public void createPostCard(BusinessCardCreateDto dto){
 
-        // TODO: employee에서 시행자 이름, 사번, 결재자 사번, 직급, 직책 가져오기
-        String no = "1";
-
         BusinessCard businessCard = BusinessCard.builder()
-                .employeeNo(no).title(dto.getTitle()).reason(dto.getReason()).approverNo(dto.getApproverNo())
+                .employeeNo(dto.getEmployeeNo()).title(dto.getTitle()).reason(dto.getReason()).approverNo(dto.getApproverNo())
                 .category(dto.getCategory()).build();
 
         BusinessCard businessCards = businessCardService.create(businessCard);
@@ -257,23 +249,15 @@ public class PaymentController {
     // ----------- leave -------------
     // 퇴사(leave) create
     @GetMapping("/leave/create")
-    public void createGetLeave(Model model){
-
-        // TODO: 임원 테이블 연결 시에 수정하기
-        String no = "1";
-        List<Leave> leave = leaveService.selectByEmployeeNO(no);
-        model.addAttribute("leave", leave);
-
+    public void createGetLeave(){
     }
 
     // 퇴사(leave) create
     @PostMapping("/leave/create")
     public void createPostLeave(LeaveCreateDto dto){
 
-        String no = "1";
-
         Leave leave = Leave.builder()
-                .employeeNo(no).approverNo(dto.getApproverNo()).secondApproverNo(dto.getSecondApproverNo())
+                .employeeNo(dto.getEmployeeNo()).approverNo(dto.getApproverNo()).secondApproverNo(dto.getSecondApproverNo())
                 .title(dto.getTitle()).reason(dto.getReason()).category(dto.getCategory())
                 .effectiveDate(dto.getEffectiveDate())
                 .build();
@@ -300,52 +284,55 @@ public class PaymentController {
     }
 
     @GetMapping("/request")
-    public void request(Model model, @RequestParam(defaultValue = "vacation")String payment){
+    public void request(Model model, @RequestParam(defaultValue = "vacation")String payment, Principal principal){
 
-        String no = "1";
+        String employeeNo = principal.getName();
         PaymentState state = PaymentState.진행중;
 
         if(payment.equals("vacation")){
-            List<Vacation> list = vacationService.selectByApproverNoAndState(no, state);
+            List<Vacation> list = vacationService.selectByApproverNoAndState(employeeNo, state);
+            log.info("요청 리스트={}", list);
             model.addAttribute("list", list);
             model.addAttribute("vacation", "vacation");
         } else if(payment.equals("trip")) {
-            List<BusinessTrip> list = businessTripService.selectByApproverNoAndState(no, state);
+            List<BusinessTrip> list = businessTripService.selectByApproverNoAndState(employeeNo, state);
             model.addAttribute("list", list);
             model.addAttribute("trip", "trip");
         } else if(payment.equals("leave")) {
-            List<Leave> list = leaveService.selectByApproverNoAndState(no, state);
+            List<Leave> list = leaveService.selectByApproverNoOrSecondNoAndState(employeeNo,employeeNo, state);
+            log.info("요청 리스트={}", list);
             model.addAttribute("list", list);
             model.addAttribute("leave", "leave");
         } else {
-            List<BusinessCard> list = businessCardService.selectByApproverNoAndState(no, state);
+            List<BusinessCard> list = businessCardService.selectByApproverNoAndState(employeeNo, state);
             model.addAttribute("list", list);
             model.addAttribute("card", "card");
         }
     }
 
     @GetMapping("/response")
-    public void response(Model model, @RequestParam(defaultValue = "vacation")String payment){
-        String no = "1";
+    public void response(Model model, @RequestParam(defaultValue = "vacation")String payment,  Principal principal){
+
+        String employeeNo = principal.getName();
         PaymentState state = PaymentState.승인;
         PaymentState state2 = PaymentState.반려;
 
         if(payment.equals("vacation")){
-            List<Vacation> list = vacationService.selectByApproverNoAndStateOrState(no, state, state2);
+            List<Vacation> list = vacationService.selectByApproverNoAndStateOrState(employeeNo, state, state2);
             log.info(list.toString());
             model.addAttribute("list", list);
             model.addAttribute("vacation", "vacation");
         } else if(payment.equals("trip")) {
-            List<BusinessTrip> list = businessTripService.selectByApproverNoAndStateOrState(no, state, state2);
+            List<BusinessTrip> list = businessTripService.selectByApproverNoAndStateOrState(employeeNo, state, state2);
             log.info(list.toString());
             model.addAttribute("list", list);
             model.addAttribute("trip", "trip");
         } else if(payment.equals("leave")) {
-            List<Leave> list = leaveService.selectByApproverNoAndStateOrState(no, state, state2);
+            List<Leave> list = leaveService.selectByApproverNoOrSecondApproverNoAndStateOrState(employeeNo, employeeNo, state, state2);
             model.addAttribute("list", list);
             model.addAttribute("leave", "leave");
         } else {
-            List<BusinessCard> list = businessCardService.selectByApproverNoAndStateOrState(no, state, state2);
+            List<BusinessCard> list = businessCardService.selectByApproverNoAndStateOrState(employeeNo, state, state2);
             model.addAttribute("list", list);
             model.addAttribute("card", "card");
         }

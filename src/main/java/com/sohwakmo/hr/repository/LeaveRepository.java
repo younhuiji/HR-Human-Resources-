@@ -25,6 +25,6 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer> {
 
     List<Leave> findByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2);
     List<Leave> findByEmployeeNoAndState(String no, PaymentState state);
-    List<Leave> findByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2);
-    List<Leave> findByApproverNoAndState(String no, PaymentState state);
+    List<Leave> findByApproverNoOrSecondApproverNoAndStateOrState(String no, String no2, PaymentState state, PaymentState state2);
+    List<Leave> findByApproverNoOrSecondApproverNoAndState(String no, String no2, PaymentState state);
 }
