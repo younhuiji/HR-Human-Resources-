@@ -52,13 +52,13 @@ let mapTemp = new Map([
 ]);
 
 // 회의실 체크박스
-
 function getCheckboxValue(event)  {
     let results = '';
     if(event.target.checked)  {
         results = event.target.value;
     }
     console.log('회의실 : ' + results)
+
 }
 
 function end(e) {
@@ -143,7 +143,7 @@ $td.on('mousedown', function(e) {
     if(e.target.style.background == 'green'){
         alert('예약된 회의실입니다.');
         return;
-    } else{
+    } else {
         dragging= true;
         startCell= e.target;
     }
@@ -167,23 +167,6 @@ $td.on('mouseup', function(e) {
 
 });
 
-
-// 버튼 클릭시 Row 값 가져오기
-$(".checkBtn").click(function(e){
-
-    var str = ""
-    var tdArr = new Array();	// 배열 선언
-    var checkBtn = $(this);
-
-    var tr = checkBtn.parent().parent();
-
-    var td = tr.children();
-
-    // console.log('클릭한 데이터 가져오기'+ button.value);
-    // console.log('날짜 가져오기'+myid1.value)
-
-});
-
 // 오늘 이후로 시간 예약하지 못하게
 var now_utc = Date.now()
 var timeOff = new Date().getTimezoneOffset()*60000;
@@ -197,7 +180,6 @@ window.onload = function() {
     today = today.toISOString().slice(0, 10);
     bir = document.getElementById("reserveDate");
     bir.value = today;
-    // myid1.innerHTML = today;
 }
 
 
@@ -262,8 +244,9 @@ btnRegisterRoom.addEventListener('click', function () {
     let start = 0
     let end = 0
     let day = document.querySelector('#reserveDate').value;
-    let room =  0
+    let room = 0;
     let roomPlace = 0
+
 
     if (dragSelectIds.length > 0) {
         start = mapTemp.get(dragSelectIds[0])+8 + ":00";
@@ -278,6 +261,14 @@ btnRegisterRoom.addEventListener('click', function () {
         if (document.getElementsByName("rooms")[i].checked == true) {
             room = document.getElementsByName("rooms")[i].value;
         }
+    }
+
+    if (room === 0) {
+        alert('회의실을 선택해주세요.')
+        return;
+    } else if (start === 0) {
+        alert('시간을 선택해주세요.')
+        return;
     }
 
     // 회의실 위치 넘기기

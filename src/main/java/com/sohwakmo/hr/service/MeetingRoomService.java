@@ -23,28 +23,13 @@ public class MeetingRoomService {
 
     private final MeetingRoomRepository meetingRoomRepository;
 
-    private final EmployeeRepository employeeRepository;
-
     public List<MeetingRoom> read(String employeeNo) {
         log.info("read()", employeeNo);
 
         List<MeetingRoom> list = meetingRoomRepository.findByEmployeeNoOrderByMeetingRoomNoDesc(employeeNo);
 
         return list;
-
-//        return meetingRoomRepository.findByMeetingRoomNoOrderByEmployeeNo(employeeNo);
     }
-
-//    @Transactional(readOnly = true)
-//    public List<MeetingRoom> myRead(String employeeNo) {
-//        log.info("myRead(employeeNo={})", employeeNo);
-//
-//        List<MeetingRoom> list = meetingRoomRepository.findByEmployeeNoOrderByMeetingRoomNoDesc(employeeNo);
-//        log.info("list = {}", list);
-//
-//        return list;
-//    }
-
 
 
 
