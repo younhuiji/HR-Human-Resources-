@@ -24,7 +24,6 @@ public class OrgReadDto {
     private String work;
     private String position;
     private String email;
-    private String employeeNo;
 
 
     public static OrgReadDto fromEntity(Employee entity){
