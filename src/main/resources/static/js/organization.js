@@ -17,15 +17,16 @@ window.addEventListener('DOMContentLoaded', event =>{
     const userImage = document.querySelector('#userImage');
 
     function updateDetailInfo(member) {
+        //여기 순서 바꾸지 마세요!!
         console.log(member);
         userImage.src = member[0].photo;
         team.value = member[0].team;
         name.value = member[0].name;
         level.value = member[0].position;
-        employeeNo.value = member[0].employeeNo;
         department.value = member[0].department;
         phone.value = member[0].phone;
         work.value = member[0].work;
+        employeeNo.value = member[0].employeeNo;
 
     }
 
