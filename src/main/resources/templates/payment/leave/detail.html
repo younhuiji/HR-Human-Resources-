@@ -336,13 +336,13 @@
             <br>
             <br>
 
-            <div th:if="${#authentication.principal.position == '사원' and leave.completeDate == null}">
+            <div th:if="${#authentication.principal.employeeNo == leave.employeeNo and leave.completeDate == null}">
                 <div class="card mb-8">
                     <input type="submit" class="btn btn-secondary"  onclick="getDelete('/api/payment/leave/delete/')"  value="삭제" />
                 </div>
             </div>
             <br>
-           <div th:if="${(#authentication.principal.position == '팀장' or #authentication.principal.position =='과장') and leave.completeDate == null}">
+           <div th:if="${(#authentication.principal.position == '팀장' or #authentication.principal.position =='차장') and leave.completeDate == null}">
                     <div th:if="${#authentication.principal.employeeNo == leave.secondApproverNo }">
                         <div class="card mb-8">
                             <input type="submit" class="btn btn-primary"   onclick="getComplete('/api/payment/leave/complete/')" value="승인" />
