@@ -1,6 +1,6 @@
 function getDelete(str) {
     const no = document.querySelector('#number').value;
-    alert(no);
+
     const result = confirm('삭제 하시겠습니까?');
 
     if(result) {
