@@ -15,7 +15,7 @@
             .put(str + no, data)
             .then(response => {
                     alert('반려 처리가 완료되었습니다.');
-                    location.href = 'http://localhost:8889/payment/list';
+                    location.href = '/payment/list';
             })
             .catch(err => {
                 console.log(err);
