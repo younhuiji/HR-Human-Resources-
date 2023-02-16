@@ -10,6 +10,10 @@
 #logoText{
     margin-top: 8%;
 }
+#logoText a{
+    text-decoration: none;
+    color: black;
+}
 #employee_pw{
     background: white;
     width: 100%;
