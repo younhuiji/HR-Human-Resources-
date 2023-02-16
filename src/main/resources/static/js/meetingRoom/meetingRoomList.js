@@ -2,7 +2,7 @@ let listTable = document.querySelector('#listTable');
 createTable();
 
 function createTable(){
-    let tbl= "<table id='meetingTable'>";
+    let tbl= "<table id='meetingTable' >";
 
     for (let i = 1; i <= 10; i++) {
         tbl+= "<tr>";
@@ -187,6 +187,8 @@ window.onload = function() {
 function input() {
     const dday = document.querySelector('#reserveDate').value;
     console.log(dday)
+    const tableView = document.querySelector('#tableView');
+    tableView.style = "width: 100%; overflow: auto;";
 
     // 데이터를 불러옴
     let allMeetingList = [];
