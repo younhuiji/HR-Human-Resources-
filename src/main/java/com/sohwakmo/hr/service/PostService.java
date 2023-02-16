@@ -92,7 +92,7 @@ public class PostService {
     }
 
     public List<Post> readPostSeven() {
-        List<Post> allList = postRepository.findByOrderByNoticeYnAscPostNoDesc();
+        List<Post> allList = postRepository.findByOrderByNoticeLvAscPostNoDesc();
         if (allList.size() <=7) {
             return allList;
         }else {

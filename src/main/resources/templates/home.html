@@ -291,7 +291,7 @@
                                     </thead>
                                     <tbody>
                                     <tr class="tr" th:each="post: ${postList}" th:onclick="|location.href='@{ /post/detail(postNo=${ post.postNo }) }'|">
-                                        <td th:switch="${ post.noticeYn }" style="font-size: 0.8em;">
+                                        <td th:switch="${ post.noticeLv }" style="font-size: 0.8em;">
                                             <span th:case="4" th:text="${ post.postNo }"></span>
                                             <span th:case="3" style="padding: 2px 4px; border-radius: 2px; border: 1px solid green; color: green;">팀 공지</span>
                                             <span th:case="2" style="padding: 2px 4px; border-radius: 2px; border: 1px solid orange; color: orange;">부서 공지</span>
