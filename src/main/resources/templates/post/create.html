@@ -58,7 +58,8 @@
                     <span id="writerSpan">
                         <div class="input-group mb-3">
                             <span class="input-group-text">작성자</span>
-                            <input id="writerInput" name="writer" type="text" th:value="${#authentication.principal.name} + ' ' + ${#authentication.principal.position}" class="form-control" aria-describedby="basic-addon1" readonly />
+                            <input id="writerInput" name="writer" th:value="${ #authentication.principal.name } + ' ' + ${ #authentication.principal.position }"
+                            type="text" class="form-control" aria-describedby="basic-addon1" readonly />
                         </div>
                     </span>
                 </div>
