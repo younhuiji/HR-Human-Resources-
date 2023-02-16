@@ -62,7 +62,7 @@
                     <input type="button" value="목록" id="btnList" class="btn btn-outline-primary"
                     style="float: left; margin-right: 8px;" th:onclick="|location.href='@{ /post/list }'|">
                 </div>
-                <div> <!-- th:if="${ post.writer }== ${ #authentication.name }" -->
+                <div th:if="${ post.writer }== ${ #authentication.name }">
                     <input type="button" value="수정" id="btnModify" class="btn btn-outline-primary"
                     style="float: left; margin-right: 8px;" th:onclick="|location.href='@{ /post/modify(postNo=${ post.postNo }) }'|">
                     <input type="button" value="삭제" id="btnDelete" class="btn btn-outline-primary">
