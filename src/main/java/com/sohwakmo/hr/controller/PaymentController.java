@@ -98,21 +98,21 @@ public class PaymentController {
         PaymentState state2 = PaymentState.반려;
 
         if(payment.equals("vacation")){
-            List<Vacation> list = vacationService.selectByEmployeeNoAndStateOrState(employeeNo, state, state2);
+            List<Vacation> list = vacationService.selectByEmployeeNoAndStateOrState(employeeNo);
             log.info(list.toString());
             model.addAttribute("list", list);
             model.addAttribute("vacation", "vacation");
         } else if(payment.equals("trip")) {
-            List<BusinessTrip> list = businessTripService.selectByEmployeeNoAndStateOrState(employeeNo, state, state2);
+            List<BusinessTrip> list = businessTripService.selectByEmployeeNoAndStateOrState(employeeNo);
             log.info(list.toString());
             model.addAttribute("list", list);
             model.addAttribute("trip", "trip");
         } else if(payment.equals("leave")) {
-            List<Leave> list = leaveService.selectByEmployeeNoAndStateOrState(employeeNo, state, state2);
+            List<Leave> list = leaveService.selectByEmployeeNoAndStateOrState(employeeNo);
             model.addAttribute("list", list);
             model.addAttribute("leave", "leave");
         } else {
-            List<BusinessCard> list = businessCardService.selectByEmployeeNoAndStateOrState(employeeNo, state, state2);
+            List<BusinessCard> list = businessCardService.selectByEmployeeNoAndStateOrState(employeeNo);
             model.addAttribute("list", list);
             model.addAttribute("card", "card");
         }

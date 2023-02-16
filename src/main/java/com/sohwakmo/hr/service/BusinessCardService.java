@@ -48,8 +48,8 @@ public class BusinessCardService {
         return businessCardRepository.findByEmployeeNoAndState(no, state);
     }
 
-    public List<BusinessCard> selectByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2){
-        return businessCardRepository.findByEmployeeNoAndStateOrState(no, state, state2);
+    public List<BusinessCard> selectByEmployeeNoAndStateOrState(String no){
+        return businessCardRepository.findByEmployeeNoAndStateOrState(no);
     }
 
     public List<BusinessCard> selectByApproverNoAndState(String no, PaymentState state){

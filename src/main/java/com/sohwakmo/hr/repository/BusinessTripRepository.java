@@ -15,7 +15,17 @@ public interface BusinessTripRepository extends JpaRepository<BusinessTrip, Inte
     List<BusinessTrip> findByEmployeeNoOrCompanionNO(String employeeNo, String companionNo);
     List<BusinessTrip> findByEmployeeNoOrderByNoDesc(String employeeNo);
     List<BusinessTrip> findByEmployeeNoAndState(String no, PaymentState state);
-    List<BusinessTrip> findByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2);
+
+    @Query(value =
+            "select * from BUSINESSTRIP b, BUSINESSTRIP_STATE bs "
+                    + " where  b.no = bs.businesstrip_no"
+                    + " and b.employee_no = :no"
+                    + " and (bs.state = '승인' or bs.state = '반려')"
+                    + " order by b.no desc"
+            , nativeQuery = true
+    )
+    List<BusinessTrip> findByEmployeeNoAndStateOrState(@Param(value = "no") String no);
+//    List<BusinessTrip> findByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2);
     List<BusinessTrip> findByApproverNoAndState(String no, PaymentState state);
     List<BusinessTrip> findByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2);
 

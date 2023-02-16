@@ -71,8 +71,8 @@ public class LeaveService {
         return no;
     }
 
-    public List<Leave> selectByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2){
-        return leaveRepository.findByEmployeeNoAndStateOrState(no, state, state2);
+    public List<Leave> selectByEmployeeNoAndStateOrState(String no){
+        return leaveRepository.findByEmployeeNoAndStateOrState(no);
     }
 
     public List<Leave> selectByEmployeeNoAndState(String no, PaymentState state){

@@ -39,8 +39,8 @@ public class BusinessTripService {
         return businessTripRepository.findByEmployeeNoAndState(no, state);
     }
 
-    public List<BusinessTrip> selectByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2){
-        return businessTripRepository.findByEmployeeNoAndStateOrState(no, state, state2);
+    public List<BusinessTrip> selectByEmployeeNoAndStateOrState(String no){
+        return businessTripRepository.findByEmployeeNoAndStateOrState(no);
     }
 
     public List<BusinessTrip> selectByApproverNoAndState(String no, PaymentState state){

@@ -1,9 +1,6 @@
 package com.sohwakmo.hr.repository;
 
-import com.sohwakmo.hr.domain.BusinessCard;
-import com.sohwakmo.hr.domain.BusinessTrip;
-import com.sohwakmo.hr.domain.Leave;
-import com.sohwakmo.hr.domain.PaymentState;
+import com.sohwakmo.hr.domain.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,7 +20,17 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer> {
     @Query("update LEAVE l SET l.state = :state where l.no = :no")
     Leave updateState(@Param(value = "no")Integer no, @Param(value = "state")PaymentState state);
 
-    List<Leave> findByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2);
+
+    @Query(value =
+            "select * from  LEAVE l, LEAVE_STATE ls "
+                    + " where l.no = ls.leave_no"
+                    + " and l.employee_no = :no"
+                    + " and (ls.state = '승인' or ls.state = '반려')"
+                    + " order by l.no desc"
+            , nativeQuery = true
+    )
+    List<Leave> findByEmployeeNoAndStateOrState(@Param(value = "no") String no);
+//    List<Leave> findByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2);
     List<Leave> findByEmployeeNoAndState(String no, PaymentState state);
     List<Leave> findByApproverNoOrSecondApproverNoAndStateOrState(String no, String no2, PaymentState state, PaymentState state2);
     List<Leave> findByApproverNoOrSecondApproverNoAndState(String no, String no2, PaymentState state);

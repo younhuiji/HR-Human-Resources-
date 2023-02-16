@@ -17,8 +17,18 @@ public interface VacationRepository extends JpaRepository<Vacation, Integer> {
     List<Vacation> findByVacationQuestion(@RequestParam("employee_no") String employee_no);
     List<Vacation> findByEmployeeNoOrderByNoDesc(String loginUser);
 
+    @Query(value =
+            "select * from VACATION v, VACATION_STATE vs "
+                    + " where v.no = vs.vacation_no"
+                    + " and v.employee_no = :no"
+                    + " and (vs.state = '승인' or vs.state = '반려')"
+                    + " order by v.no desc"
+            , nativeQuery = true
+    )
+    List<Vacation> findByEmployeeNoAndStateOrState(@Param(value = "no") String no);
+
     // 진행중 and EmployeeNo List
-    List<Vacation> findByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2);
+//    List<Vacation> findByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2);
 
     List<Vacation> findByEmployeeNoAndState(String no, PaymentState state);
 

@@ -23,7 +23,15 @@ public interface BusinessCardRepository extends JpaRepository<BusinessCard, Inte
 
     List<BusinessCard> findByEmployeeNoAndState(String no, PaymentState state);
 
-    List<BusinessCard> findByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2);
+    @Query(value =
+            "select * from BUSINESSCARD b, BUSINESSCARD_STATE bs "
+                    + " where b.no = bs.businesscard_no"
+                    + " and b.employee_no = :no"
+                    + " and (bs.state = '승인' or bs.state = '반려')"
+                    + " order by b.no desc"
+            , nativeQuery = true
+    )
+    List<BusinessCard> findByEmployeeNoAndStateOrState(@Param(value = "no") String no);
 
     List<BusinessCard> findByApproverNoAndState(String no, PaymentState state);
 

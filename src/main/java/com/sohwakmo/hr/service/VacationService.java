@@ -35,8 +35,9 @@ public class VacationService {
         return vacationRepository.save(vacation);
     }
 
-    public List<Vacation> selectByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2){
-        return vacationRepository.findByEmployeeNoAndStateOrState(no, state, state2);
+    public List<Vacation> selectByEmployeeNoAndStateOrState(String no){
+       log.info("회원={}", no);
+        return vacationRepository.findByEmployeeNoAndStateOrState(no);
     }
 
     public List<Vacation> selectByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2){
