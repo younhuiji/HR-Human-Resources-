@@ -9,13 +9,13 @@ window.addEventListener('DOMContentLoaded', event => {
         const select = selectBox.options[selectBox.selectedIndex].value;
 
         if(select == 'leave'){
-            location.href = 'http://localhost:8889/payment/leave/create';
+            location.href = '/payment/leave/create';
         } else if(select == 'vacation'){
-            location.href = 'http://localhost:8889/payment/vacation/create';
+            location.href = '/payment/vacation/create';
         } else if(select == 'card'){
-            location.href = 'http://localhost:8889/payment/businessCard/create';
+            location.href = '/payment/businessCard/create';
         } else if(select == 'trip'){
-            location.href = 'http://localhost:8889/payment/businessTrip/create';
+            location.href = '/payment/businessTrip/create';
         }
     }
 
