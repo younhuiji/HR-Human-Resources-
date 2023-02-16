@@ -9,10 +9,11 @@ public class PostUpdateDto {
     private Integer postNo;
     private String title;
     private String content;
+    private Integer viewCnt;
 
     public Post toEntity() {
         return Post.builder()
-                .postNo(postNo).title(title).content(content)
+                .postNo(postNo).title(title).content(content).viewCnt(viewCnt)
                 .build();
     }
 

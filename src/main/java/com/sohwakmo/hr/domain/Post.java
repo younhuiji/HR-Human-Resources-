@@ -24,6 +24,7 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private String title;
 
+    @Lob
     @Column(length = 1000000000)
     private String content;
 
@@ -34,18 +35,18 @@ public class Post extends BaseTimeEntity {
     private Integer viewCnt;
 
     @ColumnDefault("4")
-    private Integer noticeYn;
+    private Integer noticeLv;
 
     @ColumnDefault("0")
     private Boolean deleteYn;
 
-    public Post update(String title, String content){
+    public Post updatePost(String title, String content){
         this.title= title;
         this.content= content;
         return this;
     }
 
-    public Post viewCount(Integer viewCnt){
+    public Post updateViewCnt(Integer viewCnt){
         this.viewCnt= viewCnt;
         return this;
     }

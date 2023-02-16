@@ -5,7 +5,6 @@
 
 <head>
     <title>HR | 게시판</title>
-    <link rel="stylesheet" th:href="@{/css/post/postList.css}" />
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
     <!-- <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script> -->
 </head>
@@ -23,28 +22,50 @@
         
         <div id="formWrap">
             <form method="post" id="postForm">
+                <input id="postNo" name="postNo" th:value="${ post.postNo }" style="display: none;" />
                 <div>
                     <span id="titleSpan">
-                        <input id="titleInput" th:value="${ post.title }" readonly />
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">제목</span>
+                            <input id="titleInput" th:value="${ post.title }" class="form-control" aria-describedby="basic-addon1" readonly />
+                        </div>
                     </span>
                 </div>
                 
                 <div>
-                    <span id="contentSpan">
-                        <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-                        <div id="viewer"></div>
-                        <textarea id="contentArea" type="text" name="content" th:text="${ post.content }" style="display: none;"></textarea>
+                    <span id="writerSpan">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">작성자</span>
+                            <input id="writerInput" th:value="${ post.writer }" class="form-control" aria-describedby="basic-addon1" readonly />
+                        </div>
                     </span>
                 </div>
 
                 <div>
-                    <span id="writerSpan">
-                        <input id="writerInput" th:value="${ post.writer }" readonly/>
+                    <span id="contentSpan">
+                        <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+                        <div class="form-control mb-3" id="viewer" style="min-height: 400px;"></div>
+                        <textarea id="contentArea" type="text" name="content" th:text="${ post.content }" style="display: none;"></textarea>
                     </span>
                 </div>
-
+                <!--
+                <div>
+                    <span id="viewCntSpan">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">조회수</span>
+                            <input id="viewCntInput" th:value="${ post.viewCnt }" class="form-control" aria-describedby="basic-addon1" readonly />
+                        </div>
+                    </span>
+                </div>
+                -->
+                <div>
+                    <input type="button" value="목록" id="btnList" class="btn btn-outline-primary"
+                    style="float: left; margin-right: 8px;" th:onclick="|location.href='@{ /post/list }'|">
+                </div>
                 <div> <!-- th:if="${ post.writer }== ${ #authentication.name }" -->
-                    <input type="button" value="수정" id="btnModify" th:onclick="|location.href='@{ /post/modify(postNo=${ post.postNo }) }'|">
+                    <input type="button" value="수정" id="btnModify" class="btn btn-outline-primary"
+                    style="float: left; margin-right: 8px;" th:onclick="|location.href='@{ /post/modify(postNo=${ post.postNo }) }'|">
+                    <input type="button" value="삭제" id="btnDelete" class="btn btn-outline-primary">
                 </div>
             </form>
         </div>
@@ -65,9 +86,17 @@
         initialValue: content
     });
 
-    // let elem = document.getElementById('editor-hidden');
-    // viewer.setMarkdown(elem.innerText);
+    const form = document.querySelector('#postForm');
 
+    const btnDelete = document.querySelector('#btnDelete');
+    btnDelete.addEventListener("click", function () {
+        const result = confirm("삭제할까요?");
+        if (result) {
+        form.action = "/post/delete";
+        form.method = "post";
+        form.submit();
+        }
+    });
 </script>
 
 </html>

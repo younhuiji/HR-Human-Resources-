@@ -5,7 +5,7 @@
 
 <head>
   <title>HR | 게시판</title>
-  <link rel="stylesheet" th:href="@{/css/post/postList.css}" />
+  <!-- <link rel="stylesheet" th:href="@{/css/post/postList.css}" /> -->
 </head>
 
 <div layout:fragment="content">
@@ -18,37 +18,172 @@
             </div>
         </div>
         <!--end.bannerSection-->
-
+        
         <table class="table table-hover">
             <thead>
                 <tr class="tr" style="text-align: center;">
-                    <th style="width: 12%;"></th>
-                    <th style="width: 40%;" scope="col">제목</th>
-                    <th style="width: 20%;" scope="col">작성자</th>
-                    <th style="width: 16%;" scope="col">작성일</th>
+                    <th style="width: 14%;"></th>
+                    <th style="width: 42%;" scope="col">제목</th>
+                    <th style="width: 22%;" scope="col">작성자</th>
+                    <th style="width: 22%;" scope="col">작성일</th>
+                    <!--
                     <th style="width: 12%;" scope="col">조회수</th>
+                    -->
                 </tr>
             </thead>
             <tbody>
-                <tr class="tr" th:each="post: ${list}" style="text-align: center; vertical-align: middle;"
-                    th:onclick="|location.href='@{ /post/detail(postNo=${ post.postNo }) }'|">
-                    <td th:switch="${ post.noticeYn }" style="font-size: .8em;">
+                <tr id="post" class="tr" th:each="post: ${list}" style="text-align: center; vertical-align: middle;"
+                    th:onclick="|location.href='@{ /post/detail(postNo= ${ post.postNo }) }'|">
+                    <td th:switch="${ post.noticeLv }" style="font-size: .8em;">
                         <span th:case="4" th:text="${ post.postNo }"></span>
                         <span th:case="3" style="padding: 2px 4px; border-radius: 2px; border: 1px solid green; color: green;">팀 공지</span>
-                        <span th:case="2" style="padding: 2px 4px; border-radius: 2px; border: 1px solid orange; color: orange;">부서 공지</span>
-                        <span th:case="1" style="padding: 2px 4px; border-radius: 2px; border: 1px solid red; color: red;">전체 공지</span>
+                        <span th:case="2" style="padding: 2px 4px; border-radius: 2px; border: 1px solid orange; color: orange">부서 공지</span>
+                        <span th:case="1" style="padding: 2px 4px; border-radius: 2px; border: 1px solid red; color: red">전체 공지</span>
                     </td>
                     <td th:text="${post.title}" style="text-align: left;"></td>
                     <td th:text="${post.writer}"></td>
                     <td th:text="${#temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm') }"></td>
+                    <!--
                     <td th:text="${post.viewCnt}"></td>
+                    -->
                 </tr>
             </tbody>
         </table>
+        
+        <div class="row" style="margin: 30px auto;">
+            <!--postCount-->
+            <div class="col">
+                <p style="font-size: .9em;">총 <span th:text="${row}"></span>개의 게시글</p>
+            </div>
+            
+            <!--search-->
+            <div class="col-6 text-center">
+                <form th:action="@{ /post/search }" method="get"
+                id="searchForm" style="display: inline-block; width: auto;">
+                    <div style="float: left;">
+                        <select name="type" class="form-select">
+                            <option value="tcw" th:selected="${type}== ${'tcw'}">전체 검색</option>
+                            <option value="t" th:selected="${type}== ${'t'}">제목</option>
+                            <option value="c" th:selected="${type}== ${'c'}">내용</option>
+                            <option value="tc" th:selected="${type}== ${'tc'}">제목 + 내용</option>
+                            <option value="w" th:selected="${type}== ${'w'}">작성자</option>
+                        </select>
+                    </div>
+                    <div style="float: left;">
+                        <input type="text" class="form-control" name="keyword" th:value="${keyword}"
+                        style="padding-right: 4em;" placeholder="검색어를 입력해 주세요." required/>
+                    </div>
+                    <div style="float: left;">
+                        <button id="btnSearch" type="submit" class="btn btn-light" style="border: 1px solid #ced4da;">
+                            <span><i class="bi bi-search"></i></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!--btnGroup-->
+            <div class="col">
+                <div id="btnList" style="float: right; margin-left: 8px;">
+                    <a type="button" class="btn btn-outline-primary" th:href="@{/post/list}">전체 목록</a>
+                </div>
+                <div id="btnCreate" style="float: right;">
+                    <a type="button" class="btn btn-outline-primary" th:href="@{/post/create}">글쓰기</a>
+                </div>
+            </div>
+        </div>
+
+        <!--pagination-->
+        <div class="text-center">
+            <nav aria-label="Page navigation example" style="display: inline-block; margin: 30px auto;">
+                <ul class="pagination" th:with="
+                start=(${(list.number/10)*10 + 1}),
+                last=(${ list.totalPages > start + 9 ? start + 9 : list.totalPages})">
+
+                    <th:block th:if="${type}== '' or ${keyword}== ''" th:with="
+                        firstPage=@{/post/list(page=1)},
+                        prevPage=@{/post/list(page=${list.number})},
+                        nextPage=@{/post/list(page=${list.number + 2})},
+                        lastPage=@{/post/list(page=${list.totalPages})}">
+                        <!--첫 페이지-->
+                        <li class="page-item">
+                            <a class="page-link" th:href="${firstPage}" aria-label="First">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <!--이전 페이지-->
+                        <li class="page-item" th:class="${list.first} ? 'disabled'">
+                            <a class="page-link" th:href="${list.first} ? '#' :${prevPage}"
+                            aria-label="Previous">
+                                <span aria-hidden="true">&lsaquo;</span>
+                            </a>
+                        </li>
+                        <!--페이지-->
+                        <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}"
+                            th:class="${page == list.number + 1} ? 'active'">
+                            <a class="page-link" th:text="${page}" th:href="@{/post/list(page=${page})}"></a>
+                        </li>
+                        <!--다음 페이지-->
+                        <li class="page-item" th:class="${list.last} ? 'disabled'">
+                            <a class="page-link" th:href="${list.last} ? '#' : ${nextPage}"
+                            aria-label="Next">
+                                <span aria-hidden="true">&rsaquo;</span>
+                            </a>
+                        </li>
+                        <!--마지막 페이지-->
+                        <li class="page-item">
+                            <a class="page-link" th:href="${lastPage}" aria-label="Last">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </th:block>
+
+                    <th:block th:if="${type}!= '' and ${keyword}!= ''" th:with="
+                        firstPage=@{/post/search(type=${type},keyword=${keyword},page=1)},
+                        prevPage=@{/post/search(type=${type},keyword=${keyword},page=${list.number})},
+                        nextPage=@{/post/search(type=${type},keyword=${keyword},page=${list.number + 2})},
+                        lastPage=@{/post/search(type=${type},keyword=${keyword},page=${list.totalPages})}">
+
+                        <!--첫 페이지-->
+                        <li class="page-item">
+                            <a class="page-link" th:href="${firstPage}" aria-label="First">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <!--이전 페이지-->
+                        <li class="page-item" th:class="${list.first} ? 'disabled'">
+                            <a class="page-link" th:href="${list.first} ? '#' :${prevPage}"
+                            aria-label="Previous">
+                                <span aria-hidden="true">&lsaquo;</span>
+                            </a>
+                        </li>
+                        <!--페이지-->
+                        <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}"
+                            th:class="${page == list.number + 1} ? 'active'">
+                            <a class="page-link" th:text="${page}" th:href="@{/post/search(type=${type},keyword=${keyword},page=${page})}"></a>
+                        </li>
+                        <!--다음 페이지-->
+                        <li class="page-item" th:class="${list.last} ? 'disabled'">
+                            <a class="page-link" th:href="${list.last} ? '#' : ${nextPage}"
+                            aria-label="Next">
+                                <span aria-hidden="true">&rsaquo;</span>
+                            </a>
+                        </li>
+                        <!--마지막 페이지-->
+                        <li class="page-item">
+                            <a class="page-link" th:href="${lastPage}" aria-label="Last">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </th:block>
+                </ul>
+            </nav>
+        </div><!--end.pagination-->
 
     </div>
     <!--end#contentWrap-->
 </div><!--content-->
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script layout:fragment="script" th:inline="javascript">
 
