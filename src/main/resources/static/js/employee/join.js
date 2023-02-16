@@ -296,7 +296,6 @@ window.addEventListener('DOMContentLoaded', function (){
             return;
         }
         let department = document.querySelector('#department');
-        console.log(department.value);
         if(department.value==='부서'||team.value==='팀'||work.value==='담당'){
             alert("소속을 입력해주세요");
             return;
