@@ -48,6 +48,6 @@ public class EmployeeSecurityDto extends User {
         List<GrantedAuthority> authorities = e.getEmployeePosition().stream()
                 .map(x -> new SimpleGrantedAuthority(x.getRole()))
                 .collect(Collectors.toList());
-        return new EmployeeSecurityDto(e.getEmployeeNo(),e.getPassword(),e.getName(),e.getEmployeeNo(),e.getJoinedDate(),e.getPart(),e.getPhoto(),e.getEmail(),e.getPhone(),e.getPosition(),authorities);
+        return new EmployeeSecurityDto(e.getEmployeeNo(),e.getPassword(),e.getName(),e.getEmployeeNo(),e.getJoinedDate(),e.getPart(),e.getPhoto(),e.getEmail(),e.getPhone(),e.getPosition() ,authorities);
     }
 }

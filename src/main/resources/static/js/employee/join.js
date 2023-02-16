@@ -283,25 +283,33 @@ window.addEventListener('DOMContentLoaded', function (){
             name.classList.contains('border_danger')||
             phone.classList.contains('border_danger')||
             email.classList.contains('border_danger')){
-            alert("형식에 맞게 작성해 주세요.")
-        }else if(employeeNo.value===''||
+            alert("형식에 맞게 작성해 주세요.");
+            return;
+        }
+        if(employeeNo.value===''||
         password.value===''||
         check_password.value===''||
         name.value===''||
         phone.value===''||
         email.value===''){
             alert('작성되지 않은 내용이 있습니다.')
-        }else if(department.value===''||team.value===''||work.value===''){
+            return;
+        }
+        let department = document.querySelector('#department');
+        console.log(department.value);
+        if(department.value==='부서'||team.value==='팀'||work.value==='담당'){
             alert("소속을 입력해주세요");
-        }else if(joinedDate.value===''){
+            return;
+        }
+
+        if(joinedDate.value===''){
             alert('입사일을 입력해주세요.');
+            return;
         }
-        else{
-            form.action = "/join";
-            form.method = "post";
-            form.submit();
-            alert('가입을 환영합니다.')
-        }
+        form.action = "/join";
+        form.method = "post";
+        form.submit();
+        alert('가입을 환영합니다.')
     })
 
 
