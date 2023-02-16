@@ -22,6 +22,7 @@
         
         <div id="formWrap">
             <form method="post" id="postForm">
+                <input id="postNo" name="postNo" th:value="${ post.postNo }" style="display: none;" />
                 <div>
                     <span id="titleSpan">
                         <div class="input-group mb-3">
@@ -47,9 +48,24 @@
                         <textarea id="contentArea" type="text" name="content" th:text="${ post.content }" style="display: none;"></textarea>
                     </span>
                 </div>
-
+                <!--
+                <div>
+                    <span id="viewCntSpan">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">조회수</span>
+                            <input id="viewCntInput" th:value="${ post.viewCnt }" class="form-control" aria-describedby="basic-addon1" readonly />
+                        </div>
+                    </span>
+                </div>
+                -->
+                <div>
+                    <input type="button" value="목록" id="btnList" class="btn btn-outline-primary"
+                    style="float: left; margin-right: 8px;" th:onclick="|location.href='@{ /post/list }'|">
+                </div>
                 <div> <!-- th:if="${ post.writer }== ${ #authentication.name }" -->
-                    <input type="button" value="수정" id="btnModify" class="btn btn-outline-primary" th:onclick="|location.href='@{ /post/modify(postNo=${ post.postNo }) }'|">
+                    <input type="button" value="수정" id="btnModify" class="btn btn-outline-primary"
+                    style="float: left; margin-right: 8px;" th:onclick="|location.href='@{ /post/modify(postNo=${ post.postNo }) }'|">
+                    <input type="button" value="삭제" id="btnDelete" class="btn btn-outline-primary">
                 </div>
             </form>
         </div>
@@ -70,9 +86,17 @@
         initialValue: content
     });
 
-    // let elem = document.getElementById('editor-hidden');
-    // viewer.setMarkdown(elem.innerText);
+    const form = document.querySelector('#postForm');
 
+    const btnDelete = document.querySelector('#btnDelete');
+    btnDelete.addEventListener("click", function () {
+        const result = confirm("삭제할까요?");
+        if (result) {
+        form.action = "/post/delete";
+        form.method = "post";
+        form.submit();
+        }
+    });
 </script>
 
 </html>

@@ -40,13 +40,13 @@ public class Post extends BaseTimeEntity {
     @ColumnDefault("0")
     private Boolean deleteYn;
 
-    public Post update(String title, String content){
+    public Post updatePost(String title, String content){
         this.title= title;
         this.content= content;
         return this;
     }
 
-    public Post viewCount(Integer viewCnt){
+    public Post updateViewCnt(Integer viewCnt){
         this.viewCnt= viewCnt;
         return this;
     }

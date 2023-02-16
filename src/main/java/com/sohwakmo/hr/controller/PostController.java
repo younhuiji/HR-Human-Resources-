@@ -9,12 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -32,7 +30,12 @@ public class PostController {
         log.info("/post/list");
 
         Page<Post> list= postService.readPost(pageable);
+        long row= list.getTotalElements();
+
+        model.addAttribute("row", row);
         model.addAttribute("list", list);
+        model.addAttribute("type", "");
+        model.addAttribute("keyword", "");
 
         return "/post/list";
     }
@@ -41,8 +44,10 @@ public class PostController {
     public String search(@PageableDefault Pageable pageable, String type, String keyword, Model model) {
         log.info("search(type={}, keyword={})", type, keyword);
 
-        Page<Post> list= postService.search(pageable, type, keyword);
+        Page<Post> list= postService.searchPost(pageable, type, keyword);
+        long row= list.getTotalElements();
 
+        model.addAttribute("row", row);
         model.addAttribute("list", list);
         model.addAttribute("type", type);
         model.addAttribute("keyword", keyword);
@@ -73,6 +78,16 @@ public class PostController {
         log.info(post.toString());
 
         model.addAttribute("post", post);
+    }
+
+    @PostMapping("/delete")
+    public String delete(Integer postNo, RedirectAttributes attrs) {
+        log.info("delete(postNo={})", postNo);
+
+        Integer postId = postService.deletePost(postNo);
+        attrs.addFlashAttribute("deletedPostNo", postNo);
+
+        return "redirect:/post/list";
     }
 
     @PostMapping("/update")

@@ -12,8 +12,7 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     Page<Post> findByOrderByNoticeLvAscPostNoDesc(Pageable pageable);
 
     Post findByPostNo(Integer postNo);
-
-    Post deleteByPostNo(Integer postNo);
+//    Post deleteByPostNo(Integer postNo);
 
     Page<Post> findByTitleContainingIgnoreCaseOrContentContainingIgnoreCaseOrWriterContainingIgnoreCaseOrderByNoticeLvAscPostNoDesc(Pageable pageable, String title, String content,String writer);
     Page<Post> findByTitleContainingIgnoreCaseOrderByNoticeLvAscPostNoDesc(Pageable pageable, String title);

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -32,7 +33,7 @@ public class PostService {
         return postRepository.findByOrderByNoticeLvAscPostNoDesc(pageable);
     }
 
-    public Page<Post> search(Pageable pageable, String type, String keyword) {
+    public Page<Post> searchPost(Pageable pageable, String type, String keyword) {
         log.info("search(type={}, keyword={})", type, keyword);
 
         Integer page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
@@ -76,16 +77,18 @@ public class PostService {
     public Integer updatePost(PostUpdateDto dto) {
         log.info("updatePost(dto= {})", dto);
 
-        Post entity = postRepository.findByPostNo(dto.getPostNo());
-        entity.update(dto.getTitle(), dto.getContent());
+        Post entity= postRepository.findByPostNo(dto.getPostNo());
+        entity.updatePost(dto.getTitle(), dto.getContent());
 
         return entity.getPostNo();
     }
 
+    @Transactional
     public Integer deletePost(Integer postNo) {
         log.info("deletePost(postNo= {})", postNo);
-
-        return postRepository.deleteByPostNo(postNo).getPostNo();
+        postRepository.deleteById(postNo);
+        return postNo;
     }
+
 
 }

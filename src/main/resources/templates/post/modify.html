@@ -51,8 +51,18 @@
                     </span>
                 </div>
 
-                <div>
+                <div style="display: inline-block; float: left;">
                     <input type="button" value="수정 완료" id="btnUpdate" class="btn btn-outline-primary">
+                </div>
+
+                <!--btnGroup-->
+                <div class="col">
+                    <div id="btnDelete" style="float: right; margin-left: 8px;">
+                        <a type="button" class="btn btn-outline-primary">삭제</a>
+                    </div>
+                    <div id="btnList" style="float: right;">
+                        <a type="button" class="btn btn-outline-primary" th:href="@{/post/list}">목록</a>
+                    </div>
                 </div>
             </form>
         </div>
@@ -109,6 +119,16 @@
     		form.method = 'post';
     		form.submit();
     	}
+    });
+
+    const btnDelete = document.querySelector('#btnDelete');
+    btnDelete.addEventListener("click", function () {
+        const result = confirm("삭제할까요?");
+        if (result) {
+        form.action = "/post/delete";
+        form.method = "post";
+        form.submit();
+        }
     });
 
 </script>
