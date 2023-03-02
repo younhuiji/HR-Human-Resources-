@@ -86,7 +86,7 @@
                 <br>
                 <form id="formProcess">
                     <div class="row" style="padding: 10px">
-                        <div class="col-3">
+                        <div class="row">
                             <select  id="payment" name="payment"  class="form-control" >
                                 <option value="vacation" th:attrappend="selected = ${vacation=='vacation' ? 'selected' : ''}">휴가/연차/반차</option>
                                 <option value="trip" th:attrappend="selected = ${trip=='trip' ? 'selected' : ''}">출장</option>
@@ -95,11 +95,8 @@
                             </select>
                         </div>
                         <div class="col-7">
-<!--                            <input type="text" class="form-control"-->
-<!--                                   name="keyword" placeholder="검색어를 입력하세요" required autofocus />-->
                         </div>
                         <div class="col-2">
-<!--                            <input type="submit" class="btn btn-light" value="찾기" />-->
                         </div>
                     </div>
                 </form>
