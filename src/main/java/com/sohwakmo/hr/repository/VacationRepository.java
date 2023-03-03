@@ -28,13 +28,10 @@ public interface VacationRepository extends JpaRepository<Vacation, Integer> {
     List<Vacation> findByEmployeeNoAndStateOrState(@Param(value = "no") String no);
 
     // 진행중 and EmployeeNo List
-//    List<Vacation> findByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2);
 
     List<Vacation> findByEmployeeNoAndState(String no, PaymentState state);
 
     List<Vacation> findByEmployeeNoAndEffectiveDateContaining(String employeeNo, String formatedNow);
-
-    List<Vacation> findByEmployeeNo(String no);
 
     List<Vacation> findByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2);
 

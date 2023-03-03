@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 public interface BusinessTripRepository extends JpaRepository<BusinessTrip, Integer> {
-    List<BusinessTrip> findByEmployeeNoOrCompanionNO(String employeeNo, String companionNo);
     List<BusinessTrip> findByEmployeeNoOrderByNoDesc(String employeeNo);
     List<BusinessTrip> findByEmployeeNoAndState(String no, PaymentState state);
 
@@ -25,7 +24,6 @@ public interface BusinessTripRepository extends JpaRepository<BusinessTrip, Inte
             , nativeQuery = true
     )
     List<BusinessTrip> findByEmployeeNoAndStateOrState(@Param(value = "no") String no);
-//    List<BusinessTrip> findByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2);
     List<BusinessTrip> findByApproverNoAndState(String no, PaymentState state);
     List<BusinessTrip> findByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2);
 
@@ -34,7 +32,6 @@ public interface BusinessTripRepository extends JpaRepository<BusinessTrip, Inte
 
     @Query(value = "SELECT * from BUSINESSTRIP b, BUSINESSTRIP_STATE bs where b.no = bs.businesstrip_no and bs.state = '승인' and (b.employee_no = :employee_no or b.companionno = :companionno) ", nativeQuery = true)
     public List<BusinessTrip> findByBusinessTripQuestion(@RequestParam("employee_no") String employee_no, @RequestParam("companionno") String companionno);
-    public List<BusinessTrip> findByEmployeeNo(String employeeNo);
 
     public List<BusinessTrip> findByEmployeeNoAndEffectiveDateContaining(String emplyeeNo, String formatedNow);
 

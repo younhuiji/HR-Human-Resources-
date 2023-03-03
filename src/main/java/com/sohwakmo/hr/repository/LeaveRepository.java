@@ -30,7 +30,6 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer> {
             , nativeQuery = true
     )
     List<Leave> findByEmployeeNoAndStateOrState(@Param(value = "no") String no);
-//    List<Leave> findByEmployeeNoAndStateOrState(String no, PaymentState state, PaymentState state2);
     List<Leave> findByEmployeeNoAndState(String no, PaymentState state);
     List<Leave> findByApproverNoOrSecondApproverNoAndStateOrState(String no, String no2, PaymentState state, PaymentState state2);
     List<Leave> findByApproverNoOrSecondApproverNoAndState(String no, String no2, PaymentState state);
