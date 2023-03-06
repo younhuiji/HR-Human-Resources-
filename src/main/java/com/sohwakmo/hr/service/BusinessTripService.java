@@ -20,6 +20,16 @@ public class BusinessTripService {
 
     private final BusinessTripRepository businessTripRepository;
 
+    /**
+     * 출장(BusinessTrip) 모든 기안 문서 list
+     * @param loginUserNo 로그인한 유저 No
+     * @return 로그인한 유저 No가 작성한 BusinessTrip all list
+     */
+    public List<BusinessTrip> selectByEmployeeNo(String loginUserNo){
+        return businessTripRepository.findByEmployeeNoOrderByNoDesc(loginUserNo);
+    }
+
+
     public List<BusinessTrip> getTodayBusinessTripList(String employeeNo, String formatedNow) {
         formatedNow = formatedNow.substring(0, 2) + "-" + formatedNow.substring(3);
         return businessTripRepository.findByEmployeeNoAndEffectiveDateContaining(employeeNo,formatedNow);
@@ -31,9 +41,6 @@ public class BusinessTripService {
         return businessTripRepository.save(businessTrip);
     }
 
-    public List<BusinessTrip> selectByEmployeeNo(String employeeNo){
-        return businessTripRepository.findByEmployeeNoOrderByNoDesc(employeeNo);
-    }
 
     public List<BusinessTrip> selectByEmployeeNoAndState(String no, PaymentState state){
         return businessTripRepository.findByEmployeeNoAndState(no, state);

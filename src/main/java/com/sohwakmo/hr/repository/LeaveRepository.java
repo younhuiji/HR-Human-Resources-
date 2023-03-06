@@ -10,8 +10,9 @@ import java.util.List;
 
 public interface LeaveRepository extends JpaRepository<Leave, Integer> {
 
+    // select * from LEAVE where employeeNo = loginUser order by no desc;
     @Query("select l from LEAVE l where l.employeeNo = :no order by l.no desc ")
-    List<Leave> selectByEmployeeNO(@Param(value = "no")String no);
+    List<Leave> selectByEmployeeNoOrderByNoDesc(@Param(value = "no")String no);
 
     @Query("select l from LEAVE l where l.no = :no ")
     Leave selectByNo(@Param(value = "no")Integer no);

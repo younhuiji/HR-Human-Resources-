@@ -13,9 +13,12 @@ import java.util.List;
 
 public interface VacationRepository extends JpaRepository<Vacation, Integer> {
 
+    // select * from vacation where employeeNo = loginUser order by no desc;
+    List<Vacation> findByEmployeeNoOrderByNoDesc(String loginUser);
+
     @Query(value = "SELECT * from VACATION v, VACATION_STATE vs where v.no = vs.vacation_no and vs.state = '승인' and v.employee_no = :employee_no", nativeQuery = true)
     List<Vacation> findByVacationQuestion(@RequestParam("employee_no") String employee_no);
-    List<Vacation> findByEmployeeNoOrderByNoDesc(String loginUser);
+
 
     @Query(value =
             "select * from VACATION v, VACATION_STATE vs "

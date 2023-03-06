@@ -30,27 +30,27 @@ public class PaymentController {
     private final LeaveService leaveService;
     private final EmployeeService employeeService;
 
-    // 기안 문서 list
+    // 기안 문서 list -- (하위 직책 : 사원, 과장)
     @GetMapping("/list")
     public void list(Model model, @RequestParam(defaultValue = "vacation")String payment, Principal principal) {
 
-        String employeeNo = principal.getName();
+        String loginUserNo = principal.getName();
 
         switch (payment) {
             case "vacation" -> {
-                model.addAttribute("list", vacationService.getVacationListSeven(employeeNo));
+                model.addAttribute("list", vacationService.selectByEmployeeNo(loginUserNo));
                 model.addAttribute("vacation", "vacation");
             }
             case "trip" -> {
-                model.addAttribute("list", businessTripService.getBusinessTripSeven(employeeNo));
+                model.addAttribute("list", businessTripService.selectByEmployeeNo(loginUserNo));
                 model.addAttribute("trip", "trip");
             }
             case "leave" -> {
-                model.addAttribute("list", leaveService.selectByEmployeeNO(employeeNo));
+                model.addAttribute("list", leaveService.selectByEmployeeNo(loginUserNo));
                 model.addAttribute("leave", "leave");
             }
             default -> {
-                model.addAttribute("list",  businessCardService.getBusinessCardSeven(employeeNo));
+                model.addAttribute("list",  businessCardService.selectByEmployeeNo(loginUserNo));
                 model.addAttribute("card", "card");
             }
         }
@@ -62,34 +62,34 @@ public class PaymentController {
     public void create() {
     }
 
-    // 결재 대기 list
+    // 결재 대기 list -- (하위 직책 : 사원, 과장)
     @GetMapping("/process")
     public void process(Model model, @RequestParam(defaultValue = "vacation")String payment, Principal principal) {
 
-        String employeeNo = principal.getName();
+        String loginUserNo = principal.getName();
         PaymentState state = PaymentState.진행중;
 
         if(payment.equals("vacation")){
-            List<Vacation> list = vacationService.selectByEmployeeNoAndState(employeeNo, state);
+            List<Vacation> list = vacationService.selectByEmployeeNoAndState(loginUserNo, state);
             model.addAttribute("list", list);
             model.addAttribute("vacation", "vacation");
         } else if(payment.equals("trip")) {
-            List<BusinessTrip> list = businessTripService.selectByEmployeeNoAndState(employeeNo, state);
+            List<BusinessTrip> list = businessTripService.selectByEmployeeNoAndState(loginUserNo, state);
             model.addAttribute("list", list);
             model.addAttribute("trip", "trip");
         } else if(payment.equals("leave")) {
-            List<Leave> list = leaveService.selectByEmployeeNoAndState(employeeNo, state);
+            List<Leave> list = leaveService.selectByEmployeeNoAndState(loginUserNo, state);
             model.addAttribute("list", list);
             model.addAttribute("leave", "leave");
         } else {
-            List<BusinessCard> list = businessCardService.selectByEmployeeNoAndState(employeeNo, state);
+            List<BusinessCard> list = businessCardService.selectByEmployeeNoAndState(loginUserNo, state);
             model.addAttribute("list", list);
             model.addAttribute("card", "card");
         }
 
     }
 
-    // 결재 완료 list
+    // 결재 완료 list -- (하위 직책 : 사원, 과장)
     @GetMapping("/complete")
     public void complete(Model model, @RequestParam(defaultValue = "vacation")String payment, Principal principal) {
 
@@ -283,6 +283,7 @@ public class PaymentController {
             model.addAttribute("secondApprover", secondApprover);
     }
 
+    // 결재 요청 list -- (상위 직책 : 차장, 팀장)
     @GetMapping("/request")
     public void request(Model model, @RequestParam(defaultValue = "vacation")String payment, Principal principal){
 
@@ -310,6 +311,7 @@ public class PaymentController {
         }
     }
 
+    // 결재 완료 list -- (상위 직책 : 차장, 팀장)
     @GetMapping("/response")
     public void response(Model model, @RequestParam(defaultValue = "vacation")String payment,  Principal principal){
 

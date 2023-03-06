@@ -12,6 +12,9 @@ import java.util.List;
 
 public interface BusinessCardRepository extends JpaRepository<BusinessCard, Integer> {
 
+    // select * from BusinessCard where employeeNo = loginUser order by no desc;
+    List<BusinessCard> findByEmployeeNoOrderByNoDesc(String loginUser);
+
     @Query("select b from BUSINESSCARD b where b.category = :card ")
     List<BusinessCard> selectByCard(@Param(value = "card") String card);
 
@@ -37,5 +40,5 @@ public interface BusinessCardRepository extends JpaRepository<BusinessCard, Inte
 
     List<BusinessCard> findByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2);
 
-    List<BusinessCard> findByEmployeeNoOrderByNoDesc(String employeeNo);
+
 }

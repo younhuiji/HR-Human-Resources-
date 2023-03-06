@@ -2,7 +2,6 @@ package com.sohwakmo.hr.service;
 
 import com.sohwakmo.hr.domain.Leave;
 import com.sohwakmo.hr.domain.PaymentState;
-import com.sohwakmo.hr.domain.Vacation;
 import com.sohwakmo.hr.repository.LeaveRepository;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,16 +19,22 @@ public class LeaveService {
 
     private final LeaveRepository leaveRepository;
 
+    /**
+     * 퇴사(Leave) 모든 기안 문서 list
+     * @param loginUserNo 로그인한 유저 No
+     * @return 로그인한 유저 No가 작성한 Leave all list
+     */
+    public List<Leave> selectByEmployeeNo(String loginUserNo){
+        return leaveRepository.selectByEmployeeNoOrderByNoDesc(loginUserNo);
+    }
+
     // 퇴사(leave) create 할 때에 state 값 "진행중"으로 입력
     public Leave create(Leave leave){
         leave.addRole(PaymentState.진행중);
         return leaveRepository.save(leave);
     }
 
-    // 퇴사(leave) EmployeeNO로 select
-    public List<Leave> selectByEmployeeNO(String no){
-        return leaveRepository.selectByEmployeeNO(no);
-    }
+
 
     // 퇴사(leave) leaveNO로 select
     public Leave selectByNo(Integer no){

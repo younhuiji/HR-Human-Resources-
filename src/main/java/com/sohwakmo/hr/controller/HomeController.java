@@ -84,7 +84,7 @@ public class HomeController {
                 model.addAttribute("trip", "trip");
             }
             case "leave" -> {
-                model.addAttribute("docList", leaveService.selectByEmployeeNO(employeeNo));
+                model.addAttribute("docList", leaveService.selectByEmployeeNo(employeeNo));
                 model.addAttribute("leave", "leave");
             }
             default -> {

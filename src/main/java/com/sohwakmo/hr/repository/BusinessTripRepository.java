@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 public interface BusinessTripRepository extends JpaRepository<BusinessTrip, Integer> {
+
+    // select * from BusinessTrip where employeeNo = loginUser order by no desc;
     List<BusinessTrip> findByEmployeeNoOrderByNoDesc(String employeeNo);
+
     List<BusinessTrip> findByEmployeeNoAndState(String no, PaymentState state);
 
     @Query(value =

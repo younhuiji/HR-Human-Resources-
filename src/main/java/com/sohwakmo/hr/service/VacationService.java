@@ -24,9 +24,13 @@ public class VacationService {
 
     private final VacationRepository vacationRepository;
 
-    // 휴가(vacation) list
-    public List<Vacation> selectByEmployeeNo(String no){
-        return vacationRepository.findByEmployeeNoOrderByNoDesc(no);
+    /**
+     * 휴가(vacation) 모든 기안 문서 list
+     * @param loginUserNo 로그인한 유저 No
+     * @return 로그인한 유저 No가 작성한 vacation all list
+     */
+    public List<Vacation> selectByEmployeeNo(String loginUserNo){
+        return vacationRepository.findByEmployeeNoOrderByNoDesc(loginUserNo);
     }
 
     // 휴가(vacation) create
@@ -34,6 +38,8 @@ public class VacationService {
         vacation.addRole(PaymentState.진행중);
         return vacationRepository.save(vacation);
     }
+
+    // 결재자
 
     public List<Vacation> selectByEmployeeNoAndStateOrState(String no){
        log.info("회원={}", no);

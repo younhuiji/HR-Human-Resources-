@@ -22,6 +22,15 @@ public class BusinessCardService {
 
     private final BusinessCardRepository businessCardRepository;
 
+    /**
+     * 휴가(BusinessCard) 모든 기안 문서 list
+     * @param loginUserNo 로그인한 유저 No
+     * @return 로그인한 유저 No가 작성한 BusinessCard all list
+     */
+    public List<BusinessCard> selectByEmployeeNo(String loginUserNo){
+        return businessCardRepository.findByEmployeeNoOrderByNoDesc(loginUserNo);
+    }
+
     // 명함(Bs card) create
     public BusinessCard create(BusinessCard businessCard){
         businessCard.addRole(PaymentState.진행중);
@@ -29,7 +38,6 @@ public class BusinessCardService {
         return businessCardRepository.save(businessCard);
     }
 
-    // TODO: 명함, 사용자 no 가져와서 리스트 출력하기 -> list 출력
     public List<BusinessCard> selectByCategory(String card) {
 
         return businessCardRepository.selectByCard(card);
@@ -40,9 +48,7 @@ public class BusinessCardService {
         return businessCardRepository.findById(cardNo).orElse(null);
     }
 
-    public List<BusinessCard> selectByEmployeeNo(String employeeNo){
-        return businessCardRepository.selectByEmployeeNo(employeeNo);
-    }
+
 
     public List<BusinessCard> selectByEmployeeNoAndState(String no, PaymentState state){
         return businessCardRepository.findByEmployeeNoAndState(no, state);
