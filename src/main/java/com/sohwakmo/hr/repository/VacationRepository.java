@@ -16,6 +16,16 @@ public interface VacationRepository extends JpaRepository<Vacation, Integer> {
     // select * from vacation where employeeNo = loginUser order by no desc;
     List<Vacation> findByEmployeeNoOrderByNoDesc(String loginUser);
 
+    // select * from vacation where (employeeNo = loginUser and state = '진행중') order by no desc;
+    List<Vacation> findByEmployeeNoAndStateOrderByNoDesc(String no, PaymentState state);
+
+    // select * from vacation where (approverNo = loginUser and state = '진행중') order by no desc;
+    List<Vacation> findByApproverNoAndStateOrderByNoDesc(String no, PaymentState state);
+
+    // select * from vacation where (approverNo = loginUser and state = '승인' or state = '반려') order by no desc;
+    List<Vacation> findByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2);
+
+
     @Query(value = "SELECT * from VACATION v, VACATION_STATE vs where v.no = vs.vacation_no and vs.state = '승인' and v.employee_no = :employee_no", nativeQuery = true)
     List<Vacation> findByVacationQuestion(@RequestParam("employee_no") String employee_no);
 
@@ -30,15 +40,11 @@ public interface VacationRepository extends JpaRepository<Vacation, Integer> {
     )
     List<Vacation> findByEmployeeNoAndStateOrState(@Param(value = "no") String no);
 
-    // 진행중 and EmployeeNo List
 
-    List<Vacation> findByEmployeeNoAndState(String no, PaymentState state);
 
     List<Vacation> findByEmployeeNoAndEffectiveDateContaining(String employeeNo, String formatedNow);
 
-    List<Vacation> findByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2);
 
-    List<Vacation> findByApproverNoAndState(String no, PaymentState state);
 
     @Query("select v from VACATION v where v.no = :no ")
     Vacation selectByNo(@Param(value = "no") Integer no);

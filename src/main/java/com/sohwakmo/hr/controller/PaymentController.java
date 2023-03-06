@@ -139,8 +139,6 @@ public class PaymentController {
                 .build();
 
         Vacation vacations = vacationService.create(vacation);
-        log.info("vacation={}", vacations);
-
     }
 
     // 휴가(vacation) detail
@@ -186,35 +184,29 @@ public class PaymentController {
 
         BusinessTrip trip = businessTripService.selectByNo(no);
         model.addAttribute("trip", trip);
-        log.info("trip??????????={}", trip);
 
         Employee employee = employeeService.selectByNo(trip.getEmployeeNo());
         model.addAttribute("employee", employee);
-        log.info("employee={}", employee);
 
         Employee approver = employeeService.selectByNo(trip.getApproverNo());
         model.addAttribute("approver", approver);
 
+        // 출장(trip)의 동반 출장자가 있을 경우
         if(employeeService.selectByNo(trip.getCompanionNO()) != null){
             Employee companion = employeeService.selectByNo(trip.getCompanionNO());
             model.addAttribute("companion", companion);
+
+        // 출장(trip)의 동반 출장자가 없을 경우
         } else {
             Employee companion = null;
             model.addAttribute("companion", companion);
         }
-
-
     }
 
     // ----------- card -------------
     // 명함(bs card) create list
     @GetMapping("/businessCard/create")
-    public  void createGetCard(Model model){
-
-        String category = "명함";
-        List<BusinessCard> list = businessCardService.selectByCategory(category);
-        model.addAttribute("card", list);
-
+    public  void createGetCard(){
     }
 
     // 명함(bs card) create
@@ -235,11 +227,9 @@ public class PaymentController {
 
         BusinessCard card = businessCardService.selectByNo(no);
         model.addAttribute("card", card);
-        log.info("card={}", card);
 
         Employee employee = employeeService.selectByNo(card.getEmployeeNo());
         model.addAttribute("employee", employee);
-        log.info("employee={}", employee);
 
         Employee approver = employeeService.selectByNo(card.getApproverNo());
         model.addAttribute("approver", approver);
@@ -270,11 +260,9 @@ public class PaymentController {
 
             Leave leave = leaveService.selectByNo(no);
             model.addAttribute("leave", leave);
-            log.info("leave={}", leave);
 
             Employee employee = employeeService.selectByNo(leave.getEmployeeNo());
             model.addAttribute("employee", employee);
-            log.info("employee={}", employee);
 
             Employee approver = employeeService.selectByNo(leave.getApproverNo());
             model.addAttribute("approver", approver);
@@ -287,25 +275,26 @@ public class PaymentController {
     @GetMapping("/request")
     public void request(Model model, @RequestParam(defaultValue = "vacation")String payment, Principal principal){
 
-        String employeeNo = principal.getName();
+        String loginUserNo = principal.getName();
         PaymentState state = PaymentState.진행중;
 
         if(payment.equals("vacation")){
-            List<Vacation> list = vacationService.selectByApproverNoAndState(employeeNo, state);
-            log.info("요청 리스트={}", list);
+            List<Vacation> list = vacationService.selectByApproverNoAndState(loginUserNo, state);
             model.addAttribute("list", list);
             model.addAttribute("vacation", "vacation");
+
         } else if(payment.equals("trip")) {
-            List<BusinessTrip> list = businessTripService.selectByApproverNoAndState(employeeNo, state);
+            List<BusinessTrip> list = businessTripService.selectByApproverNoAndState(loginUserNo, state);
             model.addAttribute("list", list);
             model.addAttribute("trip", "trip");
+
         } else if(payment.equals("leave")) {
-            List<Leave> list = leaveService.selectByApproverNoOrSecondNoAndState(employeeNo,employeeNo, state);
-            log.info("요청 리스트={}", list);
+            List<Leave> list = leaveService.selectByApproverNoOrSecondNoAndState(loginUserNo);
             model.addAttribute("list", list);
             model.addAttribute("leave", "leave");
+
         } else {
-            List<BusinessCard> list = businessCardService.selectByApproverNoAndState(employeeNo, state);
+            List<BusinessCard> list = businessCardService.selectByApproverNoAndState(loginUserNo, state);
             model.addAttribute("list", list);
             model.addAttribute("card", "card");
         }
@@ -315,26 +304,27 @@ public class PaymentController {
     @GetMapping("/response")
     public void response(Model model, @RequestParam(defaultValue = "vacation")String payment,  Principal principal){
 
-        String employeeNo = principal.getName();
+        String loginUserNo = principal.getName();
         PaymentState state = PaymentState.승인;
         PaymentState state2 = PaymentState.반려;
 
         if(payment.equals("vacation")){
-            List<Vacation> list = vacationService.selectByApproverNoAndStateOrState(employeeNo, state, state2);
-            log.info(list.toString());
+            List<Vacation> list = vacationService.selectByApproverNoAndStateOrState(loginUserNo, state, state2);
             model.addAttribute("list", list);
             model.addAttribute("vacation", "vacation");
+
         } else if(payment.equals("trip")) {
-            List<BusinessTrip> list = businessTripService.selectByApproverNoAndStateOrState(employeeNo, state, state2);
-            log.info(list.toString());
+            List<BusinessTrip> list = businessTripService.selectByApproverNoAndStateOrState(loginUserNo, state, state2);
             model.addAttribute("list", list);
             model.addAttribute("trip", "trip");
+
         } else if(payment.equals("leave")) {
-            List<Leave> list = leaveService.selectByApproverNoOrSecondApproverNoAndStateOrState(employeeNo, employeeNo, state, state2);
+            List<Leave> list = leaveService.selectByApproverNoOrSecondApproverNoAndStateOrState(loginUserNo);
             model.addAttribute("list", list);
             model.addAttribute("leave", "leave");
+
         } else {
-            List<BusinessCard> list = businessCardService.selectByApproverNoAndStateOrState(employeeNo, state, state2);
+            List<BusinessCard> list = businessCardService.selectByApproverNoAndStateOrState(loginUserNo, state, state2);
             model.addAttribute("list", list);
             model.addAttribute("card", "card");
         }

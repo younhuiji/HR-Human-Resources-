@@ -28,6 +28,44 @@ public class LeaveService {
         return leaveRepository.selectByEmployeeNoOrderByNoDesc(loginUserNo);
     }
 
+    /**
+     * 퇴사(Leave) 진행중인 기안 문서 list
+     * @param loginUserNo 로그인한 유저 No
+     * @param state 진행중
+     * @return 로그인한 유저의 진행중인 Leave 카테고리 list
+     */
+    public List<Leave> selectByEmployeeNoAndState(String loginUserNo, PaymentState state){
+        return leaveRepository.findByEmployeeNoAndStateOrderByNoDesc(loginUserNo, state);
+    }
+
+    /**
+     * 퇴사(Leave) 클릭한 문서 detail view
+     * @param no 문서 No
+     * @return 클릭한 Leave 문서 정보
+     */
+    public Leave selectByNo(Integer no){
+
+        return leaveRepository.findById(no).orElse(null);
+    }
+
+    /**
+     * 퇴사(Leave) 상위 직책자의 결재 요청 all List
+     * @param loginUserNo 로그인한 회원 No
+     * @return 상태가 '진행중' 이고 결재자가 자신으로 되어 있는 Leave 문서들
+     */
+    public List<Leave> selectByApproverNoOrSecondNoAndState(String loginUserNo){
+        return leaveRepository.findByApproverNoOrSecondApproverNoAndStateOrderByNoDesc(loginUserNo);
+    }
+
+    /**
+     * 퇴사(Leave) 상위 직책자의 결재 완료(승인, 반려) all List
+     * @param loginUserNo 로그인한 회원 No
+     * @return 상태가 '승인' 혹은 '반려'이고, 결재자가 자신으로 되어 있는 Leave 문서들
+     */
+    public List<Leave> selectByApproverNoOrSecondApproverNoAndStateOrState(String loginUserNo){
+        return leaveRepository.findByApproverNoOrSecondApproverNoAndStateOrState(loginUserNo);
+    }
+
     // 퇴사(leave) create 할 때에 state 값 "진행중"으로 입력
     public Leave create(Leave leave){
         leave.addRole(PaymentState.진행중);
@@ -36,10 +74,7 @@ public class LeaveService {
 
 
 
-    // 퇴사(leave) leaveNO로 select
-    public Leave selectByNo(Integer no){
-        return leaveRepository.selectByNo(no);
-    }
+
 
     // 퇴사(leave) 1차 승인
     @Transactional
@@ -80,17 +115,11 @@ public class LeaveService {
         return leaveRepository.findByEmployeeNoAndStateOrState(no);
     }
 
-    public List<Leave> selectByEmployeeNoAndState(String no, PaymentState state){
-        return leaveRepository.findByEmployeeNoAndState(no, state);
-    }
 
-    public List<Leave> selectByApproverNoOrSecondApproverNoAndStateOrState(String no, String no2, PaymentState state, PaymentState state2){
-        return leaveRepository.findByApproverNoOrSecondApproverNoAndStateOrState(no, no2, state, state2);
-    }
 
-    public List<Leave> selectByApproverNoOrSecondNoAndState(String no, String no2, PaymentState state){
-        return leaveRepository.findByApproverNoOrSecondApproverNoAndState(no, no2, state);
-    }
+
+
+
 
     @Transactional
     public Integer delete(Integer no){

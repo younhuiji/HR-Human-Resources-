@@ -16,7 +16,15 @@ public interface BusinessTripRepository extends JpaRepository<BusinessTrip, Inte
     // select * from BusinessTrip where employeeNo = loginUser order by no desc;
     List<BusinessTrip> findByEmployeeNoOrderByNoDesc(String employeeNo);
 
-    List<BusinessTrip> findByEmployeeNoAndState(String no, PaymentState state);
+    // select * from BusinessTrip where (employeeNo = loginUser and state = '진행중') order by no desc;
+    List<BusinessTrip> findByEmployeeNoAndStateOrderByNoDesc(String loginUser, PaymentState state);
+
+    // select * from BusinessTrip where (approverNo = loginUser and state = '진행중') order by no desc;
+    List<BusinessTrip> findByApproverNoAndStateOrderByNoDesc(String no, PaymentState state);
+
+    // select * from BusinessTrip where (approverNo = loginUser and state = '승인' or state = '반려') order by no desc;
+    List<BusinessTrip> findByApproverNoAndStateOrStateOrderByNoDesc(String no, PaymentState state, PaymentState state2);
+
 
     @Query(value =
             "select * from BUSINESSTRIP b, BUSINESSTRIP_STATE bs "
@@ -27,8 +35,6 @@ public interface BusinessTripRepository extends JpaRepository<BusinessTrip, Inte
             , nativeQuery = true
     )
     List<BusinessTrip> findByEmployeeNoAndStateOrState(@Param(value = "no") String no);
-    List<BusinessTrip> findByApproverNoAndState(String no, PaymentState state);
-    List<BusinessTrip> findByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2);
 
     @Query("select b from BUSINESSTRIP b where b.no = :no ")
     public BusinessTrip selectByNo(@Param(value = "no") Integer no);

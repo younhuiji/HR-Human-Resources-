@@ -515,14 +515,14 @@ public class EmployeeService {
     public List<Attendance> getSearchMonth(String month, String employeeNo) {
         return attendanceRepository.findByEmployeeEmployeeNoAndMonth(employeeNo,month);
     }
-    // 결재자 지정할 때에 임시방편으로 모든 리스트 불러옴
-    public List<Employee> readPart(String teamName) {
-        return employeeRepository.selectByPart(teamName);
-    }
 
-    // 퇴사(leave) detail의 회원 정보 보냄
-    public Employee selectByNo(String no) {
-        return employeeRepository.selectByNo(no);
+    /**
+     * 클릭한 문서의 회원 정보 detail
+     * @param getEmployeeNo (작성자No or 결재자No or 동반자No)
+     * @return 클릭한 문서의 (employee 혹은 (second)approver 혹은 companion) 회원 정보
+     */
+    public Employee selectByNo(String getEmployeeNo) {
+        return employeeRepository.selectByNo(getEmployeeNo);
     }
 
     /**

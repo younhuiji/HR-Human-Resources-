@@ -14,13 +14,33 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer> {
     @Query("select l from LEAVE l where l.employeeNo = :no order by l.no desc ")
     List<Leave> selectByEmployeeNoOrderByNoDesc(@Param(value = "no")String no);
 
+    // select * from LEAVE where (employeeNo = loginUser and state = '진행중') order by no desc;
+    List<Leave> findByEmployeeNoAndStateOrderByNoDesc(String no, PaymentState state);
+
+    // select * from leave where (approverNo = loginUser or secondApproverNo = loginUser and state = '진행중') order by no desc;
+    @Query(value =
+            "select * from  LEAVE l, LEAVE_STATE ls "
+                    + " where l.no = ls.leave_no"
+                    + " and (l.approver_no = :no or l.second_approver_no = :no)"
+                    + " and (ls.state = '진행중')"
+                    + " order by l.no desc"
+            , nativeQuery = true
+    )
+    List<Leave> findByApproverNoOrSecondApproverNoAndStateOrderByNoDesc(@Param(value = "no") String no);
+
+    // select * from leave where (approverNo = loginUser or secondApproverNo = loginUser) and (state = '승인' and state = '반려') order by no desc;
+    @Query(value =
+            "select * from  LEAVE l, LEAVE_STATE ls "
+                    + " where l.no = ls.leave_no"
+                    + " and (l.approver_no = :no or l.second_approver_no = :no)"
+                    + " and (ls.state = '승인' or ls.state = '반려')"
+                    + " order by l.no desc"
+            , nativeQuery = true
+    )
+    List<Leave> findByApproverNoOrSecondApproverNoAndStateOrState(@Param(value = "no") String no);
+
     @Query("select l from LEAVE l where l.no = :no ")
     Leave selectByNo(@Param(value = "no")Integer no);
-
-    @Modifying
-    @Query("update LEAVE l SET l.state = :state where l.no = :no")
-    Leave updateState(@Param(value = "no")Integer no, @Param(value = "state")PaymentState state);
-
 
     @Query(value =
             "select * from  LEAVE l, LEAVE_STATE ls "
@@ -31,7 +51,4 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer> {
             , nativeQuery = true
     )
     List<Leave> findByEmployeeNoAndStateOrState(@Param(value = "no") String no);
-    List<Leave> findByEmployeeNoAndState(String no, PaymentState state);
-    List<Leave> findByApproverNoOrSecondApproverNoAndStateOrState(String no, String no2, PaymentState state, PaymentState state2);
-    List<Leave> findByApproverNoOrSecondApproverNoAndState(String no, String no2, PaymentState state);
 }

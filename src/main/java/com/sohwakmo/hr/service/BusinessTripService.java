@@ -29,6 +29,45 @@ public class BusinessTripService {
         return businessTripRepository.findByEmployeeNoOrderByNoDesc(loginUserNo);
     }
 
+    /**
+     * 출장(BusinessTrip) 진행중인 기안 문서 list
+     * @param loginUserNo 로그인한 유저 No
+     * @param state 진행중
+     * @return 로그인한 유저의 진행중인 BusinessTrip 카테고리 list
+     */
+    public List<BusinessTrip> selectByEmployeeNoAndState(String loginUserNo, PaymentState state){
+        return businessTripRepository.findByEmployeeNoAndStateOrderByNoDesc(loginUserNo, state);
+    }
+
+    /**
+     * 출장(BusinessTrip) 클릭한 문서 detail view
+     * @param no 문서 No
+     * @return 클릭한 BusinessTrip 문서 정보
+     */
+    public BusinessTrip selectByNo(Integer no){
+        return businessTripRepository.findById(no).orElse(null);
+    }
+
+    /**
+     * 출장(BusinessTrip) 상위 직책자의 결재 요청 all List
+     * @param loginUserNo 로그인한 회원 No
+     * @param state 상태가 '진행중'
+     * @return 상태가 '진행중' 이고 결재자가 자신으로 되어 있는 BusinessTrip 문서들
+     */
+    public List<BusinessTrip> selectByApproverNoAndState(String loginUserNo, PaymentState state){
+        return businessTripRepository.findByApproverNoAndStateOrderByNoDesc(loginUserNo, state);
+    }
+
+    /**
+     * 출장(BusinessTrip) 상위 직책자의 결재 완료(승인, 반려) all List
+     * @param loginUserNo 로그인한 회원 No
+     * @param state 상태가 '승인'
+     * @param state 상태가 '반려'
+     * @return 상태가 '승인' 혹은 '반려'이고, 결재자가 자신으로 되어 있는 BusinessTrip 문서들
+     */
+    public List<BusinessTrip> selectByApproverNoAndStateOrState(String loginUserNo, PaymentState state, PaymentState state2){
+        return businessTripRepository.findByApproverNoAndStateOrStateOrderByNoDesc(loginUserNo, state, state2);
+    }
 
     public List<BusinessTrip> getTodayBusinessTripList(String employeeNo, String formatedNow) {
         formatedNow = formatedNow.substring(0, 2) + "-" + formatedNow.substring(3);
@@ -42,25 +81,17 @@ public class BusinessTripService {
     }
 
 
-    public List<BusinessTrip> selectByEmployeeNoAndState(String no, PaymentState state){
-        return businessTripRepository.findByEmployeeNoAndState(no, state);
-    }
+
 
     public List<BusinessTrip> selectByEmployeeNoAndStateOrState(String no){
         return businessTripRepository.findByEmployeeNoAndStateOrState(no);
     }
 
-    public List<BusinessTrip> selectByApproverNoAndState(String no, PaymentState state){
-        return businessTripRepository.findByApproverNoAndState(no, state);
-    }
 
-    public List<BusinessTrip> selectByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2){
-        return businessTripRepository.findByApproverNoAndStateOrState(no, state, state2);
-    }
 
-    public BusinessTrip selectByNo(Integer no){
-        return businessTripRepository.findById(no).orElse(null);
-    }
+
+
+
 
     @Transactional
     public Integer update(Integer no){

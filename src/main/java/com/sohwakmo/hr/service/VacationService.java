@@ -33,6 +33,46 @@ public class VacationService {
         return vacationRepository.findByEmployeeNoOrderByNoDesc(loginUserNo);
     }
 
+    /**
+     * 휴가(vacation) 진행중인 기안 문서 list
+     * @param loginUserNo 로그인한 유저 No
+     * @param state 진행중
+     * @return 로그인한 유저의 진행중인 vacation 카테고리 list
+     */
+    public List<Vacation> selectByEmployeeNoAndState(String loginUserNo, PaymentState state){
+        return vacationRepository.findByEmployeeNoAndStateOrderByNoDesc(loginUserNo, state);
+    }
+
+    /**
+     * 휴가(vacation) 클릭한 문서 detail view
+     * @param no 문서 No
+     * @return 클릭한 vacation 문서 정보
+     */
+    public Vacation selectByNo(Integer no) {
+        return vacationRepository.findById(no).orElse(null);
+    }
+
+    /**
+     * 휴가(vacation) 상위 직책자의 결재 요청 all List
+     * @param loginUserNo 로그인한 회원 No
+     * @param state 상태가 '진행중'
+     * @return 상태가 '진행중' 이고 결재자가 자신으로 되어 있는 vacation 문서들
+     */
+    public List<Vacation> selectByApproverNoAndState(String loginUserNo, PaymentState state){
+        return vacationRepository.findByApproverNoAndStateOrderByNoDesc(loginUserNo, state);
+    }
+
+    /**
+     * 휴가(vacation) 상위 직책자의 결재 완료(승인, 반려) all List
+     * @param loginUserNo 로그인한 회원 No
+     * @param state 상태가 '승인'
+     * @param state 상태가 '반려'
+     * @return 상태가 '승인' 혹은 '반려'이고, 결재자가 자신으로 되어 있는 vacation 문서들
+     */
+    public List<Vacation> selectByApproverNoAndStateOrState(String loginUserNo, PaymentState state, PaymentState state2){
+        return vacationRepository.findByApproverNoAndStateOrState(loginUserNo, state, state2);
+    }
+
     // 휴가(vacation) create
     public Vacation create(Vacation vacation){
         vacation.addRole(PaymentState.진행중);
@@ -46,13 +86,9 @@ public class VacationService {
         return vacationRepository.findByEmployeeNoAndStateOrState(no);
     }
 
-    public List<Vacation> selectByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2){
-        return vacationRepository.findByApproverNoAndStateOrState(no, state, state2);
-    }
 
-    public List<Vacation> selectByEmployeeNoAndState(String no, PaymentState state){
-        return vacationRepository.findByEmployeeNoAndState(no, state);
-    }
+
+    
 
     public List<Vacation>  getTodayVacationList(String employeeNo, String formatedNow) {
         formatedNow = formatedNow.substring(0, 2) + "-" + formatedNow.substring(3);
@@ -71,13 +107,9 @@ public class VacationService {
             return list;
         }
     }
-    public List<Vacation> selectByApproverNoAndState(String no, PaymentState state){
-        return vacationRepository.findByApproverNoAndState(no, state);
-    }
 
-    public Vacation selectByNo(Integer no) {
-        return vacationRepository.findById(no).orElse(null);
-    }
+
+
 
     @Transactional
     public Integer update(Integer no){

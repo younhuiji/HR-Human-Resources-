@@ -31,6 +31,46 @@ public class BusinessCardService {
         return businessCardRepository.findByEmployeeNoOrderByNoDesc(loginUserNo);
     }
 
+    /**
+     * 명함(BusinessCard) 진행중인 기안 문서 list
+     * @param loginUserNo 로그인한 유저 No
+     * @param state 진행중
+     * @return 로그인한 유저의 진행중인 BusinessCard 카테고리 list
+     */
+    public List<BusinessCard> selectByEmployeeNoAndState(String loginUserNo, PaymentState state){
+        return businessCardRepository.findByEmployeeNoAndStateOrderByNoDesc(loginUserNo, state);
+    }
+
+    /**
+     * 명함(BusinessCard) 클릭한 문서 detail view
+     * @param no 문서 No
+     * @return 클릭한 BusinessCard 문서 정보
+     */
+    public BusinessCard selectByNo(Integer no){
+        return businessCardRepository.findById(no).orElse(null);
+    }
+
+    /**
+     * 명함(BusinessCard) 상위 직책자의 결재 요청 all List
+     * @param loginUserNo 로그인한 회원 No
+     * @param state 상태가 '진행중'
+     * @return 상태가 '진행중' 이고 결재자가 자신으로 되어 있는 BusinessCard 문서들
+     */
+    public List<BusinessCard> selectByApproverNoAndState(String loginUserNo, PaymentState state){
+        return businessCardRepository.findByApproverNoAndStateOrderByNoDesc(loginUserNo, state);
+    }
+
+    /**
+     * 명함(BusinessCard) 상위 직책자의 결재 완료(승인, 반려) all List
+     * @param loginUserNo 로그인한 회원 No
+     * @param state 상태가 '승인'
+     * @param state 상태가 '반려'
+     * @return 상태가 '승인' 혹은 '반려'이고, 결재자가 자신으로 되어 있는 BusinessCard 문서들
+     */
+    public List<BusinessCard> selectByApproverNoAndStateOrState(String loginUserNo, PaymentState state, PaymentState state2){
+        return businessCardRepository.findByApproverNoAndStateOrStateOrderByNoDesc(loginUserNo, state, state2);
+    }
+
     // 명함(Bs card) create
     public BusinessCard create(BusinessCard businessCard){
         businessCard.addRole(PaymentState.진행중);
@@ -38,33 +78,21 @@ public class BusinessCardService {
         return businessCardRepository.save(businessCard);
     }
 
-    public List<BusinessCard> selectByCategory(String card) {
-
-        return businessCardRepository.selectByCard(card);
-    }
-
-    // 명함(Bs card) detail
-    public BusinessCard selectByNo(Integer cardNo){
-        return businessCardRepository.findById(cardNo).orElse(null);
-    }
 
 
 
-    public List<BusinessCard> selectByEmployeeNoAndState(String no, PaymentState state){
-        return businessCardRepository.findByEmployeeNoAndState(no, state);
-    }
+
+
+
+
 
     public List<BusinessCard> selectByEmployeeNoAndStateOrState(String no){
         return businessCardRepository.findByEmployeeNoAndStateOrState(no);
     }
 
-    public List<BusinessCard> selectByApproverNoAndState(String no, PaymentState state){
-        return businessCardRepository.findByApproverNoAndState(no, state);
-    }
 
-    public List<BusinessCard> selectByApproverNoAndStateOrState(String no, PaymentState state, PaymentState state2){
-        return businessCardRepository.findByApproverNoAndStateOrState(no, state, state2);
-    }
+
+
 
     @Transactional
     public Integer update(Integer no){
