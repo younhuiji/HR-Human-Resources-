@@ -25,13 +25,7 @@ public class PaymentRestController {
     private final VacationService vacationService;
     private final BusinessTripService businessTripService;
 
-    @GetMapping("/readAll/{employeeNo}")
-    public ResponseEntity<List<Leave>> readAll(@PathVariable String employeeNo) {
-        List<Leave> list = leaveService.selectByEmployeeNo(employeeNo);
-        return ResponseEntity.ok(list);
-    }
-
-
+    // ------------ 반려 --------------
     // 퇴사(leave) 반려 modal
     @PutMapping ("/leave/return/{no}")
     public ResponseEntity<Integer> leaveReturnReason(@PathVariable Integer no, @RequestBody updateDto dto){
@@ -39,44 +33,43 @@ public class PaymentRestController {
         return ResponseEntity.ok(result);
     }
 
+    // 명함(businessCard) 반려 modal
     @PutMapping ("/businessCard/return/{no}")
     public ResponseEntity<Integer> businessCardReturnReason(@PathVariable Integer no, @RequestBody updateDto dto){
         Integer result = businessCardService.updateReturn(no, dto.getReturnReason());
         return ResponseEntity.ok(result);
     }
 
+    // 출장(businessTrip) 반려 modal
     @PutMapping ("/businessTrip/return/{no}")
     public ResponseEntity<Integer> businessTripReturnReason(@PathVariable Integer no, @RequestBody updateDto dto){
         Integer result = businessTripService.updateReturn(no, dto.getReturnReason());
         return ResponseEntity.ok(result);
     }
 
+    // 휴가(vacation) 반려 modal
     @PutMapping ("/vacation/return/{no}")
     public ResponseEntity<Integer> vacationReturnReason(@PathVariable Integer no, @RequestBody updateDto dto){
         Integer result = vacationService.updateReturn(no, dto.getReturnReason());
         return ResponseEntity.ok(result);
     }
 
-    // bs card list 출력
-    @GetMapping("/cardList/{employeeNo}")
-    public ResponseEntity<List<BusinessCard>> cardList (@PathVariable String employeeNo){
-        List<BusinessCard> list = businessCardService.selectByEmployeeNo(employeeNo);
-        log.info("명함 컨트롤 ={}", list);
-        return ResponseEntity.ok(list);
-    }
-
+    // ------------ 승인 --------------
+    // 명함(card) 승인
     @GetMapping("/card/complete/{no}")
     public ResponseEntity<Integer> completeCard(@PathVariable Integer no){
         Integer result = businessCardService.update(no);
         return ResponseEntity.ok(result);
     }
 
+    // 휴가(vacation) 승인
     @GetMapping("/vacation/complete/{no}")
     public ResponseEntity<Integer> completeVacation(@PathVariable Integer no){
         Integer result = vacationService.update(no);
         return ResponseEntity.ok(result);
     }
 
+    // 출장(trip) 승인
     @GetMapping("/trip/complete/{no}")
     public ResponseEntity<Integer> completeTrip(@PathVariable Integer no){
         Integer result = businessTripService.update(no);
@@ -97,6 +90,8 @@ public class PaymentRestController {
         return ResponseEntity.ok(result);
     }
 
+    // ------------ 삭제 --------------
+    // 휴가(vacation) 삭제
     @DeleteMapping("/vacation/delete/{no}")
     public ResponseEntity<Integer> deleteVacation(@PathVariable Integer no){
 
@@ -112,6 +107,7 @@ public class PaymentRestController {
         }
     }
 
+    // 명함(businessCard) 삭제
     @DeleteMapping("/businessCard/delete/{no}")
     public ResponseEntity<Integer> deleteBusinessCard(@PathVariable Integer no){
 
@@ -127,6 +123,7 @@ public class PaymentRestController {
         }
     }
 
+    // 출장(businessTrip) 삭제
     @DeleteMapping("/businessTrip/delete/{no}")
     public ResponseEntity<Integer> deleteBusinessTrip(@PathVariable Integer no){
 
@@ -142,6 +139,7 @@ public class PaymentRestController {
         }
     }
 
+    // 퇴사(leave) 삭제
     @DeleteMapping("/leave/delete/{no}")
     public ResponseEntity<Integer> deleteLeave(@PathVariable Integer no){
 

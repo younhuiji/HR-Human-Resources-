@@ -42,6 +42,15 @@ public class BusinessCardService {
     }
 
     /**
+     * 명함(BusinessCard) 처리된 기안 문서 list
+     * @param loginUserNo 로그인한 유저 No
+     * @return 로그인한 유저의 처리된 BusinessCard 카테고리 list
+     */
+    public List<BusinessCard> selectByEmployeeNoAndStateOrState(String loginUserNo){
+        return businessCardRepository.findByEmployeeNoAndStateOrState(loginUserNo);
+    }
+
+    /**
      * 명함(BusinessCard) 클릭한 문서 detail view
      * @param no 문서 No
      * @return 클릭한 BusinessCard 문서 정보
@@ -71,45 +80,12 @@ public class BusinessCardService {
         return businessCardRepository.findByApproverNoAndStateOrStateOrderByNoDesc(loginUserNo, state, state2);
     }
 
-    // 명함(Bs card) create
-    public BusinessCard create(BusinessCard businessCard){
-        businessCard.addRole(PaymentState.진행중);
-
-        return businessCardRepository.save(businessCard);
-    }
-
-
-
-
-
-
-
-
-
-    public List<BusinessCard> selectByEmployeeNoAndStateOrState(String no){
-        return businessCardRepository.findByEmployeeNoAndStateOrState(no);
-    }
-
-
-
-
-
-    @Transactional
-    public Integer update(Integer no){
-
-        BusinessCard entity = businessCardRepository.selectByNo(no);
-        entity.setState(Collections.singleton(PaymentState.승인));
-        entity.add(LocalDateTime.now());
-
-        return no;
-    }
-
-    @Transactional
-    public Integer delete(Integer no){
-        businessCardRepository.deleteById(no);
-        return no;
-    }
-
+    /**
+     * 명함(BusinessCard) 반려
+     * @param no 문서 No
+     * @param returnReason 반려 사유
+     * @return 상위 직책자가 반려 시, (state, stateTime, returnReason)가 update
+     */
     @Transactional
     public Integer updateReturn(Integer no, String returnReason){
 
@@ -120,6 +96,44 @@ public class BusinessCardService {
 
         return no;
     }
+
+    /**
+     * 명함(BusinessCard) 승인
+     * @param no 문서 No
+     * @return 상위 직책자가 승인 시, (state, stateTime)가 update
+     */
+    @Transactional
+    public Integer update(Integer no){
+
+        BusinessCard entity = businessCardRepository.selectByNo(no);
+        entity.setState(Collections.singleton(PaymentState.승인));
+        entity.add(LocalDateTime.now());
+
+        return no;
+    }
+
+    /**
+     * 명함(BusinessCard) 삭제
+     * @param no 문서 No
+     * @return 해당 문서 삭제 기능
+     */
+    @Transactional
+    public Integer delete(Integer no){
+        businessCardRepository.deleteById(no);
+        return no;
+    }
+
+    /**
+     * 명함(BusinessCard) create
+     * @param businessCard input 값
+     * @return '진행중' 상태값 addRole
+     */
+    public BusinessCard create(BusinessCard businessCard){
+        businessCard.addRole(PaymentState.진행중);
+
+        return businessCardRepository.save(businessCard);
+    }
+
     public List<BusinessCard> getBusinessCardSeven(String employeeNo) {
         List<BusinessCard> allList = businessCardRepository.findByEmployeeNoOrderByNoDesc(employeeNo);
         if (allList.size() <=7) {

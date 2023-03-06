@@ -40,6 +40,15 @@ public class BusinessTripService {
     }
 
     /**
+     * 출장(BusinessTrip) 처리된 기안 문서 list
+     * @param loginUserNo 로그인한 유저 No
+     * @return 로그인한 유저의 처리된 BusinessTrip 카테고리 list
+     */
+    public List<BusinessTrip> selectByEmployeeNoAndStateOrState(String loginUserNo){
+        return businessTripRepository.findByEmployeeNoAndStateOrState(loginUserNo);
+    }
+
+    /**
      * 출장(BusinessTrip) 클릭한 문서 detail view
      * @param no 문서 No
      * @return 클릭한 BusinessTrip 문서 정보
@@ -69,30 +78,28 @@ public class BusinessTripService {
         return businessTripRepository.findByApproverNoAndStateOrStateOrderByNoDesc(loginUserNo, state, state2);
     }
 
-    public List<BusinessTrip> getTodayBusinessTripList(String employeeNo, String formatedNow) {
-        formatedNow = formatedNow.substring(0, 2) + "-" + formatedNow.substring(3);
-        return businessTripRepository.findByEmployeeNoAndEffectiveDateContaining(employeeNo,formatedNow);
+    /**
+     * 출장(BusinessTrip) 반려
+     * @param no 문서 No
+     * @param returnReason 반려 사유
+     * @return 상위 직책자가 반려 시, (state, stateTime, returnReason)가 update
+     */
+    @Transactional
+    public Integer updateReturn(Integer no, String returnReason){
+
+        BusinessTrip entity = businessTripRepository.selectByNo(no);
+        entity.setState(Collections.singleton(PaymentState.반려));
+        entity.add(LocalDateTime.now()); // 반려 시간
+        entity.returnReason(returnReason); // 반려 사유
+
+        return no;
     }
 
-    // 출장(Bs trip) create
-    public BusinessTrip create(BusinessTrip businessTrip){
-        businessTrip.addRole(PaymentState.진행중);
-        return businessTripRepository.save(businessTrip);
-    }
-
-
-
-
-    public List<BusinessTrip> selectByEmployeeNoAndStateOrState(String no){
-        return businessTripRepository.findByEmployeeNoAndStateOrState(no);
-    }
-
-
-
-
-
-
-
+    /**
+     * 출장(BusinessTrip) 승인
+     * @param no 문서 No
+     * @return 상위 직책자가 승인 시, (state, stateTime)가 update
+     */
     @Transactional
     public Integer update(Integer no){
 
@@ -103,21 +110,30 @@ public class BusinessTripService {
         return no;
     }
 
+    /**
+     * 출장(BusinessTrip) 삭제
+     * @param no 문서 No
+     * @return 해당 문서 삭제 기능
+     */
     @Transactional
     public Integer delete(Integer no){
         businessTripRepository.deleteById(no);
         return no;
     }
 
-    @Transactional
-    public Integer updateReturn(Integer no, String returnReason){
+    /**
+     * 출장(BusinessTrip) create
+     * @param businessTrip input 값
+     * @return '진행중' 상태값 addRole
+     */
+    public BusinessTrip create(BusinessTrip businessTrip){
+        businessTrip.addRole(PaymentState.진행중);
+        return businessTripRepository.save(businessTrip);
+    }
 
-        BusinessTrip entity = businessTripRepository.selectByNo(no);
-        entity.setState(Collections.singleton(PaymentState.반려));
-        entity.add(LocalDateTime.now()); // 반려 시간
-        entity.returnReason(returnReason); // 반려 사유
-
-        return no;
+    public List<BusinessTrip> getTodayBusinessTripList(String employeeNo, String formatedNow) {
+        formatedNow = formatedNow.substring(0, 2) + "-" + formatedNow.substring(3);
+        return businessTripRepository.findByEmployeeNoAndEffectiveDateContaining(employeeNo,formatedNow);
     }
 
     public List<BusinessTrip> getBusinessTripSeven(String employeeNo) {

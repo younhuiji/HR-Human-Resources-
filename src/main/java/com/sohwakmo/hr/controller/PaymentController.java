@@ -93,26 +93,25 @@ public class PaymentController {
     @GetMapping("/complete")
     public void complete(Model model, @RequestParam(defaultValue = "vacation")String payment, Principal principal) {
 
-        String employeeNo = principal.getName();
-        PaymentState state = PaymentState.승인;
-        PaymentState state2 = PaymentState.반려;
+        String loginUserNo = principal.getName();
 
         if(payment.equals("vacation")){
-            List<Vacation> list = vacationService.selectByEmployeeNoAndStateOrState(employeeNo);
-            log.info(list.toString());
+            List<Vacation> list = vacationService.selectByEmployeeNoAndStateOrState(loginUserNo);
             model.addAttribute("list", list);
             model.addAttribute("vacation", "vacation");
+
         } else if(payment.equals("trip")) {
-            List<BusinessTrip> list = businessTripService.selectByEmployeeNoAndStateOrState(employeeNo);
-            log.info(list.toString());
+            List<BusinessTrip> list = businessTripService.selectByEmployeeNoAndStateOrState(loginUserNo);
             model.addAttribute("list", list);
             model.addAttribute("trip", "trip");
+
         } else if(payment.equals("leave")) {
-            List<Leave> list = leaveService.selectByEmployeeNoAndStateOrState(employeeNo);
+            List<Leave> list = leaveService.selectByEmployeeNoAndStateOrState(loginUserNo);
             model.addAttribute("list", list);
             model.addAttribute("leave", "leave");
+
         } else {
-            List<BusinessCard> list = businessCardService.selectByEmployeeNoAndStateOrState(employeeNo);
+            List<BusinessCard> list = businessCardService.selectByEmployeeNoAndStateOrState(loginUserNo);
             model.addAttribute("list", list);
             model.addAttribute("card", "card");
         }

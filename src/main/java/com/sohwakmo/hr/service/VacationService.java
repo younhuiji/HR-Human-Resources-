@@ -44,6 +44,15 @@ public class VacationService {
     }
 
     /**
+     * 휴가(vacation) 처리된 기안 문서 list
+     * @param loginUserNo 로그인한 유저 No
+     * @return 로그인한 유저의 처리된 vacation 카테고리 list
+     */
+    public List<Vacation> selectByEmployeeNoAndStateOrState(String loginUserNo){
+        return vacationRepository.findByEmployeeNoAndStateOrState(loginUserNo);
+    }
+
+    /**
      * 휴가(vacation) 클릭한 문서 detail view
      * @param no 문서 No
      * @return 클릭한 vacation 문서 정보
@@ -73,22 +82,61 @@ public class VacationService {
         return vacationRepository.findByApproverNoAndStateOrState(loginUserNo, state, state2);
     }
 
+    /**
+     * 휴가(vacation) 반려
+     * @param no 문서 No
+     * @param returnReason 반려 사유
+     * @return 상위 직책자가 반려 시, (state, stateTime, returnReason)가 update
+     */
+    @Transactional
+    public Integer updateReturn(Integer no, String returnReason){
+
+        Vacation entity = vacationRepository.selectByNo(no);
+        entity.setState(Collections.singleton(PaymentState.반려));
+        entity.add(LocalDateTime.now()); // 반려 시간
+        entity.returnReason(returnReason); // 반려 사유
+
+        return no;
+    }
+
+    /**
+     * 휴가(vacation) 승인
+     * @param no 문서 No
+     * @return 상위 직책자가 승인 시, (state, stateTime)가 update
+     */
+    @Transactional
+    public Integer update(Integer no){
+
+        Vacation entity = vacationRepository.selectByNo(no);
+        entity.setState(Collections.singleton(PaymentState.승인));
+        entity.add(LocalDateTime.now());
+
+        return no;
+    }
+
+    /**
+     * 휴가(vacation) 삭제
+     * @param no 문서 No
+     * @return 해당 문서 삭제 기
+     */
+    @Transactional
+    public Integer delete(Integer no){
+
+        vacationRepository.deleteById(no);
+
+        return no;
+    }
+
+    /**
+     * 휴가(vacation) create
+     * @param vacation input 값
+     * @return '진행중' 상태값 addRole
+     */
     // 휴가(vacation) create
     public Vacation create(Vacation vacation){
         vacation.addRole(PaymentState.진행중);
         return vacationRepository.save(vacation);
     }
-
-    // 결재자
-
-    public List<Vacation> selectByEmployeeNoAndStateOrState(String no){
-       log.info("회원={}", no);
-        return vacationRepository.findByEmployeeNoAndStateOrState(no);
-    }
-
-
-
-    
 
     public List<Vacation>  getTodayVacationList(String employeeNo, String formatedNow) {
         formatedNow = formatedNow.substring(0, 2) + "-" + formatedNow.substring(3);
@@ -106,37 +154,5 @@ public class VacationService {
             }
             return list;
         }
-    }
-
-
-
-
-    @Transactional
-    public Integer update(Integer no){
-
-        Vacation entity = vacationRepository.selectByNo(no);
-        entity.setState(Collections.singleton(PaymentState.승인));
-        entity.add(LocalDateTime.now());
-
-        return no;
-    }
-
-    @Transactional
-    public Integer delete(Integer no){
-
-        vacationRepository.deleteById(no);
-
-        return no;
-    }
-
-    @Transactional
-    public Integer updateReturn(Integer no, String returnReason){
-
-        Vacation entity = vacationRepository.selectByNo(no);
-        entity.setState(Collections.singleton(PaymentState.반려));
-        entity.add(LocalDateTime.now()); // 반려 시간
-        entity.returnReason(returnReason); // 반려 사유
-
-        return no;
     }
 }

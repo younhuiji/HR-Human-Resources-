@@ -19,13 +19,7 @@ public interface BusinessTripRepository extends JpaRepository<BusinessTrip, Inte
     // select * from BusinessTrip where (employeeNo = loginUser and state = '진행중') order by no desc;
     List<BusinessTrip> findByEmployeeNoAndStateOrderByNoDesc(String loginUser, PaymentState state);
 
-    // select * from BusinessTrip where (approverNo = loginUser and state = '진행중') order by no desc;
-    List<BusinessTrip> findByApproverNoAndStateOrderByNoDesc(String no, PaymentState state);
-
-    // select * from BusinessTrip where (approverNo = loginUser and state = '승인' or state = '반려') order by no desc;
-    List<BusinessTrip> findByApproverNoAndStateOrStateOrderByNoDesc(String no, PaymentState state, PaymentState state2);
-
-
+    // select * from BusinessTrip where (employeeNo = loginUser) and (state = '승인' or state = '반려') order by no desc;
     @Query(value =
             "select * from BUSINESSTRIP b, BUSINESSTRIP_STATE bs "
                     + " where  b.no = bs.businesstrip_no"
@@ -36,6 +30,13 @@ public interface BusinessTripRepository extends JpaRepository<BusinessTrip, Inte
     )
     List<BusinessTrip> findByEmployeeNoAndStateOrState(@Param(value = "no") String no);
 
+    // select * from BusinessTrip where (approverNo = loginUser and state = '진행중') order by no desc;
+    List<BusinessTrip> findByApproverNoAndStateOrderByNoDesc(String no, PaymentState state);
+
+    // select * from BusinessTrip where (approverNo = loginUser and state = '승인' or state = '반려') order by no desc;
+    List<BusinessTrip> findByApproverNoAndStateOrStateOrderByNoDesc(String no, PaymentState state, PaymentState state2);
+
+    // select * from BusinessTrip where (no = no); - 문서 반려, 승인 시
     @Query("select b from BUSINESSTRIP b where b.no = :no ")
     public BusinessTrip selectByNo(@Param(value = "no") Integer no);
 
